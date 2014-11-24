@@ -20,7 +20,7 @@
         @"SugarCookie",
     };
     
-    return spriteNames[self.cookieType - 1];
+    return spriteNames[self.fruitType - 1];
 }
 
 - (NSString *)highlightedSpriteName {
@@ -33,11 +33,11 @@
         @"SugarCookie-Highlighted",
     };
     
-    return highlightedSpriteNames[self.cookieType - 1];
+    return highlightedSpriteNames[self.fruitType - 1];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"type:%ld square:(%ld,%ld)", (long)self.cookieType, (long)self.column, (long)self.row];
+    return [NSString stringWithFormat:@"type:%ld square:(%ld,%ld)", (long)self.fruitType, (long)self.column, (long)self.row];
 }
 
 @end

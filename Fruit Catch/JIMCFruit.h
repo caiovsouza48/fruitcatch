@@ -8,13 +8,13 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-static const NSUInteger NumCookieTypes = 6;
+static const NSUInteger NumFruitTypes = 6;
 
 @interface JIMCFruit : NSObject
 
 @property (assign, nonatomic) NSInteger column;
 @property (assign, nonatomic) NSInteger row;
-@property (assign, nonatomic) NSUInteger cookieType;  // 1 - 6
+@property (assign, nonatomic) NSUInteger fruitType;  // 1 - 6
 @property (strong, nonatomic) SKSpriteNode *sprite;
 
 - (NSString *)spriteName;

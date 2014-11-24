@@ -21,15 +21,15 @@
 // for this.
 @property (copy, nonatomic) void (^swipeHandler)(JIMCSwap *swap);
 
-- (void)addSpritesForCookies:(NSSet *)cookies;
+- (void)addSpritesForFruits:(NSSet *)fruits;
 - (void)addTiles;
-- (void)removeAllCookieSprites;
+- (void)removeAllFruitSprites;
 
 - (void)animateSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion;
 - (void)animateInvalidSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion;
-- (void)animateMatchedCookies:(NSSet *)chains completion:(dispatch_block_t)completion;
-- (void)animateFallingCookies:(NSArray *)columns completion:(dispatch_block_t)completion;
-- (void)animateNewCookies:(NSArray *)columns completion:(dispatch_block_t)completion;
+- (void)animateMatchedFruits:(NSSet *)chains completion:(dispatch_block_t)completion;
+- (void)animateFallingFruits:(NSArray *)columns completion:(dispatch_block_t)completion;
+- (void)animateNewFruits:(NSArray *)columns completion:(dispatch_block_t)completion;
 - (void)animateGameOver;
 - (void)animateBeginGame;
 

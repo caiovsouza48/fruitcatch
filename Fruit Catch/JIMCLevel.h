@@ -23,40 +23,40 @@ static const NSInteger NumRows = 9;
 // Returns a set containing all the new JIMCFruit objects.
 - (NSSet *)shuffle;
 
-// Returns the cookie at the specified column and row, or nil when there is none.
-- (JIMCFruit *)cookieAtColumn:(NSInteger)column row:(NSInteger)row;
+// Returns the fruit at the specified column and row, or nil when there is none.
+- (JIMCFruit *)fruitAtColumn:(NSInteger)column row:(NSInteger)row;
 
 // Determines whether there's a tile at the specified column and row.
 - (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row;
 
-// Swaps the positions of the two cookies from the JIMCSwap object.
+// Swaps the positions of the two fruits from the JIMCSwap object.
 - (void)performSwap:(JIMCSwap *)swap;
 
 // Determines whether the suggested swap is a valid one, i.e. it results in at
-// least one new chain of 3 or more cookies of the same type.
+// least one new chain of 3 or more fruits of the same type.
 - (BOOL)isPossibleSwap:(JIMCSwap *)swap;
 
 // Recalculates which moves are valid.
 - (void)detectPossibleSwaps;
 
-// Detects whether there are any chains of 3 or more cookies, and removes them
+// Detects whether there are any chains of 3 or more fruits, and removes them
 // from the level.
 // Returns a set containing JIMCChain objects, which describe the JIMCFruits
 // that were removed.
 - (NSSet *)removeMatches;
 
-// Detects where there are holes and shifts any cookies down to fill up those
+// Detects where there are holes and shifts any fruits down to fill up those
 // holes. In effect, this "bubbles" the holes up to the top of the column.
 // Returns an array that contains a sub-array for each column that had holes,
-// with the JIMCFruit objects that have shifted. Those cookies are already
+// with the JIMCFruit objects that have shifted. Those fruits are already
 // moved to their new position. The objects are ordered from the bottom up.
 - (NSArray *)fillHoles;
 
-// Where necessary, adds new cookies to fill up the holes at the top of the
+// Where necessary, adds new fruits to fill up the holes at the top of the
 // columns.
 // Returns an array that contains a sub-array for each column that had holes,
-// with the new JIMCFruit objects. Cookies are ordered from the top down.
-- (NSArray *)topUpCookies;
+// with the new JIMCFruit objects. Fruits are ordered from the top down.
+- (NSArray *)topUpFruits;
 
 // Should be called at the start of every new turn.
 - (void)resetComboMultiplier;

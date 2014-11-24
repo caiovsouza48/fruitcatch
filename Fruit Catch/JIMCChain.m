@@ -9,22 +9,22 @@
 #import "JIMCChain.h"
 
 @implementation JIMCChain {
-    NSMutableArray *_cookies;
+    NSMutableArray *_fruits;
 }
 
-- (void)addCookie:(JIMCFruit *)cookie {
-    if (_cookies == nil) {
-        _cookies = [NSMutableArray array];
+- (void)addFruit:(JIMCFruit *)fruit {
+    if (_fruits == nil) {
+        _fruits = [NSMutableArray array];
     }
-    [_cookies addObject:cookie];
+    [_fruits addObject:fruit];
 }
 
-- (NSArray *)cookies {
-    return _cookies;
+- (NSArray *)fruits {
+    return _fruits;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"type:%ld cookies:%@", (long)self.chainType, self.cookies];
+    return [NSString stringWithFormat:@"type:%ld fruits:%@", (long)self.chainType, self.fruits];
 }
 
 @end

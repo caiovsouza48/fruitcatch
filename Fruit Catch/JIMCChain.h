@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, ChainType) {
 @interface JIMCChain : NSObject
 
 // The JIMCFruits that are part of this chain.
-@property (strong, nonatomic, readonly) NSArray *cookies;
+@property (strong, nonatomic, readonly) NSArray *fruits;
 
 // Whether this chain is horizontal or vertical.
 @property (assign, nonatomic) ChainType chainType;
@@ -29,6 +29,6 @@ typedef NS_ENUM(NSUInteger, ChainType) {
 // How many points this chain is worth.
 @property (assign, nonatomic) NSUInteger score;
 
-- (void)addCookie:(JIMCFruit *)cookie;
+- (void)addFruit:(JIMCFruit *)fruit;
 
 @end
