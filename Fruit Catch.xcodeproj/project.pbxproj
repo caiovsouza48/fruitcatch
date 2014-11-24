@@ -109,6 +109,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0FD2EDB51A23BA3A000EB99F /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				DEC905A91A239C6D003DD444 /* AppDelegate.h */,
+				DEC905AA1A239C6D003DD444 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		0FD2EDB61A23BA43000EB99F /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				DEC905AC1A239C6D003DD444 /* GameScene.h */,
+				DEC905AD1A239C6D003DD444 /* GameScene.m */,
+				DEC905AF1A239C6D003DD444 /* GameScene.sks */,
+			);
+			name = GameScene;
+			sourceTree = "<group>";
+		};
+		0FD2EDB71A23BA4D000EB99F /* GameViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DEC905B11A239C6D003DD444 /* GameViewController.h */,
+				DEC905B21A239C6D003DD444 /* GameViewController.m */,
+			);
+			name = GameViewController;
+			sourceTree = "<group>";
+		};
+		0FD2EDB81A23BA5A000EB99F /* MyScene */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3EC941A23ACF400E7E18E /* MyScene.h */,
+				E3E3EC951A23ACF400E7E18E /* MyScene.m */,
+			);
+			name = MyScene;
+			sourceTree = "<group>";
+		};
+		0FD2EDB91A23BA62000EB99F /* JIMCFruit */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3EC981A23AD6400E7E18E /* RWTCookie.h */,
+				E3E3EC991A23AD6400E7E18E /* RWTCookie.m */,
+			);
+			name = JIMCFruit;
+			sourceTree = "<group>";
+		};
+		0FD2EDBA1A23BA6D000EB99F /* JIMCLevel */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3EC9B1A23ADA200E7E18E /* RWTLevel.h */,
+				E3E3EC9C1A23ADA200E7E18E /* RWTLevel.m */,
+			);
+			name = JIMCLevel;
+			sourceTree = "<group>";
+		};
+		0FD2EDBB1A23BA89000EB99F /* JIMCTile */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3EC9E1A23ADDA00E7E18E /* RWTTile.h */,
+				E3E3EC9F1A23ADDA00E7E18E /* RWTTile.m */,
+			);
+			name = JIMCTile;
+			sourceTree = "<group>";
+		};
+		0FD2EDBC1A23BA90000EB99F /* JIMCSwap */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3ECA11A23AE0600E7E18E /* RWTSwap.h */,
+				E3E3ECA21A23AE0600E7E18E /* RWTSwap.m */,
+			);
+			name = JIMCSwap;
+			sourceTree = "<group>";
+		};
+		0FD2EDBD1A23BA97000EB99F /* JIMCChain */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3ECA41A23AE8700E7E18E /* RWTChain.h */,
+				E3E3ECA51A23AE8700E7E18E /* RWTChain.m */,
+			);
+			name = JIMCChain;
+			sourceTree = "<group>";
+		};
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
@@ -130,21 +212,17 @@
 		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
 			isa = PBXGroup;
 			children = (
-				E3E3ECBB1A23B32000E7E18E /* Levels */,
-				E3E3ECAE1A23B2FA00E7E18E /* sounds */,
-				E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */,
-				E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */,
-				E3E3EC971A23ACFB00E7E18E /* novo */,
-				DEC905A91A239C6D003DD444 /* AppDelegate.h */,
-				DEC905AA1A239C6D003DD444 /* AppDelegate.m */,
-				DEC905AC1A239C6D003DD444 /* GameScene.h */,
-				DEC905AD1A239C6D003DD444 /* GameScene.m */,
-				DEC905AF1A239C6D003DD444 /* GameScene.sks */,
-				DEC905B11A239C6D003DD444 /* GameViewController.h */,
-				DEC905B21A239C6D003DD444 /* GameViewController.m */,
+				E3E3EC971A23ACFB00E7E18E /* Class */,
+				0FD2EDB51A23BA3A000EB99F /* AppDelegate */,
+				0FD2EDB61A23BA43000EB99F /* GameScene */,
+				0FD2EDB71A23BA4D000EB99F /* GameViewController */,
 				DEC905B41A239C6D003DD444 /* Main.storyboard */,
 				DEC905B71A239C6D003DD444 /* Images.xcassets */,
 				DEC905B91A239C6D003DD444 /* LaunchScreen.xib */,
+				E3E3ECBB1A23B32000E7E18E /* Levels */,
+				E3E3ECAE1A23B2FA00E7E18E /* Sounds */,
+				E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */,
+				E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */,
 				DEC905A51A239C6D003DD444 /* Supporting Files */,
 			);
 			path = "Fruit Catch";
@@ -176,26 +254,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E3E3EC971A23ACFB00E7E18E /* novo */ = {
+		E3E3EC971A23ACFB00E7E18E /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				E3E3EC941A23ACF400E7E18E /* MyScene.h */,
-				E3E3EC951A23ACF400E7E18E /* MyScene.m */,
-				E3E3EC981A23AD6400E7E18E /* RWTCookie.h */,
-				E3E3EC991A23AD6400E7E18E /* RWTCookie.m */,
-				E3E3EC9B1A23ADA200E7E18E /* RWTLevel.h */,
-				E3E3EC9C1A23ADA200E7E18E /* RWTLevel.m */,
-				E3E3EC9E1A23ADDA00E7E18E /* RWTTile.h */,
-				E3E3EC9F1A23ADDA00E7E18E /* RWTTile.m */,
-				E3E3ECA11A23AE0600E7E18E /* RWTSwap.h */,
-				E3E3ECA21A23AE0600E7E18E /* RWTSwap.m */,
-				E3E3ECA41A23AE8700E7E18E /* RWTChain.h */,
-				E3E3ECA51A23AE8700E7E18E /* RWTChain.m */,
+				0FD2EDB81A23BA5A000EB99F /* MyScene */,
+				0FD2EDB91A23BA62000EB99F /* JIMCFruit */,
+				0FD2EDBA1A23BA6D000EB99F /* JIMCLevel */,
+				0FD2EDBB1A23BA89000EB99F /* JIMCTile */,
+				0FD2EDBC1A23BA90000EB99F /* JIMCSwap */,
+				0FD2EDBD1A23BA97000EB99F /* JIMCChain */,
 			);
-			name = novo;
+			name = Class;
 			sourceTree = "<group>";
 		};
-		E3E3ECAE1A23B2FA00E7E18E /* sounds */ = {
+		E3E3ECAE1A23B2FA00E7E18E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
 				E3E3ECAF1A23B31900E7E18E /* Chomp.wav */,
@@ -205,7 +277,7 @@
 				E3E3ECB31A23B31900E7E18E /* Mining by Moonlight.mp3 */,
 				E3E3ECB41A23B31900E7E18E /* Scrape.wav */,
 			);
-			name = sounds;
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 		E3E3ECBB1A23B32000E7E18E /* Levels */ = {
