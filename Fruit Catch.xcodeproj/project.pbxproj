@@ -17,11 +17,11 @@
 		DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B91A239C6D003DD444 /* LaunchScreen.xib */; };
 		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
-		E3E3EC9A1A23AD6400E7E18E /* RWTCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* RWTCookie.m */; };
-		E3E3EC9D1A23ADA200E7E18E /* RWTLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* RWTLevel.m */; };
-		E3E3ECA01A23ADDA00E7E18E /* RWTTile.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9F1A23ADDA00E7E18E /* RWTTile.m */; };
-		E3E3ECA31A23AE0600E7E18E /* RWTSwap.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3ECA21A23AE0600E7E18E /* RWTSwap.m */; };
-		E3E3ECA61A23AE8700E7E18E /* RWTChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3ECA51A23AE8700E7E18E /* RWTChain.m */; };
+		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
+		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
+		E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9F1A23ADDA00E7E18E /* JIMCTile.m */; };
+		E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3ECA21A23AE0600E7E18E /* JIMCSwap.m */; };
+		E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3ECA51A23AE8700E7E18E /* JIMCChain.m */; };
 		E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */; };
 		E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */; };
 		E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAF1A23B31900E7E18E /* Chomp.wav */; };
@@ -66,16 +66,16 @@
 		DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fruit_CatchTests.m; sourceTree = "<group>"; };
 		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		E3E3EC981A23AD6400E7E18E /* RWTCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTCookie.h; sourceTree = "<group>"; };
-		E3E3EC991A23AD6400E7E18E /* RWTCookie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTCookie.m; sourceTree = "<group>"; };
-		E3E3EC9B1A23ADA200E7E18E /* RWTLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTLevel.h; sourceTree = "<group>"; };
-		E3E3EC9C1A23ADA200E7E18E /* RWTLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTLevel.m; sourceTree = "<group>"; };
-		E3E3EC9E1A23ADDA00E7E18E /* RWTTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTTile.h; sourceTree = "<group>"; };
-		E3E3EC9F1A23ADDA00E7E18E /* RWTTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTTile.m; sourceTree = "<group>"; };
-		E3E3ECA11A23AE0600E7E18E /* RWTSwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTSwap.h; sourceTree = "<group>"; };
-		E3E3ECA21A23AE0600E7E18E /* RWTSwap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTSwap.m; sourceTree = "<group>"; };
-		E3E3ECA41A23AE8700E7E18E /* RWTChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTChain.h; sourceTree = "<group>"; };
-		E3E3ECA51A23AE8700E7E18E /* RWTChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTChain.m; sourceTree = "<group>"; };
+		E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCFruit.h; sourceTree = "<group>"; };
+		E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCFruit.m; sourceTree = "<group>"; };
+		E3E3EC9B1A23ADA200E7E18E /* JIMCLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCLevel.h; sourceTree = "<group>"; };
+		E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCLevel.m; sourceTree = "<group>"; };
+		E3E3EC9E1A23ADDA00E7E18E /* JIMCTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCTile.h; sourceTree = "<group>"; };
+		E3E3EC9F1A23ADDA00E7E18E /* JIMCTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCTile.m; sourceTree = "<group>"; };
+		E3E3ECA11A23AE0600E7E18E /* JIMCSwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCSwap.h; sourceTree = "<group>"; };
+		E3E3ECA21A23AE0600E7E18E /* JIMCSwap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCSwap.m; sourceTree = "<group>"; };
+		E3E3ECA41A23AE8700E7E18E /* JIMCChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCChain.h; sourceTree = "<group>"; };
+		E3E3ECA51A23AE8700E7E18E /* JIMCChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCChain.m; sourceTree = "<group>"; };
 		E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
 		E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Grid.atlas; sourceTree = "<group>"; };
 		E3E3ECAF1A23B31900E7E18E /* Chomp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Chomp.wav; sourceTree = "<group>"; };
@@ -149,8 +149,8 @@
 		0FD2EDB91A23BA62000EB99F /* JIMCFruit */ = {
 			isa = PBXGroup;
 			children = (
-				E3E3EC981A23AD6400E7E18E /* RWTCookie.h */,
-				E3E3EC991A23AD6400E7E18E /* RWTCookie.m */,
+				E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */,
+				E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */,
 			);
 			name = JIMCFruit;
 			sourceTree = "<group>";
@@ -158,8 +158,8 @@
 		0FD2EDBA1A23BA6D000EB99F /* JIMCLevel */ = {
 			isa = PBXGroup;
 			children = (
-				E3E3EC9B1A23ADA200E7E18E /* RWTLevel.h */,
-				E3E3EC9C1A23ADA200E7E18E /* RWTLevel.m */,
+				E3E3EC9B1A23ADA200E7E18E /* JIMCLevel.h */,
+				E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */,
 			);
 			name = JIMCLevel;
 			sourceTree = "<group>";
@@ -167,8 +167,8 @@
 		0FD2EDBB1A23BA89000EB99F /* JIMCTile */ = {
 			isa = PBXGroup;
 			children = (
-				E3E3EC9E1A23ADDA00E7E18E /* RWTTile.h */,
-				E3E3EC9F1A23ADDA00E7E18E /* RWTTile.m */,
+				E3E3EC9E1A23ADDA00E7E18E /* JIMCTile.h */,
+				E3E3EC9F1A23ADDA00E7E18E /* JIMCTile.m */,
 			);
 			name = JIMCTile;
 			sourceTree = "<group>";
@@ -176,8 +176,8 @@
 		0FD2EDBC1A23BA90000EB99F /* JIMCSwap */ = {
 			isa = PBXGroup;
 			children = (
-				E3E3ECA11A23AE0600E7E18E /* RWTSwap.h */,
-				E3E3ECA21A23AE0600E7E18E /* RWTSwap.m */,
+				E3E3ECA11A23AE0600E7E18E /* JIMCSwap.h */,
+				E3E3ECA21A23AE0600E7E18E /* JIMCSwap.m */,
 			);
 			name = JIMCSwap;
 			sourceTree = "<group>";
@@ -185,8 +185,8 @@
 		0FD2EDBD1A23BA97000EB99F /* JIMCChain */ = {
 			isa = PBXGroup;
 			children = (
-				E3E3ECA41A23AE8700E7E18E /* RWTChain.h */,
-				E3E3ECA51A23AE8700E7E18E /* RWTChain.m */,
+				E3E3ECA41A23AE8700E7E18E /* JIMCChain.h */,
+				E3E3ECA51A23AE8700E7E18E /* JIMCChain.m */,
 			);
 			name = JIMCChain;
 			sourceTree = "<group>";
@@ -407,15 +407,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
-				E3E3EC9D1A23ADA200E7E18E /* RWTLevel.m in Sources */,
-				E3E3EC9A1A23AD6400E7E18E /* RWTCookie.m in Sources */,
-				E3E3ECA61A23AE8700E7E18E /* RWTChain.m in Sources */,
+				E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */,
+				E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */,
+				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
 				E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */,
 				DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */,
 				DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
-				E3E3ECA01A23ADDA00E7E18E /* RWTTile.m in Sources */,
-				E3E3ECA31A23AE0600E7E18E /* RWTSwap.m in Sources */,
+				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
+				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

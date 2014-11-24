@@ -8,25 +8,25 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@class RWTLevel;
-@class RWTSwap;
+@class JIMCLevel;
+@class JIMCSwap;
 
 @interface MyScene : SKScene
 
-@property (strong, nonatomic) RWTLevel *level;
+@property (strong, nonatomic) JIMCLevel *level;
 
 // The scene handles touches. If it recognizes that the user makes a swipe,
 // it will call this swipe handler. This is how it communicates back to the
 // ViewController that a swap needs to take place. You can also use a delegate
 // for this.
-@property (copy, nonatomic) void (^swipeHandler)(RWTSwap *swap);
+@property (copy, nonatomic) void (^swipeHandler)(JIMCSwap *swap);
 
 - (void)addSpritesForCookies:(NSSet *)cookies;
 - (void)addTiles;
 - (void)removeAllCookieSprites;
 
-- (void)animateSwap:(RWTSwap *)swap completion:(dispatch_block_t)completion;
-- (void)animateInvalidSwap:(RWTSwap *)swap completion:(dispatch_block_t)completion;
+- (void)animateSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion;
+- (void)animateInvalidSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion;
 - (void)animateMatchedCookies:(NSSet *)chains completion:(dispatch_block_t)completion;
 - (void)animateFallingCookies:(NSArray *)columns completion:(dispatch_block_t)completion;
 - (void)animateNewCookies:(NSArray *)columns completion:(dispatch_block_t)completion;

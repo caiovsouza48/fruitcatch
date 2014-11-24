@@ -2,7 +2,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RWTTile : NSObject
+@interface JIMCTile : NSObject
 
 // Note: To support different types of tiles, you can add properties here that
 // indicate how this tile should behave. For example, if a cookie is matched

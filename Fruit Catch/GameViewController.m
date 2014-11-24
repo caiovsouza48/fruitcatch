@@ -10,12 +10,12 @@
 
 #import "GameViewController.h"
 #import "MyScene.h"
-#import "RWTLevel.h"
+#import "JIMCLevel.h"
 
 @interface GameViewController ()
 
 // The level contains the tiles, the cookies, and most of the gameplay logic.
-@property (strong, nonatomic) RWTLevel *level;
+@property (strong, nonatomic) JIMCLevel *level;
 
 // The scene draws the tiles and cookie sprites, and handles swipes.
 @property (strong, nonatomic) MyScene *scene;
@@ -49,13 +49,13 @@
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Load the level.
-    self.level = [[RWTLevel alloc] initWithFile:@"Level_1"];
+    self.level = [[JIMCLevel alloc] initWithFile:@"Level_1"];
     self.scene.level = self.level;
     [self.scene addTiles];
     
     // This is the swipe handler. MyScene invokes this block whenever it
     // detects that the player performs a swipe.
-    id block = ^(RWTSwap *swap) {
+    id block = ^(JIMCSwap *swap) {
         
         // While cookies are being matched and new cookies fall down to fill up
         // the holes, we don't want the player to tap on anything.
@@ -152,7 +152,7 @@
     [self.scene animateMatchedCookies:chains completion:^{
         
         // Add the new scores to the total.
-        for (RWTChain *chain in chains) {
+        for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
         [self updateLabels];

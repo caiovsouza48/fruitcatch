@@ -1,26 +1,26 @@
 //
-//  RWTSwap.m
+//  JIMCSwap.m
 //  Fruit Catch
 //
 //  Created by max do nascimento on 24/11/14.
 //  Copyright (c) 2014 Caio de Souza. All rights reserved.
 //
 
-#import "RWTSwap.h"
-#import "RWTCookie.h"
+#import "JIMCSwap.h"
+#import "JIMCFruit.h"
 
-@implementation RWTSwap
+@implementation JIMCSwap
 
 // By overriding this method you can use [NSSet containsObject:] to look for
-// a matching RWTSwap object in that collection.
+// a matching JIMCSwap object in that collection.
 - (BOOL)isEqual:(id)object {
     
-    // You can only compare this object against other RWTSwap objects.
-    if (![object isKindOfClass:[RWTSwap class]]) return NO;
+    // You can only compare this object against other JIMCSwap objects.
+    if (![object isKindOfClass:[JIMCSwap class]]) return NO;
     
     // Two swaps are equal if they contain the same cookie, but it doesn't
     // matter whether they're called A in one and B in the other.
-    RWTSwap *other = (RWTSwap *)object;
+    JIMCSwap *other = (JIMCSwap *)object;
     return (other.cookieA == self.cookieA && other.cookieB == self.cookieB) ||
     (other.cookieB == self.cookieA && other.cookieA == self.cookieB);
 }

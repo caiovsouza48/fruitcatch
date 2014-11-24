@@ -1,5 +1,5 @@
 //
-//  RWTCookie.h
+//  JIMCFruit.h
 //  Fruit Catch
 //
 //  Created by max do nascimento on 24/11/14.
@@ -10,7 +10,7 @@
 
 static const NSUInteger NumCookieTypes = 6;
 
-@interface RWTCookie : NSObject
+@interface JIMCFruit : NSObject
 
 @property (assign, nonatomic) NSInteger column;
 @property (assign, nonatomic) NSInteger row;

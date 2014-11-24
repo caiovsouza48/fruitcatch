@@ -1,7 +1,7 @@
 #import "MyScene.h"
-#import "RWTCookie.h"
-#import "RWTLevel.h"
-#import "RWTSwap.h"
+#import "JIMCFruit.h"
+#import "JIMCLevel.h"
+#import "JIMCSwap.h"
 
 static const CGFloat TileWidth = 32.0;
 static const CGFloat TileHeight = 36.0;
@@ -67,7 +67,7 @@ static const CGFloat TileHeight = 36.0;
         self.maskLayer.position = layerPosition;
         self.cropLayer.maskNode = self.maskLayer;
         
-        // This layer holds the RWTCookie sprites. The positions of these sprites
+        // This layer holds the JIMCFruit sprites. The positions of these sprites
         // are relative to the cookiesLayer's bottom-left corner.
         self.cookiesLayer = [SKNode node];
         self.cookiesLayer.position = layerPosition;
@@ -169,7 +169,7 @@ static const CGFloat TileHeight = 36.0;
 }
 
 - (void)addSpritesForCookies:(NSSet *)cookies {
-    for (RWTCookie *cookie in cookies) {
+    for (JIMCFruit *cookie in cookies) {
         
         // Create a new sprite for the cookie and add it to the cookiesLayer.
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:[cookie spriteName]];
@@ -208,7 +208,7 @@ static const CGFloat TileHeight = 36.0;
     if ([self convertPoint:location toColumn:&column row:&row]) {
         
         // The touch must be on a cookie, not on an empty tile.
-        RWTCookie *cookie = [self.level cookieAtColumn:column row:row];
+        JIMCFruit *cookie = [self.level cookieAtColumn:column row:row];
         if (cookie != nil) {
             
             // Remember in which column and row the swipe started, so we can compare
@@ -277,14 +277,14 @@ static const CGFloat TileHeight = 36.0;
     
     // Can't swap if there is no cookie to swap with. This happens when the user
     // swipes into a gap where there is no tile.
-    RWTCookie *toCookie = [self.level cookieAtColumn:toColumn row:toRow];
+    JIMCFruit *toCookie = [self.level cookieAtColumn:toColumn row:toRow];
     if (toCookie == nil) return;
     
-    RWTCookie *fromCookie = [self.level cookieAtColumn:self.swipeFromColumn row:self.swipeFromRow];
+    JIMCFruit *fromCookie = [self.level cookieAtColumn:self.swipeFromColumn row:self.swipeFromRow];
     
     // Communicate this swap request back to the ViewController.
     if (self.swipeHandler != nil) {
-        RWTSwap *swap = [[RWTSwap alloc] init];
+        JIMCSwap *swap = [[JIMCSwap alloc] init];
         swap.cookieA = fromCookie;
         swap.cookieB = toCookie;
         
@@ -311,7 +311,7 @@ static const CGFloat TileHeight = 36.0;
 
 #pragma mark - Selection Indicator
 
-- (void)showSelectionIndicatorForCookie:(RWTCookie *)cookie {
+- (void)showSelectionIndicatorForCookie:(JIMCFruit *)cookie {
     
     // If the selection indicator is still visible, then first remove it.
     if (self.selectionSprite.parent != nil) {
@@ -337,7 +337,7 @@ static const CGFloat TileHeight = 36.0;
 
 #pragma mark - Animations
 
-- (void)animateSwap:(RWTSwap *)swap completion:(dispatch_block_t)completion {
+- (void)animateSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion {
     
     // Put the cookie you started with on top.
     swap.cookieA.sprite.zPosition = 100;
@@ -356,7 +356,7 @@ static const CGFloat TileHeight = 36.0;
     [self runAction:self.swapSound];
 }
 
-- (void)animateInvalidSwap:(RWTSwap *)swap completion:(dispatch_block_t)completion {
+- (void)animateInvalidSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion {
     swap.cookieA.sprite.zPosition = 100;
     swap.cookieB.sprite.zPosition = 90;
     
@@ -376,16 +376,16 @@ static const CGFloat TileHeight = 36.0;
 
 - (void)animateMatchedCookies:(NSSet *)chains completion:(dispatch_block_t)completion {
     
-    for (RWTChain *chain in chains) {
+    for (JIMCChain *chain in chains) {
         [self animateScoreForChain:chain];
-        for (RWTCookie *cookie in chain.cookies) {
+        for (JIMCFruit *cookie in chain.cookies) {
             
             if (cookie.sprite != nil) {
                 SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
                 scaleAction.timingMode = SKActionTimingEaseOut;
                 [cookie.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
                 
-                // It may happen that the same RWTCookie object is part of two chains
+                // It may happen that the same JIMCFruit object is part of two chains
                 // (L-shape match). In that case, its sprite should only be removed
                 // once.
                 cookie.sprite = nil;
@@ -402,10 +402,10 @@ static const CGFloat TileHeight = 36.0;
                                          ]]];
 }
 
-- (void)animateScoreForChain:(RWTChain *)chain {
+- (void)animateScoreForChain:(JIMCChain *)chain {
     // Figure out what the midpoint of the chain is.
-    RWTCookie *firstCookie = [chain.cookies firstObject];
-    RWTCookie *lastCookie = [chain.cookies lastObject];
+    JIMCFruit *firstCookie = [chain.cookies firstObject];
+    JIMCFruit *lastCookie = [chain.cookies lastObject];
     CGPoint centerPosition = CGPointMake(
                                          (firstCookie.sprite.position.x + lastCookie.sprite.position.x)/2,
                                          (firstCookie.sprite.position.y + lastCookie.sprite.position.y)/2 - 8);
@@ -431,7 +431,7 @@ static const CGFloat TileHeight = 36.0;
     
     for (NSArray *array in columns) {
         
-        [array enumerateObjectsUsingBlock:^(RWTCookie *cookie, NSUInteger idx, BOOL *stop) {
+        [array enumerateObjectsUsingBlock:^(JIMCFruit *cookie, NSUInteger idx, BOOL *stop) {
             CGPoint newPosition = [self pointForColumn:cookie.column row:cookie.row];
             
             // The further away from the hole you are, the bigger the delay
@@ -470,9 +470,9 @@ static const CGFloat TileHeight = 36.0;
         // The new sprite should start out just above the first tile in this column.
         // An easy way to find this tile is to look at the row of the first cookie
         // in the array, which is always the top-most one for this column.
-        NSInteger startRow = ((RWTCookie *)[array firstObject]).row + 1;
+        NSInteger startRow = ((JIMCFruit *)[array firstObject]).row + 1;
         
-        [array enumerateObjectsUsingBlock:^(RWTCookie *cookie, NSUInteger idx, BOOL *stop) {
+        [array enumerateObjectsUsingBlock:^(JIMCFruit *cookie, NSUInteger idx, BOOL *stop) {
             
             // Create a new sprite for the cookie.
             SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:[cookie spriteName]];

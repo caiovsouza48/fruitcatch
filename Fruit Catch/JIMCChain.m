@@ -1,18 +1,18 @@
 //
-//  RWTChain.m
+//  JIMCChain.m
 //  Fruit Catch
 //
 //  Created by max do nascimento on 24/11/14.
 //  Copyright (c) 2014 Caio de Souza. All rights reserved.
 //
 
-#import "RWTChain.h"
+#import "JIMCChain.h"
 
-@implementation RWTChain {
+@implementation JIMCChain {
     NSMutableArray *_cookies;
 }
 
-- (void)addCookie:(RWTCookie *)cookie {
+- (void)addCookie:(JIMCFruit *)cookie {
     if (_cookies == nil) {
         _cookies = [NSMutableArray array];
     }

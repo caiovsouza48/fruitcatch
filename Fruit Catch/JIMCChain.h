@@ -1,5 +1,5 @@
 //
-//  RWTChain.h
+//  JIMCChain.h
 //  Fruit Catch
 //
 //  Created by max do nascimento on 24/11/14.
@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class RWTCookie;
+@class JIMCFruit;
 
 typedef NS_ENUM(NSUInteger, ChainType) {
     ChainTypeHorizontal,
@@ -18,9 +18,9 @@ typedef NS_ENUM(NSUInteger, ChainType) {
     //ChainTypeT,
 };
 
-@interface RWTChain : NSObject
+@interface JIMCChain : NSObject
 
-// The RWTCookies that are part of this chain.
+// The JIMCFruits that are part of this chain.
 @property (strong, nonatomic, readonly) NSArray *cookies;
 
 // Whether this chain is horizontal or vertical.
@@ -29,6 +29,6 @@ typedef NS_ENUM(NSUInteger, ChainType) {
 // How many points this chain is worth.
 @property (assign, nonatomic) NSUInteger score;
 
-- (void)addCookie:(RWTCookie *)cookie;
+- (void)addCookie:(JIMCFruit *)cookie;
 
 @end

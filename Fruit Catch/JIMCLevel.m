@@ -1,7 +1,7 @@
 
-#import "RWTLevel.h"
+#import "JIMCLevel.h"
 
-@interface RWTLevel ()
+@interface JIMCLevel ()
 
 // The list of swipes that result in a valid swap. Used to determine whether
 // the player can make a certain swap, whether the board needs to be shuffled,
@@ -14,12 +14,12 @@
 
 @end
 
-@implementation RWTLevel {
+@implementation JIMCLevel {
     // The 2D array that contains the layout of the level.
-    RWTTile *_tiles[NumColumns][NumRows];
+    JIMCTile *_tiles[NumColumns][NumRows];
     
-    // The 2D array that keeps track of where the RWTCookies are.
-    RWTCookie *_cookies[NumColumns][NumRows];
+    // The 2D array that keeps track of where the JIMCFruits are.
+    JIMCFruit *_cookies[NumColumns][NumRows];
 }
 
 #pragma mark - Level Loading
@@ -46,7 +46,7 @@
                 
                 // If the value is 1, create a tile object.
                 if ([value integerValue] == 1) {
-                    _tiles[column][tileRow] = [[RWTTile alloc] init];
+                    _tiles[column][tileRow] = [[JIMCTile alloc] init];
                 }
             }];
         }];
@@ -134,7 +134,7 @@
                         _cookies[column][row - 2].cookieType == cookieType));
                 
                 // Create a new cookie and add it to the 2D array.
-                RWTCookie *cookie = [self createCookieAtColumn:column row:row withType:cookieType];
+                JIMCFruit *cookie = [self createCookieAtColumn:column row:row withType:cookieType];
                 
                 // Also add the cookie to the set so we can tell our caller about it.
                 [set addObject:cookie];
@@ -144,8 +144,8 @@
     return set;
 }
 
-- (RWTCookie *)createCookieAtColumn:(NSInteger)column row:(NSInteger)row withType:(NSUInteger)cookieType {
-    RWTCookie *cookie = [[RWTCookie alloc] init];
+- (JIMCFruit *)createCookieAtColumn:(NSInteger)column row:(NSInteger)row withType:(NSUInteger)cookieType {
+    JIMCFruit *cookie = [[JIMCFruit alloc] init];
     cookie.cookieType = cookieType;
     cookie.column = column;
     cookie.row = row;
@@ -166,7 +166,7 @@
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             
-            RWTCookie *cookie = _cookies[column][row];
+            JIMCFruit *cookie = _cookies[column][row];
             if (cookie != nil) {
                 
                 // Is it possible to swap this cookie with the one on the right?
@@ -174,7 +174,7 @@
                 if (column < NumColumns - 1) {
                     
                     // Have a cookie in this spot? If there is no tile, there is no cookie.
-                    RWTCookie *other = _cookies[column + 1][row];
+                    JIMCFruit *other = _cookies[column + 1][row];
                     if (other != nil) {
                         // Swap them
                         _cookies[column][row] = other;
@@ -184,7 +184,7 @@
                         if ([self hasChainAtColumn:column + 1 row:row] ||
                             [self hasChainAtColumn:column row:row]) {
                             
-                            RWTSwap *swap = [[RWTSwap alloc] init];
+                            JIMCSwap *swap = [[JIMCSwap alloc] init];
                             swap.cookieA = cookie;
                             swap.cookieB = other;
                             [set addObject:swap];
@@ -201,7 +201,7 @@
                 if (row < NumRows - 1) {
                     
                     // Have a cookie in this spot? If there is no tile, there is no cookie.
-                    RWTCookie *other = _cookies[column][row + 1];
+                    JIMCFruit *other = _cookies[column][row + 1];
                     if (other != nil) {
                         // Swap them
                         _cookies[column][row] = other;
@@ -211,7 +211,7 @@
                         if ([self hasChainAtColumn:column row:row + 1] ||
                             [self hasChainAtColumn:column row:row]) {
                             
-                            RWTSwap *swap = [[RWTSwap alloc] init];
+                            JIMCSwap *swap = [[JIMCSwap alloc] init];
                             swap.cookieA = cookie;
                             swap.cookieB = other;
                             [set addObject:swap];
@@ -245,7 +245,7 @@
 
 #pragma mark - Swapping
 
-- (void)performSwap:(RWTSwap *)swap {
+- (void)performSwap:(JIMCSwap *)swap {
     // Need to make temporary copies of these because they get overwritten.
     NSInteger columnA = swap.cookieA.column;
     NSInteger rowA = swap.cookieA.row;
@@ -253,7 +253,7 @@
     NSInteger rowB = swap.cookieB.row;
     
     // Swap the cookies. We need to update the array as well as the column
-    // and row properties of the RWTCookie objects, or they go out of sync!
+    // and row properties of the JIMCFruit objects, or they go out of sync!
     _cookies[columnA][rowA] = swap.cookieB;
     swap.cookieB.column = columnA;
     swap.cookieB.row = rowA;
@@ -272,7 +272,7 @@
     // Note: to detect more advanced patterns such as an L shape, you can see
     // whether a cookie is in both the horizontal & vertical chains sets and
     // whether it is the first or last in the array (at a corner). Then you
-    // create a new RWTChain object with the new type and remove the other two.
+    // create a new JIMCChain object with the new type and remove the other two.
     
     [self removeCookies:horizontalChains];
     [self removeCookies:verticalChains];
@@ -285,7 +285,7 @@
 
 - (NSSet *)detectHorizontalMatches {
     
-    // Contains the RWTCookie objects that were part of a horizontal chain.
+    // Contains the JIMCFruit objects that were part of a horizontal chain.
     // These cookies must be removed.
     NSMutableSet *set = [NSMutableSet set];
     
@@ -304,7 +304,7 @@
                     && _cookies[column + 2][row].cookieType == matchType) {
                     
                     // ...then add all the cookies from this chain into the set.
-                    RWTChain *chain = [[RWTChain alloc] init];
+                    JIMCChain *chain = [[JIMCChain alloc] init];
                     chain.chainType = ChainTypeHorizontal;
                     do {
                         [chain addCookie:_cookies[column][row]];
@@ -336,7 +336,7 @@
                 if (_cookies[column][row + 1].cookieType == matchType
                     && _cookies[column][row + 2].cookieType == matchType) {
                     
-                    RWTChain *chain = [[RWTChain alloc] init];
+                    JIMCChain *chain = [[JIMCChain alloc] init];
                     chain.chainType = ChainTypeVertical;
                     do {
                         [chain addCookie:_cookies[column][row]];
@@ -355,8 +355,8 @@
 }
 
 - (void)removeCookies:(NSSet *)chains {
-    for (RWTChain *chain in chains) {
-        for (RWTCookie *cookie in chain.cookies) {
+    for (JIMCChain *chain in chains) {
+        for (JIMCFruit *cookie in chain.cookies) {
             _cookies[cookie.column][cookie.row] = nil;
         }
     }
@@ -364,7 +364,7 @@
 
 - (void)calculateScores:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
-    for (RWTChain *chain in chains) {
+    for (JIMCChain *chain in chains) {
         chain.score = 60 * ([chain.cookies count] - 2) * self.comboMultiplier;
         self.comboMultiplier++;
     }
@@ -389,7 +389,7 @@
                 
                 // Scan upward to find a cookie.
                 for (NSInteger lookup = row + 1; lookup < NumRows; lookup++) {
-                    RWTCookie *cookie = _cookies[column][lookup];
+                    JIMCFruit *cookie = _cookies[column][lookup];
                     if (cookie != nil) {
                         // Swap that cookie with the hole.
                         _cookies[column][lookup] = nil;
@@ -444,7 +444,7 @@
                 cookieType = newCookieType;
                 
                 // Create a new cookie.
-                RWTCookie *cookie = [self createCookieAtColumn:column row:row withType:cookieType];
+                JIMCFruit *cookie = [self createCookieAtColumn:column row:row withType:cookieType];
                 
                 // Add the cookie to the array for this column.
                 // Note that we only allocate an array if a column actually has holes.
@@ -462,21 +462,21 @@
 
 #pragma mark - Querying the Level
 
-- (RWTTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row {
+- (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row {
     NSAssert1(column >= 0 && column < NumColumns, @"Invalid column: %ld", (long)column);
     NSAssert1(row >= 0 && row < NumRows, @"Invalid row: %ld", (long)row);
     
     return _tiles[column][row];
 }
 
-- (RWTCookie *)cookieAtColumn:(NSInteger)column row:(NSInteger)row {
+- (JIMCFruit *)cookieAtColumn:(NSInteger)column row:(NSInteger)row {
     NSAssert1(column >= 0 && column < NumColumns, @"Invalid column: %ld", (long)column);
     NSAssert1(row >= 0 && row < NumRows, @"Invalid row: %ld", (long)row);
     
     return _cookies[column][row];
 }
 
-- (BOOL)isPossibleSwap:(RWTSwap *)swap {
+- (BOOL)isPossibleSwap:(JIMCSwap *)swap {
     return [self.possibleSwaps containsObject:swap];
 }
 
