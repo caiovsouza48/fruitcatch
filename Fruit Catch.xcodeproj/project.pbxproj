@@ -16,6 +16,25 @@
 		DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B71A239C6D003DD444 /* Images.xcassets */; };
 		DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B91A239C6D003DD444 /* LaunchScreen.xib */; };
 		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
+		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
+		E3E3EC9A1A23AD6400E7E18E /* RWTCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* RWTCookie.m */; };
+		E3E3EC9D1A23ADA200E7E18E /* RWTLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* RWTLevel.m */; };
+		E3E3ECA01A23ADDA00E7E18E /* RWTTile.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9F1A23ADDA00E7E18E /* RWTTile.m */; };
+		E3E3ECA31A23AE0600E7E18E /* RWTSwap.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3ECA21A23AE0600E7E18E /* RWTSwap.m */; };
+		E3E3ECA61A23AE8700E7E18E /* RWTChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3ECA51A23AE8700E7E18E /* RWTChain.m */; };
+		E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */; };
+		E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */; };
+		E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAF1A23B31900E7E18E /* Chomp.wav */; };
+		E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB01A23B31900E7E18E /* Drip.wav */; };
+		E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB11A23B31900E7E18E /* Error.wav */; };
+		E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB21A23B31900E7E18E /* Ka-Ching.wav */; };
+		E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB31A23B31900E7E18E /* Mining by Moonlight.mp3 */; };
+		E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB41A23B31900E7E18E /* Scrape.wav */; };
+		E3E3ECC11A23B34500E7E18E /* Level_0.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECBC1A23B34500E7E18E /* Level_0.json */; };
+		E3E3ECC21A23B34500E7E18E /* Level_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECBD1A23B34500E7E18E /* Level_1.json */; };
+		E3E3ECC31A23B34500E7E18E /* Level_2.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECBE1A23B34500E7E18E /* Level_2.json */; };
+		E3E3ECC41A23B34500E7E18E /* Level_3.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECBF1A23B34500E7E18E /* Level_3.json */; };
+		E3E3ECC51A23B34500E7E18E /* Level_4.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECC01A23B34500E7E18E /* Level_4.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +64,31 @@
 		DEC905C01A239C6D003DD444 /* Fruit CatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fruit CatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905C51A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fruit_CatchTests.m; sourceTree = "<group>"; };
+		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
+		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		E3E3EC981A23AD6400E7E18E /* RWTCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTCookie.h; sourceTree = "<group>"; };
+		E3E3EC991A23AD6400E7E18E /* RWTCookie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTCookie.m; sourceTree = "<group>"; };
+		E3E3EC9B1A23ADA200E7E18E /* RWTLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTLevel.h; sourceTree = "<group>"; };
+		E3E3EC9C1A23ADA200E7E18E /* RWTLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTLevel.m; sourceTree = "<group>"; };
+		E3E3EC9E1A23ADDA00E7E18E /* RWTTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTTile.h; sourceTree = "<group>"; };
+		E3E3EC9F1A23ADDA00E7E18E /* RWTTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTTile.m; sourceTree = "<group>"; };
+		E3E3ECA11A23AE0600E7E18E /* RWTSwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTSwap.h; sourceTree = "<group>"; };
+		E3E3ECA21A23AE0600E7E18E /* RWTSwap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTSwap.m; sourceTree = "<group>"; };
+		E3E3ECA41A23AE8700E7E18E /* RWTChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTChain.h; sourceTree = "<group>"; };
+		E3E3ECA51A23AE8700E7E18E /* RWTChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTChain.m; sourceTree = "<group>"; };
+		E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
+		E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Grid.atlas; sourceTree = "<group>"; };
+		E3E3ECAF1A23B31900E7E18E /* Chomp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Chomp.wav; sourceTree = "<group>"; };
+		E3E3ECB01A23B31900E7E18E /* Drip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Drip.wav; sourceTree = "<group>"; };
+		E3E3ECB11A23B31900E7E18E /* Error.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Error.wav; sourceTree = "<group>"; };
+		E3E3ECB21A23B31900E7E18E /* Ka-Ching.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Ka-Ching.wav"; sourceTree = "<group>"; };
+		E3E3ECB31A23B31900E7E18E /* Mining by Moonlight.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mining by Moonlight.mp3"; sourceTree = "<group>"; };
+		E3E3ECB41A23B31900E7E18E /* Scrape.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Scrape.wav; sourceTree = "<group>"; };
+		E3E3ECBC1A23B34500E7E18E /* Level_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_0.json; sourceTree = "<group>"; };
+		E3E3ECBD1A23B34500E7E18E /* Level_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_1.json; sourceTree = "<group>"; };
+		E3E3ECBE1A23B34500E7E18E /* Level_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_2.json; sourceTree = "<group>"; };
+		E3E3ECBF1A23B34500E7E18E /* Level_3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_3.json; sourceTree = "<group>"; };
+		E3E3ECC01A23B34500E7E18E /* Level_4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_4.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +130,11 @@
 		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
 			isa = PBXGroup;
 			children = (
+				E3E3ECBB1A23B32000E7E18E /* Levels */,
+				E3E3ECAE1A23B2FA00E7E18E /* sounds */,
+				E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */,
+				E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */,
+				E3E3EC971A23ACFB00E7E18E /* novo */,
 				DEC905A91A239C6D003DD444 /* AppDelegate.h */,
 				DEC905AA1A239C6D003DD444 /* AppDelegate.m */,
 				DEC905AC1A239C6D003DD444 /* GameScene.h */,
@@ -125,6 +174,50 @@
 				DEC905C51A239C6D003DD444 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E3E3EC971A23ACFB00E7E18E /* novo */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3EC941A23ACF400E7E18E /* MyScene.h */,
+				E3E3EC951A23ACF400E7E18E /* MyScene.m */,
+				E3E3EC981A23AD6400E7E18E /* RWTCookie.h */,
+				E3E3EC991A23AD6400E7E18E /* RWTCookie.m */,
+				E3E3EC9B1A23ADA200E7E18E /* RWTLevel.h */,
+				E3E3EC9C1A23ADA200E7E18E /* RWTLevel.m */,
+				E3E3EC9E1A23ADDA00E7E18E /* RWTTile.h */,
+				E3E3EC9F1A23ADDA00E7E18E /* RWTTile.m */,
+				E3E3ECA11A23AE0600E7E18E /* RWTSwap.h */,
+				E3E3ECA21A23AE0600E7E18E /* RWTSwap.m */,
+				E3E3ECA41A23AE8700E7E18E /* RWTChain.h */,
+				E3E3ECA51A23AE8700E7E18E /* RWTChain.m */,
+			);
+			name = novo;
+			sourceTree = "<group>";
+		};
+		E3E3ECAE1A23B2FA00E7E18E /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3ECAF1A23B31900E7E18E /* Chomp.wav */,
+				E3E3ECB01A23B31900E7E18E /* Drip.wav */,
+				E3E3ECB11A23B31900E7E18E /* Error.wav */,
+				E3E3ECB21A23B31900E7E18E /* Ka-Ching.wav */,
+				E3E3ECB31A23B31900E7E18E /* Mining by Moonlight.mp3 */,
+				E3E3ECB41A23B31900E7E18E /* Scrape.wav */,
+			);
+			name = sounds;
+			sourceTree = "<group>";
+		};
+		E3E3ECBB1A23B32000E7E18E /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				E3E3ECBC1A23B34500E7E18E /* Level_0.json */,
+				E3E3ECBD1A23B34500E7E18E /* Level_1.json */,
+				E3E3ECBE1A23B34500E7E18E /* Level_2.json */,
+				E3E3ECBF1A23B34500E7E18E /* Level_3.json */,
+				E3E3ECC01A23B34500E7E18E /* Level_4.json */,
+			);
+			name = Levels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,10 +300,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3E3ECC21A23B34500E7E18E /* Level_1.json in Resources */,
+				E3E3ECC31A23B34500E7E18E /* Level_2.json in Resources */,
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
+				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
+				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
+				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
+				E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */,
+				E3E3ECC11A23B34500E7E18E /* Level_0.json in Resources */,
 				DEC905B01A239C6D003DD444 /* GameScene.sks in Resources */,
+				E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */,
+				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
+				E3E3ECC51A23B34500E7E18E /* Level_4.json in Resources */,
+				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
+				E3E3ECC41A23B34500E7E18E /* Level_3.json in Resources */,
+				E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,9 +335,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
+				E3E3EC9D1A23ADA200E7E18E /* RWTLevel.m in Sources */,
+				E3E3EC9A1A23AD6400E7E18E /* RWTCookie.m in Sources */,
+				E3E3ECA61A23AE8700E7E18E /* RWTChain.m in Sources */,
+				E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */,
 				DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */,
 				DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
+				E3E3ECA01A23ADDA00E7E18E /* RWTTile.m in Sources */,
+				E3E3ECA31A23AE0600E7E18E /* RWTSwap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,8 +468,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -366,8 +480,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -424,6 +540,7 @@
 				DEC905CC1A239C6D003DD444 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DEC905CD1A239C6D003DD444 /* Build configuration list for PBXNativeTarget "Fruit CatchTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +549,7 @@
 				DEC905CF1A239C6D003DD444 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
