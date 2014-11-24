@@ -1,0 +1,439 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DEC905A81A239C6D003DD444 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905A71A239C6D003DD444 /* main.m */; };
+		DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AA1A239C6D003DD444 /* AppDelegate.m */; };
+		DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AD1A239C6D003DD444 /* GameScene.m */; };
+		DEC905B01A239C6D003DD444 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DEC905AF1A239C6D003DD444 /* GameScene.sks */; };
+		DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905B21A239C6D003DD444 /* GameViewController.m */; };
+		DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B41A239C6D003DD444 /* Main.storyboard */; };
+		DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B71A239C6D003DD444 /* Images.xcassets */; };
+		DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B91A239C6D003DD444 /* LaunchScreen.xib */; };
+		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DEC905C11A239C6D003DD444 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEC9059A1A239C6D003DD444 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEC905A11A239C6D003DD444;
+			remoteInfo = "Fruit Catch";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DEC905A21A239C6D003DD444 /* Fruit Catch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fruit Catch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEC905A61A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEC905A71A239C6D003DD444 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DEC905A91A239C6D003DD444 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DEC905AA1A239C6D003DD444 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DEC905AC1A239C6D003DD444 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		DEC905AD1A239C6D003DD444 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		DEC905AF1A239C6D003DD444 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		DEC905B11A239C6D003DD444 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		DEC905B21A239C6D003DD444 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		DEC905B51A239C6D003DD444 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DEC905B71A239C6D003DD444 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DEC905BA1A239C6D003DD444 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		DEC905C01A239C6D003DD444 /* Fruit CatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fruit CatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEC905C51A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fruit_CatchTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DEC9059F1A239C6D003DD444 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEC905BD1A239C6D003DD444 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DEC905991A239C6D003DD444 = {
+			isa = PBXGroup;
+			children = (
+				DEC905A41A239C6D003DD444 /* Fruit Catch */,
+				DEC905C31A239C6D003DD444 /* Fruit CatchTests */,
+				DEC905A31A239C6D003DD444 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DEC905A31A239C6D003DD444 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DEC905A21A239C6D003DD444 /* Fruit Catch.app */,
+				DEC905C01A239C6D003DD444 /* Fruit CatchTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
+			isa = PBXGroup;
+			children = (
+				DEC905A91A239C6D003DD444 /* AppDelegate.h */,
+				DEC905AA1A239C6D003DD444 /* AppDelegate.m */,
+				DEC905AC1A239C6D003DD444 /* GameScene.h */,
+				DEC905AD1A239C6D003DD444 /* GameScene.m */,
+				DEC905AF1A239C6D003DD444 /* GameScene.sks */,
+				DEC905B11A239C6D003DD444 /* GameViewController.h */,
+				DEC905B21A239C6D003DD444 /* GameViewController.m */,
+				DEC905B41A239C6D003DD444 /* Main.storyboard */,
+				DEC905B71A239C6D003DD444 /* Images.xcassets */,
+				DEC905B91A239C6D003DD444 /* LaunchScreen.xib */,
+				DEC905A51A239C6D003DD444 /* Supporting Files */,
+			);
+			path = "Fruit Catch";
+			sourceTree = "<group>";
+		};
+		DEC905A51A239C6D003DD444 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DEC905A61A239C6D003DD444 /* Info.plist */,
+				DEC905A71A239C6D003DD444 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DEC905C31A239C6D003DD444 /* Fruit CatchTests */ = {
+			isa = PBXGroup;
+			children = (
+				DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */,
+				DEC905C41A239C6D003DD444 /* Supporting Files */,
+			);
+			path = "Fruit CatchTests";
+			sourceTree = "<group>";
+		};
+		DEC905C41A239C6D003DD444 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DEC905C51A239C6D003DD444 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DEC905A11A239C6D003DD444 /* Fruit Catch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEC905CA1A239C6D003DD444 /* Build configuration list for PBXNativeTarget "Fruit Catch" */;
+			buildPhases = (
+				DEC9059E1A239C6D003DD444 /* Sources */,
+				DEC9059F1A239C6D003DD444 /* Frameworks */,
+				DEC905A01A239C6D003DD444 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Fruit Catch";
+			productName = "Fruit Catch";
+			productReference = DEC905A21A239C6D003DD444 /* Fruit Catch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DEC905BF1A239C6D003DD444 /* Fruit CatchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEC905CD1A239C6D003DD444 /* Build configuration list for PBXNativeTarget "Fruit CatchTests" */;
+			buildPhases = (
+				DEC905BC1A239C6D003DD444 /* Sources */,
+				DEC905BD1A239C6D003DD444 /* Frameworks */,
+				DEC905BE1A239C6D003DD444 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEC905C21A239C6D003DD444 /* PBXTargetDependency */,
+			);
+			name = "Fruit CatchTests";
+			productName = "Fruit CatchTests";
+			productReference = DEC905C01A239C6D003DD444 /* Fruit CatchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DEC9059A1A239C6D003DD444 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Caio de Souza";
+				TargetAttributes = {
+					DEC905A11A239C6D003DD444 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					DEC905BF1A239C6D003DD444 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = DEC905A11A239C6D003DD444;
+					};
+				};
+			};
+			buildConfigurationList = DEC9059D1A239C6D003DD444 /* Build configuration list for PBXProject "Fruit Catch" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DEC905991A239C6D003DD444;
+			productRefGroup = DEC905A31A239C6D003DD444 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DEC905A11A239C6D003DD444 /* Fruit Catch */,
+				DEC905BF1A239C6D003DD444 /* Fruit CatchTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DEC905A01A239C6D003DD444 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
+				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
+				DEC905B01A239C6D003DD444 /* GameScene.sks in Resources */,
+				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEC905BE1A239C6D003DD444 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DEC9059E1A239C6D003DD444 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
+				DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */,
+				DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */,
+				DEC905A81A239C6D003DD444 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEC905BC1A239C6D003DD444 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DEC905C21A239C6D003DD444 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEC905A11A239C6D003DD444 /* Fruit Catch */;
+			targetProxy = DEC905C11A239C6D003DD444 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DEC905B41A239C6D003DD444 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DEC905B51A239C6D003DD444 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DEC905B91A239C6D003DD444 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DEC905BA1A239C6D003DD444 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DEC905C81A239C6D003DD444 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DEC905C91A239C6D003DD444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DEC905CB1A239C6D003DD444 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Fruit Catch/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DEC905CC1A239C6D003DD444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Fruit Catch/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DEC905CE1A239C6D003DD444 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Fruit CatchTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fruit Catch.app/Fruit Catch";
+			};
+			name = Debug;
+		};
+		DEC905CF1A239C6D003DD444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Fruit CatchTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fruit Catch.app/Fruit Catch";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DEC9059D1A239C6D003DD444 /* Build configuration list for PBXProject "Fruit Catch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEC905C81A239C6D003DD444 /* Debug */,
+				DEC905C91A239C6D003DD444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEC905CA1A239C6D003DD444 /* Build configuration list for PBXNativeTarget "Fruit Catch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEC905CB1A239C6D003DD444 /* Debug */,
+				DEC905CC1A239C6D003DD444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DEC905CD1A239C6D003DD444 /* Build configuration list for PBXNativeTarget "Fruit CatchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEC905CE1A239C6D003DD444 /* Debug */,
+				DEC905CF1A239C6D003DD444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DEC9059A1A239C6D003DD444 /* Project object */;
+}
