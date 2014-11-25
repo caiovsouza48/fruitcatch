@@ -33,6 +33,8 @@
 
 @property (strong, nonatomic) AVAudioPlayer *backgroundMusic;
 
+@property (strong, nonatomic) NSSet *possibleMoves;
+
 @end
 
 @implementation GameViewController
@@ -173,18 +175,23 @@
 }
 
 - (void)beginNextTurn {
-    NSInteger i;
+    
     [self.level resetComboMultiplier];
-    i = [self.level detectPossibleSwaps];
+    self.possibleMoves = [self.level detectPossibleSwaps];
+    
+    NSInteger i = self.possibleMoves.count;
     
     if(i == 0){
         NSLog(@"Não há movimentos restantes.\nEmbaralhando.");
         [self shuffle];
+        self.possibleMoves = [self.level detectPossibleSwaps];
+        i = self.possibleMoves.count;
+        NSLog(@"Jogadas possiveis = %ld",i);
     }else{
         NSLog(@"Jogadas possiveis = %ld",i);
     }
     
-    SKAction *showMove = [SKAction repeatAction:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]] count:1];
+    SKAction *showMove = [SKAction repeatAction:[SKAction sequence:@[[SKAction waitForDuration:6 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]] count:1];
     
     [self.scene runAction:showMove];
     
@@ -194,7 +201,7 @@
 
 -(void)showMoves
 {
-    NSLog(@"show");
+    NSLog(@"Moves = %@",self.possibleMoves);
 }
 
 - (void)updateLabels {

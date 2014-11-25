@@ -159,7 +159,7 @@
 
 #pragma mark - Detecting Swaps
 
-- (NSInteger)detectPossibleSwaps {
+- (NSSet *)detectPossibleSwaps {
     
     NSMutableSet *set = [NSMutableSet set];
     
@@ -228,9 +228,7 @@
     
     self.possibleSwaps = set;
     
-    NSLog(@"set = %@\n",set);
-    
-    return (NSInteger)set.count;
+    return set;
 }
 
 - (BOOL)hasChainAtColumn:(NSInteger)column row:(NSInteger)row {
