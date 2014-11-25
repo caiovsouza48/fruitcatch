@@ -18,21 +18,21 @@
     // You can only compare this object against other JIMCSwap objects.
     if (![object isKindOfClass:[JIMCSwap class]]) return NO;
     
-    // Two swaps are equal if they contain the same cookie, but it doesn't
+    // Two swaps are equal if they contain the same fruit, but it doesn't
     // matter whether they're called A in one and B in the other.
     JIMCSwap *other = (JIMCSwap *)object;
-    return (other.cookieA == self.cookieA && other.cookieB == self.cookieB) ||
-    (other.cookieB == self.cookieA && other.cookieA == self.cookieB);
+    return (other.fruitA == self.fruitA && other.fruitB == self.fruitB) ||
+    (other.fruitB == self.fruitA && other.fruitA == self.fruitB);
 }
 
 // If you override isEqual: you also need to override hash. The rule is that
 // if two objects are equal, then their hashes must also be equal.
 - (NSUInteger)hash {
-    return [self.cookieA hash] ^ [self.cookieB hash];
+    return [self.fruitA hash] ^ [self.fruitB hash];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ swap %@ with %@", [super description], self.cookieA, self.cookieB];
+    return [NSString stringWithFormat:@"%@ swap %@ with %@", [super description], self.fruitA, self.fruitB];
 }
 
 @end

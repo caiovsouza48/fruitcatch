@@ -14,10 +14,10 @@
 
 @interface GameViewController ()
 
-// The level contains the tiles, the cookies, and most of the gameplay logic.
+// The level contains the tiles, the fruits, and most of the gameplay logic.
 @property (strong, nonatomic) JIMCLevel *level;
 
-// The scene draws the tiles and cookie sprites, and handles swipes.
+// The scene draws the tiles and fruit sprites, and handles swipes.
 @property (strong, nonatomic) MyScene *scene;
 
 @property (assign, nonatomic) NSUInteger movesLeft;
@@ -57,7 +57,7 @@
     // detects that the player performs a swipe.
     id block = ^(JIMCSwap *swap) {
         
-        // While cookies are being matched and new cookies fall down to fill up
+        // While fruits are being matched and new fruits fall down to fill up
         // the holes, we don't want the player to tap on anything.
         self.view.userInteractionEnabled = NO;
         
@@ -126,17 +126,17 @@
 }
 
 - (void)shuffle {
-    // Delete the old cookie sprites, but not the tiles.
-    [self.scene removeAllCookieSprites];
+    // Delete the old fruit sprites, but not the tiles.
+    [self.scene removeAllFruitSprites];
     
-    // Fill up the level with new cookies, and create sprites for them.
-    NSSet *newCookies = [self.level shuffle];
-    [self.scene addSpritesForCookies:newCookies];
+    // Fill up the level with new fruits, and create sprites for them.
+    NSSet *newFruits = [self.level shuffle];
+    [self.scene addSpritesForFruits:newFruits];
 }
 
 - (void)handleMatches {
-    // This is the main loop that removes any matching cookies and fills up the
-    // holes with new cookies. While this happens, the user cannot interact with
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
     // the app.
     
     // Detect if there are any matches left.
@@ -149,7 +149,7 @@
     }
     
     // First, remove any matches...
-    [self.scene animateMatchedCookies:chains completion:^{
+    [self.scene animateMatchedFruits:chains completion:^{
         
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
@@ -157,13 +157,13 @@
         }
         [self updateLabels];
         
-        // ...then shift down any cookies that have a hole below them...
+        // ...then shift down any fruits that have a hole below them...
         NSArray *columns = [self.level fillHoles];
-        [self.scene animateFallingCookies:columns completion:^{
+        [self.scene animateFallingFruits:columns completion:^{
             
-            // ...and finally, add new cookies at the top.
-            NSArray *columns = [self.level topUpCookies];
-            [self.scene animateNewCookies:columns completion:^{
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
                 
                 // Keep repeating this cycle until there are no more matches.
                 [self handleMatches];

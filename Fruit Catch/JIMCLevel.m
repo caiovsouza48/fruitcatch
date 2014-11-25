@@ -19,7 +19,7 @@
     JIMCTile *_tiles[NumColumns][NumRows];
     
     // The 2D array that keeps track of where the JIMCFruits are.
-    JIMCFruit *_cookies[NumColumns][NumRows];
+    JIMCFruit *_fruits[NumColumns][NumRows];
 }
 
 #pragma mark - Level Loading
@@ -87,11 +87,11 @@
     NSSet *set;
     
     do {
-        // Removes the old cookies and fills up the level with all new ones.
-        set = [self createInitialCookies];
+        // Removes the old fruits and fills up the level with all new ones.
+        set = [self createInitialFruits];
         
-        // At the start of each turn we need to detect which cookies the player can
-        // actually swap. If the player tries to swap two cookies that are not in
+        // At the start of each turn we need to detect which fruits the player can
+        // actually swap. If the player tries to swap two fruits that are not in
         // this set, then the game does not accept this as a valid move.
         // This also tells you whether no more swaps are possible and the game needs
         // to automatically reshuffle.
@@ -106,7 +106,7 @@
     return set;
 }
 
-- (NSSet *)createInitialCookies {
+- (NSSet *)createInitialFruits {
     
     NSMutableSet *set = [NSMutableSet set];
     
@@ -115,42 +115,42 @@
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             
-            // Only make a new cookie if there is a tile at this spot.
+            // Only make a new fruit if there is a tile at this spot.
             if (_tiles[column][row] != nil) {
                 
-                // Pick the cookie type at random, and make sure that this never
+                // Pick the fruit type at random, and make sure that this never
                 // creates a chain of 3 or more. We want there to be 0 matches in
                 // the initial state.
-                NSUInteger cookieType;
+                NSUInteger fruitType;
                 do {
-                    cookieType = arc4random_uniform(NumCookieTypes) + 1;
+                    fruitType = arc4random_uniform(NumFruitTypes) + 1;
                 }
                 while ((column >= 2 &&
-                        _cookies[column - 1][row].cookieType == cookieType &&
-                        _cookies[column - 2][row].cookieType == cookieType)
+                        _fruits[column - 1][row].fruitType == fruitType &&
+                        _fruits[column - 2][row].fruitType == fruitType)
                        ||
                        (row >= 2 &&
-                        _cookies[column][row - 1].cookieType == cookieType &&
-                        _cookies[column][row - 2].cookieType == cookieType));
+                        _fruits[column][row - 1].fruitType == fruitType &&
+                        _fruits[column][row - 2].fruitType == fruitType));
                 
-                // Create a new cookie and add it to the 2D array.
-                JIMCFruit *cookie = [self createCookieAtColumn:column row:row withType:cookieType];
+                // Create a new fruit and add it to the 2D array.
+                JIMCFruit *fruit = [self createFruitAtColumn:column row:row withType:fruitType];
                 
-                // Also add the cookie to the set so we can tell our caller about it.
-                [set addObject:cookie];
+                // Also add the fruit to the set so we can tell our caller about it.
+                [set addObject:fruit];
             }
         }
     }
     return set;
 }
 
-- (JIMCFruit *)createCookieAtColumn:(NSInteger)column row:(NSInteger)row withType:(NSUInteger)cookieType {
-    JIMCFruit *cookie = [[JIMCFruit alloc] init];
-    cookie.cookieType = cookieType;
-    cookie.column = column;
-    cookie.row = row;
-    _cookies[column][row] = cookie;
-    return cookie;
+- (JIMCFruit *)createFruitAtColumn:(NSInteger)column row:(NSInteger)row withType:(NSUInteger)fruitType {
+    JIMCFruit *fruit = [[JIMCFruit alloc] init];
+    fruit.fruitType = fruitType;
+    fruit.column = column;
+    fruit.row = row;
+    _fruits[column][row] = fruit;
+    return fruit;
 }
 
 - (void)resetComboMultiplier {
@@ -166,60 +166,60 @@
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             
-            JIMCFruit *cookie = _cookies[column][row];
-            if (cookie != nil) {
+            JIMCFruit *fruit = _fruits[column][row];
+            if (fruit != nil) {
                 
-                // Is it possible to swap this cookie with the one on the right?
+                // Is it possible to swap this fruit with the one on the right?
                 // Note: don't need to check the last column.
                 if (column < NumColumns - 1) {
                     
-                    // Have a cookie in this spot? If there is no tile, there is no cookie.
-                    JIMCFruit *other = _cookies[column + 1][row];
+                    // Have a fruit in this spot? If there is no tile, there is no fruit.
+                    JIMCFruit *other = _fruits[column + 1][row];
                     if (other != nil) {
                         // Swap them
-                        _cookies[column][row] = other;
-                        _cookies[column + 1][row] = cookie;
+                        _fruits[column][row] = other;
+                        _fruits[column + 1][row] = fruit;
                         
-                        // Is either cookie now part of a chain?
+                        // Is either fruit now part of a chain?
                         if ([self hasChainAtColumn:column + 1 row:row] ||
                             [self hasChainAtColumn:column row:row]) {
                             
                             JIMCSwap *swap = [[JIMCSwap alloc] init];
-                            swap.cookieA = cookie;
-                            swap.cookieB = other;
+                            swap.fruitA = fruit;
+                            swap.fruitB = other;
                             [set addObject:swap];
                         }
                         
                         // Swap them back
-                        _cookies[column][row] = cookie;
-                        _cookies[column + 1][row] = other;
+                        _fruits[column][row] = fruit;
+                        _fruits[column + 1][row] = other;
                     }
                 }
                 
-                // Is it possible to swap this cookie with the one above?
+                // Is it possible to swap this fruit with the one above?
                 // Note: don't need to check the last row.
                 if (row < NumRows - 1) {
                     
-                    // Have a cookie in this spot? If there is no tile, there is no cookie.
-                    JIMCFruit *other = _cookies[column][row + 1];
+                    // Have a fruit in this spot? If there is no tile, there is no fruit.
+                    JIMCFruit *other = _fruits[column][row + 1];
                     if (other != nil) {
                         // Swap them
-                        _cookies[column][row] = other;
-                        _cookies[column][row + 1] = cookie;
+                        _fruits[column][row] = other;
+                        _fruits[column][row + 1] = fruit;
                         
-                        // Is either cookie now part of a chain?
+                        // Is either fruit now part of a chain?
                         if ([self hasChainAtColumn:column row:row + 1] ||
                             [self hasChainAtColumn:column row:row]) {
                             
                             JIMCSwap *swap = [[JIMCSwap alloc] init];
-                            swap.cookieA = cookie;
-                            swap.cookieB = other;
+                            swap.fruitA = fruit;
+                            swap.fruitB = other;
                             [set addObject:swap];
                         }
                         
                         // Swap them back
-                        _cookies[column][row] = cookie;
-                        _cookies[column][row + 1] = other;
+                        _fruits[column][row] = fruit;
+                        _fruits[column][row + 1] = other;
                     }
                 }
             }
@@ -230,16 +230,16 @@
 }
 
 - (BOOL)hasChainAtColumn:(NSInteger)column row:(NSInteger)row {
-    NSUInteger cookieType = _cookies[column][row].cookieType;
+    NSUInteger fruitType = _fruits[column][row].fruitType;
     
     NSUInteger horzLength = 1;
-    for (NSInteger i = column - 1; i >= 0 && _cookies[i][row].cookieType == cookieType; i--, horzLength++) ;
-    for (NSInteger i = column + 1; i < NumColumns && _cookies[i][row].cookieType == cookieType; i++, horzLength++) ;
+    for (NSInteger i = column - 1; i >= 0 && _fruits[i][row].fruitType == fruitType; i--, horzLength++) ;
+    for (NSInteger i = column + 1; i < NumColumns && _fruits[i][row].fruitType == fruitType; i++, horzLength++) ;
     if (horzLength >= 3) return YES;
     
     NSUInteger vertLength = 1;
-    for (NSInteger i = row - 1; i >= 0 && _cookies[column][i].cookieType == cookieType; i--, vertLength++) ;
-    for (NSInteger i = row + 1; i < NumRows && _cookies[column][i].cookieType == cookieType; i++, vertLength++) ;
+    for (NSInteger i = row - 1; i >= 0 && _fruits[column][i].fruitType == fruitType; i--, vertLength++) ;
+    for (NSInteger i = row + 1; i < NumRows && _fruits[column][i].fruitType == fruitType; i++, vertLength++) ;
     return (vertLength >= 3);
 }
 
@@ -247,20 +247,20 @@
 
 - (void)performSwap:(JIMCSwap *)swap {
     // Need to make temporary copies of these because they get overwritten.
-    NSInteger columnA = swap.cookieA.column;
-    NSInteger rowA = swap.cookieA.row;
-    NSInteger columnB = swap.cookieB.column;
-    NSInteger rowB = swap.cookieB.row;
+    NSInteger columnA = swap.fruitA.column;
+    NSInteger rowA = swap.fruitA.row;
+    NSInteger columnB = swap.fruitB.column;
+    NSInteger rowB = swap.fruitB.row;
     
-    // Swap the cookies. We need to update the array as well as the column
+    // Swap the fruits. We need to update the array as well as the column
     // and row properties of the JIMCFruit objects, or they go out of sync!
-    _cookies[columnA][rowA] = swap.cookieB;
-    swap.cookieB.column = columnA;
-    swap.cookieB.row = rowA;
+    _fruits[columnA][rowA] = swap.fruitB;
+    swap.fruitB.column = columnA;
+    swap.fruitB.row = rowA;
     
-    _cookies[columnB][rowB] = swap.cookieA;
-    swap.cookieA.column = columnB;
-    swap.cookieA.row = rowB;
+    _fruits[columnB][rowB] = swap.fruitA;
+    swap.fruitA.column = columnB;
+    swap.fruitA.row = rowB;
 }
 
 #pragma mark - Detecting Matches
@@ -270,12 +270,12 @@
     NSSet *verticalChains = [self detectVerticalMatches];
     
     // Note: to detect more advanced patterns such as an L shape, you can see
-    // whether a cookie is in both the horizontal & vertical chains sets and
+    // whether a fruit is in both the horizontal & vertical chains sets and
     // whether it is the first or last in the array (at a corner). Then you
     // create a new JIMCChain object with the new type and remove the other two.
     
-    [self removeCookies:horizontalChains];
-    [self removeCookies:verticalChains];
+    [self removeFruits:horizontalChains];
+    [self removeFruits:verticalChains];
     
     [self calculateScores:horizontalChains];
     [self calculateScores:verticalChains];
@@ -286,7 +286,7 @@
 - (NSSet *)detectHorizontalMatches {
     
     // Contains the JIMCFruit objects that were part of a horizontal chain.
-    // These cookies must be removed.
+    // These fruits must be removed.
     NSMutableSet *set = [NSMutableSet set];
     
     for (NSInteger row = 0; row < NumRows; row++) {
@@ -295,29 +295,29 @@
         // Note: for-loop without increment.
         for (NSInteger column = 0; column < NumColumns - 2; ) {
             
-            // If there is a cookie/tile at this position...
-            if (_cookies[column][row] != nil) {
-                NSUInteger matchType = _cookies[column][row].cookieType;
+            // If there is a fruit/tile at this position...
+            if (_fruits[column][row] != nil) {
+                NSUInteger matchType = _fruits[column][row].fruitType;
                 
                 // And the next two columns have the same type...
-                if (_cookies[column + 1][row].cookieType == matchType
-                    && _cookies[column + 2][row].cookieType == matchType) {
+                if (_fruits[column + 1][row].fruitType == matchType
+                    && _fruits[column + 2][row].fruitType == matchType) {
                     
-                    // ...then add all the cookies from this chain into the set.
+                    // ...then add all the fruits from this chain into the set.
                     JIMCChain *chain = [[JIMCChain alloc] init];
                     chain.chainType = ChainTypeHorizontal;
                     do {
-                        [chain addCookie:_cookies[column][row]];
+                        [chain addFruit:_fruits[column][row]];
                         column += 1;
                     }
-                    while (column < NumColumns && _cookies[column][row].cookieType == matchType);
+                    while (column < NumColumns && _fruits[column][row].fruitType == matchType);
                     
                     [set addObject:chain];
                     continue;
                 }
             }
             
-            // Cookie did not match or empty tile, so skip over it.
+            // Fruit did not match or empty tile, so skip over it.
             column += 1;
         }
     }
@@ -330,19 +330,19 @@
     
     for (NSInteger column = 0; column < NumColumns; column++) {
         for (NSInteger row = 0; row < NumRows - 2; ) {
-            if (_cookies[column][row] != nil) {
-                NSUInteger matchType = _cookies[column][row].cookieType;
+            if (_fruits[column][row] != nil) {
+                NSUInteger matchType = _fruits[column][row].fruitType;
                 
-                if (_cookies[column][row + 1].cookieType == matchType
-                    && _cookies[column][row + 2].cookieType == matchType) {
+                if (_fruits[column][row + 1].fruitType == matchType
+                    && _fruits[column][row + 2].fruitType == matchType) {
                     
                     JIMCChain *chain = [[JIMCChain alloc] init];
                     chain.chainType = ChainTypeVertical;
                     do {
-                        [chain addCookie:_cookies[column][row]];
+                        [chain addFruit:_fruits[column][row]];
                         row += 1;
                     }
-                    while (row < NumRows && _cookies[column][row].cookieType == matchType);
+                    while (row < NumRows && _fruits[column][row].fruitType == matchType);
                     
                     [set addObject:chain];
                     continue;
@@ -354,10 +354,10 @@
     return set;
 }
 
-- (void)removeCookies:(NSSet *)chains {
+- (void)removeFruits:(NSSet *)chains {
     for (JIMCChain *chain in chains) {
-        for (JIMCFruit *cookie in chain.cookies) {
-            _cookies[cookie.column][cookie.row] = nil;
+        for (JIMCFruit *fruit in chain.fruits) {
+            _fruits[fruit.column][fruit.row] = nil;
         }
     }
 }
@@ -365,7 +365,7 @@
 - (void)calculateScores:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        chain.score = 60 * ([chain.cookies count] - 2) * self.comboMultiplier;
+        chain.score = 60 * ([chain.fruits count] - 2) * self.comboMultiplier;
         self.comboMultiplier++;
     }
 }
@@ -384,27 +384,27 @@
         NSMutableArray *array;
         for (NSInteger row = 0; row < NumRows; row++) {
             
-            // If there is a tile at this position but no cookie, then there's a hole.
-            if (_tiles[column][row] != nil && _cookies[column][row] == nil) {
+            // If there is a tile at this position but no fruit, then there's a hole.
+            if (_tiles[column][row] != nil && _fruits[column][row] == nil) {
                 
-                // Scan upward to find a cookie.
+                // Scan upward to find a fruit.
                 for (NSInteger lookup = row + 1; lookup < NumRows; lookup++) {
-                    JIMCFruit *cookie = _cookies[column][lookup];
-                    if (cookie != nil) {
-                        // Swap that cookie with the hole.
-                        _cookies[column][lookup] = nil;
-                        _cookies[column][row] = cookie;
-                        cookie.row = row;
+                    JIMCFruit *fruit = _fruits[column][lookup];
+                    if (fruit != nil) {
+                        // Swap that fruit with the hole.
+                        _fruits[column][lookup] = nil;
+                        _fruits[column][row] = fruit;
+                        fruit.row = row;
                         
-                        // For each column, we return an array with the cookies that have
-                        // fallen down. Cookies that are lower on the screen are first in
+                        // For each column, we return an array with the fruits that have
+                        // fallen down. Fruits that are lower on the screen are first in
                         // the array. We need an array to keep this order intact, so the
                         // animation code can apply the correct kind of delay.
                         if (array == nil) {
                             array = [NSMutableArray array];
                             [columns addObject:array];
                         }
-                        [array addObject:cookie];
+                        [array addObject:fruit];
                         
                         // Don't need to scan up any further.
                         break;
@@ -416,44 +416,44 @@
     return columns;
 }
 
-- (NSArray *)topUpCookies {
+- (NSArray *)topUpFruits {
     NSMutableArray *columns = [NSMutableArray array];
-    NSUInteger cookieType = 0;
+    NSUInteger fruitType = 0;
     
-    // Detect where we have to add the new cookies. If a column has X holes,
-    // then it also needs X new cookies. The holes are all on the top of the
+    // Detect where we have to add the new fruits. If a column has X holes,
+    // then it also needs X new fruits. The holes are all on the top of the
     // column now, but the fact that there may be gaps in the tiles makes this
     // a little trickier.
     for (NSInteger column = 0; column < NumColumns; column++) {
         
         // This time scan from top to bottom. We can end when we've found the
-        // first cookie.
+        // first fruit.
         NSMutableArray *array;
-        for (NSInteger row = NumRows - 1; row >= 0 && _cookies[column][row] == nil; row--) {
+        for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
             
             // Found a hole?
             if (_tiles[column][row] != nil) {
                 
-                // Randomly create a new cookie type. The only restriction is that
+                // Randomly create a new fruit type. The only restriction is that
                 // it cannot be equal to the previous type. This prevents too many
                 // "freebie" matches.
-                NSUInteger newCookieType;
+                NSUInteger newFruitType;
                 do {
-                    newCookieType = arc4random_uniform(NumCookieTypes) + 1;
-                } while (newCookieType == cookieType);
-                cookieType = newCookieType;
+                    newFruitType = arc4random_uniform(NumFruitTypes) + 1;
+                } while (newFruitType == fruitType);
+                fruitType = newFruitType;
                 
-                // Create a new cookie.
-                JIMCFruit *cookie = [self createCookieAtColumn:column row:row withType:cookieType];
+                // Create a new fruit.
+                JIMCFruit *fruit = [self createFruitAtColumn:column row:row withType:fruitType];
                 
-                // Add the cookie to the array for this column.
+                // Add the fruit to the array for this column.
                 // Note that we only allocate an array if a column actually has holes.
                 // This cuts down on unnecessary allocations.
                 if (array == nil) {
                     array = [NSMutableArray array];
                     [columns addObject:array];
                 }
-                [array addObject:cookie];
+                [array addObject:fruit];
             }
         }
     }
@@ -469,11 +469,11 @@
     return _tiles[column][row];
 }
 
-- (JIMCFruit *)cookieAtColumn:(NSInteger)column row:(NSInteger)row {
+- (JIMCFruit *)fruitAtColumn:(NSInteger)column row:(NSInteger)row {
     NSAssert1(column >= 0 && column < NumColumns, @"Invalid column: %ld", (long)column);
     NSAssert1(row >= 0 && row < NumRows, @"Invalid row: %ld", (long)row);
     
-    return _cookies[column][row];
+    return _fruits[column][row];
 }
 
 - (BOOL)isPossibleSwap:(JIMCSwap *)swap {
