@@ -181,11 +181,20 @@
         NSLog(@"Não há movimentos restantes.\nEmbaralhando.");
         [self shuffle];
     }else{
-        NSLog(@"Jogadas possiveis = %d",(int)i);
+        NSLog(@"Jogadas possiveis = %ld",i);
     }
+    
+    SKAction *showMove = [SKAction repeatAction:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]] count:1];
+    
+    [self.scene runAction:showMove];
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
+}
+
+-(void)showMoves
+{
+    NSLog(@"show");
 }
 
 - (void)updateLabels {

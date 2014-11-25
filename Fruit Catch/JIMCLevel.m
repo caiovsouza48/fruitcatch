@@ -228,6 +228,8 @@
     
     self.possibleSwaps = set;
     
+    NSLog(@"set = %@\n",set);
+    
     return (NSInteger)set.count;
 }
 

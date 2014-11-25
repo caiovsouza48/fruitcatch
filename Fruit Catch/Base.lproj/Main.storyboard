@@ -67,15 +67,6 @@
                                     <rect key="frame" x="342" y="16" width="45" height="21"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKa-eg-RMg">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="196" y="531" width="46" height="30"/>
-                                </variation>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NHk-PR-yXA">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -95,7 +86,6 @@
                                 <exclude reference="nx2-K0-R3n"/>
                                 <exclude reference="NwU-VO-8hz"/>
                                 <exclude reference="9uF-AV-uaC"/>
-                                <exclude reference="FKa-eg-RMg"/>
                                 <exclude reference="NHk-PR-yXA"/>
                             </mask>
                         </variation>
@@ -107,7 +97,6 @@
                                 <include reference="nx2-K0-R3n"/>
                                 <include reference="NwU-VO-8hz"/>
                                 <include reference="9uF-AV-uaC"/>
-                                <include reference="FKa-eg-RMg"/>
                                 <include reference="NHk-PR-yXA"/>
                             </mask>
                         </variation>
@@ -116,7 +105,6 @@
                         <outlet property="gameOverPanel" destination="wtf-1w-1vB" id="eHv-CF-O3z"/>
                         <outlet property="movesLabel" destination="nx2-K0-R3n" id="3wR-1g-vqM"/>
                         <outlet property="scoreLabel" destination="NHk-PR-yXA" id="Bng-KN-R4q"/>
-                        <outlet property="shuffleButton" destination="FKa-eg-RMg" id="Gl8-WZ-lG6"/>
                         <outlet property="targetLabel" destination="QyQ-FX-Ikx" id="u0S-5q-H8I"/>
                     </connections>
                 </viewController>
