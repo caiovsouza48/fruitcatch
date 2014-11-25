@@ -173,8 +173,17 @@
 }
 
 - (void)beginNextTurn {
+    NSInteger i;
     [self.level resetComboMultiplier];
-    [self.level detectPossibleSwaps];
+    i = [self.level detectPossibleSwaps];
+    
+    if(i == 0){
+        NSLog(@"Não há movimentos restantes.\nEmbaralhando.");
+        [self shuffle];
+    }else{
+        NSLog(@"Jogadas possiveis = %d",(int)i);
+    }
+    
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
 }

@@ -37,7 +37,7 @@ static const NSInteger NumRows = 9;
 - (BOOL)isPossibleSwap:(JIMCSwap *)swap;
 
 // Recalculates which moves are valid.
-- (void)detectPossibleSwaps;
+- (NSInteger)detectPossibleSwaps;
 
 // Detects whether there are any chains of 3 or more fruits, and removes them
 // from the level.
