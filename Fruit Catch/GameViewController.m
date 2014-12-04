@@ -39,6 +39,9 @@
 
 @property (strong, nonatomic) NSSet *possibleMoves;
 
+@property SKSpriteNode *hintNode;
+@property SKAction *hintAction;
+
 @end
 
 @implementation GameViewController
@@ -131,9 +134,15 @@
     [self.level resetComboMultiplier];
     [self.scene animateBeginGame];
     [self shuffle];
+    
+    self.possibleMoves = [self.level detectPossibleSwaps];
+    self.hintAction = [SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]];
+
+    [self.scene runAction: self.hintAction withKey:@"Hint"];
 }
 
 - (void)shuffle {
+    
     // Delete the old fruit sprites, but not the tiles.
     [self.scene removeAllFruitSprites];
     
@@ -146,6 +155,8 @@
     // This is the main loop that removes any matching fruits and fills up the
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
+    
+    [self.scene removeActionForKey:@"Hint"];
     
     // Detect if there are any matches left.
     NSSet *chains = [self.level removeMatches];
@@ -227,6 +238,9 @@
             }];
         }];
     }];
+    
+    [self.scene runAction:self.hintAction withKey:@"Hint"];
+    
 }
 
 - (void)beginNextTurn {
@@ -247,9 +261,7 @@
         NSLog(@"Jogadas possiveis = %ld",i);
     }
     
-    SKAction *showMove = [SKAction repeatAction:[SKAction sequence:@[[SKAction waitForDuration:6 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]] count:1];
-    
-    [self.scene runAction:showMove];
+    [self.scene runAction: self.hintAction withKey:@"Hint"];
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
@@ -257,7 +269,26 @@
 
 -(void)showMoves
 {
-    NSLog(@"Moves = %@",self.possibleMoves);
+    //Obtem um movimento possivel entre todos
+    JIMCSwap *swap = [self.possibleMoves anyObject];
+    
+    NSInteger x,y;
+    
+    if(swap.fruitA.column == 4){
+        x = 0;
+    }else{
+        x = 32 * (swap.fruitA.column - 4);
+    }
+    
+    if(swap.fruitA.row == 4){
+        y = 0;
+    }else{
+        y = 36 * (swap.fruitA.row - 4);
+    }
+    
+    self.hintNode = [[SKSpriteNode alloc]initWithImageNamed:[swap.fruitA highlightedSpriteName]];
+    self.hintNode.position = CGPointMake(x, y);
+    [self.scene addChild:self.hintNode];
 }
 
 - (void)updateLabels {
@@ -277,9 +308,23 @@
         self.gameOverPanel.image = [UIImage imageNamed:@"GameOver"];
         [self showGameOver];
     }
+    
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
+    
 }
 
 - (void)showGameOver {
+    
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
+    
     [self.scene animateGameOver];
     
     self.gameOverPanel.hidden = NO;
@@ -312,6 +357,21 @@
         [self handlePowerUp];
     
     
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.scene removeActionForKey:@"Hint"];
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.scene runAction: self.hintAction withKey:@"Hint"];
 }
 
 @end
