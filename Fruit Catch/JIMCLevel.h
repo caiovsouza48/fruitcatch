@@ -29,6 +29,8 @@ static const NSInteger NumRows = 9;
 // Determines whether there's a tile at the specified column and row.
 - (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row;
 
+- (void)removeFruitAtColumn:(NSInteger)column row:(NSInteger)row;
+
 // Swaps the positions of the two fruits from the JIMCSwap object.
 - (void)performSwap:(JIMCSwap *)swap;
 

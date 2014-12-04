@@ -11,6 +11,8 @@
 #import "GameViewController.h"
 #import "MyScene.h"
 #import "JIMCLevel.h"
+#import "JIMCPowerUp.h"
+#import "JIMCSwapFruitSingleton.h"
 
 @interface GameViewController ()
 
@@ -29,11 +31,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
 @property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
 
+@property(nonatomic) BOOL pressed;
+
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
 @property (strong, nonatomic) AVAudioPlayer *backgroundMusic;
 
 @property (strong, nonatomic) NSSet *possibleMoves;
+
+@property SKSpriteNode *hintNode;
+@property SKAction *hintAction;
 
 @end
 
@@ -66,6 +73,8 @@
        
         if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
+            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+            //NSLog(@"Swap Singleton = %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
             [self.scene animateSwap:swap completion:^{
                 [self handleMatchesHorizontal];
                // [self handleMatchesVertical];
@@ -126,9 +135,15 @@
     [self.level resetComboMultiplier];
     [self.scene animateBeginGame];
     [self shuffle];
+    
+    self.possibleMoves = [self.level detectPossibleSwaps];
+    self.hintAction = [SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]];
+
+    [self.scene runAction: self.hintAction withKey:@"Hint"];
 }
 
 - (void)shuffle {
+    
     // Delete the old fruit sprites, but not the tiles.
     [self.scene removeAllFruitSprites];
     
@@ -142,12 +157,57 @@
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
     
+    [self.scene removeActionForKey:@"Hint"];
+    
     // Detect if there are any matches left.
     NSSet *chains = [self.level removeMatchesHorizontal];
 
     
+    // First, remove any matches...
+    [self.scene animateMatchedFruits:chains completion:^{
+        int i=0;
+        // Add the new scores to the total.
+        for (JIMCChain *chain in chains) {
+            self.score += chain.score;
+//            NSLog(@"JIMCPowerUp = %ld",(long)(((JIMCFruit *)chain.fruits[i]).fruitPowerUp));
+//            if (((JIMCFruit *)chain.fruits[i]).fruitPowerUp >= 1)
+//              [self.scene addSpritesForFruit:chain.fruits[i]];
+//            i++;
+        }
+        if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
+            [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
+            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+        }
+        
+        [self updateLabels];
+        
+        // ...then shift down any fruits that have a hole below them...
+        NSArray *columns = [self.level fillHoles];
+        [self.scene animateFallingFruits:columns completion:^{
+            
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
+                
+                // Keep repeating this cycle until there are no more matches.
+                [self handleMatches];
+            }];
+        }];
+    }];
+}
+
+- (void)handlePowerUp {
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
+    // the app.
+    
+    // Detect if there are any matches left.
+    JIMCPowerUp *powerUp = [[JIMCPowerUp alloc]init];
+    powerUp.position = (CGPoint){5,5};
+    NSSet *chains = [self.scene.level executePowerUp:powerUp];
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
+        NSLog(@"Chains count is zero");
         [self beginNextTurn];
         return;
     }
@@ -195,7 +255,7 @@
     // First, remove any matches...
     [self.scene animateMatchedFruits:chains completion:^{
         
-        // Add the new scores to the total.
+//        Add the new scores to the total.
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
@@ -215,11 +275,15 @@
             }];
         }];
     }];
+    
+    [self.scene runAction:self.hintAction withKey:@"Hint"];
+    
 }
 
 - (void)beginNextTurn {
     
     [self.level resetComboMultiplier];
+    
     self.possibleMoves = [self.level detectPossibleSwaps];
     
     NSInteger i = self.possibleMoves.count;
@@ -265,9 +329,23 @@
         self.gameOverPanel.image = [UIImage imageNamed:@"GameOver"];
         [self showGameOver];
     }
+    
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
+    
 }
 
 - (void)showGameOver {
+    
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
+    
     [self.scene animateGameOver];
     
     self.gameOverPanel.hidden = NO;
@@ -292,10 +370,29 @@
 }
 
 - (IBAction)shuffleButtonPressed:(id)sender {
-    [self shuffle];
+    //[self shuffle];
     
-    // Pressing the shuffle button costs a move.
-    [self decrementMoves];
+    
+        // Pressing the shuffle button costs a move.
+        [self decrementMoves];
+        [self handlePowerUp];
+    
+    
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.scene removeActionForKey:@"Hint"];
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.scene runAction: self.hintAction withKey:@"Hint"];
 }
 
 @end
