@@ -3,7 +3,7 @@
 #import "JIMCLevel.h"
 #import "JIMCSwap.h"
 
-static const CGFloat TileWidth = 32.0;
+static const CGFloat TileWidth = 34.0;
 static const CGFloat TileHeight = 36.0;
 
 @interface MyScene ()
@@ -33,14 +33,20 @@ static const CGFloat TileHeight = 36.0;
 
 @implementation MyScene
 
+-(SKAction *)colorizeWithColor:(UIColor *)color BlendFactor:(NSInteger)blendFactor
+{
+    SKAction *colorize = [SKAction colorizeWithColor:color colorBlendFactor:blendFactor duration:0];
+    return colorize;
+}
+
 - (id)initWithSize:(CGSize)size {
     if ((self = [super initWithSize:size])) {
-        
         self.anchorPoint = CGPointMake(0.5, 0.5);
         
         // Put an image on the background. Because the scene's anchorPoint is
         // (0.5, 0.5), the background image will always be centered on the screen.
-        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Background"];
+        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"selva.png"];
+        background.blendMode = SKBlendModeScreen; //Clareia o fundo
         [self addChild:background];
         
         // Add a new node that is the container for all other layers on the playing
@@ -71,7 +77,6 @@ static const CGFloat TileHeight = 36.0;
         // are relative to the fruitsLayer's bottom-left corner.
         self.fruitsLayer = [SKNode node];
         self.fruitsLayer.position = layerPosition;
-        
         [self.cropLayer addChild:self.fruitsLayer];
         
         // NSNotFound means that these properties have invalid values.
@@ -162,6 +167,11 @@ static const CGFloat TileHeight = 36.0;
                 point.x -= TileWidth/2;
                 point.y -= TileHeight/2;
                 tileNode.position = point;
+
+                //Escurece o grid
+                tileNode.color = [UIColor blackColor];
+                tileNode.colorBlendFactor = 0.9;
+                
                 [self.tilesLayer addChild:tileNode];
             }
         }
@@ -174,13 +184,13 @@ static const CGFloat TileHeight = 36.0;
         // Create a new sprite for the fruit and add it to the fruitsLayer.
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
         sprite.position = [self pointForColumn:fruit.column row:fruit.row];
+        
         [self.fruitsLayer addChild:sprite];
         fruit.sprite = sprite;
         
         // Give each fruit sprite a small, random delay. Then fade them in.
         fruit.sprite.alpha = 0;
         fruit.sprite.xScale = fruit.sprite.yScale = 0.5;
-        
         [fruit.sprite runAction:[SKAction sequence:@[
                                                       [SKAction waitForDuration:0.25 withRange:0.5],
                                                       [SKAction group:@[
@@ -379,7 +389,6 @@ static const CGFloat TileHeight = 36.0;
     for (JIMCChain *chain in chains) {
         [self animateScoreForChain:chain];
         for (JIMCFruit *fruit in chain.fruits) {
-            
             if (fruit.sprite != nil) {
                 SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
                 scaleAction.timingMode = SKActionTimingEaseOut;

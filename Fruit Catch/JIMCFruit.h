@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-static const NSUInteger NumFruitTypes = 6;
+static const NSUInteger NumFruitTypes = 5;
 
 @interface JIMCFruit : NSObject
 

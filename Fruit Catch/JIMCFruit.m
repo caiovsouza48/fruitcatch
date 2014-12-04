@@ -12,12 +12,11 @@
 
 - (NSString *)spriteName {
     static NSString * const spriteNames[] = {
-        @"Croissant",
-        @"Cupcake",
-        @"Danish",
-        @"Donut",
-        @"Macaroon",
-        @"SugarCookie",
+        @"laranja",
+        @"morango",
+        @"limao",
+        @"uva",
+        @"banana",
     };
     
     return spriteNames[self.fruitType - 1];
@@ -25,12 +24,11 @@
 
 - (NSString *)highlightedSpriteName {
     static NSString * const highlightedSpriteNames[] = {
-        @"Croissant-Highlighted",
-        @"Cupcake-Highlighted",
-        @"Danish-Highlighted",
-        @"Donut-Highlighted",
-        @"Macaroon-Highlighted",
-        @"SugarCookie-Highlighted",
+        @"laranja",
+        @"morango",
+        @"limao",
+        @"uva",
+        @"banana",
     };
     
     return highlightedSpriteNames[self.fruitType - 1];

@@ -4,7 +4,7 @@
 #import "JIMCTile.h"
 #import "JIMCSwap.h"
 #import "JIMCChain.h"
-
+#import "MyScene.h"
 static const NSInteger NumColumns = 9;
 static const NSInteger NumRows = 9;
 
@@ -15,7 +15,7 @@ static const NSInteger NumRows = 9;
 
 // Create a level by loading it from a file.
 - (instancetype)initWithFile:(NSString *)filename;
-
+- (JIMCFruit *)createFruitAtColumn:(NSInteger)column row:(NSInteger)row withType:(NSUInteger)fruitType;
 // Fills up the level with new JIMCFruit objects. The level is guaranteed free
 // from matches at this point.
 // You call this method at the beginning of a new game and whenever the player
@@ -38,13 +38,13 @@ static const NSInteger NumRows = 9;
 
 // Recalculates which moves are valid.
 - (NSSet *)detectPossibleSwaps;
-
+-(void)verificaDestruir:(NSSet *)chains;
 // Detects whether there are any chains of 3 or more fruits, and removes them
 // from the level.
 // Returns a set containing JIMCChain objects, which describe the JIMCFruits
 // that were removed.
-- (NSSet *)removeMatches;
-
+- (NSSet *)removeMatchesVertical;
+- (NSSet *)removeMatchesHorizontal;
 // Detects where there are holes and shifts any fruits down to fill up those
 // holes. In effect, this "bubbles" the holes up to the top of the column.
 // Returns an array that contains a sub-array for each column that had holes,
@@ -60,5 +60,6 @@ static const NSInteger NumRows = 9;
 
 // Should be called at the start of every new turn.
 - (void)resetComboMultiplier;
-
+@property (strong, nonatomic) MyScene *scene;
+-(NSSet *)deletarFrutas;
 @end

@@ -15,13 +15,13 @@
 @interface GameViewController ()
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
-@property (strong, nonatomic) JIMCLevel *level;
+
 
 // The scene draws the tiles and fruit sprites, and handles swipes.
 @property (strong, nonatomic) MyScene *scene;
 
 @property (assign, nonatomic) NSUInteger movesLeft;
-@property (assign, nonatomic) NSUInteger score;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *movesLabel;
@@ -63,10 +63,12 @@
         // the holes, we don't want the player to tap on anything.
         self.view.userInteractionEnabled = NO;
         
+       
         if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
             [self.scene animateSwap:swap completion:^{
-                [self handleMatches];
+                [self handleMatchesHorizontal];
+               // [self handleMatchesVertical];
             }];
         } else {
             [self.scene animateInvalidSwap:swap completion:^{
@@ -88,7 +90,6 @@
     self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     self.backgroundMusic.numberOfLoops = -1;
     [self.backgroundMusic play];
-    
     // Let's start the game!
     [self beginGame];
 }
@@ -136,20 +137,61 @@
     [self.scene addSpritesForFruits:newFruits];
 }
 
-- (void)handleMatches {
+- (void)handleMatchesHorizontal {
     // This is the main loop that removes any matching fruits and fills up the
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
     
     // Detect if there are any matches left.
-    NSSet *chains = [self.level removeMatches];
+    NSSet *chains = [self.level removeMatchesHorizontal];
+
     
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
         [self beginNextTurn];
         return;
     }
+   // [self.level verificaDestruir:chains];
+    // First, remove any matches...
+    [self.scene animateMatchedFruits:chains completion:^{
+        
+        // Add the new scores to the total.
+        for (JIMCChain *chain in chains) {
+            self.score += chain.score;
+        }
+        [self updateLabels];
+
+        // ...then shift down any fruits that have a hole below them...
+        NSMutableArray *columns = [[NSMutableArray alloc]initWithArray:[self.level fillHoles]];
+       
+       
+        
+        [self.scene animateFallingFruits:columns completion:^{
+            
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
+                
+                // Keep repeating this cycle until there are no more matches.
+                [self handleMatchesHorizontal];
+            }];
+        }];
+    }];
+}
+- (void)handleMatchesVertical {
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
+    // the app.
     
+    // Detect if there are any matches left.
+    NSSet *chains = [self.level removeMatchesVertical];
+    
+    // If there are no more matches, then the player gets to move again.
+    if ([chains count] == 0) {
+        [self beginNextTurn];
+        return;
+    }
+   // NSLog(@"horizontal : %@",chains);
     // First, remove any matches...
     [self.scene animateMatchedFruits:chains completion:^{
         
@@ -161,6 +203,7 @@
         
         // ...then shift down any fruits that have a hole below them...
         NSArray *columns = [self.level fillHoles];
+        
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
@@ -168,7 +211,7 @@
             [self.scene animateNewFruits:columns completion:^{
                 
                 // Keep repeating this cycle until there are no more matches.
-                [self handleMatches];
+                [self handleMatchesVertical];
             }];
         }];
     }];
@@ -186,22 +229,23 @@
         [self shuffle];
         self.possibleMoves = [self.level detectPossibleSwaps];
         i = self.possibleMoves.count;
-        NSLog(@"Jogadas possiveis = %ld",i);
+     //   NSLog(@"Jogadas possiveis = %ld",i);
     }else{
-        NSLog(@"Jogadas possiveis = %ld",i);
+     //   NSLog(@"Jogadas possiveis = %ld",i);
     }
     
-    SKAction *showMove = [SKAction repeatAction:[SKAction sequence:@[[SKAction waitForDuration:6 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]] count:1];
+    SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
     
     [self.scene runAction:showMove];
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
+    
 }
 
 -(void)showMoves
 {
-    NSLog(@"Moves = %@",self.possibleMoves);
+    //NSLog(@"Moves = %@",self.possibleMoves);
 }
 
 - (void)updateLabels {

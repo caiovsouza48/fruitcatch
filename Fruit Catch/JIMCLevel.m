@@ -1,6 +1,6 @@
 
 #import "JIMCLevel.h"
-
+#import "GameViewController.h"
 @interface JIMCLevel ()
 
 // The list of swipes that result in a valid swap. Used to determine whether
@@ -11,7 +11,7 @@
 // The second chain gets twice its regular score, the third chain three times,
 // and so on. This multiplier is reset for every next turn.
 @property (assign, nonatomic) NSUInteger comboMultiplier;
-
+@property (strong, nonatomic) GameViewController *gameView;
 @end
 
 @implementation JIMCLevel {
@@ -102,7 +102,7 @@
         // If there are no possible moves, then keep trying again until there are.
     }
     while ([self.possibleSwaps count] == 0);
-    
+   
     return set;
 }
 
@@ -150,6 +150,7 @@
     fruit.column = column;
     fruit.row = row;
     _fruits[column][row] = fruit;
+
     return fruit;
 }
 
@@ -162,7 +163,7 @@
 - (NSSet *)detectPossibleSwaps {
     
     NSMutableSet *set = [NSMutableSet set];
-    
+   
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             
@@ -226,6 +227,11 @@
         }
     }
     
+    
+    
+    //[self removeFruits:set2];
+ 
+    
     self.possibleSwaps = set;
     
     return set;
@@ -266,24 +272,109 @@
 }
 
 #pragma mark - Detecting Matches
+-(NSSet *)deletarFrutas{
+     NSMutableSet *set = [NSMutableSet set];
+    for (NSInteger row = 0; row < NumRows; row++) {
+        for (NSInteger column = 0; column < NumColumns; column++) {
+            JIMCFruit *fruit = _fruits [column][row];
+            JIMCSwap *swap = [[JIMCSwap alloc] init];
+            swap.fruitA = fruit;
+            if ([swap.fruitA.spriteName isEqualToString:@"Croissant"] ) {
+                JIMCChain *chain = [[JIMCChain alloc] init];
+                [chain addFruit:_fruits[fruit.column][fruit.row]];
+                [set addObject:chain];
+            }
+        }
+    }
+    return set;
+}
 
-- (NSSet *)removeMatches {
-    NSSet *horizontalChains = [self detectHorizontalMatches];
+
+- (NSSet *)removeMatchesHorizontal {
+    NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self detectHorizontalMatches]];
     NSSet *verticalChains = [self detectVerticalMatches];
+   //NSSet *deletarFrutas = [self deletarFrutas];
+    //NSSet *frutas = [self deletarFrutas];
     
     // Note: to detect more advanced patterns such as an L shape, you can see
     // whether a fruit is in both the horizontal & vertical chains sets and
     // whether it is the first or last in the array (at a corner). Then you
     // create a new JIMCChain object with the new type and remove the other two.
+    //NSLog(@"valor %@",[verticalChains allObjects]);
+ 
+//    for (JIMCChain *chain in verticalChains) {
+//        
+//        for (JIMCFruit *fruit in chain.fruits) {
+//            
+//            _fruits[fruit.column][fruit.row].fruitType = 6;
+//            [_fruits[fruit.column][fruit.row] setSprite: [SKSpriteNode spriteNodeWithImageNamed:@"Banana"]];
+//        }
+//    }
     
     [self removeFruits:horizontalChains];
     [self removeFruits:verticalChains];
+    //[self removeFruits:deletarFrutas];
     
     [self calculateScores:horizontalChains];
     [self calculateScores:verticalChains];
     
-    return [horizontalChains setByAddingObjectsFromSet:verticalChains];
+    [horizontalChains unionSet:verticalChains];
+    //[horizontalChains unionSet:deletarFrutas];
+    return horizontalChains ;
 }
+-(void)verificaDestruir:(NSSet *)chains{
+    for (JIMCChain *chain in chains) {
+       
+        
+        for (JIMCFruit *fruit in chain.fruits) {
+            if (fruit != nil) {
+                
+            
+            if (_fruits[fruit.column][fruit.row + 1].fruitType ==
+                 _fruits[fruit.column][fruit.row + 2].fruitType ) {
+                
+                NSLog(@"vertical");
+            
+            }else
+                NSLog(@"horizontal");
+        }
+        }
+    }
+
+
+}
+- (NSSet *)removeMatchesVertical {
+   // NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self detectHorizontalMatches]];
+    NSSet *verticalChains = [self detectVerticalMatches];
+    //NSSet *deletarFrutas = [self deletarFrutas];
+    //NSSet *frutas = [self deletarFrutas];
+    
+    // Note: to detect more advanced patterns such as an L shape, you can see
+    // whether a fruit is in both the horizontal & vertical chains sets and
+    // whether it is the first or last in the array (at a corner). Then you
+    // create a new JIMCChain object with the new type and remove the other two.
+    //NSLog(@"valor %@",[verticalChains allObjects]);
+    
+    //    for (JIMCChain *chain in verticalChains) {
+    //        for (JIMCFruit *fruit in chain.fruits) {
+    //
+    //            _fruits[fruit.column][fruit.row].fruitType = 6;
+    //            [_fruits[fruit.column][fruit.row] setSprite: [SKSpriteNode spriteNodeWithImageNamed:@"Banana"]];
+    //        }
+    //    }
+    
+    //[self removeFruits:horizontalChains];
+    [self removeFruits:verticalChains];
+    //[self removeFruits:deletarFrutas];
+    
+   // [self calculateScores:horizontalChains];
+    [self calculateScores:verticalChains];
+    
+     //[horizontalChains unionSet:verticalChains];
+    //[horizontalChains unionSet:deletarFrutas];
+    return verticalChains ;
+}
+
 
 - (NSSet *)detectHorizontalMatches {
     
@@ -358,6 +449,9 @@
 
 - (void)removeFruits:(NSSet *)chains {
     for (JIMCChain *chain in chains) {
+        if (chain.fruits.count == 4) {
+            NSLog(@"dasdasdasd");
+        }
         for (JIMCFruit *fruit in chain.fruits) {
             _fruits[fruit.column][fruit.row] = nil;
         }
@@ -367,7 +461,7 @@
 - (void)calculateScores:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        chain.score = 60 * ([chain.fruits count] - 2) * self.comboMultiplier;
+        //chain.score = 60 * ([chain.fruits count] - 2) * self.comboMultiplier;
         self.comboMultiplier++;
     }
 }
@@ -392,9 +486,11 @@
                 // Scan upward to find a fruit.
                 for (NSInteger lookup = row + 1; lookup < NumRows; lookup++) {
                     JIMCFruit *fruit = _fruits[column][lookup];
+                    
                     if (fruit != nil) {
                         // Swap that fruit with the hole.
                         _fruits[column][lookup] = nil;
+                        
                         _fruits[column][row] = fruit;
                         fruit.row = row;
                         
@@ -416,6 +512,12 @@
         }
     }
     return columns;
+}
+
+-(NSArray *)addFruti:(NSInteger *)co{
+
+    
+    return nil;
 }
 
 - (NSArray *)topUpFruits {
@@ -441,8 +543,9 @@
                 // "freebie" matches.
                 NSUInteger newFruitType;
                 do {
-                    newFruitType = arc4random_uniform(NumFruitTypes) + 1;
+                        newFruitType = arc4random_uniform(NumFruitTypes) + 1;
                 } while (newFruitType == fruitType);
+                
                 fruitType = newFruitType;
                 
                 // Create a new fruit.
@@ -459,8 +562,11 @@
             }
         }
     }
+
     return columns;
 }
+
+
 
 #pragma mark - Querying the Level
 
