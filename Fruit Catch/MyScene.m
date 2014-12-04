@@ -190,6 +190,33 @@ static const CGFloat TileHeight = 36.0;
     }
 }
 
+- (void)addSpritesForFruit:(JIMCFruit *)fruit {
+    SKSpriteNode *sprite;
+    if (fruit.fruitPowerUp){
+        sprite = [SKSpriteNode spriteNodeWithImageNamed:@"questionMark"];
+    }
+    else{
+      sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
+    }
+        // Create a new sprite for the fruit and add it to the fruitsLayer.
+        //SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
+        sprite.position = [self pointForColumn:fruit.column row:fruit.row];
+        [self.fruitsLayer addChild:sprite];
+        fruit.sprite = sprite;
+        
+        // Give each fruit sprite a small, random delay. Then fade them in.
+        fruit.sprite.alpha = 0;
+        fruit.sprite.xScale = fruit.sprite.yScale = 0.5;
+        
+        [fruit.sprite runAction:[SKAction sequence:@[
+                                                     [SKAction waitForDuration:0.25 withRange:0.5],
+                                                     [SKAction group:@[
+                                                                       [SKAction fadeInWithDuration:0.25],
+                                                                       [SKAction scaleTo:1.0 duration:0.25]
+                                                                       ]]]]];
+}
+
+
 - (void)removeAllFruitSprites {
     [self.fruitsLayer removeAllChildren];
 }
@@ -335,6 +362,8 @@ static const CGFloat TileHeight = 36.0;
                                                          [SKAction removeFromParent]]]];
 }
 
+
+
 #pragma mark - Animations
 
 - (void)animateSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion {
@@ -379,16 +408,17 @@ static const CGFloat TileHeight = 36.0;
     for (JIMCChain *chain in chains) {
         [self animateScoreForChain:chain];
         for (JIMCFruit *fruit in chain.fruits) {
-            
-            if (fruit.sprite != nil) {
-                SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
-                scaleAction.timingMode = SKActionTimingEaseOut;
-                [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
-                
-                // It may happen that the same JIMCFruit object is part of two chains
-                // (L-shape match). In that case, its sprite should only be removed
-                // once.
-                fruit.sprite = nil;
+            if ([fruit isKindOfClass:[JIMCFruit class]]){
+                if (fruit.sprite != nil) {
+                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
+                    scaleAction.timingMode = SKActionTimingEaseOut;
+                    [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
+                    
+                    // It may happen that the same JIMCFruit object is part of two chains
+                    // (L-shape match). In that case, its sprite should only be removed
+                    // once.
+                    fruit.sprite = nil;
+                }
             }
         }
     }
@@ -406,6 +436,7 @@ static const CGFloat TileHeight = 36.0;
     // Figure out what the midpoint of the chain is.
     JIMCFruit *firstFruit = [chain.fruits firstObject];
     JIMCFruit *lastFruit = [chain.fruits lastObject];
+    
     CGPoint centerPosition = CGPointMake(
                                          (firstFruit.sprite.position.x + lastFruit.sprite.position.x)/2,
                                          (firstFruit.sprite.position.y + lastFruit.sprite.position.y)/2 - 8);
@@ -522,6 +553,7 @@ static const CGFloat TileHeight = 36.0;
     action.timingMode = SKActionTimingEaseOut;
     [self.gameLayer runAction:action];
 }
+
 
 @end
 

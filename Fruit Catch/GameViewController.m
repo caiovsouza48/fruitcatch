@@ -11,6 +11,8 @@
 #import "GameViewController.h"
 #import "MyScene.h"
 #import "JIMCLevel.h"
+#import "JIMCPowerUp.h"
+#import "JIMCSwapFruitSingleton.h"
 
 @interface GameViewController ()
 
@@ -28,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
 @property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
+
+@property(nonatomic) BOOL pressed;
 
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
@@ -65,6 +69,8 @@
         
         if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
+            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+            //NSLog(@"Swap Singleton = %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
             }];
@@ -87,7 +93,7 @@
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Mining by Moonlight" withExtension:@"mp3"];
     self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     self.backgroundMusic.numberOfLoops = -1;
-    [self.backgroundMusic play];
+    //[self.backgroundMusic play];
     
     // Let's start the game!
     [self beginGame];
@@ -143,7 +149,7 @@
     
     // Detect if there are any matches left.
     NSSet *chains = [self.level removeMatches];
-    
+    NSLog(@"Chains = %@",chains);
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
         [self beginNextTurn];
@@ -152,8 +158,57 @@
     
     // First, remove any matches...
     [self.scene animateMatchedFruits:chains completion:^{
-        
+        int i=0;
         // Add the new scores to the total.
+        for (JIMCChain *chain in chains) {
+            self.score += chain.score;
+//            NSLog(@"JIMCPowerUp = %ld",(long)(((JIMCFruit *)chain.fruits[i]).fruitPowerUp));
+//            if (((JIMCFruit *)chain.fruits[i]).fruitPowerUp >= 1)
+//              [self.scene addSpritesForFruit:chain.fruits[i]];
+//            i++;
+        }
+        if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
+            [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
+            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+        }
+        
+        [self updateLabels];
+        
+        // ...then shift down any fruits that have a hole below them...
+        NSArray *columns = [self.level fillHoles];
+        [self.scene animateFallingFruits:columns completion:^{
+            
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
+                
+                // Keep repeating this cycle until there are no more matches.
+                [self handleMatches];
+            }];
+        }];
+    }];
+}
+
+- (void)handlePowerUp {
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
+    // the app.
+    
+    // Detect if there are any matches left.
+    JIMCPowerUp *powerUp = [[JIMCPowerUp alloc]init];
+    powerUp.position = (CGPoint){5,5};
+    NSSet *chains = [self.scene.level executePowerUp:powerUp];
+    // If there are no more matches, then the player gets to move again.
+    if ([chains count] == 0) {
+        NSLog(@"Chains count is zero");
+        [self beginNextTurn];
+        return;
+    }
+    
+    // First, remove any matches...
+    [self.scene animateMatchedFruits:chains completion:^{
+        
+//        Add the new scores to the total.
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
@@ -177,6 +232,7 @@
 - (void)beginNextTurn {
     
     [self.level resetComboMultiplier];
+    
     self.possibleMoves = [self.level detectPossibleSwaps];
     
     NSInteger i = self.possibleMoves.count;
@@ -248,10 +304,14 @@
 }
 
 - (IBAction)shuffleButtonPressed:(id)sender {
-    [self shuffle];
+    //[self shuffle];
     
-    // Pressing the shuffle button costs a move.
-    [self decrementMoves];
+    
+        // Pressing the shuffle button costs a move.
+        [self decrementMoves];
+        [self handlePowerUp];
+    
+    
 }
 
 @end

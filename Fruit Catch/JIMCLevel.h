@@ -5,6 +5,8 @@
 #import "JIMCSwap.h"
 #import "JIMCChain.h"
 
+@class JIMCPowerUp;
+
 static const NSInteger NumColumns = 9;
 static const NSInteger NumRows = 9;
 
@@ -28,6 +30,8 @@ static const NSInteger NumRows = 9;
 
 // Determines whether there's a tile at the specified column and row.
 - (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row;
+
+- (void)removeFruitAtColumn:(NSInteger)column row:(NSInteger)row;
 
 // Swaps the positions of the two fruits from the JIMCSwap object.
 - (void)performSwap:(JIMCSwap *)swap;
@@ -60,5 +64,9 @@ static const NSInteger NumRows = 9;
 
 // Should be called at the start of every new turn.
 - (void)resetComboMultiplier;
+
+- (NSSet *) executePowerUp:(JIMCPowerUp *)powerUp;
+
+- (NSSet *)removeMatchesForPowerUp:(JIMCPowerUp *)powerUp;
 
 @end

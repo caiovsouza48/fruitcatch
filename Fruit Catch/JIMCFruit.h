@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-static const NSUInteger NumFruitTypes = 6;
+static const NSUInteger NumFruitTypes = 4;
 
 @interface JIMCFruit : NSObject
 
@@ -16,6 +16,7 @@ static const NSUInteger NumFruitTypes = 6;
 @property (assign, nonatomic) NSInteger row;
 @property (assign, nonatomic) NSUInteger fruitType;  // 1 - 6
 @property (strong, nonatomic) SKSpriteNode *sprite;
+@property(nonatomic) NSInteger fruitPowerUp;
 
 - (NSString *)spriteName;
 - (NSString *)highlightedSpriteName;

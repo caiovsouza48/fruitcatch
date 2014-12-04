@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE4E21E61A24FA390050007D /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4E21E51A24FA390050007D /* JIMCPowerUp.m */; };
+		DE4E21E91A24FBC50050007D /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4E21E81A24FBC50050007D /* JIMCBombaMaisPowerUp.m */; };
 		DEC905A81A239C6D003DD444 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905A71A239C6D003DD444 /* main.m */; };
 		DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AA1A239C6D003DD444 /* AppDelegate.m */; };
 		DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AD1A239C6D003DD444 /* GameScene.m */; };
@@ -16,6 +18,8 @@
 		DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B71A239C6D003DD444 /* Images.xcassets */; };
 		DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B91A239C6D003DD444 /* LaunchScreen.xib */; };
 		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
+		DEF7B4B31A2FC7D400D7F7B3 /* questionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */; };
+		DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
 		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
 		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
@@ -48,6 +52,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE4E21E41A24FA390050007D /* JIMCPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCPowerUp.h; sourceTree = "<group>"; };
+		DE4E21E51A24FA390050007D /* JIMCPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCPowerUp.m; sourceTree = "<group>"; };
+		DE4E21E71A24FBC50050007D /* JIMCBombaMaisPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCBombaMaisPowerUp.h; sourceTree = "<group>"; };
+		DE4E21E81A24FBC50050007D /* JIMCBombaMaisPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCBombaMaisPowerUp.m; sourceTree = "<group>"; };
 		DEC905A21A239C6D003DD444 /* Fruit Catch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fruit Catch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905A61A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905A71A239C6D003DD444 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -64,6 +72,9 @@
 		DEC905C01A239C6D003DD444 /* Fruit CatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fruit CatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905C51A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fruit_CatchTests.m; sourceTree = "<group>"; };
+		DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionMark.png; sourceTree = "<group>"; };
+		DEF7B4BB1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCSwapFruitSingleton.h; sourceTree = "<group>"; };
+		DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCSwapFruitSingleton.m; sourceTree = "<group>"; };
 		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCFruit.h; sourceTree = "<group>"; };
@@ -178,6 +189,8 @@
 			children = (
 				E3E3ECA11A23AE0600E7E18E /* JIMCSwap.h */,
 				E3E3ECA21A23AE0600E7E18E /* JIMCSwap.m */,
+				DEF7B4BB1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.h */,
+				DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */,
 			);
 			name = JIMCSwap;
 			sourceTree = "<group>";
@@ -189,6 +202,17 @@
 				E3E3ECA51A23AE8700E7E18E /* JIMCChain.m */,
 			);
 			name = JIMCChain;
+			sourceTree = "<group>";
+		};
+		DE4E21E31A24FA0D0050007D /* JIMCPowerUp */ = {
+			isa = PBXGroup;
+			children = (
+				DE4E21E41A24FA390050007D /* JIMCPowerUp.h */,
+				DE4E21E51A24FA390050007D /* JIMCPowerUp.m */,
+				DE4E21E71A24FBC50050007D /* JIMCBombaMaisPowerUp.h */,
+				DE4E21E81A24FBC50050007D /* JIMCBombaMaisPowerUp.m */,
+			);
+			name = JIMCPowerUp;
 			sourceTree = "<group>";
 		};
 		DEC905991A239C6D003DD444 = {
@@ -257,6 +281,7 @@
 		E3E3EC971A23ACFB00E7E18E /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				DE4E21E31A24FA0D0050007D /* JIMCPowerUp */,
 				0FD2EDB81A23BA5A000EB99F /* MyScene */,
 				0FD2EDB91A23BA62000EB99F /* JIMCFruit */,
 				0FD2EDBA1A23BA6D000EB99F /* JIMCLevel */,
@@ -284,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				E3E3ECBC1A23B34500E7E18E /* Level_0.json */,
+				DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */,
 				E3E3ECBD1A23B34500E7E18E /* Level_1.json */,
 				E3E3ECBE1A23B34500E7E18E /* Level_2.json */,
 				E3E3ECBF1A23B34500E7E18E /* Level_3.json */,
@@ -378,6 +404,7 @@
 				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
 				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
+				DEF7B4B31A2FC7D400D7F7B3 /* questionMark.png in Resources */,
 				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
 				E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */,
 				E3E3ECC11A23B34500E7E18E /* Level_0.json in Resources */,
@@ -407,7 +434,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
+				DE4E21E91A24FBC50050007D /* JIMCBombaMaisPowerUp.m in Sources */,
 				E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */,
+				DE4E21E61A24FA390050007D /* JIMCPowerUp.m in Sources */,
 				E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */,
 				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
 				E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */,
@@ -415,6 +444,7 @@
 				DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
+				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
