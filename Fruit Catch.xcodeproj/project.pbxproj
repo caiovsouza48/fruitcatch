@@ -12,13 +12,15 @@
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
 		DEC905A81A239C6D003DD444 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905A71A239C6D003DD444 /* main.m */; };
 		DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AA1A239C6D003DD444 /* AppDelegate.m */; };
-		DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AD1A239C6D003DD444 /* GameScene.m */; };
-		DEC905B01A239C6D003DD444 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = DEC905AF1A239C6D003DD444 /* GameScene.sks */; };
 		DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905B21A239C6D003DD444 /* GameViewController.m */; };
 		DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B41A239C6D003DD444 /* Main.storyboard */; };
 		DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B71A239C6D003DD444 /* Images.xcassets */; };
 		DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B91A239C6D003DD444 /* LaunchScreen.xib */; };
 		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
+		DEF7B4B31A2FC7D400D7F7B3 /* questionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */; };
+		DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */; };
+		E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E30CD4D71A2CC817009BBC92 /* banana@2x.png */; };
+		E3CDA7BE1A2DE645001A2ACF /* selva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CDA7BD1A2DE645001A2ACF /* selva@2x.png */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
 		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
 		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
@@ -61,9 +63,6 @@
 		DEC905A71A239C6D003DD444 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DEC905A91A239C6D003DD444 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DEC905AA1A239C6D003DD444 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DEC905AC1A239C6D003DD444 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		DEC905AD1A239C6D003DD444 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		DEC905AF1A239C6D003DD444 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		DEC905B11A239C6D003DD444 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		DEC905B21A239C6D003DD444 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		DEC905B51A239C6D003DD444 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,6 +71,11 @@
 		DEC905C01A239C6D003DD444 /* Fruit CatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fruit CatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905C51A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fruit_CatchTests.m; sourceTree = "<group>"; };
+		DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionMark.png; sourceTree = "<group>"; };
+		DEF7B4BB1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCSwapFruitSingleton.h; sourceTree = "<group>"; };
+		DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCSwapFruitSingleton.m; sourceTree = "<group>"; };
+		E30CD4D71A2CC817009BBC92 /* banana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "banana@2x.png"; path = "Sprites.atlas/banana@2x.png"; sourceTree = "<group>"; };
+		E3CDA7BD1A2DE645001A2ACF /* selva@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "selva@2x.png"; sourceTree = "<group>"; };
 		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCFruit.h; sourceTree = "<group>"; };
@@ -129,9 +133,6 @@
 		0FD2EDB61A23BA43000EB99F /* GameScene */ = {
 			isa = PBXGroup;
 			children = (
-				DEC905AC1A239C6D003DD444 /* GameScene.h */,
-				DEC905AD1A239C6D003DD444 /* GameScene.m */,
-				DEC905AF1A239C6D003DD444 /* GameScene.sks */,
 			);
 			name = GameScene;
 			sourceTree = "<group>";
@@ -139,6 +140,8 @@
 		0FD2EDB71A23BA4D000EB99F /* GameViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E30CD4D71A2CC817009BBC92 /* banana@2x.png */,
+				E3CDA7BD1A2DE645001A2ACF /* selva@2x.png */,
 				DEC905B11A239C6D003DD444 /* GameViewController.h */,
 				DEC905B21A239C6D003DD444 /* GameViewController.m */,
 			);
@@ -186,6 +189,8 @@
 			children = (
 				E3E3ECA11A23AE0600E7E18E /* JIMCSwap.h */,
 				E3E3ECA21A23AE0600E7E18E /* JIMCSwap.m */,
+				DEF7B4BB1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.h */,
+				DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */,
 			);
 			name = JIMCSwap;
 			sourceTree = "<group>";
@@ -286,6 +291,7 @@
 		E3E3EC971A23ACFB00E7E18E /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				DE4E21E31A24FA0D0050007D /* JIMCPowerUp */,
 				0FD2EDB81A23BA5A000EB99F /* MyScene */,
 				0FD2EDB91A23BA62000EB99F /* JIMCFruit */,
 				0FD2EDBA1A23BA6D000EB99F /* JIMCLevel */,
@@ -313,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				E3E3ECBC1A23B34500E7E18E /* Level_0.json */,
+				DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */,
 				E3E3ECBD1A23B34500E7E18E /* Level_1.json */,
 				E3E3ECBE1A23B34500E7E18E /* Level_2.json */,
 				E3E3ECBF1A23B34500E7E18E /* Level_3.json */,
@@ -407,10 +414,11 @@
 				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
 				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
+				DEF7B4B31A2FC7D400D7F7B3 /* questionMark.png in Resources */,
+				E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */,
 				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
 				E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */,
 				E3E3ECC11A23B34500E7E18E /* Level_0.json in Resources */,
-				DEC905B01A239C6D003DD444 /* GameScene.sks in Resources */,
 				E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */,
 				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
@@ -437,7 +445,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
+				DE4E21E91A24FBC50050007D /* JIMCBombaMaisPowerUp.m in Sources */,
 				E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */,
+				DE4E21E61A24FA390050007D /* JIMCPowerUp.m in Sources */,
 				E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */,
 				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
 				E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */,
@@ -447,6 +457,7 @@
 				DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
+				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,6 +16,7 @@ static const NSUInteger NumFruitTypes = 3;
 @property (assign, nonatomic) NSInteger row;
 @property (assign, nonatomic) NSUInteger fruitType;  // 1 - 6
 @property (strong, nonatomic) SKSpriteNode *sprite;
+@property(nonatomic) NSInteger fruitPowerUp;
 
 - (NSString *)spriteName;
 - (NSString *)highlightedSpriteName;

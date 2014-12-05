@@ -10,6 +10,8 @@
 
 @class JIMCLevel;
 @class JIMCSwap;
+@class JIMCPowerUp;
+@class JIMCFruit;
 
 @interface MyScene : SKScene
 
@@ -24,7 +26,10 @@
 - (void)addSpritesForFruits:(NSSet *)fruits;
 - (void)addTiles;
 - (void)removeAllFruitSprites;
+- (NSSet *)executePowerUp:(JIMCPowerUp *)powerUp;
+- (void)addSpritesForFruit:(JIMCFruit *)fruit;
 
+- (void)animatePowerUp:(JIMCPowerUp *)powerUp completion:(dispatch_block_t)completion;
 - (void)animateSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion;
 - (void)animateInvalidSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion;
 - (void)animateMatchedFruits:(NSSet *)chains completion:(dispatch_block_t)completion;

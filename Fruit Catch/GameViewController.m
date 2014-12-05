@@ -11,6 +11,8 @@
 #import "GameViewController.h"
 #import "MyScene.h"
 #import "JIMCLevel.h"
+#import "JIMCPowerUp.h"
+#import "JIMCSwapFruitSingleton.h"
 
 @interface GameViewController ()
 
@@ -21,7 +23,7 @@
 @property (nonatomic) MyScene *scene;
 
 @property (assign, nonatomic) NSUInteger movesLeft;
-@property (assign, nonatomic) NSUInteger score;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *movesLabel;
@@ -60,17 +62,32 @@
     
     // This is the swipe handler. MyScene invokes this block whenever it
     // detects that the player performs a swipe.
+    
+    
+   
     id block = ^(JIMCSwap *swap) {
         
         // While fruits are being matched and new fruits fall down to fill up
         // the holes, we don't want the player to tap on anything.
         self.view.userInteractionEnabled = NO;
         
-        if ([self.level isPossibleSwap:swap]) {
+        if ([self.level isPowerSwap:swap]) {
             [self.level performSwap:swap];
+            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+            [self.scene animateSwap:swap completion:^{
+                [self handleMatchesAll];
+            }];
+            [self handleMatches];
+        }else if ([self.level isPossibleSwap:swap]) {
+            [self.level performSwap:swap];
+            NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
+            NSLog(@"Fruta B %@",swap.fruitB);
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
             }];
+            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+           
+
         } else {
             [self.scene animateInvalidSwap:swap completion:^{
                 self.view.userInteractionEnabled = YES;
@@ -78,6 +95,7 @@
         }
     };
     
+   
     self.scene.swipeHandler = block;
     
     // Hide the game over panel from the screen.
@@ -90,7 +108,7 @@
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Mining by Moonlight" withExtension:@"mp3"];
     self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     self.backgroundMusic.numberOfLoops = -1;
-    [self.backgroundMusic play];
+    //[self.backgroundMusic play];
     
     // Let's start the game!
     [self beginGame];
@@ -98,7 +116,7 @@
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return NO;
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -144,6 +162,42 @@
     NSSet *newFruits = [self.level shuffle];
     [self.scene addSpritesForFruits:newFruits];
 }
+- (void)handleMatchesAll {
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
+    // the app.
+    
+    [self.scene removeActionForKey:@"Hint"];
+    
+    // Detect if there are any matches left.
+    NSSet *chains = [self.level removeMatchesAll];
+    // If there are no more matches, then the player gets to move again.
+
+    if ([chains count] == 0) {
+        [self beginNextTurn];
+        return;
+    }
+    
+    // First, remove any matches...
+    [self.scene animateMatchedFruits:chains completion:^{
+        // Add the new scores to the total.
+       
+        [self updateLabels];
+        
+        // ...then shift down any fruits that have a hole below them...
+        NSArray *columns = [self.level fillHoles];
+        [self.scene animateFallingFruits:columns completion:^{
+            
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
+            
+                [self handleMatches];
+            
+            }];
+        }];
+    }];
+}
 
 - (void)handleMatches {
     // This is the main loop that removes any matching fruits and fills up the
@@ -154,7 +208,6 @@
     
     // Detect if there are any matches left.
     NSSet *chains = [self.level removeMatches];
-    
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
         [self beginNextTurn];
@@ -163,10 +216,20 @@
     
     // First, remove any matches...
     [self.scene animateMatchedFruits:chains completion:^{
-        
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
-            self.score += chain.score;
+            if (chain.fruits.count  == 4 || chain.fruits.count  == 3  ) {
+                 [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+            }
+//            NSLog(@"JIMCPowerUp = %ld",(long)(((JIMCFruit *)chain.fruits[i]).fruitPowerUp));
+//            if (((JIMCFruit *)chain.fruits[i]).fruitPowerUp >= 1)
+//              [self.scene addSpritesForFruit:chain.fruits[i]];
+//            i++;
+        }
+         NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
+        if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
+            [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
+            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
         }
         [self updateLabels];
         
@@ -183,14 +246,56 @@
             }];
         }];
     }];
-    
-    [self.scene runAction:self.hintAction withKey:@"Hint"];
-    
 }
+
+- (void)handlePowerUp {
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
+    // the app.
+    
+    // Detect if there are any matches left.
+    JIMCPowerUp *powerUp = [[JIMCPowerUp alloc]init];
+    powerUp.position = (CGPoint){5,5};
+    NSSet *chains = [self.scene.level executePowerUp:powerUp];
+    // If there are no more matches, then the player gets to move again.
+    if ([chains count] == 0) {
+        NSLog(@"Chains count is zero");
+        [self beginNextTurn];
+        return;
+    }
+   // [self.level verificaDestruir:chains];
+    // First, remove any matches...
+    [self.scene animateMatchedFruits:chains completion:^{
+        
+        // Add the new scores to the total.
+        for (JIMCChain *chain in chains) {
+            self.score += chain.score;
+        }
+        [self updateLabels];
+
+        // ...then shift down any fruits that have a hole below them...
+        NSMutableArray *columns = [[NSMutableArray alloc]initWithArray:[self.level fillHoles]];
+       
+       
+        
+        [self.scene animateFallingFruits:columns completion:^{
+            
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
+                
+                // Keep repeating this cycle until there are no more matches.
+                [self handleMatches];
+            }];
+        }];
+    }];
+}
+
 
 - (void)beginNextTurn {
     
     [self.level resetComboMultiplier];
+    
     self.possibleMoves = [self.level detectPossibleSwaps];
     
     NSInteger i = self.possibleMoves.count;
@@ -205,9 +310,11 @@
     NSLog(@"Jogadas possiveis = %d",(int)i);
     
     [self.scene runAction: self.hintAction withKey:@"Hint"];
+    SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
+    
 }
 
 -(void)showMoves
@@ -220,9 +327,8 @@
     if(swap.fruitA.column == 4){
         x = 0;
     }else{
-        x = 32 * (swap.fruitA.column - 4);
+        x = 34 * (swap.fruitA.column - 4);
     }
-    
     if(swap.fruitA.row == 4){
         y = 0;
     }else{
@@ -304,10 +410,14 @@
 }
 
 - (IBAction)shuffleButtonPressed:(id)sender {
-    [self shuffle];
+    //[self shuffle];
     
-    // Pressing the shuffle button costs a move.
-    [self decrementMoves];
+    
+        // Pressing the shuffle button costs a move.
+        [self decrementMoves];
+        [self handlePowerUp];
+    
+    
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

@@ -164,6 +164,7 @@
                                 <exclude reference="NwU-VO-8hz"/>
                                 <exclude reference="9uF-AV-uaC"/>
                                 <exclude reference="NHk-PR-yXA"/>
+                                <exclude reference="dfm-l2-Y5p"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -175,6 +176,7 @@
                                 <include reference="NwU-VO-8hz"/>
                                 <include reference="9uF-AV-uaC"/>
                                 <include reference="NHk-PR-yXA"/>
+                                <include reference="dfm-l2-Y5p"/>
                             </mask>
                         </variation>
                     </view>
