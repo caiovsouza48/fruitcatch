@@ -357,6 +357,7 @@
 }
 
 - (void)removeFruits:(NSSet *)chains {
+
     for (JIMCChain *chain in chains) {
         for (JIMCFruit *fruit in chain.fruits) {
             _fruits[fruit.column][fruit.row] = nil;
@@ -381,6 +382,7 @@
     // at the bottom already. Because we're scanning from bottom to top, this
     // automatically causes an entire stack to fall down to fill up a hole.
     // We scan one column at a time.
+    
     for (NSInteger column = 0; column < NumColumns; column++) {
         
         NSMutableArray *array;
@@ -397,7 +399,6 @@
                         _fruits[column][lookup] = nil;
                         _fruits[column][row] = fruit;
                         fruit.row = row;
-                        
                         // For each column, we return an array with the fruits that have
                         // fallen down. Fruits that are lower on the screen are first in
                         // the array. We need an array to keep this order intact, so the

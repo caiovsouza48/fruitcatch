@@ -15,10 +15,10 @@
 @interface GameViewController ()
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
-@property (strong, nonatomic) JIMCLevel *level;
+@property (nonatomic) JIMCLevel *level;
 
 // The scene draws the tiles and fruit sprites, and handles swipes.
-@property (strong, nonatomic) MyScene *scene;
+@property (nonatomic) MyScene *scene;
 
 @property (assign, nonatomic) NSUInteger movesLeft;
 @property (assign, nonatomic) NSUInteger score;
@@ -29,11 +29,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
 @property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
 
-@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
-@property (strong, nonatomic) AVAudioPlayer *backgroundMusic;
+@property (nonatomic) AVAudioPlayer *backgroundMusic;
 
-@property (strong, nonatomic) NSSet *possibleMoves;
+@property (nonatomic) NSSet *possibleMoves;
 
 @property SKSpriteNode *hintNode;
 @property SKAction *hintAction;
@@ -54,7 +54,7 @@
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Load the level.
-    self.level = [[JIMCLevel alloc] initWithFile:@"Level_1"];
+    self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
     [self.scene addTiles];
     
@@ -200,10 +200,9 @@
         [self shuffle];
         self.possibleMoves = [self.level detectPossibleSwaps];
         i = self.possibleMoves.count;
-        NSLog(@"Jogadas possiveis = %ld",i);
-    }else{
-        NSLog(@"Jogadas possiveis = %ld",i);
     }
+    
+    NSLog(@"Jogadas possiveis = %d",(int)i);
     
     [self.scene runAction: self.hintAction withKey:@"Hint"];
     
@@ -253,6 +252,7 @@
         [self showGameOver];
     }
     
+    [self.scene removeActionForKey:@"Hint"];
     if(self.hintNode){
         [self.scene runAction:[SKAction runBlock:^{
             [self.hintNode removeFromParent];
@@ -263,6 +263,7 @@
 
 - (void)showGameOver {
     
+    [self.scene removeActionForKey:@"Hint"];
     if(self.hintNode){
         [self.scene runAction:[SKAction runBlock:^{
             [self.hintNode removeFromParent];
@@ -278,9 +279,18 @@
     [self.view addGestureRecognizer:self.tapGestureRecognizer];
     
     self.shuffleButton.hidden = YES;
+    
 }
 
 - (void)hideGameOver {
+    
+    [self.scene removeActionForKey:@"Hint"];
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
+    
     [self.view removeGestureRecognizer:self.tapGestureRecognizer];
     self.tapGestureRecognizer = nil;
     
@@ -290,6 +300,7 @@
     [self beginGame];
     
     self.shuffleButton.hidden = NO;
+    
 }
 
 - (IBAction)shuffleButtonPressed:(id)sender {
@@ -313,5 +324,36 @@
 {
     [self.scene runAction: self.hintAction withKey:@"Hint"];
 }
+
+-(IBAction)back:(id)sender
+{
+    [self performSegueWithIdentifier:@"Back" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"Back"]){
+        if(self.scene != nil)
+        {
+            [self.scene setPaused:YES];
+            [self.scene removeAllActions];
+            [self.scene removeAllChildren];
+            [self.backgroundMusic stop];
+            [self.scene removeAllFruitSprites];
+    
+            self.scene = nil;
+            self.backgroundMusic = nil;
+            self.level = nil;
+            
+            [self.scene removeFromParent];
+            
+            SKView *view = (SKView *)self.view;
+            [view presentScene:nil];
+            
+            view = nil;
+        }
+    }
+}
+
 
 @end

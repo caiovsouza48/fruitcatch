@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 436CBD091A2F737500862EDE /* WorldMap.m */; };
+		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
+		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
 		DEC905A81A239C6D003DD444 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905A71A239C6D003DD444 /* main.m */; };
 		DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AA1A239C6D003DD444 /* AppDelegate.m */; };
 		DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AD1A239C6D003DD444 /* GameScene.m */; };
@@ -48,6 +51,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		436CBD081A2F737500862EDE /* WorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMap.h; sourceTree = "<group>"; };
+		436CBD091A2F737500862EDE /* WorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMap.m; sourceTree = "<group>"; };
+		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
+		43F4362D1A28A00300F1C358 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		43F4362E1A28A00300F1C358 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		DEC905A21A239C6D003DD444 /* Fruit Catch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fruit Catch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905A61A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905A71A239C6D003DD444 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -191,6 +199,25 @@
 			name = JIMCChain;
 			sourceTree = "<group>";
 		};
+		436CBD071A2F732E00862EDE /* WorldMap */ = {
+			isa = PBXGroup;
+			children = (
+				436CBD081A2F737500862EDE /* WorldMap.h */,
+				436CBD091A2F737500862EDE /* WorldMap.m */,
+				436CBD0B1A2F739400862EDE /* MapButtons.plist */,
+			);
+			name = WorldMap;
+			sourceTree = "<group>";
+		};
+		43F4362C1A289FE000F1C358 /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				43F4362D1A28A00300F1C358 /* MainMenuViewController.h */,
+				43F4362E1A28A00300F1C358 /* MainMenuViewController.m */,
+			);
+			name = MainMenu;
+			sourceTree = "<group>";
+		};
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +239,8 @@
 		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
 			isa = PBXGroup;
 			children = (
+				436CBD071A2F732E00862EDE /* WorldMap */,
+				43F4362C1A289FE000F1C358 /* MainMenu */,
 				E3E3EC971A23ACFB00E7E18E /* Class */,
 				0FD2EDB51A23BA3A000EB99F /* AppDelegate */,
 				0FD2EDB61A23BA43000EB99F /* GameScene */,
@@ -385,6 +414,7 @@
 				E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */,
 				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
+				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
 				E3E3ECC51A23B34500E7E18E /* Level_4.json in Resources */,
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
 				E3E3ECC41A23B34500E7E18E /* Level_3.json in Resources */,
@@ -412,6 +442,8 @@
 				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
 				E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */,
 				DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */,
+				43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */,
+				436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */,
 				DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
