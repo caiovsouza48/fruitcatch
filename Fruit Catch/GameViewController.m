@@ -64,21 +64,32 @@
     
     // This is the swipe handler. MyScene invokes this block whenever it
     // detects that the player performs a swipe.
+    
+    
+   
     id block = ^(JIMCSwap *swap) {
         
         // While fruits are being matched and new fruits fall down to fill up
         // the holes, we don't want the player to tap on anything.
         self.view.userInteractionEnabled = NO;
         
-       
-        if ([self.level isPossibleSwap:swap]) {
+        if ([self.level isPowerSwap:swap]) {
             [self.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
-            //NSLog(@"Swap Singleton = %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
             [self.scene animateSwap:swap completion:^{
-                [self handleMatchesHorizontal];
-               // [self handleMatchesVertical];
+                [self handleMatchesAll];
             }];
+            [self handleMatches];
+        }else if ([self.level isPossibleSwap:swap]) {
+            [self.level performSwap:swap];
+            NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
+            NSLog(@"Fruta B %@",swap.fruitB);
+            [self.scene animateSwap:swap completion:^{
+                [self handleMatches];
+            }];
+            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+           
+
         } else {
             [self.scene animateInvalidSwap:swap completion:^{
                 self.view.userInteractionEnabled = YES;
@@ -86,6 +97,7 @@
         }
     };
     
+   
     self.scene.swipeHandler = block;
     
     // Hide the game over panel from the screen.
@@ -98,14 +110,15 @@
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Mining by Moonlight" withExtension:@"mp3"];
     self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     self.backgroundMusic.numberOfLoops = -1;
-    [self.backgroundMusic play];
+    //[self.backgroundMusic play];
+    
     // Let's start the game!
     [self beginGame];
 }
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return NO;
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -151,8 +164,7 @@
     NSSet *newFruits = [self.level shuffle];
     [self.scene addSpritesForFruits:newFruits];
 }
-
-- (void)handleMatchesHorizontal {
+- (void)handleMatchesAll {
     // This is the main loop that removes any matching fruits and fills up the
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
@@ -160,25 +172,67 @@
     [self.scene removeActionForKey:@"Hint"];
     
     // Detect if there are any matches left.
-    NSSet *chains = [self.level removeMatchesHorizontal];
+    NSSet *chains = [self.level removeMatchesAll];
+    // If there are no more matches, then the player gets to move again.
 
+    if ([chains count] == 0) {
+        [self beginNextTurn];
+        return;
+    }
     
     // First, remove any matches...
     [self.scene animateMatchedFruits:chains completion:^{
-        int i=0;
+        // Add the new scores to the total.
+       
+        [self updateLabels];
+        
+        // ...then shift down any fruits that have a hole below them...
+        NSArray *columns = [self.level fillHoles];
+        [self.scene animateFallingFruits:columns completion:^{
+            
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
+            
+                [self handleMatches];
+            
+            }];
+        }];
+    }];
+}
+
+- (void)handleMatches {
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
+    // the app.
+    
+    [self.scene removeActionForKey:@"Hint"];
+    
+    // Detect if there are any matches left.
+    NSSet *chains = [self.level removeMatches];
+    // If there are no more matches, then the player gets to move again.
+    if ([chains count] == 0) {
+        [self beginNextTurn];
+        return;
+    }
+    
+    // First, remove any matches...
+    [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
-            self.score += chain.score;
+            if (chain.fruits.count  == 4 || chain.fruits.count  == 3  ) {
+                 [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+            }
 //            NSLog(@"JIMCPowerUp = %ld",(long)(((JIMCFruit *)chain.fruits[i]).fruitPowerUp));
 //            if (((JIMCFruit *)chain.fruits[i]).fruitPowerUp >= 1)
 //              [self.scene addSpritesForFruit:chain.fruits[i]];
 //            i++;
         }
+         NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
         if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
             [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
             [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
         }
-        
         [self updateLabels];
         
         // ...then shift down any fruits that have a hole below them...
@@ -233,52 +287,12 @@
             [self.scene animateNewFruits:columns completion:^{
                 
                 // Keep repeating this cycle until there are no more matches.
-                [self handleMatchesHorizontal];
+                [self handleMatches];
             }];
         }];
     }];
 }
-- (void)handleMatchesVertical {
-    // This is the main loop that removes any matching fruits and fills up the
-    // holes with new fruits. While this happens, the user cannot interact with
-    // the app.
-    
-    // Detect if there are any matches left.
-    NSSet *chains = [self.level removeMatchesVertical];
-    
-    // If there are no more matches, then the player gets to move again.
-    if ([chains count] == 0) {
-        [self beginNextTurn];
-        return;
-    }
-   // NSLog(@"horizontal : %@",chains);
-    // First, remove any matches...
-    [self.scene animateMatchedFruits:chains completion:^{
-        
-//        Add the new scores to the total.
-        for (JIMCChain *chain in chains) {
-            self.score += chain.score;
-        }
-        [self updateLabels];
-        
-        // ...then shift down any fruits that have a hole below them...
-        NSArray *columns = [self.level fillHoles];
-        
-        [self.scene animateFallingFruits:columns completion:^{
-            
-            // ...and finally, add new fruits at the top.
-            NSArray *columns = [self.level topUpFruits];
-            [self.scene animateNewFruits:columns completion:^{
-                
-                // Keep repeating this cycle until there are no more matches.
-                [self handleMatchesVertical];
-            }];
-        }];
-    }];
-    
-    [self.scene runAction:self.hintAction withKey:@"Hint"];
-    
-}
+
 
 - (void)beginNextTurn {
     
@@ -298,9 +312,8 @@
      //   NSLog(@"Jogadas possiveis = %ld",i);
     }
     
+    [self.scene runAction: self.hintAction withKey:@"Hint"];
     SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
-    
-    [self.scene runAction:showMove];
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
@@ -309,7 +322,25 @@
 
 -(void)showMoves
 {
-    //NSLog(@"Moves = %@",self.possibleMoves);
+    //Obtem um movimento possivel entre todos
+    JIMCSwap *swap = [self.possibleMoves anyObject];
+    
+    NSInteger x,y;
+    
+    if(swap.fruitA.column == 4){
+        x = 0;
+    }else{
+        x = 34 * (swap.fruitA.column - 4);
+    }
+    if(swap.fruitA.row == 4){
+        y = 0;
+    }else{
+        y = 36 * (swap.fruitA.row - 4);
+    }
+    
+    self.hintNode = [[SKSpriteNode alloc]initWithImageNamed:[swap.fruitA highlightedSpriteName]];
+    self.hintNode.position = CGPointMake(x, y);
+    [self.scene addChild:self.hintNode];
 }
 
 - (void)updateLabels {
@@ -330,6 +361,7 @@
         [self showGameOver];
     }
     
+    [self.scene removeActionForKey:@"Hint"];
     if(self.hintNode){
         [self.scene runAction:[SKAction runBlock:^{
             [self.hintNode removeFromParent];
@@ -358,6 +390,7 @@
 }
 
 - (void)hideGameOver {
+    
     [self.view removeGestureRecognizer:self.tapGestureRecognizer];
     self.tapGestureRecognizer = nil;
     

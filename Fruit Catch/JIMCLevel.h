@@ -4,6 +4,9 @@
 #import "JIMCTile.h"
 #import "JIMCSwap.h"
 #import "JIMCChain.h"
+
+@class JIMCPowerUp;
+
 #import "MyScene.h"
 static const NSInteger NumColumns = 9;
 static const NSInteger NumRows = 9;
@@ -45,8 +48,8 @@ static const NSInteger NumRows = 9;
 // from the level.
 // Returns a set containing JIMCChain objects, which describe the JIMCFruits
 // that were removed.
-- (NSSet *)removeMatchesVertical;
-- (NSSet *)removeMatchesHorizontal;
+- (NSSet *)removeMatchesAll;
+- (NSSet *)removeMatches;
 // Detects where there are holes and shifts any fruits down to fill up those
 // holes. In effect, this "bubbles" the holes up to the top of the column.
 // Returns an array that contains a sub-array for each column that had holes,
@@ -62,6 +65,12 @@ static const NSInteger NumRows = 9;
 
 // Should be called at the start of every new turn.
 - (void)resetComboMultiplier;
+
+- (NSSet *) executePowerUp:(JIMCPowerUp *)powerUp;
+
+- (NSSet *)removeMatchesForPowerUp:(JIMCPowerUp *)powerUp;
+
 @property (strong, nonatomic) MyScene *scene;
 -(NSSet *)deletarFrutas;
+- (BOOL)isPowerSwap:(JIMCSwap *)swap;
 @end

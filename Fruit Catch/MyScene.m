@@ -203,7 +203,7 @@ static const CGFloat TileHeight = 36.0;
 - (void)addSpritesForFruit:(JIMCFruit *)fruit {
     SKSpriteNode *sprite;
     if (fruit.fruitPowerUp){
-        sprite = [SKSpriteNode spriteNodeWithImageNamed:@"questionMark"];
+        sprite = [SKSpriteNode spriteNodeWithImageNamed:@"cogumelo"];
     }
     else{
       sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
@@ -418,15 +418,17 @@ static const CGFloat TileHeight = 36.0;
     for (JIMCChain *chain in chains) {
         [self animateScoreForChain:chain];
         for (JIMCFruit *fruit in chain.fruits) {
-            if (fruit.sprite != nil) {
-                SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
-                scaleAction.timingMode = SKActionTimingEaseOut;
-                [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
-                
-                // It may happen that the same JIMCFruit object is part of two chains
-                // (L-shape match). In that case, its sprite should only be removed
-                // once.
-                fruit.sprite = nil;
+            if ([fruit isKindOfClass:[JIMCFruit class]]){
+                if (fruit.sprite != nil) {
+                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
+                    scaleAction.timingMode = SKActionTimingEaseOut;
+                    [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
+                    
+                    // It may happen that the same JIMCFruit object is part of two chains
+                    // (L-shape match). In that case, its sprite should only be removed
+                    // once.
+                    fruit.sprite = nil;
+                }
             }
         }
     }

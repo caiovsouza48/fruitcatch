@@ -17,6 +17,7 @@
         @"limao",
         @"uva",
         @"banana",
+        @"cogumelo",
     };
     
     return spriteNames[self.fruitType - 1];
@@ -29,6 +30,7 @@
         @"limao",
         @"uva",
         @"banana",
+        @"cogumelo",
     };
     
     return highlightedSpriteNames[self.fruitType - 1];
