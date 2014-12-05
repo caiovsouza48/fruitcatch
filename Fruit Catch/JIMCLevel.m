@@ -309,16 +309,7 @@
     // whether a fruit is in both the horizontal & vertical chains sets and
     // whether it is the first or last in the array (at a corner). Then you
     // create a new JIMCChain object with the new type and remove the other two.
-    //NSLog(@"valor %@",[verticalChains allObjects]);
- 
-//    for (JIMCChain *chain in verticalChains) {
-//        
-//        for (JIMCFruit *fruit in chain.fruits) {
-//            
-//            _fruits[fruit.column][fruit.row].fruitType = 6;
-//            [_fruits[fruit.column][fruit.row] setSprite: [SKSpriteNode spriteNodeWithImageNamed:@"Banana"]];
-//        }
-//    }
+
     
     [self removeFruits:horizontalChains];
     [self removeFruits:verticalChains];
