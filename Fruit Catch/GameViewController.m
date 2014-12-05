@@ -19,6 +19,7 @@
 // The level contains the tiles, the fruits, and most of the gameplay logic.
 @property (nonatomic) JIMCLevel *level;
 
+
 // The scene draws the tiles and fruit sprites, and handles swipes.
 @property (nonatomic) MyScene *scene;
 
@@ -305,12 +306,15 @@
         [self shuffle];
         self.possibleMoves = [self.level detectPossibleSwaps];
         i = self.possibleMoves.count;
+     //   NSLog(@"Jogadas possiveis = %ld",i);
+    }else{
+     //   NSLog(@"Jogadas possiveis = %ld",i);
     }
     
     NSLog(@"Jogadas possiveis = %d",(int)i);
     
     [self.scene runAction: self.hintAction withKey:@"Hint"];
-    SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
+    //SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];

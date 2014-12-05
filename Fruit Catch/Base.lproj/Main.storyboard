@@ -145,6 +145,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="143" y="521" width="114" height="30"/>
+                                </variation>
                                 <connections>
                                     <action selector="back:" destination="BV1-FR-VrT" eventType="touchUpInside" id="PLg-GU-qUM"/>
                                 </connections>

@@ -555,7 +555,7 @@
 }
 
 - (void)removeFruits:(NSSet *)chains {
-
+    BOOL flag=NO;
     for (JIMCChain *chain in chains) {
         for (JIMCFruit *fruit in chain.fruits) {
             if ([fruit isKindOfClass:[JIMCFruit class]]){
