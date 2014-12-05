@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CE564395-A3E7-427D-B1CF-1BFAAC6347FD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Fruit Catch</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DE96A66CC6077DDFDA412E9B204A8085EDA5ECAF</key>
+		<string>https://bitbucket.org/sucodefrutasteam/fruitcatch.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Fruit Catch.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DE96A66CC6077DDFDA412E9B204A8085EDA5ECAF</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/sucodefrutasteam/fruitcatch.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DE96A66CC6077DDFDA412E9B204A8085EDA5ECAF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DE96A66CC6077DDFDA412E9B204A8085EDA5ECAF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>fruitcatch</string>
+		</dict>
+	</array>
+</dict>
+</plist>
