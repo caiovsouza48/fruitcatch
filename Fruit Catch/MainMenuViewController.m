@@ -7,8 +7,15 @@
 //
 
 #import "MainMenuViewController.h"
+#import "SettingsSingleton.h"
+
+#define ON 1
+#define OFF 0
 
 @interface MainMenuViewController ()
+
+@property (nonatomic) IBOutlet UIButton *musicBtn;
+@property (nonatomic) IBOutlet UIButton *soundBtn;
 
 @end
 
@@ -27,6 +34,30 @@
 -(IBAction)singlePlayer:(id)sender
 {
     [self performSegueWithIdentifier:@"Single" sender:self];
+}
+
+-(IBAction)musicON_OFF:(id)sender
+{
+    [[SettingsSingleton sharedInstance] musicON_OFF];
+    
+    if([SettingsSingleton sharedInstance].music == ON){
+        NSLog(@"Music On");
+    }else{
+        NSLog(@"Music Off");
+    }
+    
+    [self.view setNeedsDisplay];
+}
+
+-(IBAction)soundON_OFF:(id)sender
+{
+    [[SettingsSingleton sharedInstance] soundON_OFF];
+    
+    if([SettingsSingleton sharedInstance].SFX == ON){
+        NSLog(@"SFX On");
+    }else{
+        NSLog(@"SFX Off");
+    }
 }
 
 /*

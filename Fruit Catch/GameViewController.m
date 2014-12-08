@@ -13,6 +13,7 @@
 #import "JIMCLevel.h"
 #import "JIMCPowerUp.h"
 #import "JIMCSwapFruitSingleton.h"
+#import "SettingsSingleton.h"
 
 @interface GameViewController ()
 
@@ -109,7 +110,10 @@
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Mining by Moonlight" withExtension:@"mp3"];
     self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     self.backgroundMusic.numberOfLoops = -1;
-    //[self.backgroundMusic play];
+    
+    if([SettingsSingleton sharedInstance].music == ON){
+        [self.backgroundMusic play];
+    }
     
     // Let's start the game!
     [self beginGame];

@@ -12,9 +12,6 @@ static JIMCSwapFruitSingleton *instance;
 
 @implementation JIMCSwapFruitSingleton
 
-
-
-
 + (JIMCSwapFruitSingleton *)sharedInstance{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
