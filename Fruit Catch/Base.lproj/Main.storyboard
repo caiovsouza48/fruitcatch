@@ -1,9 +1,92 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Main Menu View Controller-->
+        <scene sceneID="v3m-XV-def">
+            <objects>
+                <viewController id="uZN-3h-NbC" customClass="MainMenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gN4-Zv-58r"/>
+                        <viewControllerLayoutGuide type="bottom" id="7uI-9n-bRw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Etp-xP-zSB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orL-be-TdJ">
+                                <rect key="frame" x="279" y="265" width="43" height="30"/>
+                                <state key="normal" title="Single">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="singlePlayer:" destination="uZN-3h-NbC" eventType="touchUpInside" id="uz2-Gu-OS2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ic6-q4-G9P">
+                                <rect key="frame" x="56" y="510" width="42" height="30"/>
+                                <state key="normal" title="Music">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="musicON_OFF:" destination="uZN-3h-NbC" eventType="touchUpInside" id="PPm-XN-IVL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQl-48-7yR">
+                                <rect key="frame" x="96" y="550" width="45" height="30"/>
+                                <state key="normal" title="Sound">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="soundON_OFF:" destination="uZN-3h-NbC" eventType="touchUpInside" id="LKJ-ai-9th"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ic6-q4-G9P" firstAttribute="leading" secondItem="Etp-xP-zSB" secondAttribute="leadingMargin" constant="40" id="BNj-Lu-bqf"/>
+                            <constraint firstAttribute="centerY" secondItem="orL-be-TdJ" secondAttribute="centerY" constant="20" id="OrN-tn-Ndz"/>
+                            <constraint firstItem="7uI-9n-bRw" firstAttribute="top" secondItem="LQl-48-7yR" secondAttribute="bottom" constant="20" id="XCu-7j-LRh"/>
+                            <constraint firstItem="LQl-48-7yR" firstAttribute="leading" secondItem="Etp-xP-zSB" secondAttribute="leadingMargin" constant="80" id="a1H-TK-zdX"/>
+                            <constraint firstAttribute="centerX" secondItem="orL-be-TdJ" secondAttribute="centerX" id="l3R-6L-2Ex"/>
+                            <constraint firstItem="7uI-9n-bRw" firstAttribute="top" secondItem="Ic6-q4-G9P" secondAttribute="bottom" constant="60" id="lLw-he-F7u"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="musicBtn" destination="Ic6-q4-G9P" id="nqy-ro-nwo"/>
+                        <outlet property="soundBtn" destination="LQl-48-7yR" id="att-g3-qCq"/>
+                        <segue destination="cxk-xc-d7E" kind="show" identifier="Single" id="nfF-1N-vTy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7sO-Tm-1N1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-639" y="628"/>
+        </scene>
+        <!--World Map-->
+        <scene sceneID="DCW-2Z-IzB">
+            <objects>
+                <viewController id="cxk-xc-d7E" customClass="WorldMap" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cCa-EG-6Tt"/>
+                        <viewControllerLayoutGuide type="bottom" id="n6l-yJ-CJO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qCO-Et-V9q">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="show" identifier="Level" id="nlx-AD-QtX"/>
+                        <segue destination="uZN-3h-NbC" kind="show" identifier="Menu" id="3aT-VL-VDo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IL3-WA-N6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="21" y="628"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -76,20 +159,30 @@
                                     <rect key="frame" x="342" y="43" width="58" height="21"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfm-l2-Y5p">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Testar Power Up">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9HX-Nk-Azn">
+                                <rect key="frame" x="268" y="526" width="64" height="34"/>
+                                <color key="backgroundColor" red="0.0" green="0.032178035059999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="4jV-2Y-IWG"/>
+                                    <constraint firstAttribute="width" constant="64" id="vzS-3x-cQT"/>
+                                </constraints>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="143" y="521" width="114" height="30"/>
                                 </variation>
                                 <connections>
-                                    <action selector="shuffleButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2vO-C8-Xdy"/>
+                                    <action selector="back:" destination="BV1-FR-VrT" eventType="touchUpInside" id="PLg-GU-qUM"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="9HX-Nk-Azn" secondAttribute="centerX" id="R1K-va-5CP"/>
+                            <constraint firstItem="khH-OB-KpY" firstAttribute="top" secondItem="9HX-Nk-Azn" secondAttribute="bottom" constant="40" id="dRd-Gv-UCD"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="wtf-1w-1vB"/>
@@ -99,7 +192,6 @@
                                 <exclude reference="NwU-VO-8hz"/>
                                 <exclude reference="9uF-AV-uaC"/>
                                 <exclude reference="NHk-PR-yXA"/>
-                                <exclude reference="dfm-l2-Y5p"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -111,7 +203,6 @@
                                 <include reference="NwU-VO-8hz"/>
                                 <include reference="9uF-AV-uaC"/>
                                 <include reference="NHk-PR-yXA"/>
-                                <include reference="dfm-l2-Y5p"/>
                             </mask>
                         </variation>
                     </view>
@@ -120,10 +211,15 @@
                         <outlet property="movesLabel" destination="nx2-K0-R3n" id="3wR-1g-vqM"/>
                         <outlet property="scoreLabel" destination="NHk-PR-yXA" id="Bng-KN-R4q"/>
                         <outlet property="targetLabel" destination="QyQ-FX-Ikx" id="u0S-5q-H8I"/>
+                        <segue destination="cxk-xc-d7E" kind="show" identifier="Back" id="p85-5r-noZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="679" y="628"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="nfF-1N-vTy"/>
+    </inferredMetricsTieBreakers>
 </document>

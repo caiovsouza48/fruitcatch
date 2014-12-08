@@ -2,6 +2,7 @@
 #import "JIMCFruit.h"
 #import "JIMCLevel.h"
 #import "JIMCSwap.h"
+#import "SettingsSingleton.h"
 
 static const CGFloat TileWidth = 34.0;
 static const CGFloat TileHeight = 36.0;
@@ -392,7 +393,9 @@ static const CGFloat TileHeight = 36.0;
     moveB.timingMode = SKActionTimingEaseOut;
     [swap.fruitB.sprite runAction:moveB];
     
-    [self runAction:self.swapSound];
+    if([SettingsSingleton sharedInstance].SFX == ON){
+        [self runAction:self.swapSound];
+    }
 }
 
 - (void)animateInvalidSwap:(JIMCSwap *)swap completion:(dispatch_block_t)completion {
@@ -410,7 +413,9 @@ static const CGFloat TileHeight = 36.0;
     [swap.fruitA.sprite runAction:[SKAction sequence:@[moveA, moveB, [SKAction runBlock:completion]]]];
     [swap.fruitB.sprite runAction:[SKAction sequence:@[moveB, moveA]]];
     
-    [self runAction:self.invalidSwapSound];
+    if([SettingsSingleton sharedInstance].SFX == ON){
+        [self runAction:self.invalidSwapSound];
+    }
 }
 
 - (void)animateMatchedFruits:(NSSet *)chains completion:(dispatch_block_t)completion {
@@ -433,7 +438,9 @@ static const CGFloat TileHeight = 36.0;
         }
     }
     
-    [self runAction:self.matchSound];
+    if([SettingsSingleton sharedInstance].SFX == ON){
+        [self runAction:self.matchSound];
+    }
     
     // Continue with the game after the animations have completed.
     [self runAction:[SKAction sequence:@[
@@ -486,9 +493,15 @@ static const CGFloat TileHeight = 36.0;
             
             SKAction *moveAction = [SKAction moveTo:newPosition duration:duration];
             moveAction.timingMode = SKActionTimingEaseOut;
-            [fruit.sprite runAction:[SKAction sequence:@[
-                                                          [SKAction waitForDuration:delay],
-                                                          [SKAction group:@[moveAction, self.fallingFruitSound]]]]];
+            if([SettingsSingleton sharedInstance].SFX == ON){
+                [fruit.sprite runAction:[SKAction sequence:@[
+                                                              [SKAction waitForDuration:delay],
+                                                              [SKAction group:@[moveAction, self.fallingFruitSound]]]]];
+            }else{
+                [fruit.sprite runAction:[SKAction sequence:@[
+                                                             [SKAction waitForDuration:delay],
+                                                             [SKAction group:@[moveAction]]]]];
+            }
         }];
     }
     
@@ -535,10 +548,17 @@ static const CGFloat TileHeight = 36.0;
             SKAction *moveAction = [SKAction moveTo:newPosition duration:duration];
             moveAction.timingMode = SKActionTimingEaseOut;
             fruit.sprite.alpha = 0;
-            [fruit.sprite runAction:[SKAction sequence:@[
-                                                          [SKAction waitForDuration:delay],
-                                                          [SKAction group:@[
-                                                                            [SKAction fadeInWithDuration:0.05], moveAction, self.addFruitSound]]]]];
+            if([SettingsSingleton sharedInstance].SFX == ON){
+                [fruit.sprite runAction:[SKAction sequence:@[
+                                                              [SKAction waitForDuration:delay],
+                                                              [SKAction group:@[
+                                                                                [SKAction fadeInWithDuration:0.05], moveAction, self.addFruitSound]]]]];
+            }else{
+                [fruit.sprite runAction:[SKAction sequence:@[
+                                                             [SKAction waitForDuration:delay],
+                                                             [SKAction group:@[
+                                                                               [SKAction fadeInWithDuration:0.05], moveAction]]]]];
+            }
         }];
     }
     
