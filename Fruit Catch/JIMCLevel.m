@@ -302,7 +302,13 @@
 - (NSSet *)removeMatches {
     NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self detectHorizontalMatches]];
     NSSet *verticalChains = [self detectVerticalMatches];
-   //NSSet *deletarFrutas = [self deletarFrutas];
+    NSSet *rowChains = nil;
+    NSSet *columnChains = nil;
+    
+    rowChains = [self chainedRow:horizontalChains];
+    columnChains = [self chainedColumn:verticalChains];
+    
+    //NSSet *deletarFrutas = [self deletarFrutas];
     //NSSet *frutas = [self deletarFrutas];
     
     // Note: to detect more advanced patterns such as an L shape, you can see
@@ -313,13 +319,45 @@
     
     [self removeFruits:horizontalChains];
     [self removeFruits:verticalChains];
+    [self removeFruits:rowChains];
+    [self removeFruits:columnChains];
     //[self removeFruits:deletarFrutas];
     
     [self calculateScores:horizontalChains];
     [self calculateScores:verticalChains];
     //return verticalChains;
     [horizontalChains unionSet:verticalChains];
+    [horizontalChains unionSet:rowChains];
+    [horizontalChains unionSet:columnChains];
     return horizontalChains;
+}
+
+- (int)chainCount{
+    NSSet *set = [self detectVerticalMatches];
+    JIMCChain *chain = [set anyObject];
+    
+    NSLog(@"Vertical Matches = %d",(int)chain.fruits.count);
+    return (int) chain.fruits.count;
+}
+
+- (NSSet *)chainedRow:(NSSet *)horizontalChains{
+    NSSet *rowChains;
+    for (JIMCChain *chain in horizontalChains) {
+        if (chain.fruits.count == 4) {
+            rowChains = [self detectFruitsInRow];
+        }
+    }
+    return rowChains;
+}
+
+- (NSSet *)chainedColumn:(NSSet *)verticalChains{
+    NSSet *columnChains;
+    for (JIMCChain *chain in verticalChains) {
+        if (chain.fruits.count == 4) {
+            columnChains = [self detectFruitsInColumn];
+        }
+    }
+    return columnChains;
 }
 
 - (NSSet *)removeMatchesForPowerUp:(JIMCPowerUp *)powerUp {
@@ -342,27 +380,94 @@
     //[horizontalChains unionSet:deletarFrutas];
     return horizontalChains ;
 }
--(void)verificaDestruir:(NSSet *)chains{
+
+// Retorna 0 para Vertical;
+//         1 para Horizontal
+-(void) verificaDestruir:(NSSet *)chains{
     for (JIMCChain *chain in chains) {
-       
-        
         for (JIMCFruit *fruit in chain.fruits) {
             if (fruit != nil) {
-                
-            
-            if (_fruits[fruit.column][fruit.row + 1].fruitType ==
-                 _fruits[fruit.column][fruit.row + 2].fruitType ) {
-                
-                NSLog(@"vertical");
-            
-            }else
-                NSLog(@"horizontal");
-        }
+                if (_fruits[fruit.column][fruit.row + 1].fruitType ==
+                    _fruits[fruit.column][fruit.row + 2].fruitType ) {
+                    NSLog(@"Vertical");
+                }else{
+                    NSLog(@"Horizontal");
+                }
+            }
         }
     }
-
-
 }
+
+- (NSSet *)detectFruitsInRow {
+    // Contains the JIMCFruit objects that were part of a horizontal chain.
+    // These fruits must be removed.
+    NSMutableSet *set = [NSMutableSet set];
+    
+    for (NSInteger row = 0; row < NumRows; row++) {
+        
+        // Don't need to look at last two columns.
+        // Note: for-loop without increment.
+        for (NSInteger column = 0; column < NumColumns - 2; ) {
+            
+            // If there is a fruit/tile at this position...
+            if (_fruits[column][row] != nil) {
+                NSUInteger matchType = _fruits[column][row].fruitType;
+                
+                // And the next two columns have the same type...
+                if (_fruits[column + 1][row].fruitType == matchType
+                    && _fruits[column + 2][row].fruitType == matchType) {
+                    
+                    // ...then add all the fruits from this chain into the set.
+                    JIMCChain *chain = [[JIMCChain alloc] init];
+                    chain.chainType = ChainTypeHorizontal;
+                    
+                    for (int aux = 0; aux < NumColumns; aux++) {
+                        if (_fruits[aux][row] != 0) {
+                            [chain addFruit:_fruits[aux][row]];
+                        }
+                    }
+                    [set addObject:chain];
+                    break;
+                }
+            }
+            
+            // Fruit did not match or empty tile, so skip over it.
+            column += 1;
+        }
+    }
+    return set;
+}
+
+- (NSSet *)detectFruitsInColumn {
+    NSMutableSet *set = [NSMutableSet set];
+    
+    for (NSInteger column = 0; column < NumColumns; column++) {
+        for (NSInteger row = 0; row < NumRows - 2; ) {
+            if (_fruits[column][row] != nil) {
+                NSUInteger matchType = _fruits[column][row].fruitType;
+                
+                if (_fruits[column][row + 1].fruitType == matchType
+                    && _fruits[column][row + 2].fruitType == matchType) {
+                    
+                    JIMCChain *chain = [[JIMCChain alloc] init];
+                    chain.chainType = ChainTypeVertical;
+                    
+                    for (int aux = 0; aux < NumRows; aux++) {
+                        if (_fruits[column][aux] != 0) {
+                            [chain addFruit:_fruits[column][aux]];
+                        }
+                    }
+                    
+                    [set addObject:chain];
+                    break;
+                }
+            }
+            row += 1;
+        }
+    }
+    return set;
+}
+
 - (NSSet *)removeMatchesAll {
    
     NSSet *removeAllType = [self deletarFrutas];
@@ -372,8 +477,6 @@
 
     return removeAllType ;
 }
-
-
 
 - (NSSet *)detectHorizontalMatches {
     
