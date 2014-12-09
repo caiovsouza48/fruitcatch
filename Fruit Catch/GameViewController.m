@@ -77,13 +77,13 @@
             [self.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
             [self.scene animateSwap:swap completion:^{
-                [self handleMatchesAll];
+                [self handleMatchesAll:swap.fruitB];
             }];
-            [self handleMatches];
+            //[self handleMatches];
         }else if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
-            NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
+          //  NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
 
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
@@ -168,7 +168,7 @@
     NSSet *newFruits = [self.level shuffle];
     [self.scene addSpritesForFruits:newFruits];
 }
-- (void)handleMatchesAll {
+- (void)handleMatchesAll:(JIMCFruit *) fruit {
     // This is the main loop that removes any matching fruits and fills up the
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
@@ -176,7 +176,7 @@
     [self.scene removeActionForKey:@"Hint"];
     
     // Detect if there are any matches left.
-    NSSet *chains = [self.level removeMatchesAll];
+    NSSet *chains = [self.level removeMatchesAll:fruit];
     // If there are no more matches, then the player gets to move again.
 
     if ([chains count] == 0) {
@@ -224,7 +224,6 @@
    
     [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
-        BOOL fruta = NO;
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
                 if (fruit.fruitPowerUp == 1  ) {

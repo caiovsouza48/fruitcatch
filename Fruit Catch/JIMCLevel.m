@@ -276,14 +276,14 @@
 }
 
 #pragma mark - Detecting Matches
--(NSSet *)deletarFrutas{
+-(NSSet *)deletarFrutas:(JIMCFruit*)fruitDeletar{
      NSMutableSet *set = [NSMutableSet set];
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             JIMCFruit *fruit = _fruits [column][row];
             JIMCSwap *swap = [[JIMCSwap alloc] init];
             swap.fruitA = fruit;
-            if ([swap.fruitA.spriteName isEqualToString:@"morango"] ) {
+            if (swap.fruitA.fruitType == fruitDeletar.fruitType ) {
                 JIMCChain *chain = [[JIMCChain alloc] init];
                 [chain addFruit:_fruits[fruit.column][fruit.row]];
                 [set addObject:chain];
@@ -372,9 +372,9 @@
 
 
 }
-- (NSSet *)removeMatchesAll {
+- (NSSet *)removeMatchesAll:(JIMCFruit *)fruit {
    
-    NSSet *removeAllType = [self deletarFrutas];
+    NSSet *removeAllType = [self deletarFrutas:fruit];
 
     [self removeFruitsAllType:removeAllType];
     [self calculateScoresAllType:removeAllType];

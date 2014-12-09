@@ -203,8 +203,8 @@ static const CGFloat TileHeight = 36.0;
 
 - (void)addSpritesForFruit:(JIMCFruit *)fruit {
     SKSpriteNode *sprite;
-    if (fruit.fruitPowerUp){
-        sprite = [SKSpriteNode spriteNodeWithImageNamed:@"cogumelo"];
+    if (fruit.fruitPowerUp == 1){
+      sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
     }
     else{
       sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
