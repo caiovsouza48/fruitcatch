@@ -48,7 +48,7 @@ static const NSInteger NumRows = 9;
 // from the level.
 // Returns a set containing JIMCChain objects, which describe the JIMCFruits
 // that were removed.
-- (NSSet *)removeMatchesAll;
+- (NSSet *)removeMatchesAll:(JIMCFruit *)fruit;
 - (NSSet *)removeMatches;
 // Detects where there are holes and shifts any fruits down to fill up those
 // holes. In effect, this "bubbles" the holes up to the top of the column.
