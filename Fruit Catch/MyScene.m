@@ -213,7 +213,9 @@ static const CGFloat TileHeight = 36.0;
     if (fruit.fruitPowerUp == 1){
       sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
     }
-    else{
+    else if (fruit.fruitPowerUp == 2) {
+        sprite = [SKSpriteNode spriteNodeWithImageNamed:@"star"];
+    }else{
       sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
     }
         // Create a new sprite for the fruit and add it to the fruitsLayer.
