@@ -73,4 +73,6 @@ static const NSInteger NumRows = 9;
 @property (strong, nonatomic) MyScene *scene;
 -(NSSet *)deletarFrutas;
 - (BOOL)isPowerSwap:(JIMCSwap *)swap;
+
+- (BOOL)isSelectedFruit:(JIMCFruit *)fruit;
 @end
