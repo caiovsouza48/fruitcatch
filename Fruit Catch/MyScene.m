@@ -34,6 +34,13 @@ static const CGFloat TileHeight = 36.0;
 
 @implementation MyScene
 
+- (NSSet *)executePowerUp:(JIMCPowerUp *)powerUp{
+    return nil;
+}
+
+- (void)animatePowerUp:(JIMCPowerUp *)powerUp completion:(dispatch_block_t)completion{
+}
+
 -(SKAction *)colorizeWithColor:(UIColor *)color BlendFactor:(NSInteger)blendFactor
 {
     SKAction *colorize = [SKAction colorizeWithColor:color colorBlendFactor:blendFactor duration:0];
@@ -203,8 +210,8 @@ static const CGFloat TileHeight = 36.0;
 
 - (void)addSpritesForFruit:(JIMCFruit *)fruit {
     SKSpriteNode *sprite;
-    if (fruit.fruitPowerUp){
-        sprite = [SKSpriteNode spriteNodeWithImageNamed:@"cogumelo"];
+    if (fruit.fruitPowerUp == 2){
+        sprite = [SKSpriteNode spriteNodeWithImageNamed:@"star"];
     }
     else{
       sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];

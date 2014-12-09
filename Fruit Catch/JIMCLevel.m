@@ -662,7 +662,7 @@
     for (JIMCChain *chain in chains) {
         for (JIMCFruit *fruit in chain.fruits) {
             if ([fruit isKindOfClass:[JIMCFruit class]]){
-                if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == NO || (chain.fruits.count == 3)|| (chain.fruits.count == 4)){
+                if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == NO || (chain.fruits.count == 3)){
                     _fruits[fruit.column][fruit.row] = nil;
                 }
                 else{
@@ -671,9 +671,12 @@
                         _fruits[selectedFruit.column][selectedFruit.row].fruitPowerUp++;
                         _fruits[selectedFruit.column][selectedFruit.row].fruitType = 6;
                         flag = YES;
-                        
+                    }else if ((chain.fruits.count == 4) && (!flag)){
+                        JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].fruit;
+                        _fruits[selectedFruit.column][selectedFruit.row].fruitPowerUp = 2;
+//                        _fruits[selectedFruit.column][selectedFruit.row].fruitType = 7;
+                        flag = YES;
                     }
-                    
                 }
                
             }

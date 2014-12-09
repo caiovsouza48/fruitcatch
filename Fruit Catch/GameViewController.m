@@ -223,7 +223,7 @@
     [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
-            if (chain.fruits.count  == 4 || chain.fruits.count  == 3  ) {
+            if (chain.fruits.count  == 3  ) {
                  [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
             }
 //            NSLog(@"JIMCPowerUp = %ld",(long)(((JIMCFruit *)chain.fruits[i]).fruitPowerUp));
