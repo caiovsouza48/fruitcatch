@@ -482,7 +482,7 @@
     return set;
 }
 
-- (NSSet *)removeMatchesAll {
+- (NSSet *)removeMatchesAll:(JIMCFruit *)fruit {
    
     NSSet *removeAllType = [self deletarFrutas:fruit];
 

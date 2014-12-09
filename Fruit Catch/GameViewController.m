@@ -79,7 +79,7 @@
             [self.scene animateSwap:swap completion:^{
                 [self handleMatchesAll:swap.fruitB];
             }];
-          //  [self handleMatches];
+            //[self handleMatches];
         }else if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
