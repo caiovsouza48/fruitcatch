@@ -79,7 +79,7 @@
             [self.scene animateSwap:swap completion:^{
                 [self handleMatchesAll];
             }];
-            [self handleMatches];
+          //  [self handleMatches];
         }else if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
@@ -226,18 +226,12 @@
         // Add the new scores to the total.
         BOOL fruta = NO;
         for (JIMCChain *chain in chains) {
-            if (chain.fruits.count  == 3  ) {
-                 [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
-            }
-//            NSLog(@"JIMCPowerUp = %ld",(long)(((JIMCFruit *)chain.fruits[i]).fruitPowerUp));
-//            if (((JIMCFruit *)chain.fruits[i]).fruitPowerUp >= 1)
-//              [self.scene addSpritesForFruit:chain.fruits[i]];
-//            i++;
-        }
-         NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
-        if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
-            [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
-            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+             for (JIMCFruit *fruit in chain.fruits) {
+                if (fruit.fruitPowerUp == 1  ||  fruit.fruitPowerUp == 2) {
+                    [self.scene addSpritesForFruit:fruit];
+                    [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+                }
+             }
         }
 //        if (fruta == NO) {
 //            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
