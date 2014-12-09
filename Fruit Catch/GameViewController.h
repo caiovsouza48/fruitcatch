@@ -12,6 +12,9 @@
 @interface GameViewController : UIViewController
 - (void)updateLabels ;
 @property (assign, nonatomic) NSUInteger score;
-@property (strong, nonatomic) JIMCLevel *level;
+//@property (strong, nonatomic) JIMCLevel *level;
 - (void)beginNextTurn ;
+
+@property (nonatomic) NSString *levelString;
+
 @end

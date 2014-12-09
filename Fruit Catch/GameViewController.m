@@ -13,14 +13,16 @@
 #import "JIMCLevel.h"
 #import "JIMCPowerUp.h"
 #import "JIMCSwapFruitSingleton.h"
+#import "SettingsSingleton.h"
 
 @interface GameViewController ()
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
+@property (nonatomic) JIMCLevel *level;
 
 
 // The scene draws the tiles and fruit sprites, and handles swipes.
-@property (strong, nonatomic) MyScene *scene;
+@property (nonatomic) MyScene *scene;
 
 @property (assign, nonatomic) NSUInteger movesLeft;
 
@@ -31,13 +33,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
 @property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
 
-@property(nonatomic) BOOL pressed;
+@property (nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
-@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic) AVAudioPlayer *backgroundMusic;
 
-@property (strong, nonatomic) AVAudioPlayer *backgroundMusic;
-
-@property (strong, nonatomic) NSSet *possibleMoves;
+@property (nonatomic) NSSet *possibleMoves;
 
 @property SKSpriteNode *hintNode;
 @property SKAction *hintAction;
@@ -58,7 +58,7 @@
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Load the level.
-    self.level = [[JIMCLevel alloc] initWithFile:@"Level_1"];
+    self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
     [self.scene addTiles];
     
@@ -111,7 +111,10 @@
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Mining by Moonlight" withExtension:@"mp3"];
     self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     self.backgroundMusic.numberOfLoops = -1;
-    //[self.backgroundMusic play];
+    
+    if([SettingsSingleton sharedInstance].music == ON){
+        [self.backgroundMusic play];
+    }
     
     // Let's start the game!
     [self beginGame];
@@ -320,8 +323,10 @@
      //   NSLog(@"Jogadas possiveis = %ld",i);
     }
     
+    NSLog(@"Jogadas possiveis = %d",(int)i);
+    
     [self.scene runAction: self.hintAction withKey:@"Hint"];
-    SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
+    //SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
@@ -380,6 +385,7 @@
 
 - (void)showGameOver {
     
+    [self.scene removeActionForKey:@"Hint"];
     if(self.hintNode){
         [self.scene runAction:[SKAction runBlock:^{
             [self.hintNode removeFromParent];
@@ -395,9 +401,17 @@
     [self.view addGestureRecognizer:self.tapGestureRecognizer];
     
     self.shuffleButton.hidden = YES;
+    
 }
 
 - (void)hideGameOver {
+    
+    [self.scene removeActionForKey:@"Hint"];
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
     
     [self.view removeGestureRecognizer:self.tapGestureRecognizer];
     self.tapGestureRecognizer = nil;
@@ -408,6 +422,7 @@
     [self beginGame];
     
     self.shuffleButton.hidden = NO;
+    
 }
 
 - (IBAction)shuffleButtonPressed:(id)sender {
@@ -435,5 +450,36 @@
 {
     [self.scene runAction: self.hintAction withKey:@"Hint"];
 }
+
+-(IBAction)back:(id)sender
+{
+    [self performSegueWithIdentifier:@"Back" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"Back"]){
+        if(self.scene != nil)
+        {
+            [self.scene setPaused:YES];
+            [self.scene removeAllActions];
+            [self.scene removeAllChildren];
+            [self.backgroundMusic stop];
+            [self.scene removeAllFruitSprites];
+    
+            self.scene = nil;
+            self.backgroundMusic = nil;
+            self.level = nil;
+            
+            [self.scene removeFromParent];
+            
+            SKView *view = (SKView *)self.view;
+            [view presentScene:nil];
+            
+            view = nil;
+        }
+    }
+}
+
 
 @end

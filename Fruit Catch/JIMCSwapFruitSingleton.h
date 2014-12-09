@@ -11,9 +11,6 @@
 
 @interface JIMCSwapFruitSingleton : NSObject
 
-
-
-
 @property(nonatomic) JIMCFruit *fruit;
 @property(nonatomic) NSMutableSet *fruits;
 
