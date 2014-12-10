@@ -18,6 +18,7 @@
         @"uva",
         @"banana",
         @"cogumelo",
+        @"star",
     };
     
     return spriteNames[self.fruitType - 1];
@@ -31,6 +32,7 @@
         @"uva",
         @"banana",
         @"cogumelo",
+        @"star",
     };
     
     return highlightedSpriteNames[self.fruitType - 1];

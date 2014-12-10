@@ -77,17 +77,18 @@
             [self.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
             [self.scene animateSwap:swap completion:^{
-                [self handleMatchesAll];
+                [self handleMatchesAll:swap.fruitB];
             }];
-            [self handleMatches];
+            //[self handleMatches];
         }else if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
-            NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
-            NSLog(@"Fruta B %@",swap.fruitB);
+            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+          //  NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
+
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
             }];
-            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+           
            
 
         } else {
@@ -167,7 +168,7 @@
     NSSet *newFruits = [self.level shuffle];
     [self.scene addSpritesForFruits:newFruits];
 }
-- (void)handleMatchesAll {
+- (void)handleMatchesAll:(JIMCFruit *) fruit {
     // This is the main loop that removes any matching fruits and fills up the
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
@@ -175,7 +176,7 @@
     [self.scene removeActionForKey:@"Hint"];
     
     // Detect if there are any matches left.
-    NSSet *chains = [self.level removeMatchesAll];
+    NSSet *chains = [self.level removeMatchesAll:fruit];
     // If there are no more matches, then the player gets to move again.
 
     if ([chains count] == 0) {
@@ -220,22 +221,28 @@
     }
     
     // First, remove any matches...
+   
     [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
-            if (chain.fruits.count  == 4 || chain.fruits.count  == 3  ) {
-                 [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
-            }
-//            NSLog(@"JIMCPowerUp = %ld",(long)(((JIMCFruit *)chain.fruits[i]).fruitPowerUp));
-//            if (((JIMCFruit *)chain.fruits[i]).fruitPowerUp >= 1)
-//              [self.scene addSpritesForFruit:chain.fruits[i]];
-//            i++;
+             for (JIMCFruit *fruit in chain.fruits) {
+                if (fruit.fruitPowerUp == 1  ||  fruit.fruitPowerUp == 2) {
+                    [self.scene addSpritesForFruit:fruit];
+                    [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+                }
+             }
         }
-         NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
-        if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
-            [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
-            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
-        }
+//        if (fruta == NO) {
+//            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+//        }
+        
+//         NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
+//        if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
+//            [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
+//            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+//        }
+        
+        
         [self updateLabels];
         
         // ...then shift down any fruits that have a hole below them...
