@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */; };
+		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
+		0FA8DFB61A362C2E005B994C /* SettingsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */; };
 		436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 436CBD091A2F737500862EDE /* WorldMap.m */; };
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
@@ -20,7 +23,6 @@
 		DEF7B4B31A2FC7D400D7F7B3 /* questionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */; };
 		DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */; };
 		E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E30CD4D71A2CC817009BBC92 /* banana@2x.png */; };
-		E3CDA7BE1A2DE645001A2ACF /* selva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CDA7BD1A2DE645001A2ACF /* selva@2x.png */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
 		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
 		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
@@ -53,6 +55,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0FA8DFAE1A362C2E005B994C /* JIMCBombaMaisPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCBombaMaisPowerUp.h; path = "Fruit Catch/JIMCBombaMaisPowerUp.h"; sourceTree = "<group>"; };
+		0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCBombaMaisPowerUp.m; path = "Fruit Catch/JIMCBombaMaisPowerUp.m"; sourceTree = "<group>"; };
+		0FA8DFB01A362C2E005B994C /* JIMCPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCPowerUp.h; path = "Fruit Catch/JIMCPowerUp.h"; sourceTree = "<group>"; };
+		0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCPowerUp.m; path = "Fruit Catch/JIMCPowerUp.m"; sourceTree = "<group>"; };
+		0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsSingleton.h; path = "Fruit Catch/SettingsSingleton.h"; sourceTree = "<group>"; };
+		0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsSingleton.m; path = "Fruit Catch/SettingsSingleton.m"; sourceTree = "<group>"; };
 		436CBD081A2F737500862EDE /* WorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMap.h; sourceTree = "<group>"; };
 		436CBD091A2F737500862EDE /* WorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMap.m; sourceTree = "<group>"; };
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
@@ -121,6 +129,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0FA8DFB71A362E36005B994C /* JIMCPowerUp */ = {
+			isa = PBXGroup;
+			children = (
+				0FA8DFB01A362C2E005B994C /* JIMCPowerUp.h */,
+				0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */,
+			);
+			name = JIMCPowerUp;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		0FA8DFB91A362E67005B994C /* JIMCBombaMaisPowerUp */ = {
+			isa = PBXGroup;
+			children = (
+				0FA8DFAE1A362C2E005B994C /* JIMCBombaMaisPowerUp.h */,
+				0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */,
+			);
+			name = JIMCBombaMaisPowerUp;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		0FD2EDB51A23BA3A000EB99F /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +254,8 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
+				0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */,
+				0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */,
 				DEC905A41A239C6D003DD444 /* Fruit Catch */,
 				DEC905C31A239C6D003DD444 /* Fruit CatchTests */,
 				DEC905A31A239C6D003DD444 /* Products */,
@@ -291,7 +321,8 @@
 		E3E3EC971A23ACFB00E7E18E /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				DE4E21E31A24FA0D0050007D /* JIMCPowerUp */,
+				0FA8DFB91A362E67005B994C /* JIMCBombaMaisPowerUp */,
+				0FA8DFB71A362E36005B994C /* JIMCPowerUp */,
 				0FD2EDB81A23BA5A000EB99F /* MyScene */,
 				0FD2EDB91A23BA62000EB99F /* JIMCFruit */,
 				0FD2EDBA1A23BA6D000EB99F /* JIMCLevel */,
@@ -445,18 +476,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
-				DE4E21E91A24FBC50050007D /* JIMCBombaMaisPowerUp.m in Sources */,
+				0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */,
 				E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */,
-				DE4E21E61A24FA390050007D /* JIMCPowerUp.m in Sources */,
 				E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */,
 				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
+				0FA8DFB61A362C2E005B994C /* SettingsSingleton.m in Sources */,
 				E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */,
 				DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */,
 				43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */,
 				436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */,
-				DEC905AE1A239C6D003DD444 /* GameScene.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
+				0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */,
 				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 			);
