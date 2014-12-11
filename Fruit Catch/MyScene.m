@@ -47,7 +47,7 @@ static const CGFloat TileHeight = 36.0;
         // Put an image on the background. Because the scene's anchorPoint is
         // (0.5, 0.5), the background image will always be centered on the screen.
         SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"selva.png"];
-        background.blendMode = SKBlendModeScreen; //Clareia o fundo
+       // background.blendMode = SKBlendModeScreen; //Clareia o fundo
         [self addChild:background];
         
         // Add a new node that is the container for all other layers on the playing
@@ -425,6 +425,39 @@ static const CGFloat TileHeight = 36.0;
         for (JIMCFruit *fruit in chain.fruits) {
             if ([fruit isKindOfClass:[JIMCFruit class]]){
                 if (fruit.sprite != nil) {
+                    SKAction *scaleAction = [SKAction scaleTo:0.8 duration:0.5];
+                    scaleAction.timingMode = SKActionTimingEaseIn;
+                    SKAction *move = [SKAction moveTo:CGPointMake(-100, -100) duration:1];
+                    [fruit.sprite runAction:move];
+                    [fruit.sprite runAction:scaleAction];
+                    [fruit.sprite runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0 ],[SKAction removeFromParent]]]];
+                    
+                    // It may happen that the same JIMCFruit object is part of two chains
+                    // (L-shape match). In that case, its sprite should only be removed
+                    // once.
+                    fruit.sprite = nil;
+                }
+            }
+        }
+    }
+    
+    if([SettingsSingleton sharedInstance].SFX == ON){
+        [self runAction:self.matchSound];
+    }
+    
+    // Continue with the game after the animations have completed.
+    [self runAction:[SKAction sequence:@[
+                                         [SKAction waitForDuration:0.3],
+                                         [SKAction runBlock:completion]
+                                         ]]];
+}
+- (void)animateMatchedFruitsType:(NSSet *)chains completion:(dispatch_block_t)completion {
+    
+    for (JIMCChain *chain in chains) {
+        [self animateScoreForChain:chain];
+        for (JIMCFruit *fruit in chain.fruits) {
+            if ([fruit isKindOfClass:[JIMCFruit class]]){
+                if (fruit.sprite != nil) {
                     SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
                     scaleAction.timingMode = SKActionTimingEaseOut;
                     [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
@@ -448,6 +481,7 @@ static const CGFloat TileHeight = 36.0;
                                          [SKAction runBlock:completion]
                                          ]]];
 }
+
 
 - (void)animateScoreForChain:(JIMCChain *)chain {
     // Figure out what the midpoint of the chain is.
@@ -577,7 +611,6 @@ static const CGFloat TileHeight = 36.0;
 
 - (void)animateBeginGame {
     self.gameLayer.hidden = NO;
-    
     self.gameLayer.position = CGPointMake(0, self.size.height);
     SKAction *action = [SKAction moveBy:CGVectorMake(0, -self.size.height) duration:0.3];
     action.timingMode = SKActionTimingEaseOut;

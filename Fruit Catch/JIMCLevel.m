@@ -276,14 +276,12 @@
 }
 
 #pragma mark - Detecting Matches
--(NSSet *)deletarFrutas:(JIMCFruit*)fruitDeletar{
+-(NSSet *)deletarFrutas:(JIMCSwap *)fruitDeletar{
      NSMutableSet *set = [NSMutableSet set];
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             JIMCFruit *fruit = _fruits [column][row];
-            JIMCSwap *swap = [[JIMCSwap alloc] init];
-            swap.fruitA = fruit;
-            if (swap.fruitA.fruitType == fruitDeletar.fruitType ) {
+            if (fruit.fruitType == fruitDeletar.fruitB.fruitType) {
                 JIMCChain *chain = [[JIMCChain alloc] init];
                 [chain addFruit:_fruits[fruit.column][fruit.row]];
                 [set addObject:chain];
@@ -297,7 +295,23 @@
     [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
     return set;
 }
-
+-(NSSet *)deletarFrutas{
+    NSMutableSet *set = [NSMutableSet set];
+    for (NSInteger row = 0; row < NumRows; row++) {
+        for (NSInteger column = 0; column < NumColumns; column++) {
+            JIMCFruit *fruit = _fruits [column][row];
+            JIMCChain *chain = [[JIMCChain alloc] init];
+            [chain addFruit:_fruits[fruit.column][fruit.row]];
+            [set addObject:chain];
+        }
+    }
+    JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].fruit;
+    JIMCChain *chain = [[JIMCChain alloc] init];
+    [chain addFruit:_fruits[selectedFruit.column][selectedFruit.row]];
+    [set addObject:chain];
+    [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+    return set;
+}
 
 - (NSSet *)removeMatches {
     NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self detectHorizontalMatches]];
@@ -317,6 +331,9 @@
         [self powerUpSingleton:mut];
         
     }else{
+//        [mut unionSet:horizontalChains];
+//        [mut unionSet: verticalChains];
+//        [self powerUpCombo:mut];
         [self powerUpCombo:horizontalChains];
         [self powerUpCombo:verticalChains];
     }
@@ -372,7 +389,7 @@
 
 
 }
-- (NSSet *)removeMatchesAll:(JIMCFruit *)fruit {
+- (NSSet *)removeMatchesAllType:(JIMCSwap *)fruit {
    
     NSSet *removeAllType = [self deletarFrutas:fruit];
 
@@ -381,7 +398,15 @@
 
     return removeAllType ;
 }
-
+- (NSSet *)removeMatchesAll{
+    
+    NSSet *removeAllType = [self deletarFrutas];
+    
+    [self removeFruitsAllType:removeAllType];
+    [self calculateScoresAllType:removeAllType];
+    
+    return removeAllType ;
+}
 
 
 - (NSSet *)detectHorizontalMatches {
@@ -432,21 +457,23 @@
     for (NSInteger column = 0; column < NumColumns; column++) {
         for (NSInteger row = 0; row < NumRows - 2; ) {
             if (_fruits[column][row] != nil) {
-                NSUInteger matchType = _fruits[column][row].fruitType;
                 
-                if (_fruits[column][row + 1].fruitType == matchType
-                    && _fruits[column][row + 2].fruitType == matchType) {
-                    
-                    JIMCChain *chain = [[JIMCChain alloc] init];
-                    chain.chainType = ChainTypeVertical;
-                    do {
-                        [chain addFruit:_fruits[column][row]];
-                        row += 1;
+                NSUInteger matchType = _fruits[column][row].fruitType;
+                if (matchType!=6) {
+                    if (_fruits[column][row + 1].fruitType == matchType
+                        && _fruits[column][row + 2].fruitType == matchType) {
+                        
+                        JIMCChain *chain = [[JIMCChain alloc] init];
+                        chain.chainType = ChainTypeVertical;
+                        do {
+                            [chain addFruit:_fruits[column][row]];
+                            row += 1;
+                        }
+                        while (row < NumRows && _fruits[column][row].fruitType == matchType);
+                        
+                        [set addObject:chain];
+                        continue;
                     }
-                    while (row < NumRows && _fruits[column][row].fruitType == matchType);
-                    
-                    [set addObject:chain];
-                    continue;
                 }
             }
             row += 1;
@@ -555,7 +582,7 @@
     for (JIMCChain *chain in chains) {
         for (JIMCFruit *fruit in chain.fruits) {
             if (chain.fruits.count == 5) {
-                _fruits[fruit.column][fruit.row].fruitPowerUp=1;
+                _fruits[fruit.column][fruit.row].fruitPowerUp = 1;
                 _fruits[fruit.column][fruit.row].fruitType = 6;
                 break;
             }
@@ -743,7 +770,13 @@
     return _fruits[column][row];
 }
 - (BOOL)isPowerSwap:(JIMCSwap *)swap {
-    if (swap.fruitA.fruitType == 6) {
+    if (swap.fruitA.fruitType == 6 ) {
+        return YES;
+    }
+    return NO;
+}
+- (BOOL)isPowerSwapLike:(JIMCSwap *)swap {
+    if (swap.fruitA.fruitType == 6 && swap.fruitB.fruitType == 6) {
         return YES;
     }
     return NO;
