@@ -14,6 +14,7 @@
 #import "JIMCPowerUp.h"
 #import "JIMCSwapFruitSingleton.h"
 #import "SettingsSingleton.h"
+#import "Life.h"
 
 @interface GameViewController ()
 
@@ -505,6 +506,13 @@
     if([segue.identifier isEqualToString:@"Back"]){
         if(self.scene != nil)
         {
+            Life *life = [Life sharedInstance];
+            life.lifeCount--;
+            NSDate *oldDate = life.lifeTime;
+            NSTimeInterval interval = [oldDate timeIntervalSinceNow];
+            NSDate *plusDate = [NSDate dateWithTimeIntervalSinceNow:interval];
+            life.lifeTime = plusDate;
+            [life saveToFile];
             [self.scene setPaused:YES];
             [self.scene removeAllActions];
             [self.scene removeAllChildren];

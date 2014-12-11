@@ -13,6 +13,11 @@
 		436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 436CBD091A2F737500862EDE /* WorldMap.m */; };
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
+		DEA2D2B31A39BBEE0038B65A /* Life.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2A91A39BBEE0038B65A /* Life.m */; };
+		DEA2D2B41A39BBEE0038B65A /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2AB1A39BBEE0038B65A /* RNCryptor.m */; };
+		DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2AE1A39BBEE0038B65A /* RNCryptorEngine.m */; };
+		DEA2D2B61A39BBEE0038B65A /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2B01A39BBEE0038B65A /* RNDecryptor.m */; };
+		DEA2D2B71A39BBEE0038B65A /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2B21A39BBEE0038B65A /* RNEncryptor.m */; };
 		DEC905A81A239C6D003DD444 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905A71A239C6D003DD444 /* main.m */; };
 		DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AA1A239C6D003DD444 /* AppDelegate.m */; };
 		DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905B21A239C6D003DD444 /* GameViewController.m */; };
@@ -66,6 +71,17 @@
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
 		43F4362D1A28A00300F1C358 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		43F4362E1A28A00300F1C358 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		DEA2D2A81A39BBEE0038B65A /* Life.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Life.h; sourceTree = "<group>"; };
+		DEA2D2A91A39BBEE0038B65A /* Life.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Life.m; sourceTree = "<group>"; };
+		DEA2D2AA1A39BBEE0038B65A /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCryptor.h; path = "Fruit Catch/RNCryptor.h"; sourceTree = "<group>"; };
+		DEA2D2AB1A39BBEE0038B65A /* RNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCryptor.m; path = "Fruit Catch/RNCryptor.m"; sourceTree = "<group>"; };
+		DEA2D2AC1A39BBEE0038B65A /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RNCryptor+Private.h"; path = "Fruit Catch/RNCryptor+Private.h"; sourceTree = "<group>"; };
+		DEA2D2AD1A39BBEE0038B65A /* RNCryptorEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCryptorEngine.h; path = "Fruit Catch/RNCryptorEngine.h"; sourceTree = "<group>"; };
+		DEA2D2AE1A39BBEE0038B65A /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCryptorEngine.m; path = "Fruit Catch/RNCryptorEngine.m"; sourceTree = "<group>"; };
+		DEA2D2AF1A39BBEE0038B65A /* RNDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNDecryptor.h; path = "Fruit Catch/RNDecryptor.h"; sourceTree = "<group>"; };
+		DEA2D2B01A39BBEE0038B65A /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNDecryptor.m; path = "Fruit Catch/RNDecryptor.m"; sourceTree = "<group>"; };
+		DEA2D2B11A39BBEE0038B65A /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNEncryptor.h; path = "Fruit Catch/RNEncryptor.h"; sourceTree = "<group>"; };
+		DEA2D2B21A39BBEE0038B65A /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNEncryptor.m; path = "Fruit Catch/RNEncryptor.m"; sourceTree = "<group>"; };
 		DEC905A21A239C6D003DD444 /* Fruit Catch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fruit Catch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905A61A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905A71A239C6D003DD444 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -251,9 +267,43 @@
 			name = MainMenu;
 			sourceTree = "<group>";
 		};
+		DEA2D2B81A39C82E0038B65A /* Life */ = {
+			isa = PBXGroup;
+			children = (
+				DEA2D2A81A39BBEE0038B65A /* Life.h */,
+				DEA2D2A91A39BBEE0038B65A /* Life.m */,
+			);
+			name = Life;
+			sourceTree = "<group>";
+		};
+		DEA2D2B91A39C83D0038B65A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				DEA2D2BA1A39C84D0038B65A /* RNCryptor */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		DEA2D2BA1A39C84D0038B65A /* RNCryptor */ = {
+			isa = PBXGroup;
+			children = (
+				DEA2D2AA1A39BBEE0038B65A /* RNCryptor.h */,
+				DEA2D2AB1A39BBEE0038B65A /* RNCryptor.m */,
+				DEA2D2AC1A39BBEE0038B65A /* RNCryptor+Private.h */,
+				DEA2D2AD1A39BBEE0038B65A /* RNCryptorEngine.h */,
+				DEA2D2AE1A39BBEE0038B65A /* RNCryptorEngine.m */,
+				DEA2D2AF1A39BBEE0038B65A /* RNDecryptor.h */,
+				DEA2D2B01A39BBEE0038B65A /* RNDecryptor.m */,
+				DEA2D2B11A39BBEE0038B65A /* RNEncryptor.h */,
+				DEA2D2B21A39BBEE0038B65A /* RNEncryptor.m */,
+			);
+			name = RNCryptor;
+			sourceTree = "<group>";
+		};
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
+				DEA2D2B91A39C83D0038B65A /* Util */,
 				0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */,
 				0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */,
 				DEC905A41A239C6D003DD444 /* Fruit Catch */,
@@ -274,6 +324,7 @@
 		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
 			isa = PBXGroup;
 			children = (
+				DEA2D2B81A39C82E0038B65A /* Life */,
 				436CBD071A2F732E00862EDE /* WorldMap */,
 				43F4362C1A289FE000F1C358 /* MainMenu */,
 				E3E3EC971A23ACFB00E7E18E /* Class */,
@@ -476,7 +527,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
+				DEA2D2B31A39BBEE0038B65A /* Life.m in Sources */,
+				DEA2D2B71A39BBEE0038B65A /* RNEncryptor.m in Sources */,
 				0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */,
+				DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */,
 				E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */,
 				E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */,
 				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
@@ -484,6 +538,8 @@
 				E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */,
 				DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */,
 				43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */,
+				DEA2D2B41A39BBEE0038B65A /* RNCryptor.m in Sources */,
+				DEA2D2B61A39BBEE0038B65A /* RNDecryptor.m in Sources */,
 				436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,

@@ -14,6 +14,10 @@
 
 @property(nonatomic) NSDate *lifeTime;
 
-- (instancetype) initFromZero;
++ (Life *)sharedInstance;
+
+- (void)loadFromFile;
+
+- (void)saveToFile;
 
 @end
