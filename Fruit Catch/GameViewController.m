@@ -271,7 +271,7 @@
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
-                if (fruit.fruitPowerUp == 1 && chain.fruits.count == 5) {
+                if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) || (fruit.fruitPowerUp == 2 && chain.fruits.count == 4)) {
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
                     break;
