@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Life.h"
 
 @interface WorldMap : UIViewController
+
+
+@property (weak, nonatomic) IBOutlet UIView *livesView;
+
+@property(nonatomic) Life *lives;
+
+@property (weak, nonatomic) IBOutlet UIImageView *LifeView1;
+@property (weak, nonatomic) IBOutlet UIImageView *LifeView2;
+@property (weak, nonatomic) IBOutlet UIImageView *LifeView3;
+@property (weak, nonatomic) IBOutlet UIImageView *LifeView4;
+@property (weak, nonatomic) IBOutlet UIImageView *LifeView5;
 
 @end
