@@ -372,6 +372,7 @@
     for (JIMCChain *chain in horizontalChains) {
         for (JIMCFruit *fruit in chain.fruits) {
             if (fruit.fruitPowerUp == 2) {
+                fruit.fruitPowerUp = 0;
                 rowChains = [self detectFruitsInRow];
             }
         }
@@ -384,6 +385,7 @@
     for (JIMCChain *chain in verticalChains) {
         for (JIMCFruit *fruit in chain.fruits) {
             if (fruit.fruitPowerUp == 2) {
+                fruit.fruitPowerUp = 0;
                 columnChains = [self detectFruitsInColumn];
             }
         }
@@ -412,8 +414,6 @@
     return horizontalChains ;
 }
 
-// Retorna 0 para Vertical;
-//         1 para Horizontal
 -(void) verificaDestruir:(NSSet *)chains{
     for (JIMCChain *chain in chains) {
         for (JIMCFruit *fruit in chain.fruits) {
