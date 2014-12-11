@@ -7,6 +7,11 @@
 //
 
 #import "Life.h"
+#import "RNDecryptor.h"
+#import "RNEncryptor.h"
+#define SECRET @"0x777C4f3"
+
+static Life *instance;
 
 @implementation Life
 
@@ -24,6 +29,48 @@
     [aCoder encodeObject:self.lifeTime forKey:@"lifeTime"];
 }
 
++ (Life *)sharedInstance{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[Life alloc]initFromFile];
+    });
+    return instance;
+}
+
+- (NSString *)getAppDataDir {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:@"appData"];
+    
+}
+
+
+- (instancetype)initFromFile{
+    self = [super init];
+    if (self){
+        NSString *appDataDir = [self getAppDataDir];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+            NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+            NSError *error;
+            NSData *decryptedData = [RNDecryptor decryptData:data withPassword:SECRET error:&error];
+            if (!error){
+                self = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+                NSLog(@"self = %@",self);
+            }
+            else{
+                NSLog(@"Error in getUserLives: %@",error.localizedDescription);
+                self = [[Life alloc]initFromZero];
+            }
+        }
+        else{
+            self = [[Life alloc]initFromZero];
+        }
+
+    }
+    return self;
+}
+
 - (instancetype) initFromZero{
     self = [super init];
     if (self){
@@ -35,6 +82,38 @@
 
 - (NSString *)description{
     return [NSString stringWithFormat:@"Life Object:\n Life Count = %ld - Life Time = %@",(long)self.lifeCount,self.lifeTime];
+}
+
+- (void)loadFromFile{
+    NSString *appDataDir = [self getAppDataDir];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:SECRET error:&error];
+        if (!error){
+            Life *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"loadFromFile obj = %@",obj);
+            self.lifeCount = obj.lifeCount;
+            self.lifeTime = obj.lifeTime;
+        }
+    }
+    
+}
+
+- (void)saveToFile{
+    NSString *filePath = [self getAppDataDir];
+    //NSLog(@"%@",self.lives);
+    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:self];
+    NSError *error;
+    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:SECRET
+                                               error:&error];
+    
+    BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
+    if (!sucess){
+        NSLog(@"Erro ao Salvar arquivo de Vidas");
+    }
 }
 
 @end

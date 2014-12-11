@@ -13,8 +13,6 @@
 #import "RNDecryptor.h"
 #import "Life.h"
 
-#define SECRET @"0x777C4f3"
-
 @interface WorldMap ()
 
 @property NSInteger i;
@@ -77,6 +75,7 @@
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 #pragma mark - Documents
@@ -112,31 +111,19 @@
 - (void)doLifeUpdate{
     NSLog(@"Life Update");
     [self.lifeTimer invalidate];
-    [self getUserLives];
+    [self updateLivesLoadedLifeObject];
     
 }
 
 - (void)getUserLives{
     //Carregando as Vidas do Arquivo, primeiro se desencripta e logo após seta na memória
     NSString *appDataDir = [self getAppDataDir];
+   
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
-        NSLog(@"App data Dir: %@",[self getAppDataDir]);
-        NSData *data = [NSData dataWithContentsOfFile:[self getAppDataDir]];
-        NSError *error;
-        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:SECRET error:&error];
-        if (!error){
-            Life *decryptedLive = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
-            self.lives = decryptedLive;
-        }
-        else{
-            NSLog(@"Error in getUserLives: %@",error.localizedDescription);
-        }
+       [[Life sharedInstance] loadFromFile];
     }
     else{
-        NSLog(@"File not exists");
-        //NSLog(@"App data Dir: %@",[self getAppDataDir]);
-        
-        self.lives = [[Life alloc]initFromZero];
+        [Life sharedInstance];
     }
     [self updateLivesLoadedLifeObject];
     
@@ -146,69 +133,69 @@
 - (void) updateLivesLoadedLifeObject{
     NSDate *actualDate = [NSDate date];
     //Quanto tempo se passou desde o ultimo tempo registrado no plist
-    NSTimeInterval interval = [actualDate timeIntervalSinceDate:self.lives.lifeTime];
+    NSTimeInterval interval = [actualDate timeIntervalSinceDate:[Life sharedInstance].lifeTime];
     //Segundos para Minutos
     int minutesInterval = interval / 60;
     
     //Setando na Memoria a quantidade de vidas dependendo de quantos minutos se passou e quantas vidas estava registrada no arquivo
-    switch (self.lives.lifeCount) {
+    switch ([Life sharedInstance].lifeCount) {
         case 0:
             if (minutesInterval >= 35){
-                self.lives.lifeCount = 5;
+                [Life sharedInstance].lifeCount = 5;
             }
             if (minutesInterval >= 30){
-                self.lives.lifeCount = 4;
+                [Life sharedInstance].lifeCount = 4;
             }
             if (minutesInterval >= 25){
-                self.lives.lifeCount = 3;
+                [Life sharedInstance].lifeCount = 3;
             }
             if (minutesInterval >= 20){
-                self.lives.lifeCount = 2;
+                [Life sharedInstance].lifeCount = 2;
             }
             if (minutesInterval >= 10){
-                self.lives.lifeCount = 1;
+                [Life sharedInstance].lifeCount = 1;
             }
             break;
         case 1:
             if (minutesInterval >= 35){
-                self.lives.lifeCount = 5;
+                [Life sharedInstance].lifeCount = 5;
             }
             if (minutesInterval >= 30){
-                self.lives.lifeCount = 4;
+                [Life sharedInstance].lifeCount = 4;
             }
             if (minutesInterval >= 25){
-                self.lives.lifeCount = 3;
+                [Life sharedInstance].lifeCount = 3;
             }
             if (minutesInterval >= 20){
-                self.lives.lifeCount = 2;
+                [Life sharedInstance].lifeCount = 2;
             }
             break;
         case 2:
             if (minutesInterval >= 35){
-                self.lives.lifeCount = 5;
+                [Life sharedInstance].lifeCount = 5;
             }
             if (minutesInterval >= 30){
-                self.lives.lifeCount = 4;
+                [Life sharedInstance].lifeCount = 4;
             }
             if (minutesInterval >= 25){
-                self.lives.lifeCount = 3;
+                [Life sharedInstance].lifeCount = 3;
             }
             break;
         case 3:
             if (minutesInterval >= 35){
-                self.lives.lifeCount = 5;
+                [Life sharedInstance].lifeCount = 5;
             }
             if (minutesInterval >= 30){
-                self.lives.lifeCount = 4;
+                [Life sharedInstance].lifeCount = 4;
             }
             break;
         case 4:
             if (minutesInterval >= 35){
-                self.lives.lifeCount = 5;
+                [Life sharedInstance].lifeCount = 5;
             }
             break;
         case 5:
-            self.lives.lifeCount = 5;
+            [Life sharedInstance].lifeCount = 5;
         default:
             break;
     }
@@ -217,18 +204,7 @@
 }
 
 - (void)saveLives{
-    NSLog(@"Save Lives called");
-    NSString *filePath = [self getAppDataDir];
-    //NSLog(@"%@",self.lives);
-    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:self.lives];
-    NSError *error;
-    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
-                                        withSettings:kRNCryptorAES256Settings
-                                            password:SECRET
-                                               error:&error];
-   
-    BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
-    //NSLog(@"saving file to %@ result is %d",filePath,sucess);
+    [[Life sharedInstance] saveToFile];
 }
 
 - (void) updateLivesView{
@@ -241,7 +217,7 @@
             if (imageView.tag >= 10){
                 /*Verificando a Tag(lembrando que ela começa de 10) então subtrai-se 10 para verificar se é menor ou igual a quantidade de vidas do usuário, caso positivo esta imageView é mostrado, caso contrário ela fica escondida.
                  */
-                if (imageView.tag-10 < self.lives.lifeCount){
+                if (imageView.tag-10 < [Life sharedInstance].lifeCount){
                     [imageView setHidden:NO];
                 }
                 else{
@@ -258,8 +234,10 @@
 
 - (void) uploadLivesByTimer:(NSTimer *)timer{
     /* O Timer disparou este método após o tempo calculado, salva as vidas e recupera novamente */
+    [Life sharedInstance].lifeCount++;
+    [Life sharedInstance].lifeTime = [NSDate date];
     [self saveLives];
-    [self getUserLives];
+    //[self getUserLives];
     if ([timer isValid]){
         [timer invalidate];
     }
@@ -269,7 +247,7 @@
 //10,20,25,30,25
 - (void) startLivesTimer{
     int intervalInMinutes;
-    switch (self.lives.lifeCount) {
+    switch ([Life sharedInstance].lifeCount) {
         case 0:
             intervalInMinutes = 10;
             break;
