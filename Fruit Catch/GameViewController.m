@@ -215,6 +215,9 @@
     
     // Detect if there are any matches left.
     NSSet *chains = [self.level removeMatches];
+    for (JIMCChain *chain in chains) {
+        NSLog(@"AQUIIIIII = %@",chain.fruits);
+    }
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
         [self beginNextTurn];

@@ -12,6 +12,7 @@
 #import "RNEncryptor.h"
 #import "RNDecryptor.h"
 #import "Life.h"
+#import "CustomSegueWorldMap.h"
 
 @interface WorldMap ()
 
@@ -275,6 +276,9 @@
 -(IBAction)selectLevel:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
+    
+    NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
+    
     _i = btn.tag;
     
     if(_i > -1){
@@ -299,7 +303,6 @@
         view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
         
     }
-    
 }
 
 @end
