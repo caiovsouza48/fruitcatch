@@ -76,6 +76,7 @@
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [self.lifeTimer invalidate];
 }
 
 #pragma mark - Documents
@@ -109,7 +110,6 @@
 }
 
 - (void)doLifeUpdate{
-    NSLog(@"Life Update");
     [self.lifeTimer invalidate];
     [self updateLivesLoadedLifeObject];
     
@@ -118,7 +118,7 @@
 - (void)getUserLives{
     //Carregando as Vidas do Arquivo, primeiro se desencripta e logo após seta na memória
     NSString *appDataDir = [self getAppDataDir];
-   
+    NSLog(@"appDataDir = %@",appDataDir);
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
        [[Life sharedInstance] loadFromFile];
     }
@@ -136,23 +136,22 @@
     NSTimeInterval interval = [actualDate timeIntervalSinceDate:[Life sharedInstance].lifeTime];
     //Segundos para Minutos
     int minutesInterval = interval / 60;
-    
     //Setando na Memoria a quantidade de vidas dependendo de quantos minutos se passou e quantas vidas estava registrada no arquivo
     switch ([Life sharedInstance].lifeCount) {
         case 0:
             if (minutesInterval >= 35){
                 [Life sharedInstance].lifeCount = 5;
             }
-            if (minutesInterval >= 30){
+            else if (minutesInterval >= 30){
                 [Life sharedInstance].lifeCount = 4;
             }
-            if (minutesInterval >= 25){
+            else if (minutesInterval >= 25){
                 [Life sharedInstance].lifeCount = 3;
             }
-            if (minutesInterval >= 20){
+            else if (minutesInterval >= 20){
                 [Life sharedInstance].lifeCount = 2;
             }
-            if (minutesInterval >= 10){
+            else if (minutesInterval >= 1){
                 [Life sharedInstance].lifeCount = 1;
             }
             break;
@@ -160,13 +159,13 @@
             if (minutesInterval >= 35){
                 [Life sharedInstance].lifeCount = 5;
             }
-            if (minutesInterval >= 30){
+            else if (minutesInterval >= 30){
                 [Life sharedInstance].lifeCount = 4;
             }
-            if (minutesInterval >= 25){
+            else if (minutesInterval >= 25){
                 [Life sharedInstance].lifeCount = 3;
             }
-            if (minutesInterval >= 20){
+            else if (minutesInterval >= 2){
                 [Life sharedInstance].lifeCount = 2;
             }
             break;
@@ -174,10 +173,10 @@
             if (minutesInterval >= 35){
                 [Life sharedInstance].lifeCount = 5;
             }
-            if (minutesInterval >= 30){
+            else if (minutesInterval >= 30){
                 [Life sharedInstance].lifeCount = 4;
             }
-            if (minutesInterval >= 25){
+            else if (minutesInterval >= 25){
                 [Life sharedInstance].lifeCount = 3;
             }
             break;
@@ -185,7 +184,7 @@
             if (minutesInterval >= 35){
                 [Life sharedInstance].lifeCount = 5;
             }
-            if (minutesInterval >= 30){
+            else if (minutesInterval >= 30){
                 [Life sharedInstance].lifeCount = 4;
             }
             break;
@@ -236,6 +235,7 @@
     /* O Timer disparou este método após o tempo calculado, salva as vidas e recupera novamente */
     [Life sharedInstance].lifeCount++;
     [Life sharedInstance].lifeTime = [NSDate date];
+    [self updateLivesView];
     [self saveLives];
     //[self getUserLives];
     if ([timer isValid]){
