@@ -23,6 +23,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundoprincipal"]];
+    fundo.center = self.view.center;
+    [self.view insertSubview:fundo atIndex:0];
+    UIImageView *nome = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nome"]];
+    nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
+    [self.view insertSubview:nome atIndex:0];
+    
+    UIImageView *fundo1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundo1"]];
+    fundo1.center = self.view.center;
+    [self.view insertSubview:fundo1 atIndex:0];
     // Do any additional setup after loading the view.
 }
 

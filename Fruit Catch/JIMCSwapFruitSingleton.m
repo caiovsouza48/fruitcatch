@@ -24,7 +24,7 @@ static JIMCSwapFruitSingleton *instance;
 - (id)initPrivate{
     self = [super init];
     if (self){
-        self.fruit = [[JIMCFruit alloc]init];
+        self.swap = [[JIMCSwap alloc]init];
     }
     return self;
 }

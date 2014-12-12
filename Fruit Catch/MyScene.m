@@ -48,12 +48,13 @@ static const CGFloat TileHeight = 36.0;
 }
 
 - (id)initWithSize:(CGSize)size {
+    
     if ((self = [super initWithSize:size])) {
         self.anchorPoint = CGPointMake(0.5, 0.5);
         
         // Put an image on the background. Because the scene's anchorPoint is
         // (0.5, 0.5), the background image will always be centered on the screen.
-        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"selva.png"];
+        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"fundo.png"];
        // background.blendMode = SKBlendModeScreen; //Clareia o fundo
         [self addChild:background];
         

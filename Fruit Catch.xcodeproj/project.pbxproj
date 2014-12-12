@@ -30,6 +30,11 @@
 		DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */; };
 		E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E30CD4D71A2CC817009BBC92 /* banana@2x.png */; };
 		E33DD8CB1A3A20E1001C2897 /* selva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8CA1A3A20E1001C2897 /* selva@2x.png */; };
+		E33DD8CD1A3B13BF001C2897 /* coracao.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8CC1A3B13BF001C2897 /* coracao.png */; };
+		E33DD8CF1A3B56EC001C2897 /* fundo@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8CE1A3B56EC001C2897 /* fundo@2X.png */; };
+		E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */; };
+		E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */; };
+		E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D41A3B5EBF001C2897 /* nome@2x.png */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
 		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
 		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
@@ -104,6 +109,11 @@
 		DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCSwapFruitSingleton.m; sourceTree = "<group>"; };
 		E30CD4D71A2CC817009BBC92 /* banana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "banana@2x.png"; path = "Sprites.atlas/banana@2x.png"; sourceTree = "<group>"; };
 		E33DD8CA1A3A20E1001C2897 /* selva@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "selva@2x.png"; sourceTree = "<group>"; };
+		E33DD8CC1A3B13BF001C2897 /* coracao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coracao.png; sourceTree = "<group>"; };
+		E33DD8CE1A3B56EC001C2897 /* fundo@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundo@2X.png"; sourceTree = "<group>"; };
+		E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundoprincipal@2x.png"; sourceTree = "<group>"; };
+		E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundo1@2x.png"; sourceTree = "<group>"; };
+		E33DD8D41A3B5EBF001C2897 /* nome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nome@2x.png"; sourceTree = "<group>"; };
 		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCFruit.h; sourceTree = "<group>"; };
@@ -189,6 +199,10 @@
 			isa = PBXGroup;
 			children = (
 				E30CD4D71A2CC817009BBC92 /* banana@2x.png */,
+				E33DD8CE1A3B56EC001C2897 /* fundo@2X.png */,
+				E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */,
+				E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */,
+				E33DD8D41A3B5EBF001C2897 /* nome@2x.png */,
 				DEC905B11A239C6D003DD444 /* GameViewController.h */,
 				DEC905B21A239C6D003DD444 /* GameViewController.m */,
 			);
@@ -348,6 +362,7 @@
 				DEC905B41A239C6D003DD444 /* Main.storyboard */,
 				DEC905B71A239C6D003DD444 /* Images.xcassets */,
 				DEC905B91A239C6D003DD444 /* LaunchScreen.xib */,
+				E33DD8CC1A3B13BF001C2897 /* coracao.png */,
 				E3E3ECBB1A23B32000E7E18E /* Levels */,
 				E3E3ECAE1A23B2FA00E7E18E /* Sounds */,
 				E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */,
@@ -519,6 +534,7 @@
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
 				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
 				DEF7B4B31A2FC7D400D7F7B3 /* questionMark.png in Resources */,
+				E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */,
 				E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */,
 				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
 				E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */,
@@ -526,11 +542,15 @@
 				E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */,
 				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
+				E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */,
+				E33DD8CF1A3B56EC001C2897 /* fundo@2X.png in Resources */,
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
+				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
 				E33DD8CB1A3A20E1001C2897 /* selva@2x.png in Resources */,
 				E3E3ECC51A23B34500E7E18E /* Level_4.json in Resources */,
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
 				E3E3ECC41A23B34500E7E18E /* Level_3.json in Resources */,
+				E33DD8CD1A3B13BF001C2897 /* coracao.png in Resources */,
 				E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

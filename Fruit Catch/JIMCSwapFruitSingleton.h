@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "JIMCFruit.h"
-
+#import "JIMCSwap.h"
 @interface JIMCSwapFruitSingleton : NSObject
 
-@property(nonatomic) JIMCFruit *fruit;
+@property(nonatomic) JIMCSwap *swap;
 @property(nonatomic) NSMutableSet *fruits;
 
 + (JIMCSwapFruitSingleton *)sharedInstance;

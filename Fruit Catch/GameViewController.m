@@ -76,20 +76,20 @@
         
         if ([self.level isPowerSwapLike:swap]){
             [self.level performSwap:swap];
-            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+            [JIMCSwapFruitSingleton sharedInstance].swap = swap;
             [self.scene animateSwap:swap completion:^{
                 [self handleMatchesAll];
             }];
         }else if ([self.level isPowerSwap:swap]) {
             [self.level performSwap:swap];
-            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+            [JIMCSwapFruitSingleton sharedInstance].swap = swap;
             [self.scene animateSwap:swap completion:^{
                 [self handleMatchesAllType:swap];
             }];
             //[self handleMatches];
         }else if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
-            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+            [JIMCSwapFruitSingleton sharedInstance].swap = swap;
           //  NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
 
             [self.scene animateSwap:swap completion:^{
@@ -274,7 +274,7 @@
              for (JIMCFruit *fruit in chain.fruits) {
                 if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) || (fruit.fruitPowerUp == 2 && chain.fruits.count == 4)) {
                     [self.scene addSpritesForFruit:fruit];
-                    [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+                    [JIMCSwapFruitSingleton sharedInstance].swap = nil;
                     break;
                 }
              }

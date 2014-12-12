@@ -288,11 +288,11 @@
             }
         }
     }
-    JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].fruit;
+    JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].swap.fruitA;
     JIMCChain *chain = [[JIMCChain alloc] init];
     [chain addFruit:_fruits[selectedFruit.column][selectedFruit.row]];
     [set addObject:chain];
-    [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+    [JIMCSwapFruitSingleton sharedInstance].swap = nil;
     return set;
 }
 -(NSSet *)deletarFrutas{
@@ -305,11 +305,11 @@
             [set addObject:chain];
         }
     }
-    JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].fruit;
+    JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].swap.fruitA;
     JIMCChain *chain = [[JIMCChain alloc] init];
     [chain addFruit:_fruits[selectedFruit.column][selectedFruit.row]];
     [set addObject:chain];
-    [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+    [JIMCSwapFruitSingleton sharedInstance].swap = nil;
     return set;
 }
 
@@ -332,7 +332,7 @@
     // whether it is the first or last in the array (at a corner). Then you
     // create a new JIMCChain object with the new type and remove the other two.
     
-    if ([JIMCSwapFruitSingleton sharedInstance].fruit!=nil) {
+    if ([JIMCSwapFruitSingleton sharedInstance].swap!=nil) {
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
         [self powerUpSingleton:mut];
@@ -546,7 +546,6 @@
                             row += 1;
                         }
                         while (row < NumRows && _fruits[column][row].fruitType == matchType);
-                        
                         [set addObject:chain];
                         continue;
                     }
@@ -711,8 +710,14 @@
     }
 }
 - (BOOL)isSelectedFruit:(JIMCFruit *)fruit{
-    JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].fruit;
-    return ((fruit.column == selectedFruit.column) && (fruit.row == selectedFruit.row));
+    JIMCFruit *selectedFruitA = [JIMCSwapFruitSingleton sharedInstance].swap.fruitA;
+    JIMCFruit *selectedFruitB = [JIMCSwapFruitSingleton sharedInstance].swap.fruitB;
+    if (((fruit.column == selectedFruitA.column) && (fruit.row == selectedFruitA.row))) {
+        return YES;
+    }else if((fruit.column == selectedFruitB.column) && (fruit.row == selectedFruitB.row)){
+        return YES;
+    }
+    return NO;
 }
 
 - (void)calculateScores:(NSSet *)chains {
