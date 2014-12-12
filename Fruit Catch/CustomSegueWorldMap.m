@@ -7,32 +7,28 @@
 @implementation CustomSegueWorldMap
 
 - (void)perform {
-    UIViewController *sourceViewController = self.sourceViewController;
-    UIViewController *destinationViewController = self.destinationViewController;
+    UIView *source = ((UIViewController *)self.sourceViewController).view;
+    UIView *destination = ((UIViewController *)self.destinationViewController).view;
     
-    // Add the destination view as a subview, temporarily
-    [sourceViewController.view addSubview:destinationViewController.view];
+    destination.transform = CGAffineTransformMakeScale(0.05, 0.05);
     
-    // Transformation start scale
-    destinationViewController.view.transform = CGAffineTransformMakeScale(0.05, 0.05);
-    
-    // Store original centre point of the destination view
-    CGPoint originalCenter = destinationViewController.view.center;
-    // Set center to start point of the button
-    CGRect frame = [[UIScreen mainScreen]bounds];
-    destinationViewController.view.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    destination.center = CGPointMake(destination.center.x, destination.center.y);
+    [window insertSubview:destination aboveSubview:source];
     
     [UIView animateWithDuration:0.5
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         // Grow!
-                         destinationViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-                         destinationViewController.view.center = originalCenter;
+//                         destination.center = CGPointMake(source.center.x, destination.center.y);
+//                         source.center = CGPointMake(0 - source.center.x, destination.center.y);
+     
+//                         destination.transform = CGAffineTransformMakeRotation(M_PI);
+//                         destination.transform = CGAffineTransformMakeRotation(0);
+                         
+                         destination.transform = CGAffineTransformMakeScale(1.0, 1.0);
                      }
                      completion:^(BOOL finished){
-                         [destinationViewController.view removeFromSuperview]; // remove from temp super view
-                         [sourceViewController presentViewController:destinationViewController animated:NO completion:NULL]; // present VC
+                         destination.transform = CGAffineTransformMakeRotation(0);
+                         [[self sourceViewController] presentViewController:[self destinationViewController] animated:NO completion:nil];
                      }];
 }
 
