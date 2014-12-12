@@ -43,6 +43,7 @@
 
 -(IBAction)singlePlayer:(id)sender
 {
+    _singlePlayerButton.enabled = NO;
     [self performSegueWithIdentifier:@"Single" sender:self];
 }
 

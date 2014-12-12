@@ -499,6 +499,7 @@
 
 -(IBAction)back:(id)sender
 {
+    _backButton.enabled = NO;
     [self performSegueWithIdentifier:@"Back" sender:self];
 }
 

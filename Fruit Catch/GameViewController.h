@@ -16,5 +16,6 @@
 - (void)beginNextTurn ;
 - (void)updateLabels ;
 @property (nonatomic) NSString *levelString;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @end

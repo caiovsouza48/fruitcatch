@@ -276,7 +276,7 @@
 -(IBAction)selectLevel:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
-    
+    btn.enabled = NO;
     NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
     
     _i = btn.tag;

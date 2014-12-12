@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -57,6 +57,7 @@
                     </view>
                     <connections>
                         <outlet property="musicBtn" destination="Ic6-q4-G9P" id="nqy-ro-nwo"/>
+                        <outlet property="singlePlayerButton" destination="orL-be-TdJ" id="X9M-uM-FsG"/>
                         <outlet property="soundBtn" destination="LQl-48-7yR" id="att-g3-qCq"/>
                         <segue destination="cxk-xc-d7E" kind="custom" identifier="Single" customClass="CustomSegueWorldMap" id="nfF-1N-vTy"/>
                     </connections>
@@ -236,6 +237,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="9HX-Nk-Azn" id="OzX-Gq-VYa"/>
                         <outlet property="gameOverPanel" destination="wtf-1w-1vB" id="eHv-CF-O3z"/>
                         <outlet property="movesLabel" destination="nx2-K0-R3n" id="3wR-1g-vqM"/>
                         <outlet property="scoreLabel" destination="NHk-PR-yXA" id="Bng-KN-R4q"/>
@@ -253,6 +255,6 @@
         <image name="coracao.png" width="600" height="557"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nfF-1N-vTy"/>
+        <segue reference="p85-5r-noZ"/>
     </inferredMetricsTieBreakers>
 </document>
