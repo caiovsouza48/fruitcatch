@@ -24,9 +24,15 @@
 
 @implementation WorldMap
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getUserLives];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getUserLives];
+    //[self getUserLives];
     [self registerLivesBackgroundNotification];
     [self registerAppEnterForegroundNotification];
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
@@ -293,15 +299,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if([segue.identifier isEqualToString:@"Level"]){
+    if (([segue.identifier isEqualToString:@"Level"]) && ([Life sharedInstance].lifeCount >= 1)){
         //Preparar a classe que carrega o nível para carregar o nível _i
         GameViewController *view = [segue destinationViewController];
         view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
         
+    }
+    else{
+        [self showAlertWithTitle:@"Aviso" andMessage:@"Vidas Insuficientes"];
     }
 }
 
