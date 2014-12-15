@@ -441,6 +441,9 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInNode:self.scene];
+    
     [self.scene removeActionForKey:@"Hint"];
     if(self.hintNode){
         [self.scene runAction:[SKAction runBlock:^{
