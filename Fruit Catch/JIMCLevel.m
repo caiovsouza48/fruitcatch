@@ -63,20 +63,20 @@
     
     NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"json"];
     if (path == nil) {
-        NSLog(@"Could not find level file: %@", filename);
+        //NSLog(@"Could not find level file: %@", filename);
         return nil;
     }
     
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:path options:0 error:&error];
     if (data == nil) {
-        NSLog(@"Could not load level file: %@, error: %@", filename, error);
+        //NSLog(@"Could not load level file: %@, error: %@", filename, error);
         return nil;
     }
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     if (dictionary == nil || ![dictionary isKindOfClass:[NSDictionary class]]) {
-        NSLog(@"Level file '%@' is not valid JSON: %@", filename, error);
+        //NSLog(@"Level file '%@' is not valid JSON: %@", filename, error);
         return nil;
     }
     
@@ -363,7 +363,7 @@
     NSSet *set = [self detectVerticalMatches];
     JIMCChain *chain = [set anyObject];
     
-    NSLog(@"Vertical Matches = %d",(int)chain.fruits.count);
+    //NSLog(@"Vertical Matches = %d",(int)chain.fruits.count);
     return (int) chain.fruits.count;
 }
 
@@ -397,8 +397,8 @@
    NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self checkHorizontalFruitsToRemoveForPowerUp:powerUp andLimit:0]];
   
     NSSet *verticalChains = [self checkVerticalFruitsToRemoveForPowerUp:powerUp andLimit:0];
-    NSLog(@"horizontalChains = %lu",(unsigned long)horizontalChains.count);
-    NSLog(@"VerticalChains = %lu",(unsigned long)verticalChains.count);
+    //NSLog(@"horizontalChains = %lu",(unsigned long)horizontalChains.count);
+    //NSLog(@"VerticalChains = %lu",(unsigned long)verticalChains.count);
     // Note: to detect more advanced patterns such as an L shape, you can see
     // whether a fruit is in both the horizontal & vertical chains sets and
     // whether it is the first or last in the array (at a corner). Then you
@@ -420,9 +420,9 @@
             if (fruit != nil) {
                 if (_fruits[fruit.column][fruit.row + 1].fruitType ==
                     _fruits[fruit.column][fruit.row + 2].fruitType ) {
-                    NSLog(@"Vertical");
+                   // NSLog(@"Vertical");
                 }else{
-                    NSLog(@"Horizontal");
+                   // NSLog(@"Horizontal");
                 }
             }
         }
@@ -630,7 +630,7 @@
                     JIMCChain *chain = [[JIMCChain alloc] init];
                     chain.chainType = ChainTypeHorizontal;
                     [chain addFruit:_fruits[column][row]];
-                NSLog(@"_fruits[%d][%d] = %@",column,row,_fruits[column][row]);
+                
                     do {
                         if ((nil != _fruits[column+1][row]) && ([_fruits[column+1][row] isKindOfClass:[JIMCFruit class]])){
                             [chain addFruit:_fruits[column+1][row]];
@@ -723,7 +723,7 @@
 - (void)calculateScores:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        //chain.score = 20 * ([chain.fruits count] - 2) * self.comboMultiplier;
+        chain.score = 20 * ([chain.fruits count] - 2) * self.comboMultiplier;
         self.comboMultiplier++;
     }
 }
