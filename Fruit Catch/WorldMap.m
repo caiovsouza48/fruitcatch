@@ -283,6 +283,7 @@
     
     if(_i > -1){
         [self performSegueWithIdentifier:@"Level" sender:self];
+        
     }else{
         [self performSegueWithIdentifier:@"Menu" sender:self];
     }

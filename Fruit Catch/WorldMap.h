@@ -22,4 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *LifeView4;
 @property (weak, nonatomic) IBOutlet UIImageView *LifeView5;
 
+@property (nonatomic) CGFloat xPosition;
+@property (nonatomic) CGFloat yPosition;
+
 @end
