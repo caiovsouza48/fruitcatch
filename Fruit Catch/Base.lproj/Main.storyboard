@@ -45,7 +45,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Ic6-q4-G9P" firstAttribute="leading" secondItem="Etp-xP-zSB" secondAttribute="leadingMargin" constant="40" id="BNj-Lu-bqf"/>
                             <constraint firstAttribute="centerY" secondItem="orL-be-TdJ" secondAttribute="centerY" constant="20" id="OrN-tn-Ndz"/>
@@ -57,6 +57,7 @@
                     </view>
                     <connections>
                         <outlet property="musicBtn" destination="Ic6-q4-G9P" id="nqy-ro-nwo"/>
+                        <outlet property="singlePlayerButton" destination="orL-be-TdJ" id="X9M-uM-FsG"/>
                         <outlet property="soundBtn" destination="LQl-48-7yR" id="att-g3-qCq"/>
                         <segue destination="cxk-xc-d7E" kind="custom" identifier="Single" customClass="CustomSegueWorldMap" id="nfF-1N-vTy"/>
                     </connections>
@@ -80,23 +81,23 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EX2-Dh-on1">
                                 <rect key="frame" x="-25" y="0.0" width="625" height="41"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="morango.png" translatesAutoresizingMaskIntoConstraints="NO" id="t6q-Jl-MGu">
+                                    <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="t6q-Jl-MGu">
                                         <rect key="frame" x="46" y="3" width="36" height="36"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MaskTile.png" translatesAutoresizingMaskIntoConstraints="NO" id="MiD-Cr-Svi">
                                         <rect key="frame" x="90" y="3" width="36" height="36"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="morango.png" translatesAutoresizingMaskIntoConstraints="NO" id="qjC-Sn-quf">
-                                        <rect key="frame" x="134" y="3" width="36" height="36"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="morango.png" translatesAutoresizingMaskIntoConstraints="NO" id="ww5-jO-bE2">
+                                    <imageView userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="ww5-jO-bE2">
                                         <rect key="frame" x="178" y="3" width="36" height="36"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="morango.png" translatesAutoresizingMaskIntoConstraints="NO" id="XhU-QJ-Yeu">
+                                    <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="XhU-QJ-Yeu">
                                         <rect key="frame" x="222" y="3" width="36" height="36"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="morango.png" translatesAutoresizingMaskIntoConstraints="NO" id="m4n-4s-Va8">
+                                    <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="m4n-4s-Va8">
                                         <rect key="frame" x="90" y="5" width="36" height="36"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="qjC-Sn-quf">
+                                        <rect key="frame" x="134" y="3" width="36" height="36"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -202,9 +203,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="143" y="521" width="114" height="30"/>
-                                </variation>
                                 <connections>
                                     <action selector="back:" destination="BV1-FR-VrT" eventType="touchUpInside" id="PLg-GU-qUM"/>
                                 </connections>
@@ -239,6 +237,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="9HX-Nk-Azn" id="OzX-Gq-VYa"/>
                         <outlet property="gameOverPanel" destination="wtf-1w-1vB" id="eHv-CF-O3z"/>
                         <outlet property="movesLabel" destination="nx2-K0-R3n" id="3wR-1g-vqM"/>
                         <outlet property="scoreLabel" destination="NHk-PR-yXA" id="Bng-KN-R4q"/>
@@ -253,9 +252,9 @@
     </scenes>
     <resources>
         <image name="MaskTile.png" width="39" height="43"/>
-        <image name="morango.png" width="32" height="32"/>
+        <image name="coracao.png" width="600" height="557"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nfF-1N-vTy"/>
+        <segue reference="p85-5r-noZ"/>
     </inferredMetricsTieBreakers>
 </document>

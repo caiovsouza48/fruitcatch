@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MainMenuViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIButton *singlePlayerButton;
 
 @end

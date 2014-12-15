@@ -23,6 +23,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundoprincipal"]];
+    fundo.center = self.view.center;
+    [self.view insertSubview:fundo atIndex:0];
+    UIImageView *nome = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nome"]];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"Launch"] == YES){
+        nome.center = CGPointMake(self.view.center.x, self.view.center.y-400);
+        [UIView animateWithDuration:2
+                              delay:0
+             usingSpringWithDamping:0.35
+              initialSpringVelocity:0
+                            options:0
+                         animations:^{
+                            nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
+                         }
+                         completion:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Launch"];
+    }else{
+        nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
+    }
+    [self.view insertSubview:nome atIndex:0];
+    
+    UIImageView *fundo1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundo1"]];
+    fundo1.center = self.view.center;
+    [self.view insertSubview:fundo1 atIndex:0];
     // Do any additional setup after loading the view.
 }
 
@@ -33,6 +57,7 @@
 
 -(IBAction)singlePlayer:(id)sender
 {
+    _singlePlayerButton.enabled = NO;
     [self performSegueWithIdentifier:@"Single" sender:self];
 }
 

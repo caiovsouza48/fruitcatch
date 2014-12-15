@@ -10,11 +10,12 @@
 #import <SpriteKit/SpriteKit.h>
 #import "JIMCLevel.h"
 @interface GameViewController : UIViewController
-- (void)updateLabels ;
+
 @property (assign, nonatomic) NSUInteger score;
 //@property (strong, nonatomic) JIMCLevel *level;
 - (void)beginNextTurn ;
-
+- (void)updateLabels ;
 @property (nonatomic) NSString *levelString;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 @end

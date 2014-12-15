@@ -74,16 +74,22 @@
         // the holes, we don't want the player to tap on anything.
         self.view.userInteractionEnabled = NO;
         
-        if ([self.level isPowerSwap:swap]) {
+        if ([self.level isPowerSwapLike:swap]){
             [self.level performSwap:swap];
-            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+            [JIMCSwapFruitSingleton sharedInstance].swap = swap;
             [self.scene animateSwap:swap completion:^{
-                [self handleMatchesAll:swap.fruitB];
+                [self handleMatchesAll];
+            }];
+        }else if ([self.level isPowerSwap:swap]) {
+            [self.level performSwap:swap];
+            [JIMCSwapFruitSingleton sharedInstance].swap = swap;
+            [self.scene animateSwap:swap completion:^{
+                [self handleMatchesAllType:swap];
             }];
             //[self handleMatches];
         }else if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
-            [JIMCSwapFruitSingleton sharedInstance].fruit = swap.fruitA;
+            [JIMCSwapFruitSingleton sharedInstance].swap = swap;
           //  NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
 
             [self.scene animateSwap:swap completion:^{
@@ -169,7 +175,9 @@
     NSSet *newFruits = [self.level shuffle];
     [self.scene addSpritesForFruits:newFruits];
 }
-- (void)handleMatchesAll:(JIMCFruit *) fruit {
+
+
+- (void)handleMatchesAllType:(JIMCSwap *) fruit {
     // This is the main loop that removes any matching fruits and fills up the
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
@@ -177,7 +185,7 @@
     [self.scene removeActionForKey:@"Hint"];
     
     // Detect if there are any matches left.
-    NSSet *chains = [self.level removeMatchesAll:fruit];
+    NSSet *chains = [self.level removeMatchesAllType:fruit];
     // If there are no more matches, then the player gets to move again.
 
     if ([chains count] == 0) {
@@ -206,6 +214,42 @@
     }];
 }
 
+- (void)handleMatchesAll{
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
+    // the app.
+    
+    [self.scene removeActionForKey:@"Hint"];
+    
+    // Detect if there are any matches left.
+    NSSet *chains = [self.level removeMatchesAll];
+    // If there are no more matches, then the player gets to move again.
+    
+    if ([chains count] == 0) {
+        [self beginNextTurn];
+        return;
+    }
+    
+    // First, remove any matches...
+    [self.scene animateMatchedFruits:chains completion:^{
+        // Add the new scores to the total.
+        
+        [self updateLabels];
+        
+        // ...then shift down any fruits that have a hole below them...
+        NSArray *columns = [self.level fillHoles];
+        [self.scene animateFallingFruits:columns completion:^{
+            
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
+                
+                [self handleMatches];
+                
+            }];
+        }];
+    }];
+}
 - (void)handleMatches {
     // This is the main loop that removes any matching fruits and fills up the
     // holes with new fruits. While this happens, the user cannot interact with
@@ -215,9 +259,7 @@
     
     // Detect if there are any matches left.
     NSSet *chains = [self.level removeMatches];
-    for (JIMCChain *chain in chains) {
-        NSLog(@"AQUIIIIII = %@",chain.fruits);
-    }
+
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
         [self beginNextTurn];
@@ -230,9 +272,10 @@
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
-                if (fruit.fruitPowerUp == 1  ||  fruit.fruitPowerUp == 2) {
+                if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) || (fruit.fruitPowerUp == 2 && chain.fruits.count == 4)) {
                     [self.scene addSpritesForFruit:fruit];
-                    [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
+                    [JIMCSwapFruitSingleton sharedInstance].swap = nil;
+                    break;
                 }
              }
         }
@@ -459,6 +502,7 @@
 
 -(IBAction)back:(id)sender
 {
+    _backButton.enabled = NO;
     [self performSegueWithIdentifier:@"Back" sender:self];
 }
 
