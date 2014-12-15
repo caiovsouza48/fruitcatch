@@ -30,7 +30,7 @@
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"Launch"] == YES){
         nome.center = CGPointMake(self.view.center.x, self.view.center.y-400);
         [UIView animateWithDuration:2
-                              delay:0
+                              delay:0.75
              usingSpringWithDamping:0.35
               initialSpringVelocity:0
                             options:0
