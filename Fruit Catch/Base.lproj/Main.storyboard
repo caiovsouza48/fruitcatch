@@ -79,25 +79,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EX2-Dh-on1">
-                                <rect key="frame" x="-25" y="0.0" width="625" height="41"/>
+                                <rect key="frame" x="0.0" y="0.0" width="625" height="41"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="t6q-Jl-MGu">
-                                        <rect key="frame" x="46" y="3" width="36" height="36"/>
+                                        <rect key="frame" x="78" y="3" width="36" height="36"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MaskTile.png" translatesAutoresizingMaskIntoConstraints="NO" id="MiD-Cr-Svi">
-                                        <rect key="frame" x="90" y="3" width="36" height="36"/>
+                                        <rect key="frame" x="122" y="3" width="36" height="36"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="ww5-jO-bE2">
-                                        <rect key="frame" x="178" y="3" width="36" height="36"/>
+                                        <rect key="frame" x="210" y="3" width="36" height="36"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="XhU-QJ-Yeu">
-                                        <rect key="frame" x="222" y="3" width="36" height="36"/>
+                                        <rect key="frame" x="254" y="3" width="36" height="36"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="m4n-4s-Va8">
-                                        <rect key="frame" x="90" y="5" width="36" height="36"/>
+                                        <rect key="frame" x="122" y="5" width="36" height="36"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="coracao.png" translatesAutoresizingMaskIntoConstraints="NO" id="qjC-Sn-quf">
-                                        <rect key="frame" x="134" y="3" width="36" height="36"/>
+                                        <rect key="frame" x="166" y="3" width="36" height="36"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -112,7 +112,7 @@
                         <outlet property="LifeView4" destination="ww5-jO-bE2" id="O2I-34-jhO"/>
                         <outlet property="LifeView5" destination="XhU-QJ-Yeu" id="bgb-n4-Ltd"/>
                         <outlet property="livesView" destination="EX2-Dh-on1" id="7L6-WS-eS1"/>
-                        <segue destination="BV1-FR-VrT" kind="show" identifier="Level" id="nlx-AD-QtX"/>
+                        <segue destination="BV1-FR-VrT" kind="presentation" identifier="Level" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nlx-AD-QtX"/>
                         <segue destination="uZN-3h-NbC" kind="custom" identifier="Menu" customClass="CustomSegueWorldMap" id="3aT-VL-VDo"/>
                     </connections>
                 </viewController>
@@ -427,7 +427,7 @@
                         <outlet property="movesLabel" destination="nx2-K0-R3n" id="3wR-1g-vqM"/>
                         <outlet property="scoreLabel" destination="NHk-PR-yXA" id="Bng-KN-R4q"/>
                         <outlet property="targetLabel" destination="QyQ-FX-Ikx" id="u0S-5q-H8I"/>
-                        <segue destination="cxk-xc-d7E" kind="show" identifier="Back" id="p85-5r-noZ"/>
+                        <segue destination="cxk-xc-d7E" kind="presentation" identifier="Back" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="p85-5r-noZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -440,6 +440,6 @@
         <image name="coracao.png" width="600" height="557"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="p85-5r-noZ"/>
+        <segue reference="nfF-1N-vTy"/>
     </inferredMetricsTieBreakers>
 </document>

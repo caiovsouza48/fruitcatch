@@ -289,6 +289,7 @@
     
     if(_i > -1){
         [self performSegueWithIdentifier:@"Level" sender:self];
+        
     }else{
         [self performSegueWithIdentifier:@"Menu" sender:self];
     }
@@ -308,15 +309,17 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if (([segue.identifier isEqualToString:@"Level"]) && ([Life sharedInstance].lifeCount >= 1)){
-        //Preparar a classe que carrega o nível para carregar o nível _i
-        GameViewController *view = [segue destinationViewController];
-        view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
-        
+    if ([segue.identifier isEqualToString:@"Level"]){
+        if ([Life sharedInstance].lifeCount >= 1){
+            //Preparar a classe que carrega o nível para carregar o nível _i
+            GameViewController *view = [segue destinationViewController];
+            view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
+        }
+        else{
+            [self showAlertWithTitle:@"Aviso" andMessage:@"Vidas Insuficientes"];
+        }
     }
-    else{
-        [self showAlertWithTitle:@"Aviso" andMessage:@"Vidas Insuficientes"];
-    }
+    
 }
 
 @end
