@@ -131,7 +131,8 @@
                     </view>
                     <connections>
                         <outlet property="singlePlayerButton" destination="orL-be-TdJ" id="X9M-uM-FsG"/>
-                        <segue destination="cxk-xc-d7E" kind="custom" identifier="Single" customClass="CustomSegueWorldMap" id="nfF-1N-vTy"/>
+                        <outlet property="soundBtn" destination="LQl-48-7yR" id="att-g3-qCq"/>
+                        <segue destination="cxk-xc-d7E" kind="presentation" identifier="Single" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nfF-1N-vTy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7sO-Tm-1N1" userLabel="First Responder" sceneMemberID="firstResponder"/>
