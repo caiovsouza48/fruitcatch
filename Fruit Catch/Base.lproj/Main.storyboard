@@ -177,6 +177,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ioD-8X-7Ts"/>
                     <connections>
                         <outlet property="LifeView1" destination="t6q-Jl-MGu" id="thi-NS-4dN"/>
                         <outlet property="LifeView2" destination="m4n-4s-Va8" id="d6Q-Hq-B1S"/>
@@ -185,7 +186,7 @@
                         <outlet property="LifeView5" destination="XhU-QJ-Yeu" id="bgb-n4-Ltd"/>
                         <outlet property="livesView" destination="EX2-Dh-on1" id="7L6-WS-eS1"/>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="Level" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nlx-AD-QtX"/>
-                        <segue destination="uZN-3h-NbC" kind="custom" identifier="Menu" customClass="CustomSegueWorldMap" id="3aT-VL-VDo"/>
+                        <segue destination="uZN-3h-NbC" kind="presentation" identifier="Menu" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="3aT-VL-VDo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IL3-WA-N6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
