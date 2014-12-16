@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-@interface CustomSegueWorldMap : UIStoryboardSegue
+@interface CustomSegueSinglePlayer : UIStoryboardSegue
 
 @property (nonatomic) CGFloat xPosition;
 @property (nonatomic) CGFloat yPosition;

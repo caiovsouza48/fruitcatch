@@ -24,9 +24,15 @@
 
 @implementation WorldMap
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getUserLives];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getUserLives];
+    //[self getUserLives];
     [self registerLivesBackgroundNotification];
     [self registerAppEnterForegroundNotification];
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
@@ -164,7 +170,7 @@
             else if (minutesInterval >= 20){
                 [Life sharedInstance].lifeCount = 2;
             }
-            else if (minutesInterval >= 1){
+            else if (minutesInterval >= 10){
                 [Life sharedInstance].lifeCount = 1;
             }
             break;
@@ -178,7 +184,7 @@
             else if (minutesInterval >= 25){
                 [Life sharedInstance].lifeCount = 3;
             }
-            else if (minutesInterval >= 2){
+            else if (minutesInterval >= 1){
                 [Life sharedInstance].lifeCount = 2;
             }
             break;
@@ -262,7 +268,7 @@
     int intervalInMinutes;
     switch ([Life sharedInstance].lifeCount) {
         case 0:
-            intervalInMinutes = 10;
+            intervalInMinutes = 1;
             break;
         case 1:
             intervalInMinutes = 20;
@@ -294,7 +300,14 @@
     _i = btn.tag;
     
     if(_i > -1){
-        [self performSegueWithIdentifier:@"Level" sender:self];
+        if ([self shouldPerformSegueWithIdentifier:@"Level" sender:self]){
+            [self performSegueWithIdentifier:@"Level" sender:self];
+        }
+        else{
+            btn.enabled = YES;
+        }
+        
+        
     }else{
         [self performSegueWithIdentifier:@"Menu" sender:self];
     }
@@ -305,16 +318,36 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+}
+
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if([segue.identifier isEqualToString:@"Level"]){
-        //Preparar a classe que carrega o nível para carregar o nível _i
-        GameViewController *view = [segue destinationViewController];
-        view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
-        
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"Level"]){
+        if ([Life sharedInstance].lifeCount >= 1){
+            return YES;
+        }
+        else{
+            [self showAlertWithTitle:@"Aviso" andMessage:@"Vidas Insuficientes"];
+            return NO;
+        }
     }
+    NSLog(@"return YES");
+    return YES;
+
+
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+        NSLog(@"prepare for segue");
+        if ([segue.identifier isEqualToString:@"Level"]){
+            GameViewController *view = [segue destinationViewController];
+            //Preparar a classe que carrega o nível para carregar o nível _i
+            view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
+        }
 }
 
 @end

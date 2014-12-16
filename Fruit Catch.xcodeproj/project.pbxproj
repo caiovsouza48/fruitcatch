@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */; };
 		0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */; };
 		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
 		0FA8DFB61A362C2E005B994C /* SettingsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */; };
@@ -67,6 +68,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F7808181A3F501B00883622 /* CustomSegueSinglePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueSinglePlayer.h; sourceTree = "<group>"; };
+		0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueSinglePlayer.m; sourceTree = "<group>"; };
 		0FA8DFAE1A362C2E005B994C /* JIMCBombaMaisPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCBombaMaisPowerUp.h; path = "Fruit Catch/JIMCBombaMaisPowerUp.h"; sourceTree = "<group>"; };
 		0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCBombaMaisPowerUp.m; path = "Fruit Catch/JIMCBombaMaisPowerUp.m"; sourceTree = "<group>"; };
 		0FA8DFB01A362C2E005B994C /* JIMCPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCPowerUp.h; path = "Fruit Catch/JIMCPowerUp.h"; sourceTree = "<group>"; };
@@ -159,6 +162,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F7808161A3F4DAB00883622 /* WorldMap */ = {
+			isa = PBXGroup;
+			children = (
+				0FF5BF5C1A3A13670090873A /* CustomSegueWorldMap.h */,
+				0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */,
+			);
+			name = WorldMap;
+			sourceTree = "<group>";
+		};
+		0F7808171A3F4DB500883622 /* SinglePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				0F7808181A3F501B00883622 /* CustomSegueSinglePlayer.h */,
+				0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */,
+			);
+			name = SinglePlayer;
+			sourceTree = "<group>";
+		};
 		0FA8DFB71A362E36005B994C /* JIMCPowerUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,8 +289,8 @@
 		0FF5BF5B1A3A13490090873A /* Segue */ = {
 			isa = PBXGroup;
 			children = (
-				0FF5BF5C1A3A13670090873A /* CustomSegueWorldMap.h */,
-				0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */,
+				0F7808171A3F4DB500883622 /* SinglePlayer */,
+				0F7808161A3F4DAB00883622 /* WorldMap */,
 			);
 			name = Segue;
 			sourceTree = "<group>";
@@ -590,6 +611,7 @@
 				0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */,
 				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
+				0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

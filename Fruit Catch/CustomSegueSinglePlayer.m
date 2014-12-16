@@ -2,20 +2,22 @@
 //  Copyright (c) 2013 Dada Beatnik. All rights reserved.
 //
 
-#import "CustomSegueWorldMap.h"
+#import "CustomSegueSinglePlayer.h"
 #import "WorldMap.h"
 
-@implementation CustomSegueWorldMap
+@implementation CustomSegueSinglePlayer
 
 -(void) setXPosition:(CGFloat)xPos yPosition:(CGFloat)yPos
 {
-    self.xPosition = xPos;
-    self.yPosition = yPos;
+    
 }
 
 - (void)perform {
     UIView *source = ((UIViewController *)self.sourceViewController).view;
     UIView *destination = ((UIViewController *)self.destinationViewController).view;
+    
+    NSLog(@"_yPosition = %f",_yPosition);
+    NSLog(@"_xPosition = %f",_xPosition);
     
     destination.transform = CGAffineTransformMakeScale(0.05, 0.05);
     
@@ -25,13 +27,13 @@
     
     [UIView animateWithDuration:0.5
                      animations:^{
-                         destination.center = CGPointMake(source.center.x, destination.center.y);
+//                         destination.center = CGPointMake(source.center.x, destination.center.y);
 //                         source.center = CGPointMake(0 - source.center.x, destination.center.y);
-     
+//                         
 //                         destination.transform = CGAffineTransformMakeRotation(M_PI);
 //                         destination.transform = CGAffineTransformMakeRotation(0);
                          
-//                         destination.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                         destination.transform = CGAffineTransformMakeScale(1.0, 1.0);
                      }
                      completion:^(BOOL finished){
                          destination.transform = CGAffineTransformMakeRotation(0);
