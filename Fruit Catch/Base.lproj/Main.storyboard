@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -51,6 +51,9 @@
                                 <state key="normal" image="multiplayer.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="multiplayer:" destination="uZN-3h-NbC" eventType="touchUpInside" id="Tb9-c2-ezG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEv-IE-Kgo">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -130,7 +133,9 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="singlePlayerButton" destination="orL-be-TdJ" id="X9M-uM-FsG"/>
+                        <outlet property="multiplayerBtn" destination="m4T-l0-ZHM" id="iG0-xC-8v3"/>
+                        <outlet property="settingsBtn" destination="LEv-IE-Kgo" id="Gyj-VO-zbE"/>
+                        <outlet property="singlePlayerBtn" destination="orL-be-TdJ" id="hW3-EV-Nbf"/>
                         <segue destination="cxk-xc-d7E" kind="presentation" identifier="Single" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nfF-1N-vTy"/>
                     </connections>
                 </viewController>
@@ -219,8 +224,7 @@
                                         <exclude reference="koc-jg-6Z8"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="100" y="-1" width="400" height="100"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="jT9-hR-ils"/>
                                         <include reference="koc-jg-6Z8"/>
@@ -245,8 +249,7 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="179" y="43" width="58" height="21"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="271" y="53" width="58" height="21"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="BmO-74-09o"/>
                                         <include reference="yat-6j-AcB"/>
@@ -271,8 +274,7 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="179" y="19" width="52" height="21"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="274" y="28" width="52" height="21"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="V0r-ew-vhf"/>
                                         <include reference="ozO-U5-CQQ"/>
@@ -294,8 +296,7 @@
                                         <exclude reference="uzd-eb-Gvm"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="271" y="526" width="48" height="30"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="uzd-eb-Gvm"/>
                                     </mask>
@@ -372,8 +373,7 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="285" y="20" width="45" height="21"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="520" y="27" width="45" height="21"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="gtT-r8-KVq"/>
                                         <include reference="kAT-P8-KH8"/>
@@ -395,8 +395,7 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="205" width="400" height="209"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="100" y="195" width="400" height="209"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="UGm-v6-EbM"/>
                                         <include reference="yQY-hS-kgP"/>
@@ -421,8 +420,7 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="285" y="47" width="58" height="21"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="513" y="52" width="58" height="21"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="JVa-iD-pMv"/>
                                         <include reference="ish-TS-SEV"/>
@@ -441,8 +439,7 @@
                                         <exclude reference="G09-rV-dmX"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="444" y="485" width="156" height="115"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="FRq-7Y-wit"/>
                                         <include reference="G09-rV-dmX"/>
