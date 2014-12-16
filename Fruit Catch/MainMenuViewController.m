@@ -26,7 +26,7 @@
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundoprincipal"]];
     fundo.center = self.view.center;
     [self.view insertSubview:fundo atIndex:0];
-    UIImageView *nome = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nome"]];
+    UIImageView *nome = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"Launch"] == YES){
         nome.center = CGPointMake(self.view.center.x, self.view.center.y-400);
         [UIView animateWithDuration:2
