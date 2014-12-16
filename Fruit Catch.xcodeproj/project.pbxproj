@@ -35,6 +35,7 @@
 		E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */; };
 		E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */; };
 		E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D41A3B5EBF001C2897 /* nome@2x.png */; };
+		E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
 		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
 		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
@@ -115,6 +116,7 @@
 		E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundoprincipal@2x.png"; sourceTree = "<group>"; };
 		E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundo1@2x.png"; sourceTree = "<group>"; };
 		E33DD8D41A3B5EBF001C2897 /* nome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nome@2x.png"; sourceTree = "<group>"; };
+		E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui_pontos_movimentos@2x.png"; sourceTree = "<group>"; };
 		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCFruit.h; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				E30CD4D71A2CC817009BBC92 /* banana@2x.png */,
+				E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */,
 				E33DD8CE1A3B56EC001C2897 /* fundo@2X.png */,
 				E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */,
 				E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */,
@@ -563,6 +566,7 @@
 				E33DD8CF1A3B56EC001C2897 /* fundo@2X.png in Resources */,
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
 				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
+				E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */,
 				E33DD8CB1A3A20E1001C2897 /* selva@2x.png in Resources */,
 				E3E3ECC51A23B34500E7E18E /* Level_4.json in Resources */,
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
