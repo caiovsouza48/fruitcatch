@@ -330,7 +330,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-        NSLog(@"prepare for segue");
         if ([segue.identifier isEqualToString:@"Level"]){
             GameViewController *view = [segue destinationViewController];
             //Preparar a classe que carrega o nível para carregar o nível _i
