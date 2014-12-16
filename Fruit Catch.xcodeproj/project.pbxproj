@@ -12,6 +12,8 @@
 		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
 		0FA8DFB61A362C2E005B994C /* SettingsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */; };
 		0FF5BF5E1A3A13670090873A /* CustomSegueWorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */; };
+		4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128881A40612100A2B620 /* fase_aberta@2x.png */; };
+		4361288B1A40612100A2B620 /* mapa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128891A40612100A2B620 /* mapa@2x.png */; };
 		436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 436CBD091A2F737500862EDE /* WorldMap.m */; };
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
@@ -85,6 +87,8 @@
 		0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsSingleton.m; path = "Fruit Catch/SettingsSingleton.m"; sourceTree = "<group>"; };
 		0FF5BF5C1A3A13670090873A /* CustomSegueWorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueWorldMap.h; sourceTree = "<group>"; };
 		0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueWorldMap.m; sourceTree = "<group>"; };
+		436128881A40612100A2B620 /* fase_aberta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fase_aberta@2x.png"; sourceTree = "<group>"; };
+		436128891A40612100A2B620 /* mapa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa@2x.png"; sourceTree = "<group>"; };
 		436CBD081A2F737500862EDE /* WorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMap.h; sourceTree = "<group>"; };
 		436CBD091A2F737500862EDE /* WorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMap.m; sourceTree = "<group>"; };
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
@@ -308,6 +312,8 @@
 		436CBD071A2F732E00862EDE /* WorldMap */ = {
 			isa = PBXGroup;
 			children = (
+				436128881A40612100A2B620 /* fase_aberta@2x.png */,
+				436128891A40612100A2B620 /* mapa@2x.png */,
 				436CBD081A2F737500862EDE /* WorldMap.h */,
 				436CBD091A2F737500862EDE /* WorldMap.m */,
 				436CBD0B1A2F739400862EDE /* MapButtons.plist */,
