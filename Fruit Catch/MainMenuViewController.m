@@ -20,7 +20,7 @@
 @property (nonatomic) IBOutlet UIButton *multiplayerBtn;
 @property (nonatomic) IBOutlet UIButton *settingsBtn;
 @property (nonatomic) IBOutlet UIImageView *nome;
-
+@property (nonatomic) BOOL option;
 
 @end
 
@@ -53,6 +53,14 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    //Some com os botões de musica e sons
+    self.soundBtn.enabled = NO;
+    self.soundBtn.alpha   = 0;
+    
+    self.musicBtn.enabled = NO;
+    self.musicBtn.alpha   = 0;
+    
+    self.option = NO;
     //Anima os botões single, multiplayer e options
     [UIView animateWithDuration:1
                           delay:0
@@ -73,6 +81,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(IBAction)options:(id)sender
+{
+    if(!self.option){
+        self.musicBtn.enabled = YES;
+        self.musicBtn.alpha   = 1;
+        
+        self.soundBtn.enabled = YES;
+        self.soundBtn.alpha   = 1;
+        
+        //Fazer a animacao dos botoes surgindo
+        
+        self.option = YES;
+    }else{
+        self.musicBtn.enabled = NO;
+        self.musicBtn.alpha   = 0;
+        
+        self.soundBtn.enabled = NO;
+        self.soundBtn.alpha   = 0;
+        
+        self.option = NO;
+    }
+}
+
 -(IBAction)singlePlayer:(id)sender
 {
     _singlePlayerButton.enabled = NO;
@@ -87,8 +118,6 @@
 -(IBAction)musicON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] musicON_OFF];
-
-    
     [self.view setNeedsDisplay];
 }
 

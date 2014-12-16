@@ -76,6 +76,37 @@
                                         <include reference="wK2-FA-7A7"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="options:" destination="uZN-3h-NbC" eventType="touchUpInside" id="mwg-eo-Lwz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YP9-BY-bON">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Sound">
+                                    <color key="titleColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="275" y="750" width="45" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="soundON_OFF:" destination="uZN-3h-NbC" eventType="touchUpInside" id="G4x-9b-9Jg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ol-b8-yEL">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Music">
+                                    <color key="titleColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="335" y="693" width="42" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="musicON_OFF:" destination="uZN-3h-NbC" eventType="touchUpInside" id="Cjc-1J-l85"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -102,16 +133,18 @@
                                 <exclude reference="IhG-Bu-5QJ"/>
                                 <exclude reference="m4T-l0-ZHM"/>
                                 <exclude reference="LEv-IE-Kgo"/>
+                                <exclude reference="YP9-BY-bON"/>
+                                <exclude reference="5Ol-b8-yEL"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Yc2-IE-dKe"/>
-                                <exclude reference="OWQ-9a-Igw"/>
-                                <exclude reference="uc1-Ia-1eh"/>
                                 <exclude reference="Ant-Mo-JBx"/>
                                 <exclude reference="jjS-kd-LXF"/>
+                                <exclude reference="OWQ-9a-Igw"/>
+                                <exclude reference="uc1-Ia-1eh"/>
                                 <exclude reference="2gR-aa-6FQ"/>
                                 <exclude reference="Hc4-VB-gKO"/>
                                 <exclude reference="l7S-uV-8zc"/>
+                                <exclude reference="Yc2-IE-dKe"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -119,23 +152,27 @@
                                 <include reference="IhG-Bu-5QJ"/>
                                 <include reference="m4T-l0-ZHM"/>
                                 <include reference="LEv-IE-Kgo"/>
+                                <include reference="YP9-BY-bON"/>
+                                <include reference="5Ol-b8-yEL"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="Yc2-IE-dKe"/>
-                                <include reference="OWQ-9a-Igw"/>
-                                <include reference="uc1-Ia-1eh"/>
                                 <include reference="Ant-Mo-JBx"/>
                                 <include reference="jjS-kd-LXF"/>
+                                <include reference="OWQ-9a-Igw"/>
+                                <include reference="uc1-Ia-1eh"/>
                                 <include reference="2gR-aa-6FQ"/>
                                 <include reference="Hc4-VB-gKO"/>
                                 <exclude reference="l7S-uV-8zc"/>
+                                <include reference="Yc2-IE-dKe"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="multiplayerBtn" destination="m4T-l0-ZHM" id="iG0-xC-8v3"/>
+                        <outlet property="musicBtn" destination="5Ol-b8-yEL" id="Od4-Qc-ZQh"/>
                         <outlet property="settingsBtn" destination="LEv-IE-Kgo" id="Gyj-VO-zbE"/>
                         <outlet property="singlePlayerBtn" destination="orL-be-TdJ" id="hW3-EV-Nbf"/>
+                        <outlet property="soundBtn" destination="YP9-BY-bON" id="kVd-av-RKe"/>
                         <segue destination="cxk-xc-d7E" kind="presentation" identifier="Single" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nfF-1N-vTy"/>
                     </connections>
                 </viewController>
