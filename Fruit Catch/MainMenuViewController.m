@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundoprincipal"]];
+    UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
     fundo.center = self.view.center;
     [self.view insertSubview:fundo atIndex:0];
     UIImageView *nome = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
@@ -42,11 +42,11 @@
     }else{
         nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
-    [self.view insertSubview:nome atIndex:0];
+    [self.view insertSubview:nome atIndex:1];
     
-    UIImageView *fundo1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundo1"]];
-    fundo1.center = self.view.center;
-    [self.view insertSubview:fundo1 atIndex:0];
+//    UIImageView *fundo1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundo1"]];
+//    fundo1.center = self.view.center;
+//    [self.view insertSubview:fundo1 atIndex:0];
     // Do any additional setup after loading the view.
 }
 
@@ -57,6 +57,7 @@
 
 -(IBAction)singlePlayer:(id)sender
 {
+    
     _singlePlayerButton.enabled = NO;
     [self performSegueWithIdentifier:@"Single" sender:self];
 }
@@ -64,12 +65,7 @@
 -(IBAction)musicON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] musicON_OFF];
-    
-    if([SettingsSingleton sharedInstance].music == ON){
-        NSLog(@"Music On");
-    }else{
-        NSLog(@"Music Off");
-    }
+
     
     [self.view setNeedsDisplay];
 }
@@ -77,12 +73,7 @@
 -(IBAction)soundON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] soundON_OFF];
-    
-    if([SettingsSingleton sharedInstance].SFX == ON){
-        NSLog(@"SFX On");
-    }else{
-        NSLog(@"SFX Off");
-    }
+
 }
 
 /*
