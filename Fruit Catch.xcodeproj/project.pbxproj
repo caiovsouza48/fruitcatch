@@ -26,7 +26,6 @@
 		DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B71A239C6D003DD444 /* Images.xcassets */; };
 		DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B91A239C6D003DD444 /* LaunchScreen.xib */; };
 		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
-		DEF7B4B31A2FC7D400D7F7B3 /* questionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */; };
 		DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */; };
 		E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E30CD4D71A2CC817009BBC92 /* banana@2x.png */; };
 		E33DD8CB1A3A20E1001C2897 /* selva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8CA1A3A20E1001C2897 /* selva@2x.png */; };
@@ -104,7 +103,6 @@
 		DEC905C01A239C6D003DD444 /* Fruit CatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fruit CatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905C51A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fruit_CatchTests.m; sourceTree = "<group>"; };
-		DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionMark.png; sourceTree = "<group>"; };
 		DEF7B4BB1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCSwapFruitSingleton.h; sourceTree = "<group>"; };
 		DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCSwapFruitSingleton.m; sourceTree = "<group>"; };
 		E30CD4D71A2CC817009BBC92 /* banana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "banana@2x.png"; path = "Sprites.atlas/banana@2x.png"; sourceTree = "<group>"; };
@@ -438,7 +436,6 @@
 			isa = PBXGroup;
 			children = (
 				E3E3ECBC1A23B34500E7E18E /* Level_0.json */,
-				DEF7B4B21A2FC7D400D7F7B3 /* questionMark.png */,
 				E3E3ECBD1A23B34500E7E18E /* Level_1.json */,
 				E3E3ECBE1A23B34500E7E18E /* Level_2.json */,
 				E3E3ECBF1A23B34500E7E18E /* Level_3.json */,
@@ -533,7 +530,6 @@
 				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
 				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
-				DEF7B4B31A2FC7D400D7F7B3 /* questionMark.png in Resources */,
 				E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */,
 				E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */,
 				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
