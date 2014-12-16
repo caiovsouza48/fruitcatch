@@ -31,7 +31,7 @@
 //                         destination.transform = CGAffineTransformMakeRotation(M_PI);
 //                         destination.transform = CGAffineTransformMakeRotation(0);
                          
-                         destination.transform = CGAffineTransformMakeScale(1.0, 1.0);
+//                         destination.transform = CGAffineTransformMakeScale(1.0, 1.0);
                      }
                      completion:^(BOOL finished){
                          destination.transform = CGAffineTransformMakeRotation(0);
