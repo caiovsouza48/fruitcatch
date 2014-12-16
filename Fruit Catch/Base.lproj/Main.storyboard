@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -59,7 +59,7 @@
                         <outlet property="musicBtn" destination="Ic6-q4-G9P" id="nqy-ro-nwo"/>
                         <outlet property="singlePlayerButton" destination="orL-be-TdJ" id="X9M-uM-FsG"/>
                         <outlet property="soundBtn" destination="LQl-48-7yR" id="att-g3-qCq"/>
-                        <segue destination="cxk-xc-d7E" kind="custom" identifier="Single" customClass="CustomSegueWorldMap" id="nfF-1N-vTy"/>
+                        <segue destination="cxk-xc-d7E" kind="presentation" identifier="Single" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nfF-1N-vTy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7sO-Tm-1N1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -105,6 +105,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ioD-8X-7Ts"/>
                     <connections>
                         <outlet property="LifeView1" destination="t6q-Jl-MGu" id="thi-NS-4dN"/>
                         <outlet property="LifeView2" destination="m4n-4s-Va8" id="d6Q-Hq-B1S"/>
@@ -113,7 +114,7 @@
                         <outlet property="LifeView5" destination="XhU-QJ-Yeu" id="bgb-n4-Ltd"/>
                         <outlet property="livesView" destination="EX2-Dh-on1" id="7L6-WS-eS1"/>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="Level" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nlx-AD-QtX"/>
-                        <segue destination="uZN-3h-NbC" kind="custom" identifier="Menu" customClass="CustomSegueWorldMap" id="3aT-VL-VDo"/>
+                        <segue destination="uZN-3h-NbC" kind="presentation" identifier="Menu" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="3aT-VL-VDo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IL3-WA-N6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
