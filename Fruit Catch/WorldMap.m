@@ -38,13 +38,15 @@
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
     // Do any additional setup after loading the view.
     
+    //Carrega a imagem de fundo
+    UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa"]];
+    [self.view addSubview:fundo];
+    
     NSArray *mapButtons = [[NSArray alloc]initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"MapButtons" ofType:@"plist"]];
     
     _i = -1;
     
     //Cria o botao back
-    CGRect frame = [[UIScreen mainScreen] bounds];
-    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     
     button.tag = _i;
@@ -54,11 +56,13 @@
      forControlEvents:UIControlEventTouchUpInside];
     
     [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
-    button.frame = CGRectMake(frame.size.width / 2 - 30, 4 * frame.size.height / 5, 60, 32);
+    button.frame = CGRectMake(50, 50, 60, 32);
+    button.tintColor = [UIColor whiteColor];
+    button.backgroundColor = [UIColor redColor];
     [self.view addSubview:button];
     
+    //Cria os botões das fases
     for(NSDictionary *button in mapButtons){
-        
         _i++;
         //Cria o botao de nivel
         NSNumber *x = button[@"xPosition"];
@@ -72,9 +76,17 @@
                    action:@selector(selectLevel:)
          forControlEvents:UIControlEventTouchUpInside];
         
-        [button setTitle:[NSString stringWithFormat:@"%d",(int)_i + 1] forState:UIControlStateNormal];
-        button.frame = CGRectMake(x.integerValue, y.integerValue, 32, 32);
+        button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        button.titleLabel.textAlignment = NSTextAlignmentCenter;
+        button.tintColor = [UIColor whiteColor];
+        button.titleLabel.font = [UIFont fontWithName:@"Arial" size:24];
+                button.frame = CGRectMake(x.integerValue, y.integerValue, 54, 34);
+        [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
+        //Necessário fazer um if para comparar se a fase está aberta ou fechada
+        [button setBackgroundImage:[UIImage imageNamed:@"fase_aberta"] forState:UIControlStateNormal];
         [self.view addSubview:button];
+        
+        break; //Remover depois
     }
     
 }
@@ -330,7 +342,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-        NSLog(@"prepare for segue");
         if ([segue.identifier isEqualToString:@"Level"]){
             GameViewController *view = [segue destinationViewController];
             //Preparar a classe que carrega o nível para carregar o nível _i

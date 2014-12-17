@@ -435,12 +435,9 @@ static const CGFloat TileHeight = 36.0;
         for (JIMCFruit *fruit in chain.fruits) {
             if ([fruit isKindOfClass:[JIMCFruit class]]){
                 if (fruit.sprite != nil) {
-                    SKAction *scaleAction = [SKAction scaleTo:0.8 duration:0.5];
-                    scaleAction.timingMode = SKActionTimingEaseIn;
-                    SKAction *move = [SKAction moveTo:CGPointMake(-100, -100) duration:1];
-                    [fruit.sprite runAction:move];
-                    [fruit.sprite runAction:scaleAction];
-                    [fruit.sprite runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0 ],[SKAction removeFromParent]]]];
+                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
+                    scaleAction.timingMode = SKActionTimingEaseOut;
+                    [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
                     
                     // It may happen that the same JIMCFruit object is part of two chains
                     // (L-shape match). In that case, its sprite should only be removed
@@ -454,7 +451,6 @@ static const CGFloat TileHeight = 36.0;
     if([SettingsSingleton sharedInstance].SFX == ON){
         [self runAction:self.matchSound];
     }
-    
     // Continue with the game after the animations have completed.
     [self runAction:[SKAction sequence:@[
                                          [SKAction waitForDuration:0.3],

@@ -281,17 +281,10 @@
                 }
              }
         }
-//        if (fruta == NO) {
-//            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
-//        }
         
-//         NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
-//        if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
-//            [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
-//            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
-//        }
-        
-        
+        for (JIMCChain *chain in chains) {
+            self.score += chain.score;
+        }
         [self updateLabels];
         
         // ...then shift down any fruits that have a hole below them...
@@ -320,7 +313,7 @@
     NSSet *chains = [self.scene.level executePowerUp:powerUp];
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
-        NSLog(@"Chains count is zero");
+        //NSLog(@"Chains count is zero");
         [self beginNextTurn];
         return;
     }
@@ -362,7 +355,7 @@
     NSInteger i = self.possibleMoves.count;
     
     if(i == 0){
-        NSLog(@"Não há movimentos restantes.\nEmbaralhando.");
+        //NSLog(@"Não há movimentos restantes.\nEmbaralhando.");
         [self shuffle];
         self.possibleMoves = [self.level detectPossibleSwaps];
         i = self.possibleMoves.count;
@@ -371,7 +364,7 @@
      //   NSLog(@"Jogadas possiveis = %ld",i);
     }
     
-    NSLog(@"Jogadas possiveis = %d",(int)i);
+    //NSLog(@"Jogadas possiveis = %d",(int)i);
     
     [self.scene runAction: self.hintAction withKey:@"Hint"];
     //SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
@@ -408,6 +401,7 @@
     self.targetLabel.text = [NSString stringWithFormat:@"%lu", (long)self.level.targetScore];
     self.movesLabel.text = [NSString stringWithFormat:@"%lu", (long)self.movesLeft];
     self.scoreLabel.text = [NSString stringWithFormat:@"%lu", (long)self.score];
+    
 }
 
 - (void)decrementMoves{
