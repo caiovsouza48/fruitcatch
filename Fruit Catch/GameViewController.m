@@ -275,19 +275,10 @@
                 if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) || (fruit.fruitPowerUp == 2 && chain.fruits.count == 4)) {
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
-                    break;
+                    //break;
                 }
              }
         }
-//        if (fruta == NO) {
-//            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
-//        }
-        
-//         NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
-//        if ([JIMCSwapFruitSingleton sharedInstance].fruit != nil){
-//            [self.scene addSpritesForFruit:[JIMCSwapFruitSingleton sharedInstance].fruit];
-//            [JIMCSwapFruitSingleton sharedInstance].fruit = nil;
-//        }
         
         for (JIMCChain *chain in chains) {
             self.score += chain.score;

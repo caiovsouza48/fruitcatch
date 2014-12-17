@@ -358,6 +358,7 @@
     [horizontalChains unionSet:verticalChains];
     [horizontalChains unionSet:rowChains];
     [horizontalChains unionSet:columnChains];
+    
     return horizontalChains;
 }
 
@@ -374,8 +375,8 @@
     for (JIMCChain *chain in horizontalChains) {
         for (JIMCFruit *fruit in chain.fruits) {
             if (fruit.fruitPowerUp == 2) {
-                fruit.fruitPowerUp=0;
                 rowChains = [self detectFruitsInRow:fruit];
+                fruit.fruitPowerUp=0;
             }
         }
     }
@@ -387,8 +388,8 @@
     for (JIMCChain *chain in verticalChains) {
         for (JIMCFruit *fruit in chain.fruits) {
             if (fruit.fruitPowerUp == 2) {
-                fruit.fruitPowerUp=0;
                 columnChains = [self detectFruitsInColumn:fruit];
+                fruit.fruitPowerUp=0;
             }
         }
     }
@@ -440,7 +441,7 @@
         // Note: for-loop without increment.
         for (NSInteger column = 0; column < NumColumns ;column++ ) {
             // If there is a fruit/tile at this position...
-            if ((_fruits[column][row] != nil) && (_fruits[column][row].column == fruit.column)) {
+            if ((_fruits[column][row] != nil) && (_fruits[column][row].column == fruit.column) && ![self isSelectedFruit:_fruits[column][row]]) {
                     JIMCChain *chain = [[JIMCChain alloc] init];
                     chain.chainType = ChainTypeHorizontal;
                     [chain addFruit:_fruits[column][row]];
@@ -457,7 +458,7 @@
     
     for (NSInteger column = 0; column < NumColumns; column++) {
         for (NSInteger row = 0; row < NumRows; row++) {
-            if ((_fruits[column][row] != nil) && (_fruits[column][row].row == fruit.row)) {
+            if ((_fruits[column][row] != nil) && (_fruits[column][row].row == fruit.row && ![self isSelectedFruit:_fruits[column][row]])) {
                     JIMCChain *chain = [[JIMCChain alloc] init];
                     chain.chainType = ChainTypeVertical;
                     [chain addFruit:_fruits[column][row]];
@@ -725,7 +726,7 @@
 - (void)calculateScores:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        chain.score = 30 * ([chain.fruits count] - 2) * self.comboMultiplier;
+        //chain.score = 30 * ([chain.fruits count] - 2) * self.comboMultiplier;
         self.comboMultiplier++;
     }
 }
