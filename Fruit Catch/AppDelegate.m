@@ -17,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[UIApplication sharedApplication]setStatusBarHidden:YES ];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Launch"];
     return YES;
 }

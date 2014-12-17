@@ -16,6 +16,11 @@
 
 @property (nonatomic) IBOutlet UIButton *musicBtn;
 @property (nonatomic) IBOutlet UIButton *soundBtn;
+@property (nonatomic) IBOutlet UIButton *singlePlayerBtn;
+@property (nonatomic) IBOutlet UIButton *multiplayerBtn;
+@property (nonatomic) IBOutlet UIButton *settingsBtn;
+@property (nonatomic) IBOutlet UIImageView *nome;
+@property (nonatomic) BOOL option;
 
 @end
 
@@ -23,36 +28,80 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundoprincipal"]];
+    UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
     fundo.center = self.view.center;
     [self.view insertSubview:fundo atIndex:0];
-    UIImageView *nome = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nome"]];
+    self.nome = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"Launch"] == YES){
-        nome.center = CGPointMake(self.view.center.x, self.view.center.y-400);
+        self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-400);
         [UIView animateWithDuration:2
-                              delay:0
+                              delay:0.75
              usingSpringWithDamping:0.35
               initialSpringVelocity:0
                             options:0
                          animations:^{
-                            nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
+                            self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
                          }
                          completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Launch"];
     }else{
-        nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
+        self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
-    [self.view insertSubview:nome atIndex:0];
     
-    UIImageView *fundo1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundo1"]];
-    fundo1.center = self.view.center;
-    [self.view insertSubview:fundo1 atIndex:0];
-    // Do any additional setup after loading the view.
+    [self.view insertSubview:self.nome atIndex:1];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    //Some com os botões de musica e sons
+    self.soundBtn.enabled = NO;
+    self.soundBtn.alpha   = 0;
+    
+    self.musicBtn.enabled = NO;
+    self.musicBtn.alpha   = 0;
+    
+    self.option = NO;
+    //Anima os botões single, multiplayer e options
+    [UIView animateWithDuration:1
+                          delay:0
+                        options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewAnimationOptionCurveEaseInOut | UIViewKeyframeAnimationOptionAllowUserInteraction
+                     animations:^{
+                         NSLog(@"animate");
+                         //Single
+                         self.singlePlayerBtn.transform = CGAffineTransformMakeScale(1.02, 1.02);
+                         //Multi
+                         self.multiplayerBtn.transform  = CGAffineTransformMakeScale(1.02, 1.02);
+                         //Options
+                         self.settingsBtn.transform     = CGAffineTransformMakeRotation(M_PI_4 / 4);
+                     }completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)options:(id)sender
+{
+    if(!self.option){
+        self.musicBtn.enabled = YES;
+        self.musicBtn.alpha   = 1;
+        
+        self.soundBtn.enabled = YES;
+        self.soundBtn.alpha   = 1;
+        
+        //Fazer a animacao dos botoes surgindo
+        
+        self.option = YES;
+    }else{
+        self.musicBtn.enabled = NO;
+        self.musicBtn.alpha   = 0;
+        
+        self.soundBtn.enabled = NO;
+        self.soundBtn.alpha   = 0;
+        
+        self.option = NO;
+    }
 }
 
 -(IBAction)singlePlayer:(id)sender
@@ -61,28 +110,21 @@
     [self performSegueWithIdentifier:@"Single" sender:self];
 }
 
+-(IBAction)multiplayer:(id)sender
+{
+    NSLog(@"Multiplayer");
+}
+
 -(IBAction)musicON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] musicON_OFF];
-    
-    if([SettingsSingleton sharedInstance].music == ON){
-        NSLog(@"Music On");
-    }else{
-        NSLog(@"Music Off");
-    }
-    
     [self.view setNeedsDisplay];
 }
 
 -(IBAction)soundON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] soundON_OFF];
-    
-    if([SettingsSingleton sharedInstance].SFX == ON){
-        NSLog(@"SFX On");
-    }else{
-        NSLog(@"SFX Off");
-    }
+
 }
 
 /*
