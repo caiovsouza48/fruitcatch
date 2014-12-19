@@ -17,5 +17,9 @@
 - (void)updateLabels ;
 @property (nonatomic) NSString *levelString;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+- (void)shuffle;
+- (void)beginGame;
+
+- (void)back;
 
 @end

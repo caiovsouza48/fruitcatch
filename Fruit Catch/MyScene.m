@@ -3,11 +3,16 @@
 #import "JIMCLevel.h"
 #import "JIMCSwap.h"
 #import "SettingsSingleton.h"
+#import "GameOverScene.h"
+#import "GameViewController.h"
+#import "WorldMap.h"
 
 static const CGFloat TileWidth = 34.0;
 static const CGFloat TileHeight = 36.0;
 
 @interface MyScene ()
+
+@property(nonatomic) GameOverScene *gameOverScreen;
 
 @property (strong, nonatomic) SKNode *gameLayer;
 @property (strong, nonatomic) SKNode *fruitsLayer;
@@ -249,6 +254,29 @@ static const CGFloat TileHeight = 36.0;
     // Convert the touch location to a point relative to the fruitsLayer.
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self.fruitsLayer];
+
+    CGPoint locationGameOverScreen = [touch locationInNode:self.gameOverScreen];
+    SKNode *no = [self.gameOverScreen nodeAtPoint:locationGameOverScreen];
+    
+    if ([no.name isEqualToString:@"retry"]) {
+        NSLog(@"Retry Button Clicked");
+
+        SKAction *acaoDescer = [SKAction moveToX:500 duration:0.5];
+
+        [self.gameOverScreen runAction:acaoDescer];
+        [self removeAllFruitSprites];
+        NSSet *newFruits = [self.level shuffle];
+        [self addSpritesForFruits:newFruits];
+        
+    }else if ([no.name isEqualToString:@"next"]){
+        NSLog(@"Next Button Clicked");
+        
+    }else if ([no.name isEqualToString:@"menu"]){
+        NSLog(@"Menu Button Clicked");
+        [self.viewController back];
+        
+    }
+    
     
     // If the touch is inside a square, then this might be the start of a
     // swipe motion.
@@ -610,9 +638,53 @@ static const CGFloat TileHeight = 36.0;
 }
 
 - (void)animateGameOver {
-    SKAction *action = [SKAction moveBy:CGVectorMake(0, -self.size.height) duration:0.3];
-    action.timingMode = SKActionTimingEaseIn;
-    [self.gameLayer runAction:action];
+    // Ação dos botões
+    SKAction *acaoDescer = [SKAction moveToX:CGRectGetMidX(self.frame) duration:0.5];
+    
+    self.gameOverScreen = [[GameOverScene alloc]init];
+    self.gameOverScreen.size = CGSizeMake(self.frame.size.width, self.frame.size.height/2);
+    self.gameOverScreen.color = [SKColor yellowColor];
+    self.gameOverScreen.position = CGPointMake(CGRectGetMidX(self.frame)-500, CGRectGetMidY(self.frame));
+
+    // Imagem dos botões
+    self.gameOverScreen.retry = [[SKSpriteNode alloc]initWithImageNamed:@"RetryButton.png"];
+    self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"NextButton.png"];
+    self.gameOverScreen.menu = [[SKSpriteNode alloc]initWithImageNamed:@"MenuButton.png"];
+
+    // Posição dos botões
+    self.gameOverScreen.retry.position = CGPointMake(-100, self.gameOverScreen.position.y);
+    self.gameOverScreen.next.position = CGPointMake(0, self.gameOverScreen.position.y);
+    self.gameOverScreen.menu.position = CGPointMake(100, self.gameOverScreen.position.y);
+    
+    // Nome dos botões
+    self.gameOverScreen.retry.name = @"retry";
+    self.gameOverScreen.next.name = @"next";
+    self.gameOverScreen.menu.name = @"menu";
+    
+    // zPosition dos botões
+    self.gameOverScreen.retry.zPosition = 50;
+    self.gameOverScreen.next.zPosition = 50;
+    self.gameOverScreen.menu.zPosition = 50;
+
+    // Tamanho dos botões
+    self.gameOverScreen.retry.size = CGSizeMake(40, 40);
+    self.gameOverScreen.next.size = CGSizeMake(40, 40);
+    self.gameOverScreen.menu.size = CGSizeMake(40, 40);
+
+    // Adiciona os botões na gameOverScreen
+    [self.gameOverScreen addChild:self.gameOverScreen.retry];
+    [self.gameOverScreen addChild:self.gameOverScreen.next];
+    [self.gameOverScreen addChild:self.gameOverScreen.menu];
+    
+    // Atribui ação para os botões
+    //[self.gameOverScreen.retry runAction:acaoDescer];
+    //[self.gameOverScreen.next runAction:acaoDescer];
+    //[self.gameOverScreen.menu runAction:acaoDescer];
+
+    // Desce a tela da gameOverScreen
+    [self.gameOverScreen runAction:acaoDescer];
+    
+    [self addChild:self.gameOverScreen];
 }
 
 - (void)animateBeginGame {
