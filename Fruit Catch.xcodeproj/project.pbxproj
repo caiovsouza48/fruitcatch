@@ -7,10 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F05E8071A41F6A900D11622 /* GameOverScene.m */; };
 		0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */; };
 		0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */; };
 		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
 		0FA8DFB61A362C2E005B994C /* SettingsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */; };
+		0FEE059E1A433F7E00E8CF81 /* MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE059B1A433F7E00E8CF81 /* MenuButton.png */; };
+		0FEE059F1A433F7E00E8CF81 /* BackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE059C1A433F7E00E8CF81 /* BackButton.png */; };
+		0FEE05A11A43405000E8CF81 /* NextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE05A01A43405000E8CF81 /* NextButton.png */; };
+		0FEE05A31A4348F100E8CF81 /* RetryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE05A21A4348F100E8CF81 /* RetryButton.png */; };
 		0FF5BF5E1A3A13670090873A /* CustomSegueWorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */; };
 		4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128881A40612100A2B620 /* fase_aberta@2x.png */; };
 		4361288B1A40612100A2B620 /* mapa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128891A40612100A2B620 /* mapa@2x.png */; };
@@ -78,6 +83,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F05E8061A41F6A900D11622 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		0F05E8071A41F6A900D11622 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		0F7808181A3F501B00883622 /* CustomSegueSinglePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueSinglePlayer.h; sourceTree = "<group>"; };
 		0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueSinglePlayer.m; sourceTree = "<group>"; };
 		0FA8DFAE1A362C2E005B994C /* JIMCBombaMaisPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCBombaMaisPowerUp.h; path = "Fruit Catch/JIMCBombaMaisPowerUp.h"; sourceTree = "<group>"; };
@@ -86,6 +93,10 @@
 		0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCPowerUp.m; path = "Fruit Catch/JIMCPowerUp.m"; sourceTree = "<group>"; };
 		0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsSingleton.h; path = "Fruit Catch/SettingsSingleton.h"; sourceTree = "<group>"; };
 		0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsSingleton.m; path = "Fruit Catch/SettingsSingleton.m"; sourceTree = "<group>"; };
+		0FEE059B1A433F7E00E8CF81 /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
+		0FEE059C1A433F7E00E8CF81 /* BackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackButton.png; sourceTree = "<group>"; };
+		0FEE05A01A43405000E8CF81 /* NextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NextButton.png; sourceTree = "<group>"; };
+		0FEE05A21A4348F100E8CF81 /* RetryButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RetryButton.png; sourceTree = "<group>"; };
 		0FF5BF5C1A3A13670090873A /* CustomSegueWorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueWorldMap.h; sourceTree = "<group>"; };
 		0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueWorldMap.m; sourceTree = "<group>"; };
 		436128881A40612100A2B620 /* fase_aberta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fase_aberta@2x.png"; sourceTree = "<group>"; };
@@ -183,6 +194,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F05E7FF1A41EC6700D11622 /* GameOverScene */ = {
+			isa = PBXGroup;
+			children = (
+				0F05E8061A41F6A900D11622 /* GameOverScene.h */,
+				0F05E8071A41F6A900D11622 /* GameOverScene.m */,
+			);
+			name = GameOverScene;
+			sourceTree = "<group>";
+		};
 		0F7808161A3F4DAB00883622 /* WorldMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +413,7 @@
 		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
 			isa = PBXGroup;
 			children = (
+				0F05E7FF1A41EC6700D11622 /* GameOverScene */,
 				0FF5BF5B1A3A13490090873A /* Segue */,
 				DEA2D2B81A39C82E0038B65A /* Life */,
 				436CBD071A2F732E00862EDE /* WorldMap */,
@@ -452,6 +473,10 @@
 			isa = PBXGroup;
 			children = (
 				E37BB4D91A4057F500F8E679 /* menu iniciar */,
+				0FEE05A21A4348F100E8CF81 /* RetryButton.png */,
+				0FEE05A01A43405000E8CF81 /* NextButton.png */,
+				0FEE059B1A433F7E00E8CF81 /* MenuButton.png */,
+				0FEE059C1A433F7E00E8CF81 /* BackButton.png */,
 				E30CD4D71A2CC817009BBC92 /* banana@2x.png */,
 				E37BB4E91A40924B00F8E679 /* fazendeiro_fase@2x.png */,
 				E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */,
@@ -599,6 +624,7 @@
 				E37BB4EA1A40924B00F8E679 /* fazendeiro_fase@2x.png in Resources */,
 				4361288B1A40612100A2B620 /* mapa@2x.png in Resources */,
 				4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */,
+				0FEE059F1A433F7E00E8CF81 /* BackButton.png in Resources */,
 				E3E3ECC21A23B34500E7E18E /* Level_1.json in Resources */,
 				E3E3ECC31A23B34500E7E18E /* Level_2.json in Resources */,
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
@@ -608,15 +634,18 @@
 				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
 				E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */,
 				E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */,
+				0FEE05A11A43405000E8CF81 /* NextButton.png in Resources */,
 				E37BB4E21A40580500F8E679 /* fazendeiro@2x.png in Resources */,
 				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
 				E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */,
 				E37BB4E81A4061D000F8E679 /* fundo@2x.png in Resources */,
+				0FEE05A31A4348F100E8CF81 /* RetryButton.png in Resources */,
 				E3E3ECC11A23B34500E7E18E /* Level_0.json in Resources */,
 				E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */,
 				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
 				E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */,
+				0FEE059E1A433F7E00E8CF81 /* MenuButton.png in Resources */,
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
 				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
 				E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */,
@@ -669,6 +698,7 @@
 				0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */,
 				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
+				0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */,
 				0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

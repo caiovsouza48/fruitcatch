@@ -15,6 +15,7 @@
 #import "JIMCSwapFruitSingleton.h"
 #import "SettingsSingleton.h"
 #import "Life.h"
+#import "GameOverScene.h"
 
 @interface GameViewController ()
 
@@ -57,6 +58,8 @@
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    self.scene.viewController = self;
     
     // Load the level.
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
@@ -272,7 +275,9 @@
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
-                if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) || (fruit.fruitPowerUp == 2 && chain.fruits.count == 4)) {
+                if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) ||
+                    (fruit.fruitPowerUp == 2 && chain.fruits.count == 4)) {
+                    
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
                     //break;
@@ -410,8 +415,12 @@
         self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
         [self showGameOver];
     } else if (self.movesLeft == 0) {
-        self.gameOverPanel.image = [UIImage imageNamed:@"GameOver"];
-        [self showGameOver];
+        
+        [self.scene animateGameOver];
+        self.movesLeft = self.level.maximumMoves;
+        self.score = 0;
+        [self updateLabels];
+        
     }
     
     [self.scene removeActionForKey:@"Hint"];
@@ -424,15 +433,15 @@
 }
 
 - (void)showGameOver {
-    
+
     [self.scene removeActionForKey:@"Hint"];
     if(self.hintNode){
         [self.scene runAction:[SKAction runBlock:^{
             [self.hintNode removeFromParent];
         }]];
     }
+
     
-    [self.scene animateGameOver];
     
     self.gameOverPanel.hidden = NO;
     self.scene.userInteractionEnabled = NO;
@@ -497,6 +506,10 @@
 -(IBAction)back:(id)sender
 {
     _backButton.enabled = NO;
+    [self performSegueWithIdentifier:@"Back" sender:self];
+}
+
+-(void)back {
     [self performSegueWithIdentifier:@"Back" sender:self];
 }
 

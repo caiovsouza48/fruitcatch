@@ -446,7 +446,6 @@
                     chain.chainType = ChainTypeHorizontal;
                     [chain addFruit:_fruits[column][row]];
                     [set addObject:chain];
-              
                 }
             }
         }
@@ -726,7 +725,7 @@
 - (void)calculateScores:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        //chain.score = 30 * ([chain.fruits count] - 2) * self.comboMultiplier;
+        chain.score = 30 * ([chain.fruits count] - 2) * self.comboMultiplier;
         self.comboMultiplier++;
     }
 }
