@@ -151,7 +151,7 @@
 
 - (void) updateLivesLoadedLifeObject{
     NSDate *actualDate = [NSDate date];
-    //Quanto tempo se passou desde o ultimo tempo registrado no plist
+    //Quanto tempo se passou desde o ultimo tempo registrado no appData
     NSTimeInterval interval = [actualDate timeIntervalSinceDate:[Life sharedInstance].lifeTime];
     //Segundos para Minutos
     int minutesInterval = interval / 60;
@@ -281,9 +281,10 @@
             break;
         case 4:
             intervalInMinutes = 35;
+            break;
         case 5:
         default:
-            break;
+            return;
     }
      self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
     NSLog(@"Timer Fired");

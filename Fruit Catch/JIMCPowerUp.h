@@ -14,6 +14,8 @@
 
 @property(nonatomic) NSString *powerUpName;
 
+@property(nonatomic) UIImage *image;
+
 @property(nonatomic) NSUInteger level;
 
 @property(nonatomic) float experience;
