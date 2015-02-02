@@ -189,7 +189,7 @@ static NetworkController *sharedController = nil;
        [_delegate matchStarted:match];
     } else if (msgType == MessageJogada &&  _state == NetworkStateMatchActive){
         unsigned char playerIndex = [reader readByte];
-        JIMCCoord coords = JIMCCoordMake([reader readInt], [reader readInt]);
+        //JIMCCoord coords = JIMCCoordMake([reader readInt], [reader readInt]);
         
 //    } else if (msgType == MessagePlayerMoved && _state == NetworkStateMatchActive) {
 //        unsigned char playerIndex = [reader readByte];

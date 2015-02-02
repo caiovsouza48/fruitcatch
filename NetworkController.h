@@ -9,18 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
 
-
-typedef struct{
-    int x;
-    int y;
-}JIMCCoord;
-
-JIMCCoord JIMCCoordMake(int x,int y){
-    JIMCCoord coord;
-    coord.x = x;
-    coord.y = y;
-    return coord;
-}
+//
+//typedef struct{
+//    int x;
+//    int y;
+//}JIMCCoord;
+//
+//JIMCCoord JIMCCoordMake(int x,int y){
+//    JIMCCoord coord;
+//    coord.x = x;
+//    coord.y = y;
+//    return coord;
+//}
 
 typedef enum {
     NetworkStateNotAvailable,
