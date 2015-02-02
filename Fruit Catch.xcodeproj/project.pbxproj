@@ -22,6 +22,12 @@
 		436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 436CBD091A2F737500862EDE /* WorldMap.m */; };
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
+		DE8092D21A7FDDE3008E2B37 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092C71A7FDDE3008E2B37 /* Match.m */; };
+		DE8092D31A7FDDE3008E2B37 /* MessageReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092C91A7FDDE3008E2B37 /* MessageReader.m */; };
+		DE8092D41A7FDDE3008E2B37 /* MessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092CB1A7FDDE3008E2B37 /* MessageWriter.m */; };
+		DE8092D51A7FDDE3008E2B37 /* MultiplayerGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092CD1A7FDDE3008E2B37 /* MultiplayerGameViewController.m */; };
+		DE8092D61A7FDDE3008E2B37 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092CF1A7FDDE3008E2B37 /* NetworkController.m */; };
+		DE8092D71A7FDDE3008E2B37 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092D11A7FDDE3008E2B37 /* Player.m */; };
 		DEA2D2B31A39BBEE0038B65A /* Life.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2A91A39BBEE0038B65A /* Life.m */; };
 		DEA2D2B41A39BBEE0038B65A /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2AB1A39BBEE0038B65A /* RNCryptor.m */; };
 		DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2AE1A39BBEE0038B65A /* RNCryptorEngine.m */; };
@@ -106,6 +112,18 @@
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
 		43F4362D1A28A00300F1C358 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		43F4362E1A28A00300F1C358 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		DE8092C61A7FDDE3008E2B37 /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
+		DE8092C71A7FDDE3008E2B37 /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match.m; sourceTree = "<group>"; };
+		DE8092C81A7FDDE3008E2B37 /* MessageReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageReader.h; sourceTree = "<group>"; };
+		DE8092C91A7FDDE3008E2B37 /* MessageReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageReader.m; sourceTree = "<group>"; };
+		DE8092CA1A7FDDE3008E2B37 /* MessageWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageWriter.h; sourceTree = "<group>"; };
+		DE8092CB1A7FDDE3008E2B37 /* MessageWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageWriter.m; sourceTree = "<group>"; };
+		DE8092CC1A7FDDE3008E2B37 /* MultiplayerGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiplayerGameViewController.h; sourceTree = "<group>"; };
+		DE8092CD1A7FDDE3008E2B37 /* MultiplayerGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiplayerGameViewController.m; sourceTree = "<group>"; };
+		DE8092CE1A7FDDE3008E2B37 /* NetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkController.h; sourceTree = "<group>"; };
+		DE8092CF1A7FDDE3008E2B37 /* NetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkController.m; sourceTree = "<group>"; };
+		DE8092D01A7FDDE3008E2B37 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		DE8092D11A7FDDE3008E2B37 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		DEA2D2A81A39BBEE0038B65A /* Life.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Life.h; sourceTree = "<group>"; };
 		DEA2D2A91A39BBEE0038B65A /* Life.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Life.m; sourceTree = "<group>"; };
 		DEA2D2AA1A39BBEE0038B65A /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCryptor.h; path = "Fruit Catch/RNCryptor.h"; sourceTree = "<group>"; };
@@ -355,6 +373,25 @@
 			name = MainMenu;
 			sourceTree = "<group>";
 		};
+		DE8092D81A7FDDEF008E2B37 /* Multiplayer */ = {
+			isa = PBXGroup;
+			children = (
+				DE8092C61A7FDDE3008E2B37 /* Match.h */,
+				DE8092C71A7FDDE3008E2B37 /* Match.m */,
+				DE8092C81A7FDDE3008E2B37 /* MessageReader.h */,
+				DE8092C91A7FDDE3008E2B37 /* MessageReader.m */,
+				DE8092CA1A7FDDE3008E2B37 /* MessageWriter.h */,
+				DE8092CB1A7FDDE3008E2B37 /* MessageWriter.m */,
+				DE8092CC1A7FDDE3008E2B37 /* MultiplayerGameViewController.h */,
+				DE8092CD1A7FDDE3008E2B37 /* MultiplayerGameViewController.m */,
+				DE8092CE1A7FDDE3008E2B37 /* NetworkController.h */,
+				DE8092CF1A7FDDE3008E2B37 /* NetworkController.m */,
+				DE8092D01A7FDDE3008E2B37 /* Player.h */,
+				DE8092D11A7FDDE3008E2B37 /* Player.m */,
+			);
+			name = Multiplayer;
+			sourceTree = "<group>";
+		};
 		DEA2D2B81A39C82E0038B65A /* Life */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +429,7 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
+				DE8092D81A7FDDEF008E2B37 /* Multiplayer */,
 				DEA2D2B91A39C83D0038B65A /* Util */,
 				0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */,
 				0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */,
@@ -679,9 +717,13 @@
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
 				DEA2D2B31A39BBEE0038B65A /* Life.m in Sources */,
 				E3DFE2FA1A40A2B500CB4D0C /* JIMCMainMenu.m in Sources */,
+				DE8092D21A7FDDE3008E2B37 /* Match.m in Sources */,
+				DE8092D71A7FDDE3008E2B37 /* Player.m in Sources */,
 				DEA2D2B71A39BBEE0038B65A /* RNEncryptor.m in Sources */,
+				DE8092D61A7FDDE3008E2B37 /* NetworkController.m in Sources */,
 				0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */,
 				DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */,
+				DE8092D51A7FDDE3008E2B37 /* MultiplayerGameViewController.m in Sources */,
 				E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */,
 				E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */,
 				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
@@ -691,6 +733,7 @@
 				43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */,
 				DEA2D2B41A39BBEE0038B65A /* RNCryptor.m in Sources */,
 				DEA2D2B61A39BBEE0038B65A /* RNDecryptor.m in Sources */,
+				DE8092D31A7FDDE3008E2B37 /* MessageReader.m in Sources */,
 				436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
@@ -700,6 +743,7 @@
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 				0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */,
 				0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */,
+				DE8092D41A7FDDE3008E2B37 /* MessageWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
