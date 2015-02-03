@@ -3,6 +3,7 @@
 #import "GameViewController.h"
 #import "JIMCSwapFruitSingleton.h"
 #import "JIMCPowerUp.h"
+#import "NetworkController.h"
 @interface JIMCLevel ()
 
 // The list of swipes that result in a valid swap. Used to determine whether
@@ -809,6 +810,8 @@
                 // "freebie" matches.
                 NSUInteger newFruitType;
                 do {
+                    
+                    [[NetworkController sharedInstance] sendMovedSelf:1];
                         newFruitType = arc4random_uniform(NumFruitTypes) + 1;
                 } while (newFruitType == fruitType);
                 

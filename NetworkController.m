@@ -11,7 +11,7 @@
 #import "MessageReader.h"
 #import "Match.h"
 #import "Player.h"
-#define HOST @"http://localhost"
+#define HOST @"http://localhost:1955"
 
 @interface NetworkController (PrivateMethods)
 - (BOOL)writeChunk;
@@ -128,6 +128,12 @@ static NetworkController *sharedController = nil;
     [writer writeString:[GKLocalPlayer localPlayer].playerID];
     [writer writeString:[GKLocalPlayer localPlayer].alias];
     [writer writeByte:continueMatch];
+    [self sendData:writer.data];
+}
+
+- (void)sendRandomFruit{
+    MessageWriter *writer = [[MessageWriter alloc] init];
+    [writer writeByte:MessageRandomFruit];
     [self sendData:writer.data];
 }
 
@@ -408,7 +414,7 @@ static NetworkController *sharedController = nil;
 }
 
 #pragma mark - Authentication
-
+#warning mudar para Facebook
 - (void)authenticationChanged {    
     
     if ([GKLocalPlayer localPlayer].isAuthenticated && !_userAuthenticated) {
@@ -436,6 +442,7 @@ static NetworkController *sharedController = nil;
     
 }
 
+#warning  mudar para Facebook
 - (void)authenticateLocalUser { 
     
     if (!_gameCenterAvailable) return;
