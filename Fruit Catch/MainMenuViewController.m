@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    _loginView.delegate = self;
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
     fundo.center = self.view.center;
     [self.view insertSubview:fundo atIndex:0];
@@ -132,6 +133,15 @@
                             user:(id<FBGraphUser>)user {
     self.profilePictureView.profileID = user.id;
     self.nameLabel.text = user.name;
+    
+    NSString* nome = nil;
+    nome = [user objectForKey:@"id"];
+    NSLog(@"nome NOME = %@",user);
+    
+//            BRJUsuario *usuario = [BRJUsuarioDAO getCurrentUsuario];
+//            usuario.nomeFacebook = [user objectForKey:@"name"];
+//            usuario.email = [user objectForKey:@"email"];
+//            usuario.idFacebook = [user objectForKey:@"id"];
 }
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
