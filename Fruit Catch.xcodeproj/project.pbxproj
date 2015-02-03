@@ -433,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				0F2EE8861A80046D0046C881 /* FacebookSDK.framework */,
+				DE8092D81A7FDDEF008E2B37 /* Multiplayer */,
 				DEA2D2B91A39C83D0038B65A /* Util */,
 				0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */,
 				0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */,

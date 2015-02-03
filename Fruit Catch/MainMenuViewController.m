@@ -136,6 +136,7 @@
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     self.statusLabel.text = @"You're logged in as";
+    NSLog(@"IDIDIDIDIDID = %@", self.profilePictureView.profileID);
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
