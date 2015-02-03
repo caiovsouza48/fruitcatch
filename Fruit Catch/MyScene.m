@@ -267,6 +267,7 @@ static const CGFloat TileHeight = 36.0;
         [self removeAllFruitSprites];
         NSSet *newFruits = [self.level shuffle];
         [self addSpritesForFruits:newFruits];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"zerarRetryNotification" object:nil];
         
     }else if ([no.name isEqualToString:@"next"]){
         NSLog(@"Next Button Clicked");

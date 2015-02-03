@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 #import "JIMCLevel.h"
+#import <FacebookSDK/FacebookSDK.h>
 @interface GameViewController : UIViewController
 
 @property (assign, nonatomic) NSUInteger score;

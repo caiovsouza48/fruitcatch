@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F05E8071A41F6A900D11622 /* GameOverScene.m */; };
+		0F2EE8871A80046D0046C881 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2EE8861A80046D0046C881 /* FacebookSDK.framework */; };
 		0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */; };
 		0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */; };
 		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
@@ -91,6 +92,7 @@
 /* Begin PBXFileReference section */
 		0F05E8061A41F6A900D11622 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		0F05E8071A41F6A900D11622 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		0F2EE8861A80046D0046C881 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		0F7808181A3F501B00883622 /* CustomSegueSinglePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueSinglePlayer.h; sourceTree = "<group>"; };
 		0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueSinglePlayer.m; sourceTree = "<group>"; };
 		0FA8DFAE1A362C2E005B994C /* JIMCBombaMaisPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCBombaMaisPowerUp.h; path = "Fruit Catch/JIMCBombaMaisPowerUp.h"; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F2EE8871A80046D0046C881 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +432,7 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
+				0F2EE8861A80046D0046C881 /* FacebookSDK.framework */,
 				DE8092D81A7FDDEF008E2B37 /* Multiplayer */,
 				DEA2D2B91A39C83D0038B65A /* Util */,
 				0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */,
@@ -867,6 +871,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Italo/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -879,6 +887,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Italo/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
