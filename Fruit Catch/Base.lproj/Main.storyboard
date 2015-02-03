@@ -108,6 +108,16 @@
                                     <action selector="musicON_OFF:" destination="uZN-3h-NbC" eventType="touchUpInside" id="Cjc-1J-l85"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdi-hi-nvs" customClass="FBLoginView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="275" y="693" width="45" height="30"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="Etp-xP-zSB" id="TWZ-91-aKt"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -135,6 +145,7 @@
                                 <exclude reference="LEv-IE-Kgo"/>
                                 <exclude reference="YP9-BY-bON"/>
                                 <exclude reference="5Ol-b8-yEL"/>
+                                <exclude reference="rdi-hi-nvs"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Yc2-IE-dKe"/>
@@ -154,6 +165,7 @@
                                 <include reference="LEv-IE-Kgo"/>
                                 <include reference="YP9-BY-bON"/>
                                 <include reference="5Ol-b8-yEL"/>
+                                <include reference="rdi-hi-nvs"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Yc2-IE-dKe"/>
@@ -168,6 +180,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="loginView" destination="rdi-hi-nvs" id="PPQ-QR-eJD"/>
                         <outlet property="multiplayerBtn" destination="m4T-l0-ZHM" id="iG0-xC-8v3"/>
                         <outlet property="musicBtn" destination="5Ol-b8-yEL" id="Od4-Qc-ZQh"/>
                         <outlet property="settingsBtn" destination="LEv-IE-Kgo" id="Gyj-VO-zbE"/>
@@ -621,6 +634,6 @@
         <image name="ui_pontos_movimentos.png" width="320" height="55"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="p85-5r-noZ"/>
+        <segue reference="nfF-1N-vTy"/>
     </inferredMetricsTieBreakers>
 </document>

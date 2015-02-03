@@ -50,7 +50,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self registerRetryNotification];
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
@@ -128,6 +128,10 @@
     
     // Let's start the game!
     [self beginGame];
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)shouldAutorotate
@@ -412,15 +416,14 @@
     [self updateLabels];
     
     if (self.score >= self.level.targetScore) {
-        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
-        [self showGameOver];
-    } else if (self.movesLeft == 0) {
-        
         [self.scene animateGameOver];
-        self.movesLeft = self.level.maximumMoves;
-        self.score = 0;
+//        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
+//        [self showGameOver];
+    } else if (self.movesLeft == 0) {
+        [self.scene animateGameOver];
+//        self.movesLeft = self.level.maximumMoves;
+//        self.score = 0;
         [self updateLabels];
-        
     }
     
     [self.scene removeActionForKey:@"Hint"];
@@ -513,6 +516,16 @@
     [self performSegueWithIdentifier:@"Back" sender:self];
 }
 
+- (void)registerRetryNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zerarRetryNotification:) name:@"zerarRetryNotification" object:nil];
+}
+
+- (void)zerarRetryNotification:(NSNotification *)notification{
+    self.movesLeft = self.level.maximumMoves;
+    self.score = 0;
+    [self updateLabels];
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"Back"]){
@@ -544,6 +557,5 @@
         }
     }
 }
-
 
 @end
