@@ -9,6 +9,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+@class MultiplayerGameViewController;
 @class JIMCLevel;
 @class JIMCSwap;
 @class JIMCPowerUp;
@@ -16,6 +17,8 @@
 @class GameViewController;
 
 @interface MyScene : SKScene
+
+@property(nonatomic,weak) MultiplayerGameViewController *multiplayerViewController;
 
 @property (nonatomic, weak) GameViewController *viewController;
 
