@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F05E8071A41F6A900D11622 /* GameOverScene.m */; };
-		0F2EE8871A80046D0046C881 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2EE8861A80046D0046C881 /* FacebookSDK.framework */; };
 		0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */; };
 		0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */; };
 		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
@@ -23,6 +22,8 @@
 		436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 436CBD091A2F737500862EDE /* WorldMap.m */; };
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
+		DE342A001A814ED000E7630B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3429FF1A814ED000E7630B /* FacebookSDK.framework */; };
+		DE342A031A815C7000E7630B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE342A021A815C7000E7630B /* AppUtils.m */; };
 		DE8092D21A7FDDE3008E2B37 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092C71A7FDDE3008E2B37 /* Match.m */; };
 		DE8092D31A7FDDE3008E2B37 /* MessageReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092C91A7FDDE3008E2B37 /* MessageReader.m */; };
 		DE8092D41A7FDDE3008E2B37 /* MessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092CB1A7FDDE3008E2B37 /* MessageWriter.m */; };
@@ -92,7 +93,6 @@
 /* Begin PBXFileReference section */
 		0F05E8061A41F6A900D11622 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		0F05E8071A41F6A900D11622 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
-		0F2EE8861A80046D0046C881 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		0F7808181A3F501B00883622 /* CustomSegueSinglePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueSinglePlayer.h; sourceTree = "<group>"; };
 		0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueSinglePlayer.m; sourceTree = "<group>"; };
 		0FA8DFAE1A362C2E005B994C /* JIMCBombaMaisPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCBombaMaisPowerUp.h; path = "Fruit Catch/JIMCBombaMaisPowerUp.h"; sourceTree = "<group>"; };
@@ -114,6 +114,9 @@
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
 		43F4362D1A28A00300F1C358 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		43F4362E1A28A00300F1C358 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		DE3429FF1A814ED000E7630B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		DE342A011A815C7000E7630B /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
+		DE342A021A815C7000E7630B /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
 		DE8092C61A7FDDE3008E2B37 /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
 		DE8092C71A7FDDE3008E2B37 /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match.m; sourceTree = "<group>"; };
 		DE8092C81A7FDDE3008E2B37 /* MessageReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageReader.h; sourceTree = "<group>"; };
@@ -201,7 +204,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F2EE8871A80046D0046C881 /* FacebookSDK.framework in Frameworks */,
+				DE342A001A814ED000E7630B /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +412,8 @@
 			children = (
 				E33DD8C91A3A20C9001C2897 /* imagens */,
 				DEA2D2BA1A39C84D0038B65A /* RNCryptor */,
+				DE342A011A815C7000E7630B /* AppUtils.h */,
+				DE342A021A815C7000E7630B /* AppUtils.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -432,7 +437,7 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
-				0F2EE8861A80046D0046C881 /* FacebookSDK.framework */,
+				DE3429FF1A814ED000E7630B /* FacebookSDK.framework */,
 				DE8092D81A7FDDEF008E2B37 /* Multiplayer */,
 				DEA2D2B91A39C83D0038B65A /* Util */,
 				0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */,
@@ -725,6 +730,7 @@
 				DE8092D71A7FDDE3008E2B37 /* Player.m in Sources */,
 				DEA2D2B71A39BBEE0038B65A /* RNEncryptor.m in Sources */,
 				DE8092D61A7FDDE3008E2B37 /* NetworkController.m in Sources */,
+				DE342A031A815C7000E7630B /* AppUtils.m in Sources */,
 				0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */,
 				DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */,
 				DE8092D51A7FDDE3008E2B37 /* MultiplayerGameViewController.m in Sources */,
@@ -874,6 +880,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Italo/Documents/FacebookSDK,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -890,6 +897,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Italo/Documents/FacebookSDK,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

@@ -8,7 +8,11 @@
 
 #import "MainMenuViewController.h"
 #import "SettingsSingleton.h"
+#import "AppUtils.h"
+#import "RNEncryptor.h"
+#import "NetworkController.h"
 
+#define USER_SECRET @"0x444F@c3b0ok"
 #define ON 1
 #define OFF 0
 
@@ -130,13 +134,36 @@
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
-    self.profilePictureView.profileID = user.id;
+    self.profilePictureView.profileID = user.objectID;
     self.nameLabel.text = user.name;
+    NSDictionary *userDict = @{@"facebookID" : user.objectID,
+                               @"alias" : user.name
+                               };
+    NSString *filePath = [AppUtils getAppDataDir];
+    //NSLog(@"%@",self.lives);
+    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
+    NSError *error;
+    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:USER_SECRET
+                                               error:&error];
+    
+    BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
+    if (!sucess){
+        NSLog(@"Erro ao Salvar arquivo de Usuário");
+    }
+    else{
+        NSLog(@"Finding...");
+    
+    }
+   
+    
 }
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     self.statusLabel.text = @"You're logged in as";
     NSLog(@"IDIDIDIDIDID = %@", self.profilePictureView.profileID);
+    
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {

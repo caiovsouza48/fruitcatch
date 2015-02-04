@@ -11,6 +11,10 @@
 #import "MessageReader.h"
 #import "Match.h"
 #import "Player.h"
+#import <FacebookSDK/FacebookSDK.h>
+#import "AppUtils.h"
+#import "RNDecryptor.h"
+#define USER_SECRET @"0x444F@c3b0ok"
 #define HOST @"http://localhost:1955"
 
 @interface NetworkController (PrivateMethods)
@@ -28,11 +32,12 @@ typedef enum {
     MessageRestartMatch,   
     MessageNotifyReady,
     MessageRandomFruit,
-    MessageJogada
+    MessageJogada,
+    MessageLookingMatch
 } MessageType;
 
 @implementation NetworkController
-@synthesize gameCenterAvailable = _gameCenterAvailable;
+@synthesize facebookAvailable = _facebookAvailable;
 @synthesize userAuthenticated = _userAuthenticated;
 @synthesize delegate = _delegate;
 @synthesize state = _state;
@@ -58,17 +63,9 @@ static NetworkController *sharedController = nil;
     return sharedController;
 }
 
-- (BOOL)isGameCenterAvailable {
+- (BOOL)isFacebookAvailable {
     // check for presence of GKLocalPlayer API
-    Class gcClass = (NSClassFromString(@"GKLocalPlayer"));
-    
-    // check if the device is running iOS 4.1 or later
-    NSString *reqSysVer = @"4.1";
-    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-    BOOL osVersionSupported = ([currSysVer compare:reqSysVer 
-                                           options:NSNumericSearch] != NSOrderedAscending);
-    
-    return (gcClass && osVersionSupported);
+    return FBSession.activeSession.isOpen;
 }
 
 - (void)setState:(NetworkState)state {
@@ -89,8 +86,8 @@ static NetworkController *sharedController = nil;
 - (id)init {
     if ((self = [super init])) {
         [self setState:_state];
-        _gameCenterAvailable = [self isGameCenterAvailable];
-        if (_gameCenterAvailable) {
+        _facebookAvailable = [self isFacebookAvailable];
+        if (_facebookAvailable) {
             NSNotificationCenter *nc = 
             [NSNotificationCenter defaultCenter];
             [nc addObserver:self 
@@ -414,26 +411,25 @@ static NetworkController *sharedController = nil;
 }
 
 #pragma mark - Authentication
-#warning mudar para Facebook
 - (void)authenticationChanged {    
     
-    if ([GKLocalPlayer localPlayer].isAuthenticated && !_userAuthenticated) {
+    if ([self isFacebookAvailable] && !_userAuthenticated) {
         NSLog(@"Authentication changed: player authenticated.");
         [self setState:NetworkStateAuthenticated];
         _userAuthenticated = TRUE; 
-        [GKMatchmaker sharedMatchmaker].inviteHandler = ^(GKInvite *acceptedInvite, NSArray *playersToInvite) {            
-            NSLog(@"Received invite");
-            self.pendingInvite = acceptedInvite;
-            self.pendingPlayersToInvite = playersToInvite;
-            
-            if (_state >= NetworkStateConnected) {
-                [self setState:NetworkStateReceivedMatchStatus];
-                [_delegate setNotInMatch];
-            }
-            
-        };
-        [self connect]; 
-    } else if (![GKLocalPlayer localPlayer].isAuthenticated && _userAuthenticated) {
+//        [GKMatchmaker sharedMatchmaker].inviteHandler = ^(GKInvite *acceptedInvite, NSArray *playersToInvite) {            
+//            NSLog(@"Received invite");
+//            self.pendingInvite = acceptedInvite;
+//            self.pendingPlayersToInvite = playersToInvite;
+//            
+//            if (_state >= NetworkStateConnected) {
+//                [self setState:NetworkStateReceivedMatchStatus];
+//                [_delegate setNotInMatch];
+//            }
+//            
+//        };
+        [self connect];
+    } else if ([self isFacebookAvailable] && _userAuthenticated) {
         NSLog(@"Authentication changed: player not authenticated");
         _userAuthenticated = FALSE;
         [self setState:NetworkStateNotAvailable];
@@ -442,25 +438,28 @@ static NetworkController *sharedController = nil;
     
 }
 
-#warning  mudar para Facebook
-- (void)authenticateLocalUser { 
+- (void)authenticateLocalUser {
     
-    if (!_gameCenterAvailable) return;
-    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
-    BOOL authenticated = [localPlayer isAuthenticated];
-    localPlayer.authenticateHandler = ^(UIViewController *viewController,NSError *error) {
-        if (authenticated) {
-             NSLog(@"Already authenticated!");
-        } else if(viewController) {
-            [self setState:NetworkStatePendingAuthentication];
-            [_presentingViewController presentViewController:viewController animated:YES completion:nil];//present the login form
+    //GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    
+    //BOOL authenticated = [localPlayer isAuthenticated];
+    //localPlayer.authenticateHandler = ^(UIViewController *viewController,NSError *error) {
+    if ([self isFacebookAvailable]) {
+        NSLog(@"Already authenticated!");
+    } else
+        [self setState:NetworkStatePendingAuthentication];
+        FBSession *session = [[FBSession alloc] initWithPermissions:@[@"public_profile",@"email"]];
+        [FBSession setActiveSession:session];
+        if([FBSession openActiveSessionWithAllowLoginUI:YES]) {
+          NSLog(@"Already Authenticated");
         } else {
-            [self setState:NetworkStatePendingAuthentication];
-            //problem with authentication,probably bc the user doesn't use Game Center
-        } 
-    };
+          NSLog(@"Login Fail");
+        // you need to log the user
+    }
+    
+    //problem with authentication,probably bc the user doesn't use Game Center
 //    NSLog(@"Authenticating local user...");
-//    if ([GKLocalPlayer localPlayer].authenticated == NO) {     
+//    if ([GKLocalPlayer localPlayer].authenticated == NO) {
 //        [self setState:NetworkStatePendingAuthentication];
 //        //[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
 //    } else {
@@ -468,42 +467,72 @@ static NetworkController *sharedController = nil;
 //    }
 }
 
+- (void) sendPlayerLookingforMatch:(NSString *)playerID PlayerAlias:(NSString *)playerAlias{
+    MessageWriter *writer = [[MessageWriter alloc]init];
+    [writer writeByte:MessageLookingMatch];
+    [writer writeString:playerID];
+    [writer writeString:playerAlias];
+    [self sendData:writer.data];
+    
+    
+}
+
+
 #pragma mark - Matchmaking
 
-- (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers 
+- (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers
                  viewController:(UIViewController *)viewController {
     
-    if (!_gameCenterAvailable) return;
+    if (!_facebookAvailable) return;
     
     [self setState:NetworkStatePendingMatch];
     
     self.presentingViewController = viewController;
     [_presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    
-    if (_pendingInvite != nil) {
-        
-        [self sendNotifyReady:_pendingInvite.sender.alias];
-        
-        self.mmvc = [[GKMatchmakerViewController alloc] initWithInvite:_pendingInvite];
-        _mmvc.hosted = YES;
-        _mmvc.matchmakerDelegate = self;
-        
-        [_presentingViewController presentViewController:_mmvc animated:YES completion:nil];
-        self.pendingInvite = nil;
-        self.pendingPlayersToInvite = nil;
-        
-    } else {
-        GKMatchRequest *request = [[GKMatchRequest alloc] init];
-        request.minPlayers = minPlayers;     
-        request.maxPlayers = maxPlayers;
-        
-        self.mmvc = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
-        _mmvc.hosted = YES;
-        _mmvc.matchmakerDelegate = self;
-        
-        [_presentingViewController presentViewController:_mmvc animated:YES completion:nil];
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        if (!error){
+            NSDictionary *userInfo = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"userInfo = %@",userInfo);
+            NSString *facebookID = userInfo[@"facebookID"];
+            NSString *alias = userInfo[@"alias"];
+            [self sendPlayerLookingforMatch:facebookID PlayerAlias:alias];
+            
+        }
+        else{
+            NSLog(@"Fail to Get User Info");
+        }
     }
+
+    //[self sendPlayerLookingforMatch];
+    
+//    if (_pendingInvite != nil) {
+//        
+//        [self sendNotifyReady:_pendingInvite.sender.alias];
+//        
+//        self.mmvc = [[GKMatchmakerViewController alloc] initWithInvite:_pendingInvite];
+//        _mmvc.hosted = YES;
+//        _mmvc.matchmakerDelegate = self;
+//        
+//        [_presentingViewController presentViewController:_mmvc animated:YES completion:nil];
+//        self.pendingInvite = nil;
+//        self.pendingPlayersToInvite = nil;
+    
+//    } else {
+//        GKMatchRequest *request = [[GKMatchRequest alloc] init];
+//        request.minPlayers = minPlayers;     
+//        request.maxPlayers = maxPlayers;
+//        
+//        self.mmvc = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
+//        _mmvc.hosted = YES;
+//        _mmvc.matchmakerDelegate = self;
+    
+      //  [_presentingViewController presentViewController:_mmvc animated:YES completion:nil];
 }
+
 
 // The user has cancelled matchmaking
 - (void)matchmakerViewControllerWasCancelled:(GKMatchmakerViewController *)viewController {

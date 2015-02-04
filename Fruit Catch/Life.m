@@ -9,6 +9,7 @@
 #import "Life.h"
 #import "RNDecryptor.h"
 #import "RNEncryptor.h"
+#import "AppUtils.h"
 #define SECRET @"0x777C4f3"
 
 static Life *instance;
@@ -37,19 +38,11 @@ static Life *instance;
     return instance;
 }
 
-- (NSString *)getAppDataDir {
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:@"appData"];
-    
-}
-
 
 - (instancetype)initFromFile{
     self = [super init];
     if (self){
-        NSString *appDataDir = [self getAppDataDir];
+        NSString *appDataDir = [AppUtils getAppDataDir];
         if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
             NSData *data = [NSData dataWithContentsOfFile:appDataDir];
             NSError *error;
@@ -85,7 +78,7 @@ static Life *instance;
 }
 
 - (void)loadFromFile{
-    NSString *appDataDir = [self getAppDataDir];
+    NSString *appDataDir = [AppUtils getAppDataDir];
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
         NSData *data = [NSData dataWithContentsOfFile:appDataDir];
         NSError *error;
@@ -101,7 +94,7 @@ static Life *instance;
 }
 
 - (void)saveToFile{
-    NSString *filePath = [self getAppDataDir];
+    NSString *filePath = [AppUtils getAppDataDir];
     //NSLog(@"%@",self.lives);
     NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:self];
     NSError *error;

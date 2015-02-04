@@ -63,7 +63,7 @@ typedef enum {
     NSArray *_pendingPlayersToInvite;    
 }
 
-@property (assign, readonly) BOOL gameCenterAvailable;
+@property (assign, readonly) BOOL facebookAvailable;
 @property (assign, readonly) BOOL userAuthenticated;
 @property  id <NetworkControllerDelegate> delegate;
 @property (assign, readonly) NetworkState state;
