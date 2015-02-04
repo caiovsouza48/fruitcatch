@@ -33,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    _loginView.delegate = self;
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
     fundo.center = self.view.center;
     [self.view insertSubview:fundo atIndex:0];
