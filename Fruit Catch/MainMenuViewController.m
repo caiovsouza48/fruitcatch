@@ -140,6 +140,9 @@
     NSDictionary *userDict = @{@"facebookID" : user.objectID,
                                @"alias" : user.name
                                };
+    
+    NSLog(@"USER = %@", user);
+    
     NSString *filePath = [AppUtils getAppDataDir];
     //NSLog(@"%@",self.lives);
     NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
@@ -148,6 +151,30 @@
                                         withSettings:kRNCryptorAES256Settings
                                             password:USER_SECRET
                                                error:&error];
+
+    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
+        if (error) {
+            // Handle error
+        }
+        
+        else {
+            NSString *userName = [FBuser name];
+            NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
+
+            
+            NSLog(@"IMAGEM = %@", userImageURL);
+            NSLog(@"USERNAME = %@", userName);
+        }
+    }];
+    
+    [FBRequestConnection startWithGraphPath:@"me/friends" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        
+        NSArray *data  = [result objectForKey:@"data"];
+        
+        for (NSDictionary *oi in data) {
+            NSLog(@"name = %@",[oi objectForKey:@"name"]);
+        }
+    }];
     
     BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
     if (!sucess){
@@ -163,8 +190,6 @@
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     self.statusLabel.text = @"You're logged in as";
-    NSLog(@"IDIDIDIDIDID = %@", self.profilePictureView.profileID);
-    
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
