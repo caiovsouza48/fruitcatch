@@ -119,6 +119,8 @@
 -(IBAction)multiplayer:(id)sender
 {
     NSLog(@"Multiplayer");
+    [[NetworkController sharedInstance] authenticateLocalUser];
+    [[NetworkController sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
 }
 
 -(IBAction)musicON_OFF:(id)sender
@@ -137,6 +139,7 @@
                             user:(id<FBGraphUser>)user {
     self.profilePictureView.profileID = user.objectID;
     self.nameLabel.text = user.name;
+    NSLog(@"User ID = %@",user.objectID);
     NSDictionary *userDict = @{@"facebookID" : user.objectID,
                                @"alias" : user.name
                                };
@@ -181,7 +184,7 @@
         NSLog(@"Erro ao Salvar arquivo de Usuário");
     }
     else{
-        NSLog(@"Finding...");
+        
     
     }
    
