@@ -15,7 +15,7 @@
 #import "AppUtils.h"
 #import "RNDecryptor.h"
 #define USER_SECRET @"0x444F@c3b0ok"
-#define HOST @"http://localhost:1955"
+#define HOST @"localhost"
 
 @interface NetworkController (PrivateMethods)
 - (BOOL)writeChunk;
@@ -64,8 +64,20 @@ static NetworkController *sharedController = nil;
 }
 
 - (BOOL)isFacebookAvailable {
+    NSLog(@"Facebook Session is %@", FBSession.activeSession.isOpen ? @"Open" : @"Closed");
     // check for presence of GKLocalPlayer API
-    return FBSession.activeSession.isOpen;
+    NSDictionary *obj=nil;
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        
+        if (!error){
+            obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+        }
+    }
+    return obj != nil;
 }
 
 - (void)setState:(NetworkState)state {
@@ -228,9 +240,11 @@ static NetworkController *sharedController = nil;
        
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)HOST, 1955, &readStream, &writeStream);
+    CFStringRef hst = CFSTR("multiplayerserver.jelasticlw.com.br");
+    CFStreamCreatePairWithSocketToHost(NULL, hst, 1955, &readStream, &writeStream);
     _inputStream = (__bridge NSInputStream *)readStream;
     _outputStream = (__bridge NSOutputStream *)writeStream;
+   
     [_inputStream setDelegate:self];
     [_outputStream setDelegate:self];
     [_inputStream setProperty:(id)kCFBooleanTrue forKey:(NSString *)kCFStreamPropertyShouldCloseNativeSocket];
@@ -239,6 +253,9 @@ static NetworkController *sharedController = nil;
     [_outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [_inputStream open];
     [_outputStream open];
+    NSError *writeError = [_inputStream streamError];
+    NSLog(@"error = %@",writeError.localizedDescription);
+    NSLog(@"error = %@",writeError.localizedDescription);
 }
 
 - (void)disconnect {
@@ -330,6 +347,7 @@ static NetworkController *sharedController = nil;
             assert(NO); // should never happen for the input stream
         } break;
         case NSStreamEventErrorOccurred: {
+            
             NSLog(@"Stream open error, reconnecting");
             [self reconnect];
         } break;
@@ -428,6 +446,7 @@ static NetworkController *sharedController = nil;
 //            }
 //            
 //        };
+        
         [self connect];
     } else if ([self isFacebookAvailable] && _userAuthenticated) {
         NSLog(@"Authentication changed: player not authenticated");
@@ -482,7 +501,7 @@ static NetworkController *sharedController = nil;
 
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers
                  viewController:(UIViewController *)viewController {
-    
+     [self connect];
     if (!_facebookAvailable) return;
     
     [self setState:NetworkStatePendingMatch];
