@@ -160,6 +160,8 @@
 -(IBAction)multiplayer:(id)sender
 {
     NSLog(@"Multiplayer");
+    [[NetworkController sharedInstance] authenticateLocalUser];
+    [[NetworkController sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
 }
 
 -(IBAction)musicON_OFF:(id)sender
@@ -178,9 +180,13 @@
                             user:(id<FBGraphUser>)user {
     self.profilePictureView.profileID = user.objectID;
     self.nameLabel.text = user.name;
+    NSLog(@"User ID = %@",user.objectID);
     NSDictionary *userDict = @{@"facebookID" : user.objectID,
                                @"alias" : user.name
                                };
+    
+    NSLog(@"USER = %@", user);
+    
     NSString *filePath = [AppUtils getAppDataDir];
     //NSLog(@"%@",self.lives);
     NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
@@ -189,13 +195,37 @@
                                         withSettings:kRNCryptorAES256Settings
                                             password:USER_SECRET
                                                error:&error];
+
+    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
+        if (error) {
+            // Handle error
+        }
+        
+        else {
+            NSString *userName = [FBuser name];
+            NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
+
+            
+            NSLog(@"IMAGEM = %@", userImageURL);
+            NSLog(@"USERNAME = %@", userName);
+        }
+    }];
+    
+    [FBRequestConnection startWithGraphPath:@"me/friends" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        
+        NSArray *data  = [result objectForKey:@"data"];
+        
+        for (NSDictionary *oi in data) {
+            NSLog(@"name = %@",[oi objectForKey:@"name"]);
+        }
+    }];
     
     BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
     if (!sucess){
         NSLog(@"Erro ao Salvar arquivo de Usuário");
     }
     else{
-        NSLog(@"Finding...");
+        
     
     }
    
@@ -204,8 +234,6 @@
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     self.statusLabel.text = @"You're logged in as";
-    NSLog(@"IDIDIDIDIDID = %@", self.profilePictureView.profileID);
-    
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
