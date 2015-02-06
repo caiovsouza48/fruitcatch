@@ -6,6 +6,7 @@
 #import "GameOverScene.h"
 #import "GameViewController.h"
 #import "WorldMap.h"
+#import "PowerUP.h"
 
 static const CGFloat TileWidth = 34.0;
 static const CGFloat TileHeight = 36.0;
@@ -17,6 +18,7 @@ static const CGFloat TileHeight = 36.0;
 @property (strong, nonatomic) SKNode *gameLayer;
 @property (strong, nonatomic) SKNode *fruitsLayer;
 @property (strong, nonatomic) SKNode *tilesLayer;
+@property (strong, nonatomic) SKNode *power;
 
 // The column and row numbers of the fruit that the player first touched
 // when he started his swipe movement.
@@ -55,6 +57,8 @@ static const CGFloat TileHeight = 36.0;
 - (id)initWithSize:(CGSize)size {
     
     if ((self = [super initWithSize:size])) {
+        
+        
         self.anchorPoint = CGPointMake(0.5, 0.5);
         
         // Put an image on the background. Because the scene's anchorPoint is
@@ -92,6 +96,10 @@ static const CGFloat TileHeight = 36.0;
         self.fruitsLayer = [SKNode node];
         self.fruitsLayer.position = layerPosition;
         [self.cropLayer addChild:self.fruitsLayer];
+        
+        self.power = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro"];
+        self.power.position = CGPointMake(0, 0);
+        [self.gameLayer addChild:self.power];
         
         // NSNotFound means that these properties have invalid values.
         self.swipeFromColumn = self.swipeFromRow = NSNotFound;
@@ -254,13 +262,12 @@ static const CGFloat TileHeight = 36.0;
     // Convert the touch location to a point relative to the fruitsLayer.
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self.fruitsLayer];
-
+    
     CGPoint locationGameOverScreen = [touch locationInNode:self.gameOverScreen];
     SKNode *no = [self.gameOverScreen nodeAtPoint:locationGameOverScreen];
     
     if ([no.name isEqualToString:@"retry"]) {
-        NSLog(@"Retry Button Clicked");
-
+        
         SKAction *acaoDescer = [SKAction moveToX:500 duration:0.5];
 
         [self.gameOverScreen runAction:acaoDescer];
@@ -304,11 +311,12 @@ static const CGFloat TileHeight = 36.0;
     // If swipeFromColumn is NSNotFound then either the swipe began outside
     // the valid area or the game has already swapped the fruits and we need
     // to ignore the rest of the motion.
+    
     if (self.swipeFromColumn == NSNotFound) return;
     
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self.fruitsLayer];
-    
+    [self.power setPosition:location];
     NSInteger column, row;
     if ([self convertPoint:location toColumn:&column row:&row]) {
         
@@ -684,7 +692,6 @@ static const CGFloat TileHeight = 36.0;
 
     // Desce a tela da gameOverScreen
     [self.gameOverScreen runAction:acaoDescer];
-    
     [self addChild:self.gameOverScreen];
 }
 

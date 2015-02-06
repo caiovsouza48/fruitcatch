@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -296,7 +296,7 @@
                                         <exclude reference="yat-6j-AcB"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="179" y="43" width="58" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -321,7 +321,7 @@
                                         <exclude reference="ozO-U5-CQQ"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="179" y="19" width="52" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -370,7 +370,7 @@
                                         <exclude reference="qOW-i6-Aek"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="16" y="20" width="47" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -395,7 +395,7 @@
                                         <exclude reference="pjO-Ie-NXV"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="16" y="43" width="58" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -420,7 +420,7 @@
                                         <exclude reference="kAT-P8-KH8"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="285" y="20" width="45" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -442,7 +442,7 @@
                                         <exclude reference="yQY-hS-kgP"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="0.0" y="205" width="400" height="209"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -467,7 +467,7 @@
                                         <exclude reference="ish-TS-SEV"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="285" y="47" width="58" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">

@@ -177,7 +177,6 @@
     
     // Delete the old fruit sprites, but not the tiles.
     [self.scene removeAllFruitSprites];
-    
     // Fill up the level with new fruits, and create sprites for them.
     NSSet *newFruits = [self.level shuffle];
     [self.scene addSpritesForFruits:newFruits];
