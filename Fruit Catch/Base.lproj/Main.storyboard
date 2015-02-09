@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -118,6 +118,12 @@
                                     <outlet property="delegate" destination="Etp-xP-zSB" id="TWZ-91-aKt"/>
                                 </connections>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q6o-5s-459">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="652" width="240" height="128"/>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -146,6 +152,7 @@
                                 <exclude reference="YP9-BY-bON"/>
                                 <exclude reference="5Ol-b8-yEL"/>
                                 <exclude reference="rdi-hi-nvs"/>
+                                <exclude reference="Q6o-5s-459"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Yc2-IE-dKe"/>
@@ -166,6 +173,7 @@
                                 <include reference="YP9-BY-bON"/>
                                 <include reference="5Ol-b8-yEL"/>
                                 <include reference="rdi-hi-nvs"/>
+                                <include reference="Q6o-5s-459"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Yc2-IE-dKe"/>
@@ -180,6 +188,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="facebookImage" destination="Q6o-5s-459" id="p3x-kq-OHO"/>
                         <outlet property="loginView" destination="rdi-hi-nvs" id="PPQ-QR-eJD"/>
                         <outlet property="multiplayerBtn" destination="m4T-l0-ZHM" id="iG0-xC-8v3"/>
                         <outlet property="musicBtn" destination="5Ol-b8-yEL" id="Od4-Qc-ZQh"/>

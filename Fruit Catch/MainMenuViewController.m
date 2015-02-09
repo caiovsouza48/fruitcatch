@@ -161,12 +161,14 @@
         }
         
         else {
-            NSString *userName = [FBuser name];
-            NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
-
+            self.userName = [FBuser name];
+            self.userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
             
-            NSLog(@"IMAGEM = %@", userImageURL);
-            NSLog(@"USERNAME = %@", userName);
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.userImageURL]];
+            self.imageFacebook = [UIImage imageWithData:imageData];
+            
+            NSLog(@"IMAGEM = %@", self.userImageURL);
+            NSLog(@"USERNAME = %@", self.userName);
         }
     }];
     
@@ -174,8 +176,8 @@
         
         NSArray *data  = [result objectForKey:@"data"];
         
-        for (NSDictionary *oi in data) {
-            NSLog(@"name = %@",[oi objectForKey:@"name"]);
+        for (NSDictionary *dicionario in data) {
+            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
         }
     }];
     
