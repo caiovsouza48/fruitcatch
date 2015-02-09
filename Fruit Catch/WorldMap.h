@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Life.h"
 
-@interface WorldMap : UIViewController
+@interface WorldMap : UIViewController <UIScrollViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIView *livesView;
