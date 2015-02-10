@@ -24,6 +24,8 @@
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
 		DE342A001A814ED000E7630B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3429FF1A814ED000E7630B /* FacebookSDK.framework */; };
 		DE342A031A815C7000E7630B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE342A021A815C7000E7630B /* AppUtils.m */; };
+		DE805C611A852BAF009694C0 /* EloRating.m in Sources */ = {isa = PBXBuildFile; fileRef = DE805C601A852BAF009694C0 /* EloRating.m */; };
+		DE805C641A852D40009694C0 /* kFactor.m in Sources */ = {isa = PBXBuildFile; fileRef = DE805C631A852D40009694C0 /* kFactor.m */; };
 		DE8092D21A7FDDE3008E2B37 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092C71A7FDDE3008E2B37 /* Match.m */; };
 		DE8092D31A7FDDE3008E2B37 /* MessageReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092C91A7FDDE3008E2B37 /* MessageReader.m */; };
 		DE8092D41A7FDDE3008E2B37 /* MessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092CB1A7FDDE3008E2B37 /* MessageWriter.m */; };
@@ -117,6 +119,10 @@
 		DE3429FF1A814ED000E7630B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		DE342A011A815C7000E7630B /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		DE342A021A815C7000E7630B /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
+		DE805C5F1A852BAF009694C0 /* EloRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EloRating.h; sourceTree = "<group>"; };
+		DE805C601A852BAF009694C0 /* EloRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EloRating.m; sourceTree = "<group>"; };
+		DE805C621A852D40009694C0 /* kFactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kFactor.h; sourceTree = "<group>"; };
+		DE805C631A852D40009694C0 /* kFactor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kFactor.m; sourceTree = "<group>"; };
 		DE8092C61A7FDDE3008E2B37 /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
 		DE8092C71A7FDDE3008E2B37 /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match.m; sourceTree = "<group>"; };
 		DE8092C81A7FDDE3008E2B37 /* MessageReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageReader.h; sourceTree = "<group>"; };
@@ -394,6 +400,10 @@
 				DE8092CF1A7FDDE3008E2B37 /* NetworkController.m */,
 				DE8092D01A7FDDE3008E2B37 /* Player.h */,
 				DE8092D11A7FDDE3008E2B37 /* Player.m */,
+				DE805C5F1A852BAF009694C0 /* EloRating.h */,
+				DE805C601A852BAF009694C0 /* EloRating.m */,
+				DE805C621A852D40009694C0 /* kFactor.h */,
+				DE805C631A852D40009694C0 /* kFactor.m */,
 			);
 			name = Multiplayer;
 			sourceTree = "<group>";
@@ -725,6 +735,7 @@
 			files = (
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
 				DEA2D2B31A39BBEE0038B65A /* Life.m in Sources */,
+				DE805C641A852D40009694C0 /* kFactor.m in Sources */,
 				E3DFE2FA1A40A2B500CB4D0C /* JIMCMainMenu.m in Sources */,
 				DE8092D21A7FDDE3008E2B37 /* Match.m in Sources */,
 				DE8092D71A7FDDE3008E2B37 /* Player.m in Sources */,
@@ -734,6 +745,7 @@
 				0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */,
 				DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */,
 				DE8092D51A7FDDE3008E2B37 /* MultiplayerGameViewController.m in Sources */,
+				DE805C611A852BAF009694C0 /* EloRating.m in Sources */,
 				E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */,
 				E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */,
 				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
