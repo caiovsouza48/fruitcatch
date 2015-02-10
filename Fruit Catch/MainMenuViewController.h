@@ -17,5 +17,5 @@
 @property  ( strong , nonatomic )  IBOutlet  FBProfilePictureView  * profilePictureView ;
 @property  ( strong , nonatomic )  IBOutlet  UILabel  * nameLabel ;
 @property  ( strong , nonatomic )  IBOutlet  UILabel  * statusLabel ;
-
+@property (strong, nonatomic) IBOutlet UIImageView *imageFaceBook;
 @end

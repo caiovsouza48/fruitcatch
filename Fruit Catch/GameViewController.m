@@ -377,7 +377,22 @@
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
+    [self cancelHints];
     
+}
+
+-(void)cancelHints
+{
+    //compara score
+    if(self.score >= self.level.targetScore || self.movesLeft == 0)
+    {
+        [self.scene removeActionForKey:@"Hint"];
+        if(self.hintNode){
+            [self.scene runAction:[SKAction runBlock:^{
+                [self.hintNode removeFromParent];
+            }]];
+        }
+    }
 }
 
 -(void)showMoves

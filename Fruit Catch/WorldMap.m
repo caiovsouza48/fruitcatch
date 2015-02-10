@@ -19,7 +19,7 @@
 @property NSInteger i;
 
 @property(nonatomic) NSTimer *lifeTimer;
-
+@property(nonatomic) UIView *informFase;
 @end
 
 @implementation WorldMap
@@ -88,6 +88,10 @@
         
         break; //Remover depois
     }
+    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-300, self.view.center.y-self.view.frame.size.width/3, self.view.frame.size.height/2, self.view.frame.size.width/1.5))];
+    
+    [self.informFase setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:self.informFase];
     
 }
 
@@ -294,6 +298,7 @@
 
 -(IBAction)selectLevel:(id)sender
 {
+    /*
     UIButton *btn = (UIButton *)sender;
     btn.enabled = NO;
     NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
@@ -312,8 +317,33 @@
     }else{
         [self performSegueWithIdentifier:@"Menu" sender:self];
     }
+     */
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(self.informFase.frame.size.width-50, 0, 50,50)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"bntSair"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
+    [self.informFase addSubview:btn];
+    
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.65
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         self.informFase.center = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
+                     }completion:nil];
 }
-
+-(IBAction)fexarTela:(id)sender
+{
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.65
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         self.informFase.center = CGPointMake(CGRectGetMinX(self.view.frame)-300,self.informFase.center.y);
+                         
+                     }completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -97,9 +97,9 @@ static const CGFloat TileHeight = 36.0;
         self.fruitsLayer.position = layerPosition;
         [self.cropLayer addChild:self.fruitsLayer];
         
-        self.power = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro"];
-        self.power.position = CGPointMake(0, 0);
-        [self.gameLayer addChild:self.power];
+       // self.power = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro"];
+        //self.power.position = CGPointMake(0, 0);
+        //[self.gameLayer addChild:self.power];
         
         // NSNotFound means that these properties have invalid values.
         self.swipeFromColumn = self.swipeFromRow = NSNotFound;
@@ -316,7 +316,7 @@ static const CGFloat TileHeight = 36.0;
     
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self.fruitsLayer];
-    [self.power setPosition:location];
+    //[self.power setPosition:location];
     NSInteger column, row;
     if ([self convertPoint:location toColumn:&column row:&row]) {
         

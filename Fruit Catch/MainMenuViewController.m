@@ -33,8 +33,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //pegando dados do WebService
+    /*
+    NSError * erro = nil;
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/usuario/listarTodos"];
+    NSURL *url = [[NSURL alloc]initWithString:strUrl];
+    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+    NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+    NSLog(@"dados = %@",dadosWebService);
+    
+    */
+    /*
+    NSError * erro = nil;
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/addUsuario/24/MateusGay/24/24/24/24"];
+    NSURL *url = [[NSURL alloc]initWithString:strUrl];
+    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+    NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+    NSLog(@"dados = %@",dadosWebService);
+    */
+    
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     _loginView.delegate = self;
+    
+    
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
     fundo.center = self.view.center;
     [self.view insertSubview:fundo atIndex:0];
@@ -64,7 +85,6 @@
     [self.configuracao addSubview:label];
     [self.configuracao setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:self.configuracao];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -99,6 +119,7 @@
 
 -(IBAction)options:(id)sender
 {
+    
     if(!self.option){
         [UIView animateWithDuration:1.5
                               delay:0
@@ -111,16 +132,14 @@
                              self.option = YES;
                          }];
         
-        /*
+     /*
         self.musicBtn.enabled = YES;
         self.musicBtn.alpha   = 1;
         
         self.soundBtn.enabled = YES;
         self.soundBtn.alpha   = 1;
-        */
+     */
         //Fazer a animacao dos botoes surgindo
-        
-        
     }else{
         
         [UIView animateWithDuration:1.5
@@ -133,22 +152,18 @@
                          }completion:^(BOOL fisished){
                              self.option = NO;
                          }];
-        
-
         /*
+     
         self.musicBtn.enabled = NO;
         self.musicBtn.alpha   = 0;
         
         self.soundBtn.enabled = NO;
         self.soundBtn.alpha   = 0;
-        */
-        
+         */
+     
     }
     
-    
-    
-    
-    
+
 }
 
 -(IBAction)singlePlayer:(id)sender
@@ -180,12 +195,10 @@
                             user:(id<FBGraphUser>)user {
     self.profilePictureView.profileID = user.objectID;
     self.nameLabel.text = user.name;
-    NSLog(@"User ID = %@",user.objectID);
+    
     NSDictionary *userDict = @{@"facebookID" : user.objectID,
                                @"alias" : user.name
                                };
-    
-    NSLog(@"USER = %@", user);
     
     NSString *filePath = [AppUtils getAppDataDir];
     //NSLog(@"%@",self.lives);
@@ -197,15 +210,15 @@
                                                error:&error];
 
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
-        if (error) {
-            // Handle error
-        }
-        
-        else {
+        if (!error) {
             NSString *userName = [FBuser name];
             NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
-
-            
+            userName = [FBuser name];
+            userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[FBuser objectID]];
+            /*
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
+            self.imageFaceBook.image =[UIImage imageWithData:imageData];
+             */
             NSLog(@"IMAGEM = %@", userImageURL);
             NSLog(@"USERNAME = %@", userName);
         }
@@ -240,6 +253,7 @@
     self.profilePictureView.profileID = nil;
     self.nameLabel.text = @"";
     self.statusLabel.text= @"You're not logged in!";
+    self.imageFaceBook.image = nil;
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
