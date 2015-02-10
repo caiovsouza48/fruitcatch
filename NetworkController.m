@@ -218,11 +218,11 @@ static NetworkController *sharedController = nil;
         NSLog(@"Player %@ ready", playerId);
         if (_mmvc != nil) {
             
-            [GKPlayer loadPlayersForIdentifiers:@[playerId] withCompletionHandler:^(NSArray *players,NSError *error){
-                for (GKPlayer *player in players) {
-                    [_mmvc setHostedPlayer:player didConnect:YES];
-                }
-            }];
+//            [GKPlayer loadPlayersForIdentifiers:@[playerId] withCompletionHandler:^(NSArray *players,NSError *error){
+//                for (GKPlayer *player in players) {
+//                    [_mmvc setHostedPlayer:player didConnect:YES];
+//                }
+//            }];
             //[_mmvc setHostedPlayer:[GKPlayer all] didConnect:<#(BOOL)#>]
            // [_mmvc setHostedPlayerReady:playerId];
         }
@@ -240,7 +240,7 @@ static NetworkController *sharedController = nil;
        
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    CFStringRef hst = CFSTR("multiplayerserver.jelasticlw.com.br");
+    CFStringRef hst = CFSTR("localhost");
     CFStreamCreatePairWithSocketToHost(NULL, hst, 1955, &readStream, &writeStream);
     _inputStream = (__bridge NSInputStream *)readStream;
     _outputStream = (__bridge NSOutputStream *)writeStream;
@@ -255,7 +255,7 @@ static NetworkController *sharedController = nil;
     [_outputStream open];
     NSError *writeError = [_inputStream streamError];
     NSLog(@"error = %@",writeError.localizedDescription);
-    NSLog(@"error = %@",writeError.localizedDescription);
+    //NSLog(@"error = %@",writeError.localizedDescription);
 }
 
 - (void)disconnect {

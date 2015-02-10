@@ -14,6 +14,10 @@
 
 @property (assign, nonatomic) NSUInteger score;
 //@property (strong, nonatomic) JIMCLevel *level;
+@property (weak, nonatomic) IBOutlet UIView *powerUpView;
+@property (weak, nonatomic) IBOutlet UIImageView *powerUpImage1;
+@property (weak, nonatomic) IBOutlet UIImageView *powerUpImage2;
+@property (weak, nonatomic) IBOutlet UIImageView *powerUpUmage3;
 - (void)beginNextTurn ;
 - (void)updateLabels ;
 @property (nonatomic) NSString *levelString;
