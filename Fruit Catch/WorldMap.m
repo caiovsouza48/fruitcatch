@@ -13,6 +13,10 @@
 #import "RNDecryptor.h"
 #import "Life.h"
 #import "CustomSegueWorldMap.h"
+#import "RNDecryptor.h"
+#import "AppUtils.h"
+
+#define USER_SECRET @"0x444F@c3b0ok"
 
 @interface WorldMap ()
 
@@ -64,17 +68,37 @@
     
     // Mostra imagens
     UIImageView *imagem;
-    for (int i=0; i<6; i++){
+    int i = 0;
+    for (NSDictionary* friends in [self loadFacebookFriendsIDs]) {
         
         // Define a cor do botão
         [imagem setBackgroundColor:[UIColor clearColor]];
         // Adiciona o botão no Scroll
         [_scroll1 addSubview:imagem];
         
+        // Adiciona o usuário do facebook
+        if (i == 0) {
+            // Aloca um botão do tamanho da metade da tela em que está
+            imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+60)/3, 20, 60, 60)];
+
+            NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [self loadFacebookUserID]];
+            
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
+            imagem.image = [UIImage imageWithData:imageData];
+            // Adiciona o botão no Scroll
+            [_scroll1 addSubview:imagem];
+        }
+
+        // Daqui em diante, adiciona os amigos do facebook
+        i++;
         // Aloca um botão do tamanho da metade da tela em que está
         imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+60)/3, 20, 60, 60)];
         
-        imagem.image = [UIImage imageNamed:@"coracao"];
+        NSString* friendsImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", friends];
+        
+        
+        NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:friendsImageURL]];
+        imagem.image = [UIImage imageWithData:imageData];
         
         // Define a cor do botão
         [imagem setBackgroundColor:[UIColor clearColor]];
@@ -170,6 +194,41 @@
     [self.lifeTimer invalidate];
     [self updateLivesLoadedLifeObject];
     
+}
+
+- (NSArray *)loadFacebookFriendsIDs{
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj);
+            NSMutableArray *arrayIds = [NSMutableArray array];
+            //NSDictionary *fbFriendsDict = [obj objectForKey:@"facebookFriends"];
+            for (NSDictionary* friends in [obj objectForKey:@"facebookFriends"]) {
+                [arrayIds addObject:[friends objectForKey:@"id"]];
+            }
+            return [arrayIds copy];
+        }
+    }
+    return nil;
+}
+
+- (NSString *)loadFacebookUserID{
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj);
+            return [obj objectForKey:@"facebookID"];
+        }
+    }
+    return nil;
 }
 
 - (void)getUserLives{
