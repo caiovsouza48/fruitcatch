@@ -253,7 +253,7 @@
     self.profilePictureView.profileID = nil;
     self.nameLabel.text = @"";
     self.statusLabel.text= @"You're not logged in!";
-    self.imageFaceBook.image = nil;
+    //self.imageFaceBook.image = nil;
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {

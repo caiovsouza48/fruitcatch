@@ -118,13 +118,13 @@
                                     <outlet property="delegate" destination="Etp-xP-zSB" id="TWZ-91-aKt"/>
                                 </connections>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RtJ-vn-dWS">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q6o-5s-459">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="80" y="379" width="240" height="128"/>
+                                    <rect key="frame" x="27" y="652" width="240" height="128"/>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dpN-YP-twK">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dpN-YP-twK">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="99" y="379" width="240" height="128"/>
@@ -158,8 +158,7 @@
                                 <exclude reference="YP9-BY-bON"/>
                                 <exclude reference="5Ol-b8-yEL"/>
                                 <exclude reference="rdi-hi-nvs"/>
-                                <exclude reference="RtJ-vn-dWS"/>
-                                <exclude reference="dpN-YP-twK"/>
+                                <exclude reference="Q6o-5s-459"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Yc2-IE-dKe"/>
@@ -180,8 +179,7 @@
                                 <include reference="YP9-BY-bON"/>
                                 <include reference="5Ol-b8-yEL"/>
                                 <include reference="rdi-hi-nvs"/>
-                                <include reference="RtJ-vn-dWS"/>
-                                <include reference="dpN-YP-twK"/>
+                                <include reference="Q6o-5s-459"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Yc2-IE-dKe"/>
@@ -196,7 +194,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="imageFaceBook" destination="dpN-YP-twK" id="Efo-0J-X6i"/>
+                        <outlet property="facebookImage" destination="Q6o-5s-459" id="p3x-kq-OHO"/>
                         <outlet property="loginView" destination="rdi-hi-nvs" id="PPQ-QR-eJD"/>
                         <outlet property="multiplayerBtn" destination="m4T-l0-ZHM" id="iG0-xC-8v3"/>
                         <outlet property="musicBtn" destination="5Ol-b8-yEL" id="Od4-Qc-ZQh"/>
