@@ -18,7 +18,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-   // [[NetworkController sharedInstance] authenticateLocalUser];
+    //[[NetworkController sharedInstance] authenticateLocalUser];
     // Override point for customization after application launch.
     [FBLoginView class];
     EloRating *eloRating = [[EloRating alloc]init];

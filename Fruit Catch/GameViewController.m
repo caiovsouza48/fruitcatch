@@ -191,7 +191,6 @@
     
     // Delete the old fruit sprites, but not the tiles.
     [self.scene removeAllFruitSprites];
-    
     // Fill up the level with new fruits, and create sprites for them.
     NSSet *newFruits = [self.level shuffle];
     [self.scene addSpritesForFruits:newFruits];
@@ -392,7 +391,22 @@
     
     self.view.userInteractionEnabled = YES;
     [self decrementMoves];
+    [self cancelHints];
     
+}
+
+-(void)cancelHints
+{
+    //compara score
+    if(self.score >= self.level.targetScore || self.movesLeft == 0)
+    {
+        [self.scene removeActionForKey:@"Hint"];
+        if(self.hintNode){
+            [self.scene runAction:[SKAction runBlock:^{
+                [self.hintNode removeFromParent];
+            }]];
+        }
+    }
 }
 
 -(void)showMoves

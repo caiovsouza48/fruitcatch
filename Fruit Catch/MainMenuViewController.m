@@ -24,6 +24,7 @@
 @property (nonatomic) IBOutlet UIButton *multiplayerBtn;
 @property (nonatomic) IBOutlet UIButton *settingsBtn;
 @property (nonatomic) IBOutlet UIImageView *nome;
+@property (nonatomic) UIView *configuracao;
 @property (nonatomic) BOOL option;
 
 @end
@@ -32,8 +33,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //pegando dados do WebService
+    /*
+    NSError * erro = nil;
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/usuario/listarTodos"];
+    NSURL *url = [[NSURL alloc]initWithString:strUrl];
+    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+    NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+    NSLog(@"dados = %@",dadosWebService);
+    
+    */
+    /*
+    NSError * erro = nil;
+    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/addUsuario/24/MateusGay/24/24/24/24"];
+    NSURL *url = [[NSURL alloc]initWithString:strUrl];
+    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+    NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+    NSLog(@"dados = %@",dadosWebService);
+    */
+    
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     _loginView.delegate = self;
+    
+    
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
     fundo.center = self.view.center;
     [self.view insertSubview:fundo atIndex:0];
@@ -53,8 +75,16 @@
     }else{
         self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
-    
+
     [self.view insertSubview:self.nome atIndex:1];
+    
+    self.configuracao = [[UIView alloc]initWithFrame:(CGRectMake(self.view.frame.origin.x, CGRectGetMinY(self.view.frame)-300, self.view.frame.size.height/2, self.view.frame.size.width/1.5))];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(50, 50, 100, 100)];
+    label.backgroundColor = [UIColor whiteColor];
+    [self.configuracao addSubview:label];
+    [self.configuracao setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:self.configuracao];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -72,7 +102,7 @@
                           delay:0
                         options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat | UIViewAnimationOptionCurveEaseInOut | UIViewKeyframeAnimationOptionAllowUserInteraction
                      animations:^{
-                         NSLog(@"animate");
+                         
                          //Single
                          self.singlePlayerBtn.transform = CGAffineTransformMakeScale(1.02, 1.02);
                          //Multi
@@ -89,25 +119,51 @@
 
 -(IBAction)options:(id)sender
 {
+    
     if(!self.option){
+        [UIView animateWithDuration:1.5
+                              delay:0
+             usingSpringWithDamping:0.65
+              initialSpringVelocity:0
+                            options:0
+                         animations:^{
+                             self.configuracao.center = CGPointMake(self.view.center.x, self.view.center.y);
+                         }completion:^(BOOL fisished){
+                             self.option = YES;
+                         }];
+        
+     /*
         self.musicBtn.enabled = YES;
         self.musicBtn.alpha   = 1;
         
         self.soundBtn.enabled = YES;
         self.soundBtn.alpha   = 1;
-        
+     */
         //Fazer a animacao dos botoes surgindo
-        
-        self.option = YES;
     }else{
+        
+        [UIView animateWithDuration:1.5
+                              delay:0
+             usingSpringWithDamping:0.65
+              initialSpringVelocity:0
+                            options:0
+                         animations:^{
+                             self.configuracao.center = CGPointMake(self.configuracao.center.x, CGRectGetMinY(self.view.frame)-300);
+                         }completion:^(BOOL fisished){
+                             self.option = NO;
+                         }];
+        /*
+     
         self.musicBtn.enabled = NO;
         self.musicBtn.alpha   = 0;
         
         self.soundBtn.enabled = NO;
         self.soundBtn.alpha   = 0;
-        
-        self.option = NO;
+         */
+     
     }
+    
+
 }
 
 -(IBAction)singlePlayer:(id)sender
@@ -139,12 +195,10 @@
                             user:(id<FBGraphUser>)user {
     self.profilePictureView.profileID = user.objectID;
     self.nameLabel.text = user.name;
-    NSLog(@"User ID = %@",user.objectID);
+    
     NSDictionary *userDict = @{@"facebookID" : user.objectID,
                                @"alias" : user.name
                                };
-    
-    NSLog(@"USER = %@", user);
     
     NSString *filePath = [AppUtils getAppDataDir];
     //NSLog(@"%@",self.lives);
@@ -156,19 +210,17 @@
                                                error:&error];
 
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
-        if (error) {
-            // Handle error
-        }
-        
-        else {
-            self.userName = [FBuser name];
-            self.userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
-            
-            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.userImageURL]];
-            self.imageFacebook = [UIImage imageWithData:imageData];
-            
-            NSLog(@"IMAGEM = %@", self.userImageURL);
-            NSLog(@"USERNAME = %@", self.userName);
+        if (!error) {
+            NSString *userName = [FBuser name];
+            NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
+            userName = [FBuser name];
+            userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[FBuser objectID]];
+            /*
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
+            self.imageFaceBook.image =[UIImage imageWithData:imageData];
+             */
+            NSLog(@"IMAGEM = %@", userImageURL);
+            NSLog(@"USERNAME = %@", userName);
         }
     }];
     
@@ -201,6 +253,7 @@
     self.profilePictureView.profileID = nil;
     self.nameLabel.text = @"";
     self.statusLabel.text= @"You're not logged in!";
+    //self.imageFaceBook.image = nil;
 }
 
 - (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
