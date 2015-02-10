@@ -143,6 +143,9 @@
     NSDictionary *userDict = @{@"facebookID" : user.objectID,
                                @"alias" : user.name
                                };
+    
+    NSLog(@"USER = %@", user);
+    
     NSString *filePath = [AppUtils getAppDataDir];
     //NSLog(@"%@",self.lives);
     NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
@@ -151,6 +154,32 @@
                                         withSettings:kRNCryptorAES256Settings
                                             password:USER_SECRET
                                                error:&error];
+
+    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
+        if (error) {
+            // Handle error
+        }
+        
+        else {
+            self.userName = [FBuser name];
+            self.userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
+            
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.userImageURL]];
+            self.imageFacebook = [UIImage imageWithData:imageData];
+            
+            NSLog(@"IMAGEM = %@", self.userImageURL);
+            NSLog(@"USERNAME = %@", self.userName);
+        }
+    }];
+    
+    [FBRequestConnection startWithGraphPath:@"me/friends" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        
+        NSArray *data  = [result objectForKey:@"data"];
+        
+        for (NSDictionary *dicionario in data) {
+            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
+        }
+    }];
     
     BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
     if (!sucess){
@@ -166,8 +195,6 @@
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     self.statusLabel.text = @"You're logged in as";
-    //NSLog(@"IDIDIDIDIDID = %@", self.profilePictureView.profileID);
-    
 }
 
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {

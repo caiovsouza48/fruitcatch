@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Life.h"
 
-@interface WorldMap : UIViewController
+@interface WorldMap : UIViewController <UIScrollViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIView *livesView;
@@ -24,5 +24,9 @@
 
 @property (nonatomic) CGFloat xPosition;
 @property (nonatomic) CGFloat yPosition;
+
+@property(nonatomic) UIScrollView *scroll1;
+
+@property (nonatomic) UIImage* imageFacebook;
 
 @end
