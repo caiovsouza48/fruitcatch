@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -505,6 +505,62 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CaY-tF-M89">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sbb-b0-YK0">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uva.png" translatesAutoresizingMaskIntoConstraints="NO" id="bu1-Rn-Pui">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                    <rect key="frame" x="8" y="5" width="36" height="36"/>
+                                                </variation>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uva.png" translatesAutoresizingMaskIntoConstraints="NO" id="mZC-g5-oAK">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                    <rect key="frame" x="106" y="5" width="36" height="36"/>
+                                                </variation>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uva.png" translatesAutoresizingMaskIntoConstraints="NO" id="WlQ-fq-acN">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                    <rect key="frame" x="56" y="5" width="36" height="36"/>
+                                                </variation>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <variation key="default">
+                                            <mask key="subviews">
+                                                <exclude reference="bu1-Rn-Pui"/>
+                                                <exclude reference="mZC-g5-oAK"/>
+                                                <exclude reference="WlQ-fq-acN"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="149" height="46"/>
+                                            <mask key="subviews">
+                                                <include reference="bu1-Rn-Pui"/>
+                                                <include reference="mZC-g5-oAK"/>
+                                                <include reference="WlQ-fq-acN"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="Sbb-b0-YK0"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="8" y="720" width="149" height="46"/>
+                                    <mask key="subviews">
+                                        <include reference="Sbb-b0-YK0"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -554,6 +610,7 @@
                                 <exclude reference="wtf-1w-1vB"/>
                                 <exclude reference="NHk-PR-yXA"/>
                                 <exclude reference="9VR-cb-S6F"/>
+                                <exclude reference="CaY-tF-M89"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="MoB-cl-sPw"/>
@@ -593,6 +650,7 @@
                             <mask key="subviews">
                                 <include reference="aSH-SM-DRd"/>
                                 <include reference="9VR-cb-S6F"/>
+                                <include reference="CaY-tF-M89"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="MoB-cl-sPw"/>
@@ -622,6 +680,10 @@
                         <outlet property="backButton" destination="9HX-Nk-Azn" id="OzX-Gq-VYa"/>
                         <outlet property="gameOverPanel" destination="wtf-1w-1vB" id="eHv-CF-O3z"/>
                         <outlet property="movesLabel" destination="nx2-K0-R3n" id="3wR-1g-vqM"/>
+                        <outlet property="powerUpImage1" destination="bu1-Rn-Pui" id="AXH-d7-riJ"/>
+                        <outlet property="powerUpImage2" destination="WlQ-fq-acN" id="jUE-yL-cq5"/>
+                        <outlet property="powerUpUmage3" destination="mZC-g5-oAK" id="O9l-xI-MSt"/>
+                        <outlet property="powerUpView" destination="Sbb-b0-YK0" id="SvN-Ih-kLH"/>
                         <outlet property="scoreLabel" destination="NHk-PR-yXA" id="Bng-KN-R4q"/>
                         <outlet property="targetLabel" destination="QyQ-FX-Ikx" id="u0S-5q-H8I"/>
                         <segue destination="cxk-xc-d7E" kind="presentation" identifier="Back" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="p85-5r-noZ"/>
@@ -641,8 +703,9 @@
         <image name="multiplayer.png" width="193" height="58"/>
         <image name="singleplayer.png" width="193" height="58"/>
         <image name="ui_pontos_movimentos.png" width="320" height="55"/>
+        <image name="uva.png" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nfF-1N-vTy"/>
+        <segue reference="p85-5r-noZ"/>
     </inferredMetricsTieBreakers>
 </document>

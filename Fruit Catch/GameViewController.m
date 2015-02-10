@@ -125,9 +125,23 @@
     if([SettingsSingleton sharedInstance].music == ON){
         [self.backgroundMusic play];
     }
-    
+    [self loadPowerUpsView];
     // Let's start the game!
     [self beginGame];
+}
+
+- (void) loadPowerUpsView{
+    UIPanGestureRecognizer *powerUpPanGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(movePowerUp:)];
+    [powerUpPanGesture setMinimumNumberOfTouches:1];
+    [powerUpPanGesture setMaximumNumberOfTouches:1];
+    for (id view in self.powerUpView) {
+        NSLog(@"View: %@",view);
+    }
+    
+}
+
+- (void)movePowerUp:(UIGestureRecognizer *)gesture{
+    
 }
 
 - (void)dealloc{
