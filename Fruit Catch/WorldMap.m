@@ -46,6 +46,42 @@
     
     _i = -1;
     
+    // Define o posicionamento dos Scrolls
+    CGRect tamanhoScroll1 = CGRectMake(0, self.view.frame.size.height-100, self.view.frame.size.width, self.view.frame.size.height/2);
+
+    // Aloca o Scroll baseado no posicionamento criado
+    _scroll1 = [[UIScrollView alloc]initWithFrame:tamanhoScroll1];
+
+    // Redimensiona o tamanho do Scroll
+    // Alterar para a quantidad de amigos que a pessoa possui no facebook
+    // ==================================================================================================
+    _scroll1.contentSize = CGSizeMake(self.view.frame.size.width*6, self.view.frame.size.height/2);
+
+    // Define a cor de fundo do Scroll
+    _scroll1.backgroundColor = [UIColor colorWithRed:(119.0/255) green:(185.0/255) blue:(195.0/255) alpha:1];
+
+    _scroll1.delegate = self;
+    
+    // Mostra imagens
+    UIImageView *imagem;
+    for (int i=0; i<6; i++){
+        
+        // Define a cor do botão
+        [imagem setBackgroundColor:[UIColor clearColor]];
+        // Adiciona o botão no Scroll
+        [_scroll1 addSubview:imagem];
+        
+        // Aloca um botão do tamanho da metade da tela em que está
+        imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+60)/3, 20, 60, 60)];
+        
+        imagem.image = [UIImage imageNamed:@"coracao"];
+        
+        // Define a cor do botão
+        [imagem setBackgroundColor:[UIColor clearColor]];
+        // Adiciona o botão no Scroll
+        [_scroll1 addSubview:imagem];
+    }
+
     //Cria o botao back
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     
@@ -93,6 +129,8 @@
     [self.informFase setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:self.informFase];
     
+    // Aloca o Scroll na view
+    [self.view addSubview:_scroll1];
 }
 
 

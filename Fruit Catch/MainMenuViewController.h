@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *singlePlayerButton;
 @property (weak, nonatomic) IBOutlet FBLoginView *loginView;
+@property (weak, nonatomic) IBOutlet UIImageView *facebookImage;
 
 @property  ( strong , nonatomic )  IBOutlet  FBProfilePictureView  * profilePictureView ;
 @property  ( strong , nonatomic )  IBOutlet  UILabel  * nameLabel ;

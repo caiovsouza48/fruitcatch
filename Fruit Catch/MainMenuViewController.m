@@ -228,8 +228,8 @@
         
         NSArray *data  = [result objectForKey:@"data"];
         
-        for (NSDictionary *oi in data) {
-            NSLog(@"name = %@",[oi objectForKey:@"name"]);
+        for (NSDictionary *dicionario in data) {
+            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
         }
     }];
     
