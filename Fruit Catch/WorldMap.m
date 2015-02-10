@@ -67,13 +67,49 @@
     
     _i = -1;
     
+    // Define o posicionamento dos Scrolls CGRectGetMaxY(self.view.frame)-70
+    CGRect tamanhoScroll1 = CGRectMake(CGRectGetMinX(self.view.frame)+self.view.frame.size.width, CGRectGetMaxY(self.view.frame)-70, self.view.frame.size.width, 70);
+
+    // Aloca o Scroll baseado no posicionamento criado
+    _scroll1 = [[UIScrollView alloc]initWithFrame:tamanhoScroll1];
+
+    // Redimensiona o tamanho do Scroll
+    // Alterar para a quantidad de amigos que a pessoa possui no facebook
+    // ==================================================================================================
+    _scroll1.contentSize = CGSizeMake(self.view.frame.size.width*6, 70);
+
+    // Define a cor de fundo do Scroll
+    _scroll1.backgroundColor = [UIColor colorWithRed:(119.0/255) green:(185.0/255) blue:(195.0/255) alpha:1];
+
+    _scroll1.delegate = self;
+    
+    // Mostra imagens
+    UIImageView *imagem;
+    for (int i=0; i<6; i++){
+        
+        // Define a cor do botão
+        [imagem setBackgroundColor:[UIColor clearColor]];
+        // Adiciona o botão no Scroll
+        [_scroll1 addSubview:imagem];
+        
+        // Aloca um botão do tamanho da metade da tela em que está
+        imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+50)/3, 5, 60, 60)];
+        
+        imagem.image = [UIImage imageNamed:@"coracao"];
+        
+        // Define a cor do botão
+        [imagem setBackgroundColor:[UIColor clearColor]];
+        // Adiciona o botão no Scroll
+        [_scroll1 addSubview:imagem];
+    }
+
     //Cria o botao back
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     
     button.tag = _i;
     
     [button addTarget:self
-               action:@selector(selectLevel:)
+               action:@selector(back:)
      forControlEvents:UIControlEventTouchUpInside];
     
     [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
@@ -109,7 +145,13 @@
         [_scrollView addSubview:button];
         
     }
+    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-300, self.view.center.y-self.view.frame.size.width/3, self.view.frame.size.height/2, self.view.frame.size.width/1.5))];
     
+    [self.informFase setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:self.informFase];
+    
+    // Aloca o Scroll na view
+    [self.view addSubview:_scroll1];
 }
 
 - (void)dealloc{
@@ -311,9 +353,16 @@
 }
 
 #pragma mark - Level
-
+-(IBAction)back:(id)sender
+{
+  [self fexarTela:self];
+  [self performSegueWithIdentifier:@"Menu" sender:self];
+  
+    
+}
 -(IBAction)selectLevel:(id)sender
 {
+    /*
     UIButton *btn = (UIButton *)sender;
     btn.enabled = NO;
     NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
@@ -332,8 +381,53 @@
     }else{
         [self performSegueWithIdentifier:@"Menu" sender:self];
     }
+     */
+    
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(self.informFase.frame.size.width-50, 0, 50,50)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"bntSair"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
+    
+    //botao jogar
+    UIButton *btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(self.informFase.frame.size.height-50, 0, 50,50)];
+    [btnJogar setBackgroundImage:[UIImage imageNamed:@"banana"] forState:UIControlStateNormal];
+    [btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.informFase addSubview:btn];
+    [self.informFase addSubview:btnJogar];
+    
+    UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
+    blurView.backgroundColor = [UIColor clearColor];
+    [self.view insertSubview:blurView atIndex:4];
+    
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.65
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+                         self.informFase.center = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
+                         self.scroll1.center = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
+                     }completion:nil];
 }
 
+-(IBAction)jogar:(id)sender
+{
+   [self performSegueWithIdentifier:@"Level" sender:self];
+}
+-(IBAction)fexarTela:(id)sender
+{
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.65
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         self.informFase.center = CGPointMake(CGRectGetMinX(self.view.frame)-300,self.informFase.center.y);
+                         self.scroll1.center = CGPointMake(CGRectGetMinX(self.view.frame)+500, self.scroll1.center.y);
+                         
+                     }completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "NetworkController.h"
+#import "EloRating.h"
 
 @interface AppDelegate ()
 
@@ -17,9 +18,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-   // [[NetworkController sharedInstance] authenticateLocalUser];
+    //[[NetworkController sharedInstance] authenticateLocalUser];
     // Override point for customization after application launch.
     [FBLoginView class];
+    EloRating *eloRating = [[EloRating alloc]init];
+//    int userRating = 1600;
+//    int opponentRating = 1650;
+//    int newUserRating = [eloRating getNewRating:userRating OpponentRating:opponentRating GameResult:WIN];
+//    int newOpponent = [eloRating getNewRating:opponentRating OpponentRating:userRating GameResult:LOSS];
+//    NSLog(@"New User Rating = %d",newUserRating);
+//    NSLog(@"New Opponent Rating = %d",newOpponent);
     [[UIApplication sharedApplication]setStatusBarHidden:YES ];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Launch"];
     return YES;

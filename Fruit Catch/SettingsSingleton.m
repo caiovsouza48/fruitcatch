@@ -18,7 +18,6 @@ static SettingsSingleton *instance;
         instance = [[SettingsSingleton alloc]initPrivate];
     });
     return instance;
-    
 }
 
 - (id)initPrivate{

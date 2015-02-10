@@ -25,4 +25,8 @@
 @property (nonatomic) CGFloat xPosition;
 @property (nonatomic) CGFloat yPosition;
 
+@property(nonatomic) UIScrollView *scroll1;
+
+@property (nonatomic) UIImage* imageFacebook;
+
 @end
