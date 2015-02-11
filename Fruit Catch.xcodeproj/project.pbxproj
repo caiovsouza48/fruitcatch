@@ -107,8 +107,8 @@
 		0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCBombaMaisPowerUp.m; path = "Fruit Catch/JIMCBombaMaisPowerUp.m"; sourceTree = "<group>"; };
 		0FA8DFB01A362C2E005B994C /* JIMCPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCPowerUp.h; path = "Fruit Catch/JIMCPowerUp.h"; sourceTree = "<group>"; };
 		0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCPowerUp.m; path = "Fruit Catch/JIMCPowerUp.m"; sourceTree = "<group>"; };
-		0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsSingleton.h; path = "Fruit Catch/SettingsSingleton.h"; sourceTree = "<group>"; };
-		0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsSingleton.m; path = "Fruit Catch/SettingsSingleton.m"; sourceTree = "<group>"; };
+		0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSingleton.h; sourceTree = "<group>"; };
+		0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSingleton.m; sourceTree = "<group>"; };
 		0FEE059B1A433F7E00E8CF81 /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
 		0FEE059C1A433F7E00E8CF81 /* BackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackButton.png; sourceTree = "<group>"; };
 		0FEE05A01A43405000E8CF81 /* NextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NextButton.png; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
 		43F4362D1A28A00300F1C358 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		43F4362E1A28A00300F1C358 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
-		DE3429FF1A814ED000E7630B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		DE3429FF1A814ED000E7630B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK.framework; sourceTree = "<group>"; };
 		DE342A011A815C7000E7630B /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		DE342A021A815C7000E7630B /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
 		DE805C5F1A852BAF009694C0 /* EloRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EloRating.h; sourceTree = "<group>"; };
@@ -390,6 +390,8 @@
 			isa = PBXGroup;
 			children = (
 				E3CFD4AD1A8B869600C6FF64 /* configuracoes */,
+				0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */,
+				0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */,
 				43F4362D1A28A00300F1C358 /* MainMenuViewController.h */,
 				43F4362E1A28A00300F1C358 /* MainMenuViewController.m */,
 				E3DFE2F81A40A2B500CB4D0C /* JIMCMainMenu.h */,
@@ -419,6 +421,7 @@
 				DE805C631A852D40009694C0 /* kFactor.m */,
 			);
 			name = Multiplayer;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		DEA2D2B81A39C82E0038B65A /* Life */ = {
@@ -438,6 +441,7 @@
 				DE342A021A815C7000E7630B /* AppUtils.m */,
 			);
 			name = Util;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		DEA2D2BA1A39C84D0038B65A /* RNCryptor */ = {
@@ -459,11 +463,6 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
-				DE3429FF1A814ED000E7630B /* FacebookSDK.framework */,
-				DE8092D81A7FDDEF008E2B37 /* Multiplayer */,
-				DEA2D2B91A39C83D0038B65A /* Util */,
-				0FA8DFB21A362C2E005B994C /* SettingsSingleton.h */,
-				0FA8DFB31A362C2E005B994C /* SettingsSingleton.m */,
 				DEC905A41A239C6D003DD444 /* Fruit Catch */,
 				DEC905C31A239C6D003DD444 /* Fruit CatchTests */,
 				DEC905A31A239C6D003DD444 /* Products */,
@@ -482,6 +481,9 @@
 		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
 			isa = PBXGroup;
 			children = (
+				E3CFD4BA1A8BAFAA00C6FF64 /* Frameworks */,
+				DE8092D81A7FDDEF008E2B37 /* Multiplayer */,
+				DEA2D2B91A39C83D0038B65A /* Util */,
 				E3CFD4AA1A8B862800C6FF64 /* Fonte */,
 				0F05E7FF1A41EC6700D11622 /* GameOverScene */,
 				0FF5BF5B1A3A13490090873A /* Segue */,
@@ -582,6 +584,14 @@
 				E3CFD4B31A8B86B900C6FF64 /* retangulo_generico@3x.png */,
 			);
 			name = configuracoes;
+			sourceTree = "<group>";
+		};
+		E3CFD4BA1A8BAFAA00C6FF64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE3429FF1A814ED000E7630B /* FacebookSDK.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E3E3EC971A23ACFB00E7E18E /* Class */ = {
