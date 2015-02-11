@@ -18,6 +18,7 @@
 
 @property NSInteger i;
 
+@property (nonatomic) UIView *informFase;
 @property (nonatomic) NSTimer *lifeTimer;
 @property (nonatomic) UIScrollView *scrollView;
 @end
