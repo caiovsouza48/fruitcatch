@@ -26,6 +26,7 @@
 @property (nonatomic) IBOutlet UIButton *settingsBtn;
 @property (nonatomic) IBOutlet UIImageView *nome;
 @property (nonatomic) UIView *configuracao;
+@property (nonatomic) UIView *blurView;
 @property (nonatomic) BOOL option;
 @property(nonatomic) NSArray *fbFriends;
 
@@ -37,22 +38,22 @@
     [super viewDidLoad];
     //pegando dados do WebService
     /*
-    NSError * erro = nil;
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/usuario/listarTodos"];
-    NSURL *url = [[NSURL alloc]initWithString:strUrl];
-    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-    NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-    NSLog(@"dados = %@",dadosWebService);
-    
-    */
+     NSError * erro = nil;
+     NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/usuario/listarTodos"];
+     NSURL *url = [[NSURL alloc]initWithString:strUrl];
+     NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+     NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+     NSLog(@"dados = %@",dadosWebService);
+     
+     */
     /*
-    NSError * erro = nil;
-    NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/addUsuario/24/MateusGay/24/24/24/24"];
-    NSURL *url = [[NSURL alloc]initWithString:strUrl];
-    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-    NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-    NSLog(@"dados = %@",dadosWebService);
-    */
+     NSError * erro = nil;
+     NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/addUsuario/24/MateusGay/24/24/24/24"];
+     NSURL *url = [[NSURL alloc]initWithString:strUrl];
+     NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+     NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+     NSLog(@"dados = %@",dadosWebService);
+     */
     
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     _loginView.delegate = self;
@@ -70,16 +71,51 @@
               initialSpringVelocity:0
                             options:0
                          animations:^{
-                            self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
+                             self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
                          }
                          completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Launch"];
     }else{
         self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
-
+    
     [self.view insertSubview:self.nome atIndex:1];
     [self loadFromFile];
+}
+-(void)viewConfig
+{
+    self.configuracao = [[UIView alloc]initWithFrame:(CGRectMake(self.view.frame.origin.x, CGRectGetMinY(self.view.frame)-404, 315, 404))];
+    
+    UILabel *configuracao = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.configuracao.frame)-157, 0, 315, 50)];
+    configuracao.font = [UIFont fontWithName:@"Chewy" size:40];
+    configuracao.text = @"Configurações";
+    configuracao.textAlignment = NSTextAlignmentCenter;
+    configuracao.textColor = [UIColor whiteColor];
+    
+    
+    UILabel *musica = [[UILabel alloc]initWithFrame:CGRectMake(0, configuracao.frame.origin.y+70, 130, 50)];
+    musica.font = [UIFont fontWithName:@"Chewy" size:35];
+    musica.text = @"Música";
+    musica.textAlignment = NSTextAlignmentCenter;
+    musica.textColor = [UIColor whiteColor];
+    
+    UILabel *efeitosSonoros = [[UILabel alloc]initWithFrame:CGRectMake(0, musica.frame.origin.y+45, 240, 50)];
+    efeitosSonoros.font = [UIFont fontWithName:@"Chewy" size:35];
+    efeitosSonoros.text = @"Efeitos Sonoros";
+    efeitosSonoros.textAlignment = NSTextAlignmentCenter;
+    efeitosSonoros.textColor = [UIColor whiteColor];
+    
+    UIButton *fechar = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.configuracao.frame)-27, 10, 19, 19)];
+    [fechar setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
+    
+   [fechar addTarget:self action:@selector(fechar:)forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.configuracao addSubview:configuracao];
+    [self.configuracao addSubview:musica];
+    [self.configuracao addSubview:efeitosSonoros];
+    [self.configuracao addSubview:fechar];
+    [self.configuracao setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_configuracoes"]]];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -111,54 +147,63 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(IBAction)fechar:(id)sender
+{
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.65
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         [self.blurView removeFromSuperview];
+                         self.configuracao.center = CGPointMake(self.configuracao.center.x, CGRectGetMinY(self.view.frame)-300);
+                     }completion:^(BOOL fisished){
+                         self.option = NO;
+                     }];
+}
 -(IBAction)options:(id)sender
 {
     
     if(!self.option){
+        self.blurView = [[UIView alloc] initWithFrame:self.view.frame];
+        self.blurView.backgroundColor = [UIColor clearColor];
+        [self.view insertSubview:self.blurView atIndex:7];
+        
         [UIView animateWithDuration:1.5
                               delay:0
              usingSpringWithDamping:0.65
               initialSpringVelocity:0
                             options:0
                          animations:^{
+                             self.blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.875];
                              self.configuracao.center = CGPointMake(self.view.center.x, self.view.center.y);
                          }completion:^(BOOL fisished){
                              self.option = YES;
                          }];
         
-     /*
-        self.musicBtn.enabled = YES;
-        self.musicBtn.alpha   = 1;
-        
-        self.soundBtn.enabled = YES;
-        self.soundBtn.alpha   = 1;
-     */
+        /*
+         self.musicBtn.enabled = YES;
+         self.musicBtn.alpha   = 1;
+         
+         self.soundBtn.enabled = YES;
+         self.soundBtn.alpha   = 1;
+         */
         //Fazer a animacao dos botoes surgindo
     }else{
         
-        [UIView animateWithDuration:1.5
-                              delay:0
-             usingSpringWithDamping:0.65
-              initialSpringVelocity:0
-                            options:0
-                         animations:^{
-                             self.configuracao.center = CGPointMake(self.configuracao.center.x, CGRectGetMinY(self.view.frame)-300);
-                         }completion:^(BOOL fisished){
-                             self.option = NO;
-                         }];
-        /*
-     
-        self.musicBtn.enabled = NO;
-        self.musicBtn.alpha   = 0;
         
-        self.soundBtn.enabled = NO;
-        self.soundBtn.alpha   = 0;
+        /*
+         
+         self.musicBtn.enabled = NO;
+         self.musicBtn.alpha   = 0;
+         
+         self.soundBtn.enabled = NO;
+         self.soundBtn.alpha   = 0;
          */
-     
+        
     }
     
-
+    
 }
 
 -(IBAction)singlePlayer:(id)sender
@@ -183,7 +228,7 @@
 -(IBAction)soundON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] soundON_OFF];
-
+    
 }
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
@@ -198,8 +243,8 @@
             userName = [FBuser name];
             userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[FBuser objectID]];
             /*
-            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
-            self.imageFaceBook.image =[UIImage imageWithData:imageData];
+             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
+             self.imageFaceBook.image =[UIImage imageWithData:imageData];
              */
             NSLog(@"IMAGEM = %@", userImageURL);
             NSLog(@"USERNAME = %@", userName);
@@ -312,13 +357,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
