@@ -24,6 +24,7 @@
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
 		DE342A001A814ED000E7630B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3429FF1A814ED000E7630B /* FacebookSDK.framework */; };
 		DE342A031A815C7000E7630B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE342A021A815C7000E7630B /* AppUtils.m */; };
+		DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */; };
 		DE805C611A852BAF009694C0 /* EloRating.m in Sources */ = {isa = PBXBuildFile; fileRef = DE805C601A852BAF009694C0 /* EloRating.m */; };
 		DE805C641A852D40009694C0 /* kFactor.m in Sources */ = {isa = PBXBuildFile; fileRef = DE805C631A852D40009694C0 /* kFactor.m */; };
 		DE8092D21A7FDDE3008E2B37 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092C71A7FDDE3008E2B37 /* Match.m */; };
@@ -125,6 +126,7 @@
 		DE3429FF1A814ED000E7630B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK.framework; sourceTree = "<group>"; };
 		DE342A011A815C7000E7630B /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		DE342A021A815C7000E7630B /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
+		DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iconTest.jpeg; sourceTree = "<group>"; };
 		DE805C5F1A852BAF009694C0 /* EloRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EloRating.h; sourceTree = "<group>"; };
 		DE805C601A852BAF009694C0 /* EloRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EloRating.m; sourceTree = "<group>"; };
 		DE805C621A852D40009694C0 /* kFactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kFactor.h; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 				DEC905B71A239C6D003DD444 /* Images.xcassets */,
 				DEC905B91A239C6D003DD444 /* LaunchScreen.xib */,
 				E33DD8CC1A3B13BF001C2897 /* coracao.png */,
+				DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */,
 				E3E3ECBB1A23B32000E7E18E /* Levels */,
 				E3E3ECAE1A23B2FA00E7E18E /* Sounds */,
 				E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */,
@@ -718,6 +721,7 @@
 				4361288B1A40612100A2B620 /* mapa@2x.png in Resources */,
 				4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */,
 				0FEE059F1A433F7E00E8CF81 /* BackButton.png in Resources */,
+				DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */,
 				E3E3ECC21A23B34500E7E18E /* Level_1.json in Resources */,
 				E3CFD4B71A8B86B900C6FF64 /* retangulo_generico.png in Resources */,
 				E3E3ECC31A23B34500E7E18E /* Level_2.json in Resources */,
