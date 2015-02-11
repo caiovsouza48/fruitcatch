@@ -44,6 +44,14 @@
 @property SKSpriteNode *hintNode;
 @property SKAction *hintAction;
 
+@property(nonatomic) int firstX;
+
+@property(nonatomic) int firstY;
+
+@property(nonatomic) int finalX;
+
+@property(nonatomic) int finalY;
+
 @end
 
 @implementation GameViewController
@@ -131,17 +139,87 @@
 }
 
 - (void) loadPowerUpsView{
+    UIView *newView = [[UIView alloc]initWithFrame:CGRectMake(10, 430, 100, 100)];
+    [newView setBackgroundColor:[UIColor redColor]];
+    UIImageView *powerUpImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"iconTest.jpeg"]];
+
+    [powerUpImageView setBounds:CGRectMake(10, 10, 36 , 36)];
+    [powerUpImageView setFrame:CGRectMake(10, 10, 36 , 36)];
+    self.powerUpImage1 = powerUpImageView;
+    [newView addSubview:powerUpImageView];
+    [self.view addSubview:newView];
+    self.powerUpView = newView;
+    
+    //self.powerUpImage1.image = [UIImage imageNamed:@"morango"];
+    [self.view addSubview:self.powerUpView];
     UIPanGestureRecognizer *powerUpPanGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(movePowerUp:)];
     [powerUpPanGesture setMinimumNumberOfTouches:1];
     [powerUpPanGesture setMaximumNumberOfTouches:1];
-    for (id view in self.powerUpView) {
-        NSLog(@"View: %@",view);
-    }
+    [powerUpImageView setUserInteractionEnabled:YES];
+    NSLog(@"self.powerUpImage1.image = %@",self.powerUpImage1.image);
+    //[self.powerUpImage1 addGestureRecognizer:powerUpPanGesture];
+    [powerUpImageView addGestureRecognizer:powerUpPanGesture];
+    
     
 }
 
-- (void)movePowerUp:(UIGestureRecognizer *)gesture{
-    
+- (IBAction)movePowerUp:(UIPanGestureRecognizer *)gesture{
+    NSLog(@"Method Fired");
+    CGPoint translatedPoint = [gesture translationInView:self.view];
+    if (gesture.state == UIGestureRecognizerStateBegan){
+        _firstX = [[gesture view] center].x;
+        _firstY = [[gesture view] center].y;
+    }
+   
+    translatedPoint = CGPointMake(_firstX+translatedPoint.x, _firstY+translatedPoint.y);
+    //[self.powerUpImage1 setCenter:translatedPoint];
+    [[gesture view] setCenter:translatedPoint];
+    if ([gesture state] == UIGestureRecognizerStateEnded) {
+        CGFloat velocityX = (0.2*[gesture velocityInView:self.view].x);
+        CGFloat velocityY = (0.35*[gesture velocityInView:self.view].y);
+        
+        CGFloat finalX = translatedPoint.x + velocityX;
+        CGFloat finalY = translatedPoint.y + velocityY;// translatedPoint.y + (.35*[(UIPanGestureRecognizer*)sender velocityInView:self.view].y);
+        
+        if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+            if (finalX < 0) {
+                finalX = 0;
+            } else if (finalX > 768) {
+                finalX = 768;
+            }
+            
+            if (finalY < 0) {
+                finalY = 0;
+            } else if (finalY > 1024) {
+                finalY = 1024;
+            }
+        } else {
+            if (finalX < 0) {
+                finalX = 0;
+            } else if (finalX > 1024) {
+                finalX = 768;
+            }
+            
+            if (finalY < 0) {
+                finalY = 0;
+            } else if (finalY > 768) {
+                finalY = 1024;
+            }
+        }
+        
+        
+        CGFloat animationDuration = (ABS(velocityX)*.0002)+.2;
+        
+        NSLog(@"the duration is: %f", animationDuration);
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:animationDuration];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        //[UIView setAnimationDelegate:self];
+        //[UIView setAnimationDidStopSelector:@selector(animationDidFinish)];
+        [[gesture view] setCenter:CGPointMake(finalX, finalY)];
+        [UIView commitAnimations];
+    }
 }
 
 - (void)dealloc{
