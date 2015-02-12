@@ -18,8 +18,10 @@
 
 @property NSInteger i;
 
-@property(nonatomic) NSTimer *lifeTimer;
-@property(nonatomic) UIView *informFase;
+@property (nonatomic) UIView *informFase;
+@property (nonatomic) NSTimer *lifeTimer;
+@property (nonatomic) UIScrollView *scrollView;
+//@property (nonatomic) UIView *blurView;
 @end
 
 @implementation WorldMap
@@ -28,6 +30,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self getUserLives];
+    
+    //Move a scrollView para o fundo da imagem.
+    CGRect mask = CGRectMake(0, _scrollView.contentSize.height - self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+    [_scrollView scrollRectToVisible:mask animated:NO];
 }
 
 - (void)viewDidLoad {
@@ -36,12 +42,27 @@
     [self registerLivesBackgroundNotification];
     [self registerAppEnterForegroundNotification];
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
-    // Do any additional setup after loading the view.
+    
+    //ScrollView
     
     //Carrega a imagem de fundo
     UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa"]];
-    [self.view addSubview:fundo];
     
+    CGRect frame = fundo.frame;
+    _scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
+    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height);
+    
+    _scrollView.backgroundColor = [UIColor cyanColor];
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.showsVerticalScrollIndicator   = NO;
+    _scrollView.delegate = self;
+
+    NSLog(@"Scrollview height = %f",_scrollView.frame.size.height);
+    [self.view addSubview:_scrollView];
+    
+    [_scrollView addSubview:fundo];
+    
+    //Botoes do mapa
     NSArray *mapButtons = [[NSArray alloc]initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"MapButtons" ofType:@"plist"]];
     
     _i = -1;
@@ -120,11 +141,12 @@
         [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
         //Necessário fazer um if para comparar se a fase está aberta ou fechada
         [button setBackgroundImage:[UIImage imageNamed:@"fase_aberta"] forState:UIControlStateNormal];
-        [self.view addSubview:button];
+//        [self.view addSubview:button];
+        [_scrollView addSubview:button];
         
-        break; //Remover depois
     }
-    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-300, self.view.center.y-self.view.frame.size.width/3, self.view.frame.size.height/2, self.view.frame.size.width/1.5))];
+    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-300, CGRectGetMidY(self.view.frame) - self.view.frame.size.height/4, self.view.frame.size.height/2, self.view.frame.size.width/1.5))];
+    self.informFase.userInteractionEnabled = YES;
     
     [self.informFase setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:self.informFase];
@@ -132,7 +154,6 @@
     // Aloca o Scroll na view
     [self.view addSubview:_scroll1];
 }
-
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
@@ -363,18 +384,28 @@
     }
      */
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(self.informFase.frame.size.width-50, 0, 50,50)];
-    [btn setBackgroundImage:[UIImage imageNamed:@"bntSair"] forState:UIControlStateNormal];
+    //Retangulo
+    UIImageView *fundoInform = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"retangulo_generico.png"]];
+    self.informFase.backgroundColor = [UIColor clearColor];
+    [self.informFase addSubview:fundoInform];
+    
+    //botao sair
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(self.informFase.frame.size.width - 15, 15, 25,25)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
     
     //botao jogar
-    UIButton *btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(self.informFase.frame.size.height-50, 0, 50,50)];
-    [btnJogar setBackgroundImage:[UIImage imageNamed:@"banana"] forState:UIControlStateNormal];
+    UIButton *btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame)- 100, 150,55)];
+    [btnJogar setTitle:@"Jogar" forState:UIControlStateNormal];
+    [btnJogar setFont:[UIFont fontWithName:@"Chewy" size:40]];
     [btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
+    btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     
     [self.informFase addSubview:btn];
     [self.informFase addSubview:btnJogar];
     
+    //Escurece o fundo
     UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
     blurView.backgroundColor = [UIColor clearColor];
     [self.view insertSubview:blurView atIndex:4];
@@ -386,8 +417,9 @@
                         options:0
                      animations:^{
                          blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-                         self.informFase.center = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
+                         self.informFase.center = CGPointMake(CGRectGetMidX(self.view.frame) - 15, self.informFase.center.y);
                          self.scroll1.center = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
+                         btnJogar.center     = CGPointMake(CGRectGetMidX(self.informFase.frame), btnJogar.center.y);
                      }completion:nil];
 }
 
@@ -397,16 +429,20 @@
 }
 -(IBAction)fexarTela:(id)sender
 {
+    UIView *blurView = [[self.view subviews] objectAtIndex:4];
     [UIView animateWithDuration:1.5
                           delay:0
          usingSpringWithDamping:0.65
           initialSpringVelocity:0
                         options:0
                      animations:^{
+                         blurView.backgroundColor = [UIColor clearColor];
                          self.informFase.center = CGPointMake(CGRectGetMinX(self.view.frame)-300,self.informFase.center.y);
                          self.scroll1.center = CGPointMake(CGRectGetMinX(self.view.frame)+500, self.scroll1.center.y);
                          
-                     }completion:nil];
+                     }completion:^(BOOL finished){
+                             [blurView removeFromSuperview];
+                     }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

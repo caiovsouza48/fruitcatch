@@ -10,27 +10,27 @@
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>60</integer>
+		<integer>138</integer>
 		<key>yPosition</key>
-		<integer>120</integer>
+		<integer>478</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>20</integer>
+		<integer>238</integer>
 		<key>yPosition</key>
-		<integer>155</integer>
+		<integer>455</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>70</integer>
+		<integer>210</integer>
 		<key>yPosition</key>
-		<integer>200</integer>
+		<integer>395</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>30</integer>
+		<integer>110</integer>
 		<key>yPosition</key>
-		<integer>250</integer>
+		<integer>390</integer>
 	</dict>
 </array>
 </plist>
