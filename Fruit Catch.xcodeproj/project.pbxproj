@@ -17,6 +17,9 @@
 		0FEE05A11A43405000E8CF81 /* NextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE05A01A43405000E8CF81 /* NextButton.png */; };
 		0FEE05A31A4348F100E8CF81 /* RetryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FEE05A21A4348F100E8CF81 /* RetryButton.png */; };
 		0FF5BF5E1A3A13670090873A /* CustomSegueWorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */; };
+		433A0FFF1A8B90360096B0E5 /* botao_fechar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A0FFD1A8B90360096B0E5 /* botao_fechar@2x.png */; };
+		433A10001A8B90360096B0E5 /* botao_fechar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A0FFE1A8B90360096B0E5 /* botao_fechar@3x.png */; };
+		433A10021A8B904F0096B0E5 /* botao_fechar.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A10011A8B904F0096B0E5 /* botao_fechar.png */; };
 		4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128881A40612100A2B620 /* fase_aberta@2x.png */; };
 		4361288B1A40612100A2B620 /* mapa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128891A40612100A2B620 /* mapa@2x.png */; };
 		436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 436CBD091A2F737500862EDE /* WorldMap.m */; };
@@ -116,6 +119,9 @@
 		0FEE05A21A4348F100E8CF81 /* RetryButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RetryButton.png; sourceTree = "<group>"; };
 		0FF5BF5C1A3A13670090873A /* CustomSegueWorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueWorldMap.h; sourceTree = "<group>"; };
 		0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueWorldMap.m; sourceTree = "<group>"; };
+		433A0FFD1A8B90360096B0E5 /* botao_fechar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_fechar@2x.png"; sourceTree = "<group>"; };
+		433A0FFE1A8B90360096B0E5 /* botao_fechar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_fechar@3x.png"; sourceTree = "<group>"; };
+		433A10011A8B904F0096B0E5 /* botao_fechar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = botao_fechar.png; sourceTree = "<group>"; };
 		436128881A40612100A2B620 /* fase_aberta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fase_aberta@2x.png"; sourceTree = "<group>"; };
 		436128891A40612100A2B620 /* mapa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa@2x.png"; sourceTree = "<group>"; };
 		436CBD081A2F737500862EDE /* WorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMap.h; sourceTree = "<group>"; };
@@ -556,6 +562,9 @@
 		E37BB4D91A4057F500F8E679 /* menu iniciar */ = {
 			isa = PBXGroup;
 			children = (
+				433A10011A8B904F0096B0E5 /* botao_fechar.png */,
+				433A0FFD1A8B90360096B0E5 /* botao_fechar@2x.png */,
+				433A0FFE1A8B90360096B0E5 /* botao_fechar@3x.png */,
 				E37BB4DB1A40580500F8E679 /* configuracoes@2x.png */,
 				E37BB4DC1A40580500F8E679 /* fazendeiro@2x.png */,
 				E3DFE2F61A40A0DB00CB4D0C /* Agrupar-1@2x.png */,
@@ -740,11 +749,13 @@
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
 				E3CFD4B51A8B86B900C6FF64 /* retangulo_configuracoes@2x.png in Resources */,
 				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
+				433A10001A8B90360096B0E5 /* botao_fechar@3x.png in Resources */,
 				E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */,
 				E37BB4E11A40580500F8E679 /* configuracoes@2x.png in Resources */,
 				E37BB4E41A40580500F8E679 /* multiplayer@2x.png in Resources */,
 				E3CFD4B91A8B86B900C6FF64 /* retangulo_generico@3x.png in Resources */,
 				E3E3ECC51A23B34500E7E18E /* Level_4.json in Resources */,
+				433A0FFF1A8B90360096B0E5 /* botao_fechar@2x.png in Resources */,
 				E37BB4E31A40580500F8E679 /* logo@2x.png in Resources */,
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
 				E3E3ECC41A23B34500E7E18E /* Level_3.json in Resources */,
@@ -752,6 +763,7 @@
 				E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */,
 				E37BB4E51A40580500F8E679 /* singleplayer@2x.png in Resources */,
 				E3CFD4AC1A8B867000C6FF64 /* Chewy.ttf in Resources */,
+				433A10021A8B904F0096B0E5 /* botao_fechar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
