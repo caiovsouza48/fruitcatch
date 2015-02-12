@@ -81,6 +81,10 @@
     
     [self.view insertSubview:self.nome atIndex:1];
     [self loadFromFile];
+    
+    [self viewConfig];
+    
+    [self.view addSubview:self.configuracao];
 }
 -(void)viewConfig
 {
@@ -233,31 +237,31 @@
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
-
+    
     NSLog(@"USER = %@", user);
-
+    
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
         if (!error) {
-            NSString *userName = [FBuser name];
-            NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
-            userName = [FBuser name];
-            userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[FBuser objectID]];
-            /*
-             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
-             self.imageFaceBook.image =[UIImage imageWithData:imageData];
-             */
-            NSLog(@"IMAGEM = %@", userImageURL);
-            NSLog(@"USERNAME = %@", userName);
+            // Handle error
+            self.userName = [FBuser name];
+            self.userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
+            
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.userImageURL]];
+            self.imageFacebook = [UIImage imageWithData:imageData];
+            
+            NSLog(@"IMAGEM = %@", self.userImageURL);
+            NSLog(@"USERNAME = %@", self.userName);
         }
+      
     }];
     //__block NSArray *friends;
     [FBRequestConnection startWithGraphPath:@"me/friends" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         
         self.fbFriends = [result objectForKey:@"data"];
         
-//        for (NSDictionary *dicionario in self.fbFriends) {
-//            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
-//        }
+        //        for (NSDictionary *dicionario in self.fbFriends) {
+        //            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
+        //        }
         self.profilePictureView.profileID = user.objectID;
         self.nameLabel.text = user.name;
         NSLog(@"User ID = %@",user.objectID);
@@ -285,9 +289,10 @@
             
         }
         [self loadFromFile];
-
+        
     }];
 }
+
 
 - (void)loadFromFile{
     NSString *appDataDir = [AppUtils getAppDataDir];
@@ -300,6 +305,12 @@
             NSLog(@"File dict = %@",obj);
         }
     }
+    else{
+        
+        
+    }
+    
+    
 }
 
 
