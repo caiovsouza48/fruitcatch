@@ -21,6 +21,8 @@
 @property (nonatomic) UIView *informFase;
 @property (nonatomic) NSTimer *lifeTimer;
 @property (nonatomic) UIScrollView *scrollView;
+@property (nonatomic) IBOutlet UIButton *btn;
+@property (nonatomic) IBOutlet UIButton *btnJogar;
 //@property (nonatomic) UIView *blurView;
 @end
 
@@ -145,11 +147,28 @@
         [_scrollView addSubview:button];
         
     }
-    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-300, CGRectGetMidY(self.view.frame) - self.view.frame.size.height/4, self.view.frame.size.height/2, self.view.frame.size.width/1.5))];
-    self.informFase.userInteractionEnabled = YES;
-    
-    [self.informFase setBackgroundColor:[UIColor blackColor]];
+    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-400, CGRectGetMidY(self.view.frame) - self.view.frame.size.height/4, 315, 334))];
+    [self.informFase setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:self.informFase];
+    
+    //Retangulo
+    self.informFase.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]];
+    
+    //botao sair
+    _btn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 45, 15, 25,25)];
+    [_btn setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
+    [_btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
+    
+    //botao jogar
+    _btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 + 30, 150,55)];
+    [_btnJogar setTitle:@"Jogar" forState:UIControlStateNormal];
+    [_btnJogar setFont:[UIFont fontWithName:@"Chewy" size:40]];
+    [_btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
+    _btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    _btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    
+    [self.informFase addSubview:_btn];
+    [self.informFase addSubview:_btnJogar];
     
     // Aloca o Scroll na view
     [self.view addSubview:_scroll1];
@@ -368,8 +387,6 @@
     btn.enabled = NO;
     NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
     
-    _i = btn.tag;
-    
     if(_i > -1){
         if ([self shouldPerformSegueWithIdentifier:@"Level" sender:self]){
             [self performSegueWithIdentifier:@"Level" sender:self];
@@ -383,27 +400,8 @@
         [self performSegueWithIdentifier:@"Menu" sender:self];
     }
      */
-    
-    //Retangulo
-    UIImageView *fundoInform = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"retangulo_generico.png"]];
-    self.informFase.backgroundColor = [UIColor clearColor];
-    [self.informFase addSubview:fundoInform];
-    
-    //botao sair
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(self.informFase.frame.size.width - 15, 15, 25,25)];
-    [btn setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
-    
-    //botao jogar
-    UIButton *btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame)- 100, 150,55)];
-    [btnJogar setTitle:@"Jogar" forState:UIControlStateNormal];
-    [btnJogar setFont:[UIFont fontWithName:@"Chewy" size:40]];
-    [btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
-    btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    
-    [self.informFase addSubview:btn];
-    [self.informFase addSubview:btnJogar];
+    UIButton *level = (UIButton *)sender;
+    _i = level.tag;
     
     //Escurece o fundo
     UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
@@ -417,9 +415,9 @@
                         options:0
                      animations:^{
                          blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-                         self.informFase.center = CGPointMake(CGRectGetMidX(self.view.frame) - 15, self.informFase.center.y);
-                         self.scroll1.center = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
-                         btnJogar.center     = CGPointMake(CGRectGetMidX(self.informFase.frame), btnJogar.center.y);
+                         self.informFase.center   = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
+                         self.scroll1.center      = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
+                         _btnJogar.center         = CGPointMake(CGRectGetMidX(self.informFase.frame), _btnJogar.center.y);
                      }completion:nil];
 }
 
