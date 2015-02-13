@@ -43,7 +43,7 @@ static const NSInteger NumRows = 9;
 
 // Recalculates which moves are valid.
 - (NSSet *)detectPossibleSwaps;
--(void)verificaDestruir:(NSSet *)chains;
+-(int)verificaDestruir:(JIMCFruit *)fruit;
 // Detects whether there are any chains of 3 or more fruits, and removes them
 // from the level.
 // Returns a set containing JIMCChain objects, which describe the JIMCFruits

@@ -210,8 +210,8 @@
         [_scrollView addSubview:button];
         
     }
-    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-400, CGRectGetMidY(self.view.frame) - self.view.frame.size.height/3.5, 315, 334))];
-   
+    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-400, CGRectGetMidY(self.view.frame) - self.view.frame.size.height/4, 315, 334))];
+    [self.informFase setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:self.informFase];
     
     //Retangulo
@@ -498,6 +498,8 @@
         [self performSegueWithIdentifier:@"Menu" sender:self];
     }
      */
+    UIButton *level = (UIButton *)sender;
+    _i = level.tag;
     
     //Retangulo
     self.informFase.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]];
@@ -532,9 +534,9 @@
                         options:0
                      animations:^{
                          blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-                         self.informFase.center = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
-                         self.scroll1.center = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
-                         btnJogar.center     = CGPointMake(CGRectGetMidX(self.informFase.frame), btnJogar.center.y);
+                         self.informFase.center   = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
+                         self.scroll1.center      = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
+                         _btnJogar.center         = CGPointMake(CGRectGetMidX(self.informFase.frame), _btnJogar.center.y);
                      }completion:nil];
 }
 

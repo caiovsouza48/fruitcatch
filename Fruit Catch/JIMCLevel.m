@@ -418,19 +418,20 @@
     return horizontalChains ;
 }
 
--(void) verificaDestruir:(NSSet *)chains{
-    for (JIMCChain *chain in chains) {
-        for (JIMCFruit *fruit in chain.fruits) {
-            if (fruit != nil) {
-                if (_fruits[fruit.column][fruit.row + 1].fruitType ==
-                    _fruits[fruit.column][fruit.row + 2].fruitType ) {
-                   // NSLog(@"Vertical");
-                }else{
-                   // NSLog(@"Horizontal");
-                }
-            }
+-(int) verificaDestruir:(JIMCFruit *)fruit{
+
+    if (fruit != nil) {
+        if (_fruits[fruit.column][fruit.row + 1].fruitType ==
+            _fruits[fruit.column][fruit.row + 2].fruitType ) {
+            //Vertical
+            return 0;
+        }else{
+            //Horizontal
+            return 1;
         }
     }
+    return 2;
+    
 }
 
 - (NSSet *)detectFruitsInRow:(JIMCFruit *)fruit {
@@ -679,7 +680,6 @@
                 break;
             }else if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 4){
                 _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
-                
                 break;
             }
         }
