@@ -195,6 +195,7 @@
                      }completion:^(BOOL fisished){
                          self.option = NO;
                      }];
+    
 }
 -(IBAction)options:(id)sender
 {
