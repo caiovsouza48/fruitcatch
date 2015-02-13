@@ -37,6 +37,8 @@ static const CGFloat TileHeight = 36.0;
 @property (strong, nonatomic) SKCropNode *cropLayer;
 @property (strong, nonatomic) SKNode *maskLayer;
 
+@property (nonatomic) BOOL win;
+
 @end
 
 @implementation MyScene
@@ -662,36 +664,55 @@ static const CGFloat TileHeight = 36.0;
     [self.gameOverScreen addChild:background];
     
     
-    
     // Imagem dos botões
-    self.gameOverScreen.retry = [[SKSpriteNode alloc]initWithImageNamed:@"RetryButton.png"];
-    self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"NextButton.png"];
-    self.gameOverScreen.menu = [[SKSpriteNode alloc]initWithImageNamed:@"MenuButton.png"];
+    self.gameOverScreen.retry = [[SKSpriteNode alloc]initWithImageNamed:@"botao_jogar_novamente"];
+    self.gameOverScreen.menu = [[SKSpriteNode alloc]initWithImageNamed:@"botao_menu"];
+    
+    if(_win){
+        self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"botao_proxima_fase"];
+    }
 
     // Posição dos botões
-    self.gameOverScreen.retry.position = CGPointMake(-100, self.gameOverScreen.position.y);
-    self.gameOverScreen.next.position = CGPointMake(0, self.gameOverScreen.position.y);
-    self.gameOverScreen.menu.position = CGPointMake(100, self.gameOverScreen.position.y);
+    if(_win){
+        self.gameOverScreen.menu.position = CGPointMake(-20, self.gameOverScreen.position.y);
+        self.gameOverScreen.retry.position = CGPointMake(50, self.gameOverScreen.position.y);
+        self.gameOverScreen.next.position = CGPointMake(120, self.gameOverScreen.position.y);
+    }else{
+        self.gameOverScreen.menu.position = CGPointMake(0, self.gameOverScreen.position.y);
+        self.gameOverScreen.retry.position = CGPointMake(60, self.gameOverScreen.position.y);
+    }
     
     // Nome dos botões
     self.gameOverScreen.retry.name = @"retry";
-    self.gameOverScreen.next.name = @"next";
     self.gameOverScreen.menu.name = @"menu";
+    
+    if(_win){
+        self.gameOverScreen.next.name = @"next";
+    }
     
     // zPosition dos botões
     self.gameOverScreen.retry.zPosition = 50;
-    self.gameOverScreen.next.zPosition = 50;
     self.gameOverScreen.menu.zPosition = 50;
+    
+    if(_win){
+        self.gameOverScreen.next.zPosition = 50;
+    }
 
     // Tamanho dos botões
     self.gameOverScreen.retry.size = CGSizeMake(40, 40);
-    self.gameOverScreen.next.size = CGSizeMake(40, 40);
     self.gameOverScreen.menu.size = CGSizeMake(40, 40);
+    
+    if(_win){
+        self.gameOverScreen.next.size = CGSizeMake(40, 40);
+    }
 
     // Adiciona os botões na gameOverScreen
     [self.gameOverScreen addChild:self.gameOverScreen.retry];
-    [self.gameOverScreen addChild:self.gameOverScreen.next];
     [self.gameOverScreen addChild:self.gameOverScreen.menu];
+    
+    if(_win){
+        [self.gameOverScreen addChild:self.gameOverScreen.next];
+    }
 
     // Desce a tela da gameOverScreen
     [self.gameOverScreen runAction:acaoDescer];
@@ -708,13 +729,8 @@ static const CGFloat TileHeight = 36.0;
 
 -(void)winLose:(BOOL)win
 {
-    if(win){
-        //Se ganhou
-        NSLog(@"WIN");
-    }else{
-        //Se perdeu
-        NSLog(@"Lose");
-    }
+    _win = win;
+    [self animateGameOver];
 }
 
 @end

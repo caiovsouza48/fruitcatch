@@ -522,10 +522,8 @@
     [self updateLabels];
     
     if (self.score >= self.level.targetScore) {
-        [self.scene animateGameOver];
 //        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
     } else if (self.movesLeft == 0) {
-        [self.scene animateGameOver];
 //        self.movesLeft = self.level.maximumMoves;
 //        self.score = 0;
         [self updateLabels];
