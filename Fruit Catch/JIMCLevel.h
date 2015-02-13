@@ -77,4 +77,5 @@ static const NSInteger NumRows = 9;
 - (BOOL)isSelectedFruit:(JIMCFruit *)fruit;
 - (BOOL)isPowerSwapLike:(JIMCSwap *)swap;
 - (NSSet *)removeMatchesAll;
+
 @end

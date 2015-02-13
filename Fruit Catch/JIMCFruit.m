@@ -18,7 +18,11 @@
         @"uva",
         @"banana",
         @"cogumelo",
-        @"star",
+        @"banana_pu_h",
+        @"laranja_pu_h",
+        @"limao_pu_h",
+        @"morango_pu_h",
+        @"uva_pu_h",
     };
     
     return spriteNames[self.fruitType - 1];
@@ -32,7 +36,11 @@
         @"uva",
         @"banana",
         @"cogumelo",
-        @"star",
+        @"banana_pu_h",
+        @"laranja_pu_h",
+        @"limao_pu_h",
+        @"morango_pu_h",
+        @"uva_pu_h",
     };
     
     return highlightedSpriteNames[self.fruitType - 1];

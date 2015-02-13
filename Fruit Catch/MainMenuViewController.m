@@ -134,7 +134,13 @@
     creditos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:creditos];
     
-    [fechar addTarget:self action:@selector(fechar:)forControlEvents:UIControlEventTouchUpInside];
+    //Botao facebook
+    UIButton *fbLogin = [[UIButton alloc]initWithFrame:CGRectMake(10, creditos.frame.origin.y + 40, 200, 50)];
+    [fbLogin setTitle:@"Logar com facebook" forState:UIControlStateNormal];
+    [fbLogin setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    fbLogin.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    fbLogin.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [self.configuracao addSubview:fbLogin];
     
     [self.configuracao addSubview:configuracao];
     [self.configuracao addSubview:musica];

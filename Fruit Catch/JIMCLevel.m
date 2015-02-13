@@ -679,12 +679,17 @@
                 break;
             }else if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 4){
                 _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
+                
                 break;
             }
         }
     }
 }
+-(NSString *)spriteName:(JIMCFruit *)fruit{
 
+    return @"";
+
+}
 - (BOOL)isPerfectChain:(JIMCChain *)chain{
     NSUInteger fruitType = ((JIMCFruit *)chain.fruits[0]).fruitType;
     for (JIMCFruit *fruit in chain.fruits) {
