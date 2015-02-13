@@ -11,6 +11,7 @@
 #import "AppUtils.h"
 #import "RNEncryptor.h"
 #import "NetworkController.h"
+#import "RNDecryptor.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define ON 1
@@ -31,6 +32,7 @@
 @property (nonatomic) UIView *configuracao;
 @property (nonatomic) UIView *blurView;
 @property (nonatomic) BOOL option;
+@property(nonatomic) NSArray *fbFriends;
 
 @end
 
@@ -64,6 +66,7 @@
     }
     
     [self.view insertSubview:self.nome atIndex:1];
+    [self loadFromFile];
     
     [self viewConfig];
     
@@ -271,49 +274,73 @@
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
-    self.profilePictureView.profileID = user.objectID;
-    self.nameLabel.text = user.name;
     
-    NSDictionary *userDict = @{@"facebookID" : user.objectID,
-                               @"alias" : user.name
-                               };
-    
-    NSString *filePath = [AppUtils getAppDataDir];
-    //NSLog(@"%@",self.lives);
-    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
-    NSError *error;
-    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
-                                        withSettings:kRNCryptorAES256Settings
-                                            password:USER_SECRET
-                                               error:&error];
+    NSLog(@"USER = %@", user);
     
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
         if (!error) {
-            NSString *userName = [FBuser name];
-            NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
-            userName = [FBuser name];
-            userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[FBuser objectID]];
-            /*
-             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
-             self.imageFaceBook.image =[UIImage imageWithData:imageData];
-             */
-            NSLog(@"IMAGEM = %@", userImageURL);
-            NSLog(@"USERNAME = %@", userName);
+            // Handle error
+            self.userName = [FBuser name];
+            self.userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
+            
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.userImageURL]];
+            self.imageFacebook = [UIImage imageWithData:imageData];
+            
+            NSLog(@"IMAGEM = %@", self.userImageURL);
+            NSLog(@"USERNAME = %@", self.userName);
         }
+      
     }];
-    
+    //__block NSArray *friends;
     [FBRequestConnection startWithGraphPath:@"me/friends" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         
-        NSArray *data  = [result objectForKey:@"data"];
+        self.fbFriends = [result objectForKey:@"data"];
         
-        for (NSDictionary *dicionario in data) {
-            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
+        //        for (NSDictionary *dicionario in self.fbFriends) {
+        //            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
+        //        }
+        self.profilePictureView.profileID = user.objectID;
+        self.nameLabel.text = user.name;
+        NSLog(@"User ID = %@",user.objectID);
+        NSDictionary *userDict = @{@"facebookID" : user.objectID,
+                                   @"alias" : user.name,
+                                   @"facebookFriends" : [result objectForKey:@"data"]
+                                   };
+        
+        
+        NSString *filePath = [AppUtils getAppDataDir];
+        //NSLog(@"%@",self.lives);
+        NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
+        NSError *error2;
+        NSData *encryptedData = [RNEncryptor encryptData:dataToSave
+                                            withSettings:kRNCryptorAES256Settings
+                                                password:USER_SECRET
+                                                   error:&error2];
+        
+        BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
+        if (!sucess){
+            NSLog(@"Erro ao Salvar arquivo de Usuário");
         }
+        else{
+            
+            
+        }
+        [self loadFromFile];
+        
     }];
-    
-    BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
-    if (!sucess){
-        NSLog(@"Erro ao Salvar arquivo de Usuário");
+}
+
+
+- (void)loadFromFile{
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj);
+        }
     }
     else{
         
@@ -322,6 +349,7 @@
     
     
 }
+
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     self.statusLabel.text = @"You're logged in as";

@@ -524,12 +524,16 @@
     if (self.score >= self.level.targetScore) {
         [self.scene animateGameOver];
 //        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
-//        [self showGameOver];
     } else if (self.movesLeft == 0) {
         [self.scene animateGameOver];
 //        self.movesLeft = self.level.maximumMoves;
 //        self.score = 0;
         [self updateLabels];
+    }
+    
+    //Essa comparacao serve apenas para nao chamar o gameover duas vezes
+    if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
+        [self showGameOver];
     }
     
     [self.scene removeActionForKey:@"Hint"];
@@ -543,22 +547,29 @@
 
 - (void)showGameOver {
 
-    [self.scene removeActionForKey:@"Hint"];
-    if(self.hintNode){
-        [self.scene runAction:[SKAction runBlock:^{
-            [self.hintNode removeFromParent];
-        }]];
+    //Chega se o usuário ganhou ou se acabaram os movimentos
+    if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
+        if(self.score >= self.scene.level.targetScore){
+            [self.scene winLose:YES];
+        }else{
+            [self.scene winLose:NO];
+        }
     }
-
     
-    
-    self.gameOverPanel.hidden = NO;
-    self.scene.userInteractionEnabled = NO;
-    
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideGameOver)];
-    [self.view addGestureRecognizer:self.tapGestureRecognizer];
-    
-    self.shuffleButton.hidden = YES;
+//    [self.scene removeActionForKey:@"Hint"];
+//    if(self.hintNode){
+//        [self.scene runAction:[SKAction runBlock:^{
+//            [self.hintNode removeFromParent];
+//        }]];
+//    }
+//    
+//    self.gameOverPanel.hidden = NO;
+//    self.scene.userInteractionEnabled = NO;
+//    
+//    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideGameOver)];
+//    [self.view addGestureRecognizer:self.tapGestureRecognizer];
+//    
+//    self.shuffleButton.hidden = YES;
     
 }
 

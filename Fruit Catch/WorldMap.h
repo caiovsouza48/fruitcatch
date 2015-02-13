@@ -27,6 +27,4 @@
 
 @property(nonatomic) UIScrollView *scroll1;
 
-@property (nonatomic) UIImage* imageFacebook;
-
 @end

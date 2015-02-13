@@ -44,5 +44,6 @@
 - (void)animateNewFruits:(NSArray *)columns completion:(dispatch_block_t)completion;
 - (void)animateGameOver;
 - (void)animateBeginGame;
+- (void)winLose:(BOOL)win ;
 
 @end
