@@ -647,9 +647,17 @@
     
     self.gameOverScreen = [[GameOverScene alloc]init];
     self.gameOverScreen.size = CGSizeMake(self.frame.size.width, self.frame.size.height/2);
-    self.gameOverScreen.color = [SKColor yellowColor];
+    self.gameOverScreen.color = [SKColor clearColor];
     self.gameOverScreen.position = CGPointMake(CGRectGetMidX(self.frame)-500, CGRectGetMidY(self.frame));
 
+    //Imagem de fundo
+    SKSpriteNode *background = [[SKSpriteNode alloc]initWithImageNamed:@"retangulo_generico"];
+    background.name = @"background";
+    background.zPosition = 49;
+    [self.gameOverScreen addChild:background];
+    
+    
+    
     // Imagem dos botões
     self.gameOverScreen.retry = [[SKSpriteNode alloc]initWithImageNamed:@"RetryButton.png"];
     self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"NextButton.png"];
@@ -679,11 +687,6 @@
     [self.gameOverScreen addChild:self.gameOverScreen.retry];
     [self.gameOverScreen addChild:self.gameOverScreen.next];
     [self.gameOverScreen addChild:self.gameOverScreen.menu];
-    
-    // Atribui ação para os botões
-    //[self.gameOverScreen.retry runAction:acaoDescer];
-    //[self.gameOverScreen.next runAction:acaoDescer];
-    //[self.gameOverScreen.menu runAction:acaoDescer];
 
     // Desce a tela da gameOverScreen
     [self.gameOverScreen runAction:acaoDescer];
@@ -698,6 +701,16 @@
     [self.gameLayer runAction:action];
 }
 
+-(void)winLose:(BOOL)win
+{
+    if(win){
+        //Se ganhou
+        NSLog(@"WIN");
+    }else{
+        //Se perdeu
+        NSLog(@"Lose");
+    }
+}
 
 @end
 

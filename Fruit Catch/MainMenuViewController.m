@@ -25,9 +25,12 @@
 @property (nonatomic) IBOutlet UIButton *multiplayerBtn;
 @property (nonatomic) IBOutlet UIButton *settingsBtn;
 @property (nonatomic) IBOutlet UIImageView *nome;
+@property (nonatomic) IBOutlet UISwitch *ligaMusica;
+@property (nonatomic) IBOutlet UISwitch *ligaSFX;
 @property (nonatomic) UIView *configuracao;
 @property (nonatomic) UIView *blurView;
 @property (nonatomic) BOOL option;
+@property(nonatomic) NSArray *fbFriends;
 
 @end
 
@@ -35,24 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //pegando dados do WebService
-    /*
-     NSError * erro = nil;
-     NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/usuario/listarTodos"];
-     NSURL *url = [[NSURL alloc]initWithString:strUrl];
-     NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-     NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-     NSLog(@"dados = %@",dadosWebService);
-     
-     */
-    /*
-     NSError * erro = nil;
-     NSString *strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch.jelasticlw.com.br/web/addUsuario/24/MateusGay/24/24/24/24"];
-     NSURL *url = [[NSURL alloc]initWithString:strUrl];
-     NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-     NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-     NSLog(@"dados = %@",dadosWebService);
-     */
     
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     _loginView.delegate = self;
@@ -79,42 +64,90 @@
     }
     
     [self.view insertSubview:self.nome atIndex:1];
+    [self loadFromFile];
     
     [self viewConfig];
     
     [self.view addSubview:self.configuracao];
 }
+
 -(void)viewConfig
 {
     self.configuracao = [[UIView alloc]initWithFrame:(CGRectMake(self.view.frame.origin.x, CGRectGetMinY(self.view.frame)-404, 315, 404))];
     
-    UILabel *configuracao = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.configuracao.frame)-157, 0, 315, 50)];
+    //Texto configuracao
+    UILabel *configuracao = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.configuracao.frame)-157, 10, 315, 50)];
     configuracao.font = [UIFont fontWithName:@"Chewy" size:40];
     configuracao.text = @"Configurações";
     configuracao.textAlignment = NSTextAlignmentCenter;
     configuracao.textColor = [UIColor whiteColor];
     
-    
+    //Texto Musica
     UILabel *musica = [[UILabel alloc]initWithFrame:CGRectMake(0, configuracao.frame.origin.y+70, 130, 50)];
     musica.font = [UIFont fontWithName:@"Chewy" size:35];
     musica.text = @"Música";
     musica.textAlignment = NSTextAlignmentCenter;
     musica.textColor = [UIColor whiteColor];
     
+    //Switch da musica
+    _ligaMusica             = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 75, musica.frame.origin.y + 12, 100, 50)];
+    _ligaMusica.onTintColor = [UIColor colorWithRed:(CGFloat)81/255 green:(CGFloat)143/255 blue:(CGFloat)195/255 alpha:1];
+    _ligaMusica.tintColor   = [UIColor colorWithRed:(CGFloat)111/255 green:(CGFloat)123/255 blue:(CGFloat)148/255 alpha:1];
+    
+    //Texto efeitos sonoros
     UILabel *efeitosSonoros = [[UILabel alloc]initWithFrame:CGRectMake(0, musica.frame.origin.y+45, 240, 50)];
     efeitosSonoros.font = [UIFont fontWithName:@"Chewy" size:35];
     efeitosSonoros.text = @"Efeitos Sonoros";
     efeitosSonoros.textAlignment = NSTextAlignmentCenter;
     efeitosSonoros.textColor = [UIColor whiteColor];
     
-    UIButton *fechar = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.configuracao.frame)-27, 10, 19, 19)];
-    [fechar setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
+    //Switch dos SFX
+    _ligaSFX             = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 75, efeitosSonoros.frame.origin.y + 12, 100, 50)];
+    _ligaSFX.onTintColor = [UIColor colorWithRed:(CGFloat)81/255 green:(CGFloat)143/255 blue:(CGFloat)195/255 alpha:1];
+    _ligaSFX.tintColor   = [UIColor colorWithRed:(CGFloat)111/255 green:(CGFloat)123/255 blue:(CGFloat)148/255 alpha:1];
     
-   [fechar addTarget:self action:@selector(fechar:)forControlEvents:UIControlEventTouchUpInside];
+    //Botao fechar
+    UIButton *fechar = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.configuracao.frame) - 35, 20, 19, 19)];
+    [fechar setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
+    [fechar addTarget:self action:@selector(fechar:)forControlEvents:UIControlEventTouchUpInside];
+    
+    //Botao restore purchase
+    UIButton *restore = [[UIButton alloc]initWithFrame:CGRectMake(10, efeitosSonoros.frame.origin.y + 80, 200, 50)];
+    [restore setTitle:@"Restaurar compras" forState:UIControlStateNormal];
+    [restore setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    restore.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    restore.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [self.configuracao addSubview:restore];
+    
+    //Botao termos
+    UIButton *termos = [[UIButton alloc]initWithFrame:CGRectMake(10, restore.frame.origin.y + 40, 200, 50)];
+    [termos setTitle:@"Termos e serviços" forState:UIControlStateNormal];
+    [termos setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    termos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    termos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [self.configuracao addSubview:termos];
+    
+    //Botao creditos
+    UIButton *creditos = [[UIButton alloc]initWithFrame:CGRectMake(10, termos.frame.origin.y + 40, 200, 50)];
+    [creditos setTitle:@"Créditos" forState:UIControlStateNormal];
+    [creditos setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    creditos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    creditos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [self.configuracao addSubview:creditos];
+    
+    //Botao facebook
+    UIButton *fbLogin = [[UIButton alloc]initWithFrame:CGRectMake(10, creditos.frame.origin.y + 40, 200, 50)];
+    [fbLogin setTitle:@"Logar com facebook" forState:UIControlStateNormal];
+    [fbLogin setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    fbLogin.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    fbLogin.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [self.configuracao addSubview:fbLogin];
     
     [self.configuracao addSubview:configuracao];
     [self.configuracao addSubview:musica];
+    [self.configuracao addSubview:_ligaMusica];
     [self.configuracao addSubview:efeitosSonoros];
+    [self.configuracao addSubview:_ligaSFX];
     [self.configuracao addSubview:fechar];
     [self.configuracao setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_configuracoes"]]];
     
@@ -162,6 +195,7 @@
                      }completion:^(BOOL fisished){
                          self.option = NO;
                      }];
+    
 }
 -(IBAction)options:(id)sender
 {
@@ -236,49 +270,73 @@
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
-    self.profilePictureView.profileID = user.objectID;
-    self.nameLabel.text = user.name;
     
-    NSDictionary *userDict = @{@"facebookID" : user.objectID,
-                               @"alias" : user.name
-                               };
-    
-    NSString *filePath = [AppUtils getAppDataDir];
-    //NSLog(@"%@",self.lives);
-    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
-    NSError *error;
-    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
-                                        withSettings:kRNCryptorAES256Settings
-                                            password:USER_SECRET
-                                               error:&error];
+    NSLog(@"USER = %@", user);
     
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
         if (!error) {
-            NSString *userName = [FBuser name];
-            NSString *userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
-            userName = [FBuser name];
-            userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large",[FBuser objectID]];
-            /*
-             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
-             self.imageFaceBook.image =[UIImage imageWithData:imageData];
-             */
-            NSLog(@"IMAGEM = %@", userImageURL);
-            NSLog(@"USERNAME = %@", userName);
+            // Handle error
+            self.userName = [FBuser name];
+            self.userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [FBuser objectID]];
+            
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.userImageURL]];
+            self.imageFacebook = [UIImage imageWithData:imageData];
+            
+            NSLog(@"IMAGEM = %@", self.userImageURL);
+            NSLog(@"USERNAME = %@", self.userName);
         }
+      
     }];
-    
+    //__block NSArray *friends;
     [FBRequestConnection startWithGraphPath:@"me/friends" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         
-        NSArray *data  = [result objectForKey:@"data"];
+        self.fbFriends = [result objectForKey:@"data"];
         
-        for (NSDictionary *dicionario in data) {
-            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
+        //        for (NSDictionary *dicionario in self.fbFriends) {
+        //            NSLog(@"name = %@",[dicionario objectForKey:@"name"]);
+        //        }
+        self.profilePictureView.profileID = user.objectID;
+        self.nameLabel.text = user.name;
+        NSLog(@"User ID = %@",user.objectID);
+        NSDictionary *userDict = @{@"facebookID" : user.objectID,
+                                   @"alias" : user.name,
+                                   @"facebookFriends" : [result objectForKey:@"data"]
+                                   };
+        
+        
+        NSString *filePath = [AppUtils getAppDataDir];
+        //NSLog(@"%@",self.lives);
+        NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
+        NSError *error2;
+        NSData *encryptedData = [RNEncryptor encryptData:dataToSave
+                                            withSettings:kRNCryptorAES256Settings
+                                                password:USER_SECRET
+                                                   error:&error2];
+        
+        BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
+        if (!sucess){
+            NSLog(@"Erro ao Salvar arquivo de Usuário");
         }
+        else{
+            
+            
+        }
+        [self loadFromFile];
+        
     }];
-    
-    BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
-    if (!sucess){
-        NSLog(@"Erro ao Salvar arquivo de Usuário");
+}
+
+
+- (void)loadFromFile{
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj);
+        }
     }
     else{
         
@@ -287,6 +345,7 @@
     
     
 }
+
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     self.statusLabel.text = @"You're logged in as";

@@ -53,5 +53,6 @@ static const CGFloat TileHeight = 36.0;
 - (void)animateNewFruits:(NSArray *)columns completion:(dispatch_block_t)completion;
 - (void)animateGameOver;
 - (void)animateBeginGame;
+- (void)winLose:(BOOL)win ;
 
 @end
