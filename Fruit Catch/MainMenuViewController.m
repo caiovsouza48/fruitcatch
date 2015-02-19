@@ -11,6 +11,7 @@
 #import "AppUtils.h"
 #import "RNEncryptor.h"
 #import "NetworkController.h"
+#import <Nextpeer/Nextpeer.h>
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define ON 1
@@ -215,9 +216,10 @@
 
 -(IBAction)multiplayer:(id)sender
 {
+     [Nextpeer launchDashboard];
     NSLog(@"Multiplayer");
-    [[NetworkController sharedInstance] authenticateLocalUser];
-    [[NetworkController sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
+   // [[NetworkController sharedInstance] authenticateLocalUser];
+   // [[NetworkController sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
 }
 
 -(IBAction)musicON_OFF:(id)sender

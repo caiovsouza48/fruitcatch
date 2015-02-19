@@ -8,17 +8,12 @@
 #import "WorldMap.h"
 #import "PowerUP.h"
 
-static const CGFloat TileWidth = 34.0;
-static const CGFloat TileHeight = 36.0;
+
 
 @interface MyScene ()
 
 @property(nonatomic) GameOverScene *gameOverScreen;
 
-@property (strong, nonatomic) SKNode *gameLayer;
-@property (strong, nonatomic) SKNode *fruitsLayer;
-@property (strong, nonatomic) SKNode *tilesLayer;
-@property (strong, nonatomic) SKNode *power;
 
 // The column and row numbers of the fruit that the player first touched
 // when he started his swipe movement.

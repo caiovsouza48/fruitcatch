@@ -16,6 +16,9 @@
 @class JIMCFruit;
 @class GameViewController;
 
+static const CGFloat TileWidth = 34.0;
+static const CGFloat TileHeight = 36.0;
+
 @interface MyScene : SKScene
 
 @property(nonatomic,weak) MultiplayerGameViewController *multiplayerViewController;
@@ -23,6 +26,12 @@
 @property (nonatomic, weak) GameViewController *viewController;
 
 @property (strong, nonatomic) JIMCLevel *level;
+
+
+@property (strong, nonatomic) SKNode *gameLayer;
+@property (strong, nonatomic) SKNode *fruitsLayer;
+@property (strong, nonatomic) SKNode *tilesLayer;
+@property (strong, nonatomic) SKNode *power;
 
 // The scene handles touches. If it recognizes that the user makes a swipe,
 // it will call this swipe handler. This is how it communicates back to the
