@@ -12,6 +12,7 @@
 #import "RNEncryptor.h"
 #import "NetworkController.h"
 #import <Nextpeer/Nextpeer.h>
+#import "RNDecryptor.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define ON 1
