@@ -11,7 +11,6 @@
 static const NSUInteger NumFruitTypes = 5;
 
 @interface JIMCFruit : NSObject
-
 @property (assign, nonatomic) NSInteger column;
 @property (assign, nonatomic) NSInteger row;
 @property (assign, nonatomic) NSUInteger fruitType;  // 1 - 6

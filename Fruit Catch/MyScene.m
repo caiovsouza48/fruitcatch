@@ -230,23 +230,44 @@ static const CGFloat TileHeight = 36.0;
     }else if (fruit.fruitPowerUp == 2) {
         NSLog(@"Fruta tipo == %d",[self.level verificaDestruir:fruit]);
         NSString *namePU = nil;
-        switch (fruit.fruitType) {
-            case 1:
-                namePU = @"laranja_pu_h";
-                break;
-            case 2:
-                namePU = @"morango_pu_h";
-                break;
-            case 3:
-                namePU = @"limao_pu_h";
-                break;
-            case 4:
-                namePU = @"uva_pu_h";
-                break;
-            case 5:
-                namePU = @"banana_pu_h";
-                break;
+        if ([self.level verificaDestruir:fruit] == 1) {
+            switch (fruit.fruitType) {
+                case 1:
+                    namePU = @"laranja_pu_v";
+                    break;
+                case 2:
+                    namePU = @"morango_pu_v";
+                    break;
+                case 3:
+                    namePU = @"limao_pu_v";
+                    break;
+                case 4:
+                    namePU = @"uva_pu_v";
+                    break;
+                case 5:
+                    namePU = @"banana_pu_v";
+                    break;
 
+            }
+        }if ([self.level verificaDestruir:fruit] == 0) {
+            switch (fruit.fruitType) {
+                case 1:
+                    namePU = @"laranja_pu_h";
+                    break;
+                case 2:
+                    namePU = @"morango_pu_h";
+                    break;
+                case 3:
+                    namePU = @"limao_pu_h";
+                    break;
+                case 4:
+                    namePU = @"uva_pu_h";
+                    break;
+                case 5:
+                    namePU = @"banana_pu_h";
+                    break;
+                    
+            }
         }
         sprite = [SKSpriteNode spriteNodeWithImageNamed:namePU];
     }else{

@@ -301,9 +301,12 @@
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             JIMCFruit *fruit = _fruits [column][row];
-            JIMCChain *chain = [[JIMCChain alloc] init];
-            [chain addFruit:_fruits[fruit.column][fruit.row]];
-            [set addObject:chain];
+            if (fruit!=nil) {
+                JIMCChain *chain = [[JIMCChain alloc] init];
+                [chain addFruit:_fruits[fruit.column][fruit.row]];
+                [set addObject:chain];
+            }
+            
         }
     }
     JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].swap.fruitA;
@@ -651,8 +654,6 @@
                         
                      [set addObject:chain];
                     } while (column < limit);
-                    
-                
             }
             // Fruit did not match or empty tile, so skip over it.
             return set;

@@ -107,7 +107,6 @@
                 [self handleMatches];
             }];
            
-           
 
         } else {
             [self.scene animateInvalidSwap:swap completion:^{
@@ -317,7 +316,7 @@
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
     
-    [self.scene removeActionForKey:@"Hint"];
+    //[self.scene removeActionForKey:@"Hint"];
     
     // Detect if there are any matches left.
     NSSet *chains = [self.level removeMatchesAll];
