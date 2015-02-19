@@ -9,45 +9,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fruit Catch/GameViewController.m"
-            timestampString = "446042161.034076"
+            filePath = "Fruit Catch/MyScene.m"
+            timestampString = "446057627.939293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "-addSpritesForFruit:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fruit Catch/GameViewController.m"
-            timestampString = "446042582.040747"
+            filePath = "Fruit Catch/MyScene.m"
+            timestampString = "446057627.939293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
-            landmarkName = "-handleMatchesAll"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "-addSpritesForFruit:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fruit Catch/JIMCLevel.m"
-            timestampString = "446042970.490897"
+            timestampString = "446057822.478763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "486"
-            endingLineNumber = "486"
-            landmarkName = "-removeMatchesAll"
+            startingLineNumber = "721"
+            endingLineNumber = "721"
+            landmarkName = "-removeFruits:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

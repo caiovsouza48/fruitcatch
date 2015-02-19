@@ -427,10 +427,10 @@
         if (_fruits[fruit.column][fruit.row + 1].fruitType ==
             _fruits[fruit.column][fruit.row + 2].fruitType ) {
             //Vertical
-            return 0;
+            return 1;
         }else{
             //Horizontal
-            return 1;
+            return 0;
         }
     }
     return 2;
@@ -666,6 +666,7 @@
                 _fruits[fruit.column][fruit.row].fruitType = 6;
                 break;
             }else if (chain.fruits.count == 4){
+                
                 _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
                 break;
             }
@@ -680,7 +681,12 @@
                 _fruits[fruit.column][fruit.row].fruitType = 6;
                 break;
             }else if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 4){
-                _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
+                NSLog(@"posicao  =%d",[self verificaDestruir:_fruits[fruit.column][fruit.row]]);
+                if ([self verificaDestruir:_fruits[fruit.column][fruit.row]]== 0) {
+                    _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
+                }else{
+                    _fruits[fruit.column][fruit.row].fruitPowerUp = 3;
+                }
                 break;
             }
         }

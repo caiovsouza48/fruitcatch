@@ -224,32 +224,31 @@ static const CGFloat TileHeight = 36.0;
 
 - (void)addSpritesForFruit:(JIMCFruit *)fruit {
     SKSpriteNode *sprite;
-
+     NSString *namePU = nil;
+    NSLog(@"power UP = %d",fruit.fruitPowerUp);
     if (fruit.fruitPowerUp == 1){
         sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
     }else if (fruit.fruitPowerUp == 2) {
-        NSLog(@"Fruta tipo == %d",[self.level verificaDestruir:fruit]);
-        NSString *namePU = nil;
-        if ([self.level verificaDestruir:fruit] == 1) {
-            switch (fruit.fruitType) {
-                case 1:
-                    namePU = @"laranja_pu_v";
-                    break;
-                case 2:
-                    namePU = @"morango_pu_v";
-                    break;
-                case 3:
-                    namePU = @"limao_pu_v";
-                    break;
-                case 4:
-                    namePU = @"uva_pu_v";
-                    break;
-                case 5:
-                    namePU = @"banana_pu_v";
-                    break;
+        switch (fruit.fruitType) {
+            case 1:
+                namePU = @"laranja_pu_v";
+                break;
+            case 2:
+                namePU = @"morango_pu_v";
+                break;
+            case 3:
+                namePU = @"limao_pu_v";
+                break;
+            case 4:
+                namePU = @"uva_pu_v";
+                break;
+            case 5:
+                namePU = @"banana_pu_v";
+                break;
 
-            }
-        }if ([self.level verificaDestruir:fruit] == 0) {
+        }
+        sprite = [SKSpriteNode spriteNodeWithImageNamed:namePU];
+    }else if (fruit.fruitPowerUp == 3) {
             switch (fruit.fruitType) {
                 case 1:
                     namePU = @"laranja_pu_h";
@@ -266,9 +265,7 @@ static const CGFloat TileHeight = 36.0;
                 case 5:
                     namePU = @"banana_pu_h";
                     break;
-                    
             }
-        }
         sprite = [SKSpriteNode spriteNodeWithImageNamed:namePU];
     }else{
         sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
@@ -413,7 +410,6 @@ static const CGFloat TileHeight = 36.0;
         JIMCSwap *swap = [[JIMCSwap alloc] init];
         swap.fruitA = fromFruit;
         swap.fruitB = toFruit;
-        
         self.swipeHandler(swap);
     }
 }
