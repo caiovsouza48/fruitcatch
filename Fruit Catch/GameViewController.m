@@ -52,6 +52,8 @@
 
 @property(nonatomic) int finalY;
 
+@property(nonatomic) CGPoint initialImagePoint;\
+
 @property(nonatomic) SKEmitterNode *powerUpEmitter;
 
 @end
@@ -244,8 +246,8 @@
                 [self handlePowerUpObject:powerUp];
             }
             else{
-                //[[gesture view] center].x;
-                //[gesture view] setCenter:<#(CGPoint)#>
+               // [[gesture view] center].x;
+               // [gesture view] setCenter:<#(CGPoint)#>
                     
             }
             [UIView beginAnimations:nil context:NULL];
