@@ -52,7 +52,7 @@
 
 @property(nonatomic) int finalY;
 
-@property(nonatomic) CGPoint initialImagePoint;\
+@property(nonatomic) CGPoint initialImagePoint;
 
 @property(nonatomic) SKEmitterNode *powerUpEmitter;
 
@@ -67,7 +67,7 @@
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
-   
+
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -169,7 +169,7 @@
 }
 
 - (IBAction)movePowerUp:(UIPanGestureRecognizer *)gesture{
-    NSLog(@"Method Fired");
+    self.initialImagePoint = [[gesture view] frame].origin;
     CGPoint translatedPoint = [gesture translationInView:self.view];
     if (gesture.state == UIGestureRecognizerStateBegan){
         _firstX = [[gesture view] center].x;
@@ -183,7 +183,6 @@
 //        if (_firstY < 0){
 //            _firstY *= -1;
 //        }
-        NSLog(@"FirstX = %d/nFirstY = %d",_firstX,_firstY);
 //        if (!_powerUpEmitter){
 //            NSString *powerUpPath =
 //            [[NSBundle mainBundle] pathForResource:@"powerUpEffect" ofType:@"sks"];
@@ -245,15 +244,21 @@
         NSInteger column, row;
        // if (CGRectContainsPoint(self.scene.fruitsLayer.frame, finalPoint)){
             [self convertPoint:finalPoint toColumn:&column row:&row];
+             NSLog(@"column = %ld",(long)column);
+        NSLog(@"Row = %ld",(long)row);
             if ((column != NSNotFound) && (row != NSNotFound)){
+                NSLog(@"Column and row found");
                 //_powerUpEmitter.position = (CGPoint){column,row};
                 JIMCPowerUp *powerUp = [[JIMCPowerUp alloc]init];
                 powerUp.position = (CGPoint){column,row};
                 [self handlePowerUpObject:powerUp];
             }
             else{
-               // [[gesture view] center].x;
-               // [gesture view] setCenter:<#(CGPoint)#>
+                CGRect frame = [[gesture view] frame];
+                frame.origin = self.initialImagePoint;
+                [[gesture view] setFrame:frame];
+                NSLog(@"SetFrame = %@",NSStringFromCGRect(frame));
+                return;
                     
             }
             [UIView beginAnimations:nil context:NULL];
@@ -726,7 +731,6 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInNode:self.scene];
     
     [self.scene removeActionForKey:@"Hint"];
     if(self.hintNode){

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "NetworkController.h"
 #import "EloRating.h"
+#import "MultiplayerGameViewController.h"
 
 #define NEXTPEER_KEY @"08d8f6a9b74c70e157add51c12c7d272"
 
@@ -68,7 +69,13 @@
     return wasHandled;
 }
 -(void)nextpeerDidTournamentStartWithDetails:(NPTournamentStartDataContainer *)tournamentContainer{
-    NSLog(@"Tournment started");
+    MultiplayerGameViewController *multiGVC = [[MultiplayerGameViewController alloc]init];
+    [self.window.rootViewController presentViewController:multiGVC animated:YES completion:nil];
+}
+
+-(void)nextpeerDidReceiveTournamentCustomMessage:(NPTournamentCustomMessageContainer*)message{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"nextpeerDidReceiveTournamentCustomMessage" object:nil userInfo:@{@"userMessage" : message}];
+   
 }
 
 @end
