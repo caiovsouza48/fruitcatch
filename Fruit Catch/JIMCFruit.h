@@ -8,10 +8,9 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-static const NSUInteger NumFruitTypes = 5;
+static const NSUInteger NumFruitTypes = 4;
 
 @interface JIMCFruit : NSObject
-
 @property (assign, nonatomic) NSInteger column;
 @property (assign, nonatomic) NSInteger row;
 @property (assign, nonatomic) NSUInteger fruitType;  // 1 - 6

@@ -14,8 +14,19 @@
 #import "SettingsSingleton.h"
 #import "Life.h"
 #import "NetworkController.h"
+#import <Nextpeer/Nextpeer.h>
+#import <Nextpeer/NPTournamentDelegate.h>
+#import "NextpeerHelper.h"
 
-@interface MultiplayerGameViewController () <NetworkControllerDelegate>
+#define playerIdKey @"PlayerId"
+#define randomNumberKey @"randomNumber"
+
+#define START_GAME_SYNC_EVENT_NAME @"com.sucodefrutasteam.fruitcatch.syncevent.startgame"
+#define MESSAGE_SEND_LEVEL 0
+#define MESSAGE_RANDOM_NUMBER 1
+#define TIMEOUT 5.0
+
+@interface MultiplayerGameViewController () <NetworkControllerDelegate,NPTournamentDelegate>
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
 @property (nonatomic) JIMCLevel *level;
@@ -43,6 +54,10 @@
 
 @property(nonatomic) NetworkController *networkEngine;
 
+@property(nonatomic) NSInteger randomNumber;
+
+@property(nonatomic) NSMutableArray *orderOfPlayers;
+
 
 @end
 
@@ -51,11 +66,12 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.networkEngine setDelegate:self];
+    [self registerNotifications];
+    //[self.networkEngine setDelegate:self];
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
-    
+    [Nextpeer registerToSynchronizedEvent:START_GAME_SYNC_EVENT_NAME withTimetout:TIMEOUT];
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -129,13 +145,43 @@
     // Set ourselves as player 1 and the game to active
     _isPlayer1 = YES;
     //[self setGameState:kGameStateActive];
-    
-    [NetworkController sharedInstance].delegate = self;
-    [self stateChanged:[NetworkController sharedInstance].state];
-    // Let's start the game!
+    [self.scene setUserInteractionEnabled:NO];
+//    [NetworkController sharedInstance].delegate = self;
+//    [self stateChanged:[NetworkController sharedInstance].state];
+//    // Let's start the game!
     [self beginGame];
+    
+    
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+- (void) generateRandomNumber{
+    self.randomNumber = arc4random();
+    
+}
+
+- (void)registerNotifications{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveTournamentCustomMessage:) name:@"nextpeerDidReceiveTournamentCustomMessage" object:nil];
+}
+
+
+
+- (void)nextpeerDidReceiveSynchronizedEvent:(NSString *)eventName withReason:(NPSynchronizedEventFireReason)fireReason{
+    if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
+        [self generateRandomNumber];
+        NSDictionary *message = @{@"type" : [NSNumber numberWithInt:MESSAGE_RANDOM_NUMBER]};
+        NSData *dataPacket = [NSPropertyListSerialization dataWithPropertyList:message format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
+        [Nextpeer pushDataToOtherPlayers:dataPacket];
+//        [self.scene setUserInteractionEnabled:YES];
+//        NSDictionary* message = @{@"type": [NSNumber numberWithInt:MESSAGE_SEND_LEVEL]};
+//        NSData* dataPacket = [NSPropertyListSerialization dataWithPropertyList:message format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
+//        
+//        [Nextpeer pushDataToOtherPlayers:dataPacket];
+    }
+}
 
 
 - (BOOL)shouldAutorotate
@@ -168,6 +214,19 @@
     [self updateLabels];
     
     [self.level resetComboMultiplier];
+    [self.scene animateBeginGame];
+    [self shuffle];
+    
+    self.possibleMoves = [self.level detectPossibleSwaps];
+    //self.hintAction = [SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]];
+    
+    //[self.scene runAction: self.hintAction withKey:@"Hint"];
+}
+
+- (void)beginGameForPlayer2 {
+    self.movesLeft = self.level.maximumMoves;
+    self.score = 0;
+    [self updateLabels];
     [self.scene animateBeginGame];
     [self shuffle];
     
@@ -550,6 +609,58 @@
             
             view = nil;
         }
+    }
+}
+
+-(void)processNextpeerDidReceiveTournamentCustomMessage:(NSNotification *)notification{
+    
+    NPTournamentCustomMessageContainer* message = (NPTournamentCustomMessageContainer*)[notification.userInfo objectForKey:@"userMessage"];
+    NSLog(@"Received game message from %@", message.playerName);
+    
+    NSDictionary* gameMessage = [NSPropertyListSerialization propertyListWithData:message.message options:0 format:NULL error:NULL];
+    int type = [[gameMessage objectForKey:@"type"] intValue];
+   
+    switch (type) {
+        case NPFruitCatchMessageSendLevel:
+            [self beginGameForPlayer2];
+            self.level = [gameMessage objectForKey:@"gameLevel"];
+            [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
+            [self.scene setUserInteractionEnabled:YES];
+            break;
+        case NPFruitCatchMessageSendRandomNumber:
+        {
+            //NSDictionary *dict = [NSDictionary alloc]init
+            NSDictionary *parameterDict = @{playerIdKey : message.playerId,
+                                            randomNumberKey : [gameMessage objectForKey:@"randomNumber"]
+                                            };
+           if (![_orderOfPlayers containsObject:parameterDict]){
+               [_orderOfPlayers addObject:parameterDict];
+            }
+            
+            BOOL tie = NO;
+            if ([[gameMessage objectForKey:@"randomNumber"] intValue] == _randomNumber) {
+                //2
+                NSLog(@"Tie");
+                tie = YES;
+                _randomNumber = arc4random();
+                [self generateRandomNumber];
+                [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInt:self.randomNumber]}];
+            } else {
+                //3
+                if (self.randomNumber > [[gameMessage objectForKey:@"randomNumber"] intValue]){
+                    [self beginGame];
+                    [self.scene setUserInteractionEnabled:NO];
+                    [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : self.level}];
+                    
+                    
+                }
+                
+            }
+        }
+        break;
+        case NPFruitCatchMessageBeginGame:
+            [self.scene setUserInteractionEnabled:YES];
+            break;
     }
 }
 

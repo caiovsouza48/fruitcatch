@@ -5,7 +5,7 @@
 //  Created by Caio de Souza on 24/11/14.
 //  Copyright (c) 2014 Caio de Souza. All rights reserved.
 //
-
+\
 @import AVFoundation;
 
 #import "GameViewController.h"
@@ -52,6 +52,10 @@
 
 @property(nonatomic) int finalY;
 
+@property(nonatomic) CGPoint initialImagePoint;
+
+@property(nonatomic) SKEmitterNode *powerUpEmitter;
+
 @end
 
 @implementation GameViewController
@@ -59,10 +63,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerRetryNotification];
+    _powerUpEmitter = nil;
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
-    
+
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -97,18 +102,12 @@
             [self.scene animateSwap:swap completion:^{
                 [self handleMatchesAllType:swap];
             }];
-            //[self handleMatches];
         }else if ([self.level isPossibleSwap:swap]) {
             [self.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].swap = swap;
-          //  NSLog(@"fruta singleton ==  %@",[JIMCSwapFruitSingleton sharedInstance].fruit);
-
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
             }];
-           
-           
-
         } else {
             [self.scene animateInvalidSwap:swap completion:^{
                 self.view.userInteractionEnabled = YES;
@@ -164,14 +163,35 @@
 }
 
 - (IBAction)movePowerUp:(UIPanGestureRecognizer *)gesture{
-    NSLog(@"Method Fired");
+    self.initialImagePoint = [[gesture view] frame].origin;
     CGPoint translatedPoint = [gesture translationInView:self.view];
     if (gesture.state == UIGestureRecognizerStateBegan){
         _firstX = [[gesture view] center].x;
         _firstY = [[gesture view] center].y;
+        
+//        _firstX = self.powerUpImage1.frame.origin.x;
+//        _firstY = self.powerUpImage1.frame.origin.y;
+//        if (_firstX < 0){
+//            _firstX *= -1;
+//        }
+//        if (_firstY < 0){
+//            _firstY *= -1;
+//        }
+//        if (!_powerUpEmitter){
+//            NSString *powerUpPath =
+//            [[NSBundle mainBundle] pathForResource:@"powerUpEffect" ofType:@"sks"];
+//            _powerUpEmitter =
+//            [NSKeyedUnarchiver unarchiveObjectWithFile:powerUpPath];
+//            _powerUpEmitter.position = self.powerUpImage1.frame.origin;
+//            _powerUpEmitter.targetNode = self.scene;
+//            [self.scene addChild:_powerUpEmitter];
+//            return;
+//        }
+
     }
    
     translatedPoint = CGPointMake(_firstX+translatedPoint.x, _firstY+translatedPoint.y);
+    //_powerUpEmitter.position = translatedPoint;
     //[self.powerUpImage1 setCenter:translatedPoint];
     [[gesture view] setCenter:translatedPoint];
     if ([gesture state] == UIGestureRecognizerStateEnded) {
@@ -189,7 +209,7 @@
             }
             
             if (finalY < 0) {
-                finalY = 0;
+                finalY *= -1;
             } else if (finalY > 1024) {
                 finalY = 1024;
             }
@@ -201,7 +221,7 @@
             }
             
             if (finalY < 0) {
-                finalY = 0;
+                finalY *= -1;
             } else if (finalY > 768) {
                 finalY = 1024;
             }
@@ -209,18 +229,70 @@
         
         
         CGFloat animationDuration = (ABS(velocityX)*.0002)+.2;
-        
+    
         NSLog(@"the duration is: %f", animationDuration);
+        CGPoint finalPoint = {finalX,finalY};
+      
+        //CGPoint location = [touch locationInNode:self.level.fruitsLayer];
+        //[self.power setPosition:location];
+        NSInteger column, row;
+       // if (CGRectContainsPoint(self.scene.fruitsLayer.frame, finalPoint)){
+            [self convertPoint:finalPoint toColumn:&column row:&row];
+             NSLog(@"column = %ld",(long)column);
+        NSLog(@"Row = %ld",(long)row);
+            if ((column != NSNotFound) && (row != NSNotFound)){
+                NSLog(@"Column and row found");
+                //_powerUpEmitter.position = (CGPoint){column,row};
+                JIMCPowerUp *powerUp = [[JIMCPowerUp alloc]init];
+                powerUp.position = (CGPoint){column,row};
+                [self handlePowerUpObject:powerUp];
+            }
+            else{
+                CGRect frame = [[gesture view] frame];
+                frame.origin = self.initialImagePoint;
+                [[gesture view] setFrame:frame];
+                NSLog(@"SetFrame = %@",NSStringFromCGRect(frame));
+                return;
+                    
+            }
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDuration:animationDuration];
+            [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+            //[UIView setAnimationDelegate:self];
+            //[UIView setAnimationDidStopSelector:@selector(animationDidFinish)];
+           
+            [UIView commitAnimations];
+
+            
+    //    }
+         [[gesture view] setCenter:CGPointMake(finalX, finalY)];
+    }
+    
+}
+
+// Converts a point relative to the fruitLayer into column and row numbers.
+- (BOOL)convertPoint:(CGPoint)point toColumn:(NSInteger *)column row:(NSInteger *)row {
+    
+    // "column" and "row" are output parameters, so they cannot be nil.
+    NSParameterAssert(column);
+    NSParameterAssert(row);
+    
+    // Is this a valid location within the fruits layer? If yes,
+    // calculate the corresponding row and column numbers.
+    if (point.x >= 0 && point.x < NumColumns*TileWidth &&
+        point.y >= 0 && point.y < NumRows*TileHeight) {
         
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:animationDuration];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        //[UIView setAnimationDelegate:self];
-        //[UIView setAnimationDidStopSelector:@selector(animationDidFinish)];
-        [[gesture view] setCenter:CGPointMake(finalX, finalY)];
-        [UIView commitAnimations];
+        *column = point.x / TileWidth;
+        *row = point.y / TileHeight;
+        return YES;
+        
+    } else {
+        *column = NSNotFound;  // invalid location
+        *row = NSNotFound;
+        return NO;
     }
 }
+
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -317,7 +389,7 @@
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
     
-    [self.scene removeActionForKey:@"Hint"];
+    //[self.scene removeActionForKey:@"Hint"];
     
     // Detect if there are any matches left.
     NSSet *chains = [self.level removeMatchesAll];
@@ -371,7 +443,7 @@
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
                 if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) ||
-                    (fruit.fruitPowerUp == 2 && chain.fruits.count == 4)) {
+                    (fruit.fruitPowerUp == 2 && chain.fruits.count == 4) ||  (fruit.fruitPowerUp == 3 && chain.fruits.count == 4)) {
                     
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
@@ -442,6 +514,51 @@
         }];
     }];
 }
+
+- (void)handlePowerUpObject:(JIMCPowerUp *)powerUp {
+    // This is the main loop that removes any matching fruits and fills up the
+    // holes with new fruits. While this happens, the user cannot interact with
+    // the app.
+    
+    // Detect if there are any matches left.
+   // powerUp.position = CGPointMake(5, 5);
+    NSSet *chains = [self.scene.level executePowerUp:powerUp];
+    // If there are no more matches, then the player gets to move again.
+    if ([chains count] == 0) {
+        //NSLog(@"Chains count is zero");
+        //[_powerUpEmitter removeFromParent];
+        //_powerUpEmitter = nil;
+        [self beginNextTurn];
+        return;
+    }
+    // [self.level verificaDestruir:chains];
+    // First, remove any matches...
+    [self.scene animateMatchedFruits:chains completion:^{
+        
+        // Add the new scores to the total.
+        for (JIMCChain *chain in chains) {
+            self.score += chain.score;
+        }
+        [self updateLabels];
+        
+        // ...then shift down any fruits that have a hole below them...
+        NSMutableArray *columns = [[NSMutableArray alloc]initWithArray:[self.level fillHoles]];
+        
+        
+        
+        [self.scene animateFallingFruits:columns completion:^{
+            
+            // ...and finally, add new fruits at the top.
+            NSArray *columns = [self.level topUpFruits];
+            [self.scene animateNewFruits:columns completion:^{
+                
+                // Keep repeating this cycle until there are no more matches.
+                [self handleMatches];
+            }];
+        }];
+    }];
+}
+
 
 
 - (void)beginNextTurn {
