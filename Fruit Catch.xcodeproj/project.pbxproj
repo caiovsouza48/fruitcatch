@@ -26,6 +26,7 @@
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
 		DE342A031A815C7000E7630B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE342A021A815C7000E7630B /* AppUtils.m */; };
+		DE3DAC401A97A712002FE5FE /* NextpeerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DE3DAC3F1A97A712002FE5FE /* NextpeerHelper.m */; };
 		DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */; };
 		DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DE6E98E31A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle */; };
 		DE805C611A852BAF009694C0 /* EloRating.m in Sources */ = {isa = PBXBuildFile; fileRef = DE805C601A852BAF009694C0 /* EloRating.m */; };
@@ -160,6 +161,8 @@
 		DE3429FF1A814ED000E7630B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK.framework; sourceTree = "<group>"; };
 		DE342A011A815C7000E7630B /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		DE342A021A815C7000E7630B /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
+		DE3DAC3E1A97A712002FE5FE /* NextpeerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextpeerHelper.h; sourceTree = "<group>"; };
+		DE3DAC3F1A97A712002FE5FE /* NextpeerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextpeerHelper.m; sourceTree = "<group>"; };
 		DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iconTest.jpeg; sourceTree = "<group>"; };
 		DE6E98E31A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NPResources_iPhone_Portrait.bundle; sourceTree = "<group>"; };
 		DE805C5F1A852BAF009694C0 /* EloRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EloRating.h; sourceTree = "<group>"; };
@@ -492,6 +495,8 @@
 				DE805C601A852BAF009694C0 /* EloRating.m */,
 				DE805C621A852D40009694C0 /* kFactor.h */,
 				DE805C631A852D40009694C0 /* kFactor.m */,
+				DE3DAC3E1A97A712002FE5FE /* NextpeerHelper.h */,
+				DE3DAC3F1A97A712002FE5FE /* NextpeerHelper.m */,
 			);
 			name = Multiplayer;
 			path = ..;
@@ -946,6 +951,7 @@
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
 				0FF5BF5E1A3A13670090873A /* CustomSegueWorldMap.m in Sources */,
 				0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */,
+				DE3DAC401A97A712002FE5FE /* NextpeerHelper.m in Sources */,
 				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 				0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */,
