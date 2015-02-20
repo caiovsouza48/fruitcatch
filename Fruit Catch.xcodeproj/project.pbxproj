@@ -29,6 +29,15 @@
 		4361288B1A40612100A2B620 /* mapa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128891A40612100A2B620 /* mapa@2x.png */; };
 		436CBD0A1A2F737500862EDE /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 436CBD091A2F737500862EDE /* WorldMap.m */; };
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
+		4378401F1A97B911009BE3FB /* estrela_outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 4378401C1A97B911009BE3FB /* estrela_outline.png */; };
+		437840201A97B911009BE3FB /* estrela_outline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4378401D1A97B911009BE3FB /* estrela_outline@2x.png */; };
+		437840211A97B911009BE3FB /* estrela_outline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4378401E1A97B911009BE3FB /* estrela_outline@3x.png */; };
+		437B8E841A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia.png in Resources */ = {isa = PBXBuildFile; fileRef = 437B8E811A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia.png */; };
+		437B8E851A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 437B8E821A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png */; };
+		437B8E861A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 437B8E831A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png */; };
+		437B8E8A1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 437B8E871A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png */; };
+		437B8E8B1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 437B8E881A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png */; };
+		437B8E8C1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 437B8E891A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png */; };
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
 		DE342A001A814ED000E7630B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3429FF1A814ED000E7630B /* FacebookSDK.framework */; };
 		DE342A031A815C7000E7630B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE342A021A815C7000E7630B /* AppUtils.m */; };
@@ -137,6 +146,15 @@
 		436CBD081A2F737500862EDE /* WorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMap.h; sourceTree = "<group>"; };
 		436CBD091A2F737500862EDE /* WorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMap.m; sourceTree = "<group>"; };
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
+		4378401C1A97B911009BE3FB /* estrela_outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = estrela_outline.png; sourceTree = "<group>"; };
+		4378401D1A97B911009BE3FB /* estrela_outline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "estrela_outline@2x.png"; sourceTree = "<group>"; };
+		4378401E1A97B911009BE3FB /* estrela_outline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "estrela_outline@3x.png"; sourceTree = "<group>"; };
+		437B8E811A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fazendeiro_triste_cesta_vazia.png; sourceTree = "<group>"; };
+		437B8E821A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro_triste_cesta_vazia@2x.png"; sourceTree = "<group>"; };
+		437B8E831A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro_triste_cesta_vazia@3x.png"; sourceTree = "<group>"; };
+		437B8E871A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fazendeiro_feliz_pop_over.png; sourceTree = "<group>"; };
+		437B8E881A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro_feliz_pop_over@2x.png"; sourceTree = "<group>"; };
+		437B8E891A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro_feliz_pop_over@3x.png"; sourceTree = "<group>"; };
 		43F4362D1A28A00300F1C358 /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		43F4362E1A28A00300F1C358 /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		DE3429FF1A814ED000E7630B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -553,6 +571,15 @@
 		E37BB4D61A40567E00F8E679 /* imagens */ = {
 			isa = PBXGroup;
 			children = (
+				4378401C1A97B911009BE3FB /* estrela_outline.png */,
+				4378401D1A97B911009BE3FB /* estrela_outline@2x.png */,
+				4378401E1A97B911009BE3FB /* estrela_outline@3x.png */,
+				437B8E871A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png */,
+				437B8E881A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png */,
+				437B8E891A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png */,
+				437B8E811A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia.png */,
+				437B8E821A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png */,
+				437B8E831A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png */,
 				E37BB4D91A4057F500F8E679 /* menu iniciar */,
 				E30CD4D71A2CC817009BBC92 /* banana@2x.png */,
 				E37BB4E91A40924B00F8E679 /* fazendeiro_fase@2x.png */,
@@ -733,16 +760,19 @@
 			files = (
 				E37BB4EA1A40924B00F8E679 /* fazendeiro_fase@2x.png in Resources */,
 				4361288B1A40612100A2B620 /* mapa@2x.png in Resources */,
+				437840201A97B911009BE3FB /* estrela_outline@2x.png in Resources */,
 				4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */,
 				DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */,
 				E3E3ECC21A23B34500E7E18E /* Level_1.json in Resources */,
 				E3CFD4B71A8B86B900C6FF64 /* retangulo_generico.png in Resources */,
 				E3E3ECC31A23B34500E7E18E /* Level_2.json in Resources */,
 				4351CD8B1A8E772800C026AA /* botao_menu.png in Resources */,
+				437B8E8A1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png in Resources */,
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
 				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
 				E3DFE2F71A40A0DB00CB4D0C /* Agrupar-1@2x.png in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
+				437B8E851A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png in Resources */,
 				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
 				E3CFD4B61A8B86B900C6FF64 /* retangulo_configuracoes@3x.png in Resources */,
 				E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */,
@@ -750,6 +780,7 @@
 				4351CD881A8E772800C026AA /* botao_jogar_novamente.png in Resources */,
 				E37BB4E21A40580500F8E679 /* fazendeiro@2x.png in Resources */,
 				E3CFD4B41A8B86B900C6FF64 /* retangulo_configuracoes.png in Resources */,
+				437B8E861A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png in Resources */,
 				E3CFD4B81A8B86B900C6FF64 /* retangulo_generico@2x.png in Resources */,
 				4351CD8A1A8E772800C026AA /* botao_jogar_novamente@3x.png in Resources */,
 				4351CD811A8E76F500C026AA /* botao_proxima_fase@3x.png in Resources */,
@@ -765,18 +796,23 @@
 				E3CFD4B51A8B86B900C6FF64 /* retangulo_configuracoes@2x.png in Resources */,
 				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
 				4351CD891A8E772800C026AA /* botao_jogar_novamente@2x.png in Resources */,
+				4378401F1A97B911009BE3FB /* estrela_outline.png in Resources */,
 				433A10001A8B90360096B0E5 /* botao_fechar@3x.png in Resources */,
 				4351CD8D1A8E772800C026AA /* botao_menu@3x.png in Resources */,
 				4351CD8C1A8E772800C026AA /* botao_menu@2x.png in Resources */,
 				4351CD7F1A8E76F500C026AA /* botao_proxima_fase.png in Resources */,
+				437B8E8C1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png in Resources */,
 				E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */,
 				E37BB4E11A40580500F8E679 /* configuracoes@2x.png in Resources */,
 				E37BB4E41A40580500F8E679 /* multiplayer@2x.png in Resources */,
+				437B8E8B1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png in Resources */,
 				E3CFD4B91A8B86B900C6FF64 /* retangulo_generico@3x.png in Resources */,
 				E3E3ECC51A23B34500E7E18E /* Level_4.json in Resources */,
 				433A0FFF1A8B90360096B0E5 /* botao_fechar@2x.png in Resources */,
 				E37BB4E31A40580500F8E679 /* logo@2x.png in Resources */,
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
+				437840211A97B911009BE3FB /* estrela_outline@3x.png in Resources */,
+				437B8E841A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia.png in Resources */,
 				E3E3ECC41A23B34500E7E18E /* Level_3.json in Resources */,
 				4351CD801A8E76F500C026AA /* botao_proxima_fase@2x.png in Resources */,
 				E33DD8CD1A3B13BF001C2897 /* coracao.png in Resources */,
