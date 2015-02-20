@@ -253,9 +253,10 @@
 
 -(IBAction)multiplayer:(id)sender
 {
-    connectingView = [[UIView alloc]initWithFrame:self.view.frame];
+    [Nextpeer launchDashboard];
     /*
-    NSLog(@"Multiplayer");
+     connectingView = [[UIView alloc]initWithFrame:self.view.frame];
+     NSLog(@"Multiplayer");
     [[NetworkController sharedInstance] authenticateLocalUser];
     [[NetworkController sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
      */

@@ -368,6 +368,7 @@
         
         // Only try swapping when the user swiped into a new square.
         if (horzDelta != 0 || vertDelta != 0) {
+            
             [self trySwapHorizontal:horzDelta vertical:vertDelta];
             [self hideSelectionIndicator];
             
@@ -405,6 +406,12 @@
         JIMCSwap *swap = [[JIMCSwap alloc] init];
         swap.fruitA = fromFruit;
         swap.fruitB = toFruit;
+        //Testando aki
+        if (horzDelta!=0) {
+            swap.vertical = NO;
+        }else if(vertDelta!= 0){
+            swap.vertical = YES;
+        }
         self.swipeHandler(swap);
     }
 }
@@ -504,7 +511,7 @@
         for (JIMCFruit *fruit in chain.fruits) {
             if ([fruit isKindOfClass:[JIMCFruit class]]){
                 if (fruit.sprite != nil) {
-                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
+                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.2];
                     scaleAction.timingMode = SKActionTimingEaseOut;
                     [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
                     
@@ -593,7 +600,7 @@
             
             // The further away from the hole you are, the bigger the delay
             // on the animation.
-            NSTimeInterval delay = 0.05 + 0.15*idx;
+            NSTimeInterval delay = 0.1 + 0.14*idx;
             
             // Calculate duration based on far fruit has to fall (0.1 seconds
             // per tile).
@@ -645,7 +652,7 @@
             
             // Give each fruit that's higher up a longer delay, so they appear to
             // fall after one another.
-            NSTimeInterval delay = 0.1 + 0.2*([array count] - idx - 1);
+            NSTimeInterval delay = 0.1 + 0.14*([array count] - idx - 1);
             
             // Calculate duration based on far the fruit has to fall.
             NSTimeInterval duration = (startRow - fruit.row) * 0.1;
