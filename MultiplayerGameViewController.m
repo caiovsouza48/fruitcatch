@@ -165,11 +165,16 @@
 
 - (void)registerNotifications{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveTournamentCustomMessage:) name:@"nextpeerDidReceiveTournamentCustomMessage" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveSynchronizedEvent:) name:@"nextpeerDidReceiveSynchronizedEvent" object:nil];
 }
 
 
 
-- (void)nextpeerDidReceiveSynchronizedEvent:(NSString *)eventName withReason:(NPSynchronizedEventFireReason)fireReason{
+- (void)processNextpeerDidReceiveSynchronizedEvent:(NSNotification *)notification{
+    NSString *eventName = [notification.userInfo objectForKey:@"eventName"];
+    NPSynchronizedEventFireReason eventFireReason = [[notification.userInfo objectForKey:@"fireReason"] intValue];
+    NSLog(@"Event Firing");
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
         NSDictionary *message = @{@"type" : [NSNumber numberWithInt:NPFruitCatchMessageSendRandomNumber]};

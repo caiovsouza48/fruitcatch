@@ -73,7 +73,15 @@
     [self.window.rootViewController presentViewController:multiGVC animated:YES completion:nil];
 }
 
+- (void)nextpeerDidReceiveSynchronizedEvent:(NSString *)eventName withReason:(NPSynchronizedEventFireReason)fireReason{
+    NSDictionary *parameters = @{@"eventName" : eventName,
+                                 @"fireReason" : [NSNumber numberWithInt:fireReason]
+                                 };
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"nextpeerDidReceiveSynchronizedEvent" object:nil userInfo:parameters];
+}
+
 -(void)nextpeerDidReceiveTournamentCustomMessage:(NPTournamentCustomMessageContainer*)message{
+    NSLog(@"NextPeer Receive Custom Message");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"nextpeerDidReceiveTournamentCustomMessage" object:nil userInfo:@{@"userMessage" : message}];
    
 }
