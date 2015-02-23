@@ -11,13 +11,16 @@
 #import "AppUtils.h"
 #import "RNEncryptor.h"
 #import "NetworkController.h"
+#import <Nextpeer/Nextpeer.h>
 #import "RNDecryptor.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define ON 1
 #define OFF 0
 
-@interface MainMenuViewController ()
+@interface MainMenuViewController (){
+    UIView *connectingView;
+}
 
 @property (nonatomic) IBOutlet UIButton *musicBtn;
 @property (nonatomic) IBOutlet UIButton *soundBtn;
@@ -250,9 +253,14 @@
 
 -(IBAction)multiplayer:(id)sender
 {
-    NSLog(@"Multiplayer");
+    [Nextpeer launchDashboard];
+    /*
+     connectingView = [[UIView alloc]initWithFrame:self.view.frame];
+     NSLog(@"Multiplayer");
     [[NetworkController sharedInstance] authenticateLocalUser];
     [[NetworkController sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
+     */
+    
 }
 
 -(IBAction)musicON_OFF:(id)sender
@@ -409,5 +417,126 @@
  // Pass the selected object to the new view controller.
  }
  */
+//Abaixou dessa ponto conlocar apenas funcoes relacionadas a In App Porcharse
+#pragma mark - in-App PURCHASE
+-(void)purchaseNoAds{
+    if([SKPaymentQueue canMakePayments]){
+        NSLog(@"User can make payments!");
+        //SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:kRemoveAdsProductIdentifier]];
+           // productsRequest.delegate = self;
+          //  [productsRequest start];
+            connectingView.hidden = NO;
+     }else{
+         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops."
+                                                         message:@"I don't think you are allowed to make in-app purchases."
+                                                        delegate:self
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
+        [alert show];
+         //Essa parte só é chamada quando dá algum problema.
+     }
+}
+-(void)restore{
+        //Trata do restore
+        connectingView.hidden = NO;
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+        SKProduct *validProduct = nil;
+        int count = (int)[response.products count];
+        if(count > 0){
+                validProduct = [response.products objectAtIndex:0];
+                NSLog(@"Products Available!");
+                [self purchase:validProduct];
+                //Se o ID está correto, voila! Funcionou!
+        }else if(!validProduct){
+            NSLog(@"No products available");
+            connectingView.hidden = YES;
+            //id inválido?
+        }
+}
 
+- (void)purchase:(SKProduct *)product{
+        SKPayment *payment = [SKPayment paymentWithProduct:product];
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
+- (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+{
+    NSLog(@"received restored transactions: %i",(int) queue.transactions.count);
+    for (SKPaymentTransaction *transaction in queue.transactions)
+    {
+        if(SKPaymentTransactionStateRestored){
+            NSLog(@"Transaction state -> Restored");
+            //Se restaurou corretamente, chama o doRemoveAds
+            [self doRemoveAds];
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            break;
+        }
+    }
+    connectingView.hidden = YES;
+    
+}
+-(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error{
+    NSLog(@"%@",error);
+    connectingView.hidden = YES;
+}
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+    for(SKPaymentTransaction *transaction in transactions){
+        switch (transaction.transactionState){
+            case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
+                //Processo de compra
+                break;
+            case SKPaymentTransactionStatePurchased:
+                //(Cha-Ching!)
+                [self doRemoveAds]; //Chama o método de remover ads!
+                connectingView.hidden = YES;
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                NSLog(@"Transaction state -> Purchased");
+                break;
+            case SKPaymentTransactionStateRestored:
+                NSLog(@"Transaction state -> Restored");
+                //Mesmo código de purchase!
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                connectingView.hidden = YES;
+                break;
+            case SKPaymentTransactionStateFailed:
+                //Se falhou...
+                if(transaction.error.code != SKErrorPaymentCancelled){
+                    NSLog(@"Transaction state -> Cancelled");
+                    //Deu algo de errado na compra!
+                }
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                connectingView.hidden = YES;
+                break;
+        }
+    }
+    
+}
+- (void) failedTransaction: (SKPaymentTransaction *)transaction{
+    if (transaction.error.code != SKErrorPaymentCancelled){
+        // Mostra o erro aqui.
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Purchase Unsuccessful"
+                                                        message:@"Your purchase failed. Please try again."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }
+    connectingView.hidden = YES;
+    //Tira a transação do queue.
+    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+}
+-(void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+    NSLog(@"%@",error);
+    connectingView.hidden = YES;
+    
+}
+-(void)doRemoveAds{
+    //[[AppUserDefaults sharedAppUserDefaults]setNoAds:YES];
+    //[self hideAds];
+}
 @end

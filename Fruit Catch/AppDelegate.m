@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "NetworkController.h"
 #import "EloRating.h"
+#import "MultiplayerGameViewController.h"
+
+#define NEXTPEER_KEY @"08d8f6a9b74c70e157add51c12c7d272"
 
 @interface AppDelegate ()
 
@@ -21,7 +24,7 @@
     //[[NetworkController sharedInstance] authenticateLocalUser];
     // Override point for customization after application launch.
     [FBLoginView class];
-    EloRating *eloRating = [[EloRating alloc]init];
+    //EloRating *eloRating = [[EloRating alloc]init];
 //    int userRating = 1600;
 //    int opponentRating = 1650;
 //    int newUserRating = [eloRating getNewRating:userRating OpponentRating:opponentRating GameResult:WIN];
@@ -30,6 +33,7 @@
 //    NSLog(@"New Opponent Rating = %d",newOpponent);
     [[UIApplication sharedApplication]setStatusBarHidden:YES ];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Launch"];
+    [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self]];
     return YES;
 }
 
@@ -63,6 +67,15 @@
     // You can add your app-specific url handling code here if needed
     
     return wasHandled;
+}
+-(void)nextpeerDidTournamentStartWithDetails:(NPTournamentStartDataContainer *)tournamentContainer{
+    MultiplayerGameViewController *multiGVC = [[MultiplayerGameViewController alloc]init];
+    [self.window.rootViewController presentViewController:multiGVC animated:YES completion:nil];
+}
+
+-(void)nextpeerDidReceiveTournamentCustomMessage:(NPTournamentCustomMessageContainer*)message{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"nextpeerDidReceiveTournamentCustomMessage" object:nil userInfo:@{@"userMessage" : message}];
+   
 }
 
 @end
