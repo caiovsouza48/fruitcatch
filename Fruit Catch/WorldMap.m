@@ -62,7 +62,7 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator   = NO;
     _scrollView.delegate = self;
-
+    
     NSLog(@"Scrollview height = %f",_scrollView.frame.size.height);
     [self.view addSubview:_scrollView];
     
@@ -75,18 +75,18 @@
     
     // Define o posicionamento dos Scrolls CGRectGetMaxY(self.view.frame)-70
     CGRect tamanhoScroll1 = CGRectMake(CGRectGetMinX(self.view.frame)+self.view.frame.size.width, CGRectGetMaxY(self.view.frame)-70, self.view.frame.size.width, 70);
-
+    
     // Aloca o Scroll baseado no posicionamento criado
     _scroll1 = [[UIScrollView alloc]initWithFrame:tamanhoScroll1];
-
+    
     // Redimensiona o tamanho do Scroll
     // Alterar para a quantidad de amigos que a pessoa possui no facebook
     // ==================================================================================================
     _scroll1.contentSize = CGSizeMake(self.view.frame.size.width / 3 * ([self loadFacebookFriendsIDs].count+1), 70);
-
+    
     // Define a cor de fundo do Scroll
     _scroll1.backgroundColor = [UIColor colorWithRed:(119.0/255) green:(185.0/255) blue:(195.0/255) alpha:1];
-
+    
     _scroll1.delegate = self;
     
     // Mostra imagens
@@ -101,7 +101,7 @@
     NSMutableArray *arrayNames = [NSMutableArray array];
     
     NSArray* tempArrayName;
-
+    
     for (NSDictionary* friends in [[self loadFacebookFriendsIDs] objectForKey:@"facebookFriends"]) {
         
         [arrayIds addObject:[friends objectForKey:@"id"]];
@@ -129,7 +129,7 @@
             nome.text = tempArrayName[0];
             [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
             nome.textColor = [UIColor whiteColor];
-
+            
             NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", userId];
             
             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
@@ -140,7 +140,7 @@
             [_scroll1 addSubview:imagem];
             [_scroll1 addSubview:nome];
         }
-
+        
         // Aloca uma imagem do tamanho da metade da tela em que está
         imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
         nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 35, 60, 40)];
@@ -163,11 +163,11 @@
         [_scroll1 addSubview:imagem];
         
         [_scroll1 addSubview:nome];
-
+        
         // Daqui em diante, adiciona os amigos do facebook
         i++;
     }
-
+    
     //Cria o botao back
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     
@@ -202,11 +202,11 @@
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
         button.tintColor = [UIColor whiteColor];
         button.titleLabel.font = [UIFont fontWithName:@"Arial" size:24];
-                button.frame = CGRectMake(x.integerValue, y.integerValue, 54, 34);
+        button.frame = CGRectMake(x.integerValue, y.integerValue, 54, 34);
         [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
         //Necessário fazer um if para comparar se a fase está aberta ou fechada
         [button setBackgroundImage:[UIImage imageNamed:@"fase_aberta"] forState:UIControlStateNormal];
-//        [self.view addSubview:button];
+        //        [self.view addSubview:button];
         [_scrollView addSubview:button];
         
     }
@@ -289,11 +289,11 @@
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
             NSLog(@"File dict = %@",obj);
             return obj;
-//            NSMutableArray *arrayIds = [NSMutableArray array];
-//            for (NSDictionary* friends in [obj objectForKey:@"facebookFriends"]) {
-//                [arrayIds addObject:[friends objectForKey:@"id"]];
-//            }
-//            return [arrayIds copy];
+            //            NSMutableArray *arrayIds = [NSMutableArray array];
+            //            for (NSDictionary* friends in [obj objectForKey:@"facebookFriends"]) {
+            //                [arrayIds addObject:[friends objectForKey:@"id"]];
+            //            }
+            //            return [arrayIds copy];
         }
     }
     return nil;
@@ -319,7 +319,7 @@
     NSString *appDataDir = [self getAppDataDir];
     NSLog(@"appDataDir = %@",appDataDir);
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
-       [[Life sharedInstance] loadFromFile];
+        [[Life sharedInstance] loadFromFile];
     }
     else{
         [Life sharedInstance];
@@ -410,7 +410,7 @@
         if ([obj isKindOfClass:[UIImageView class]]){
             UIImageView *imageView = (UIImageView *)obj;
             /* as Tags das Vidas começam de 10 até 15,então se for maior que 10 significa que é
-               uma UIImageView que está mostrando as vidas
+             uma UIImageView que está mostrando as vidas
              */
             if (imageView.tag >= 10){
                 /*Verificando a Tag(lembrando que ela começa de 10) então subtrai-se 10 para verificar se é menor ou igual a quantidade de vidas do usuário, caso positivo esta imageView é mostrado, caso contrário ela fica escondida.
@@ -466,37 +466,37 @@
         default:
             return;
     }
-     self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
     NSLog(@"Timer Fired");
 }
 
 #pragma mark - Level
 -(IBAction)back:(id)sender
 {
-  [self fexarTela:self];
-  [self performSegueWithIdentifier:@"Menu" sender:self];
-  
+    [self fexarTela:self];
+    [self performSegueWithIdentifier:@"Menu" sender:self];
+    
     
 }
 -(IBAction)selectLevel:(id)sender
 {
     /*
-    UIButton *btn = (UIButton *)sender;
-    btn.enabled = NO;
-    NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
-    
-    if(_i > -1){
-        if ([self shouldPerformSegueWithIdentifier:@"Level" sender:self]){
-            [self performSegueWithIdentifier:@"Level" sender:self];
-        }
-        else{
-            btn.enabled = YES;
-        }
-        
-        
-    }else{
-        [self performSegueWithIdentifier:@"Menu" sender:self];
-    }
+     UIButton *btn = (UIButton *)sender;
+     btn.enabled = NO;
+     NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
+     
+     if(_i > -1){
+     if ([self shouldPerformSegueWithIdentifier:@"Level" sender:self]){
+     [self performSegueWithIdentifier:@"Level" sender:self];
+     }
+     else{
+     btn.enabled = YES;
+     }
+     
+     
+     }else{
+     [self performSegueWithIdentifier:@"Menu" sender:self];
+     }
      */
     UIButton *level = (UIButton *)sender;
     _i = level.tag;
@@ -521,7 +521,7 @@
 
 -(IBAction)jogar:(id)sender
 {
-   [self performSegueWithIdentifier:@"Level" sender:self];
+    [self performSegueWithIdentifier:@"Level" sender:self];
 }
 -(IBAction)fexarTela:(id)sender
 {
@@ -537,7 +537,7 @@
                          self.scroll1.center = CGPointMake(CGRectGetMinX(self.view.frame)+500, self.scroll1.center.y);
                          
                      }completion:^(BOOL finished){
-                             [blurView removeFromSuperview];
+                         [blurView removeFromSuperview];
                      }];
 }
 - (void)didReceiveMemoryWarning {
@@ -564,16 +564,16 @@
     }
     NSLog(@"return YES");
     return YES;
-
-
+    
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-        if ([segue.identifier isEqualToString:@"Level"]){
-            GameViewController *view = [segue destinationViewController];
-            //Preparar a classe que carrega o nível para carregar o nível _i
-            view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
-        }
+    if ([segue.identifier isEqualToString:@"Level"]){
+        GameViewController *view = [segue destinationViewController];
+        //Preparar a classe que carrega o nível para carregar o nível _i
+        view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
+    }
 }
 
 @end

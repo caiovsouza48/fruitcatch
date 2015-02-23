@@ -9,29 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fruit Catch/JIMCLevel.m"
-            timestampString = "439491351.494546"
+            filePath = "Fruit Catch/MyScene.m"
+            timestampString = "446057627.939293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "568"
-            endingLineNumber = "568"
-            landmarkName = "-checkVerticalFruitsToRemoveForPowerUp:andLimit:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fruit Catch/JIMCLevel.m"
-            timestampString = "439491351.494546"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "563"
-            endingLineNumber = "563"
-            landmarkName = "-checkVerticalFruitsToRemoveForPowerUp:andLimit:"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "-addSpritesForFruit:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

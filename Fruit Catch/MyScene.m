@@ -219,11 +219,49 @@
 
 - (void)addSpritesForFruit:(JIMCFruit *)fruit {
     SKSpriteNode *sprite;
-
+     NSString *namePU = nil;
+    NSLog(@"power UP = %d",fruit.fruitPowerUp);
     if (fruit.fruitPowerUp == 1){
         sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
     }else if (fruit.fruitPowerUp == 2) {
-        sprite = [SKSpriteNode spriteNodeWithImageNamed:@"star"];
+        switch (fruit.fruitType) {
+            case 1:
+                namePU = @"laranja_pu_v";
+                break;
+            case 2:
+                namePU = @"morango_pu_v";
+                break;
+            case 3:
+                namePU = @"limao_pu_v";
+                break;
+            case 4:
+                namePU = @"uva_pu_v";
+                break;
+            case 5:
+                namePU = @"banana_pu_v";
+                break;
+
+        }
+        sprite = [SKSpriteNode spriteNodeWithImageNamed:namePU];
+    }else if (fruit.fruitPowerUp == 3) {
+            switch (fruit.fruitType) {
+                case 1:
+                    namePU = @"laranja_pu_h";
+                    break;
+                case 2:
+                    namePU = @"morango_pu_h";
+                    break;
+                case 3:
+                    namePU = @"limao_pu_h";
+                    break;
+                case 4:
+                    namePU = @"uva_pu_h";
+                    break;
+                case 5:
+                    namePU = @"banana_pu_h";
+                    break;
+            }
+        sprite = [SKSpriteNode spriteNodeWithImageNamed:namePU];
     }else{
         sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
     }
@@ -330,6 +368,7 @@
         
         // Only try swapping when the user swiped into a new square.
         if (horzDelta != 0 || vertDelta != 0) {
+            
             [self trySwapHorizontal:horzDelta vertical:vertDelta];
             [self hideSelectionIndicator];
             
@@ -367,7 +406,12 @@
         JIMCSwap *swap = [[JIMCSwap alloc] init];
         swap.fruitA = fromFruit;
         swap.fruitB = toFruit;
-        
+        //Testando aki
+        if (horzDelta!=0) {
+            swap.vertical = NO;
+        }else if(vertDelta!= 0){
+            swap.vertical = YES;
+        }
         self.swipeHandler(swap);
     }
 }
@@ -467,7 +511,7 @@
         for (JIMCFruit *fruit in chain.fruits) {
             if ([fruit isKindOfClass:[JIMCFruit class]]){
                 if (fruit.sprite != nil) {
-                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
+                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.2];
                     scaleAction.timingMode = SKActionTimingEaseOut;
                     [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
                     
@@ -556,7 +600,7 @@
             
             // The further away from the hole you are, the bigger the delay
             // on the animation.
-            NSTimeInterval delay = 0.05 + 0.15*idx;
+            NSTimeInterval delay = 0.1 + 0.14*idx;
             
             // Calculate duration based on far fruit has to fall (0.1 seconds
             // per tile).
@@ -608,7 +652,7 @@
             
             // Give each fruit that's higher up a longer delay, so they appear to
             // fall after one another.
-            NSTimeInterval delay = 0.1 + 0.2*([array count] - idx - 1);
+            NSTimeInterval delay = 0.1 + 0.14*([array count] - idx - 1);
             
             // Calculate duration based on far the fruit has to fall.
             NSTimeInterval duration = (startRow - fruit.row) * 0.1;
