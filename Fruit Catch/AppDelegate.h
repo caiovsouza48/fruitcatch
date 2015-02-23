@@ -9,13 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "Nextpeer/Nextpeer.h"
-#import "MultiplayerGameViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,NextpeerDelegate,NPTournamentDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property(nonatomic)  MultiplayerGameViewController *multiGVC;
 
 
 @end
