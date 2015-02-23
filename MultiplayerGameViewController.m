@@ -67,8 +67,9 @@
     [self registerNotifications];
     //[self.networkEngine setDelegate:self];
     // Configure the view.
-    SKView *skView = (SKView *)self.view;
-    skView.multipleTouchEnabled = NO;
+    SKView *skView = [[SKView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.view = skView;
+    //_multipleTouchEnabled = NO;
     
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
@@ -164,11 +165,16 @@
 
 - (void)registerNotifications{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveTournamentCustomMessage:) name:@"nextpeerDidReceiveTournamentCustomMessage" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveSynchronizedEvent:) name:@"nextpeerDidReceiveSynchronizedEvent" object:nil];
 }
 
 
 
-- (void)nextpeerDidReceiveSynchronizedEvent:(NSString *)eventName withReason:(NPSynchronizedEventFireReason)fireReason{
+- (void)processNextpeerDidReceiveSynchronizedEvent:(NSNotification *)notification{
+    NSString *eventName = [notification.userInfo objectForKey:@"eventName"];
+    NPSynchronizedEventFireReason eventFireReason = [[notification.userInfo objectForKey:@"fireReason"] intValue];
+    NSLog(@"Event Firing");
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
         NSDictionary *message = @{@"type" : [NSNumber numberWithInt:NPFruitCatchMessageSendRandomNumber]};
