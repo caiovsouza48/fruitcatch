@@ -388,6 +388,7 @@
             }
         }
     }
+    
     return rowChains;
 }
 
@@ -445,9 +446,10 @@
                 
                     [chain addFruit:_fruits[column][row]];
                     [set addObject:chain];
-                }
             }
         }
+    }
+    
     return set;
 }
 

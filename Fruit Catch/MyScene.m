@@ -515,9 +515,19 @@
         for (JIMCFruit *fruit in chain.fruits) {
             if ([fruit isKindOfClass:[JIMCFruit class]]){
                 if (fruit.sprite != nil) {
-                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.2];
+                    
+                    // Animação das explosões das frutas
+                    SKEmitterNode *emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"MyParticle" ofType:@"sks"]];
+                    emitter.zPosition = 600;
+                    emitter.position = CGPointMake(0, 0);
+                    [fruit.sprite addChild:emitter];
+                    
+                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
+                    SKAction *acao = [SKAction fadeAlphaTo:0 duration:0.3];
+
                     scaleAction.timingMode = SKActionTimingEaseOut;
                     [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
+                    [emitter runAction:[SKAction sequence:@[acao, [SKAction removeFromParent]]]];
                     
                     // It may happen that the same JIMCFruit object is part of two chains
                     // (L-shape match). In that case, its sprite should only be removed
@@ -531,11 +541,16 @@
     if([SettingsSingleton sharedInstance].SFX == ON){
         [self runAction:self.matchSound];
     }
+    
+    
+    
+
     // Continue with the game after the animations have completed.
     [self runAction:[SKAction sequence:@[
                                          [SKAction waitForDuration:0.3],
                                          [SKAction runBlock:completion]
                                          ]]];
+
 }
 - (void)animateMatchedFruitsType:(NSSet *)chains completion:(dispatch_block_t)completion {
     

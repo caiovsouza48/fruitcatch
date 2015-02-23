@@ -279,6 +279,7 @@
                             user:(id<FBGraphUser>)user {
     
     NSLog(@"USER = %@", user);
+    NSLog(@"%@",[user objectForKey:@"email"]);
     
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
         if (!error) {
