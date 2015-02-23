@@ -27,7 +27,12 @@
 @property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) IBOutlet UIButton *btn;
 @property (nonatomic) IBOutlet UIButton *btnJogar;
-//@property (nonatomic) UIView *blurView;
+@property (nonatomic) IBOutlet UILabel  *lblFase;
+@property (nonatomic) IBOutlet UILabel  *lblTarget;
+@property (nonatomic) IBOutlet UILabel  *lblMoves;
+@property (nonatomic) IBOutlet UIImageView *star1;
+@property (nonatomic) IBOutlet UIImageView *star2;
+@property (nonatomic) IBOutlet UIImageView *star3;
 @end
 
 @implementation WorldMap
@@ -37,9 +42,6 @@
     [super viewWillAppear:animated];
     [self getUserLives];
     
-    
-    //[self loadFromFile];
-
     //Move a scrollView para o fundo da imagem.
     CGRect mask = CGRectMake(0, _scrollView.contentSize.height - self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     [_scrollView scrollRectToVisible:mask animated:NO];
@@ -50,11 +52,9 @@
     //[self getUserLives];
     [self registerLivesBackgroundNotification];
     [self registerAppEnterForegroundNotification];
-    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
     
-    [self insertScrollFacebook];
-    [self insertPeopleOnScroll];
+    //ScrollView
     
     //Carrega a imagem de fundo
     UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa"]];
@@ -67,7 +67,8 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator   = NO;
     _scrollView.delegate = self;
-
+    
+    NSLog(@"Scrollview height = %f",_scrollView.frame.size.height);
     [self.view addSubview:_scrollView];
     
     [_scrollView addSubview:fundo];
@@ -77,77 +78,22 @@
     
     _i = -1;
     
-
-    //Cria o botao back
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    // Define o posicionamento dos Scrolls CGRectGetMaxY(self.view.frame)-70
+    CGRect tamanhoScroll1 = CGRectMake(CGRectGetMinX(self.view.frame)+self.view.frame.size.width, CGRectGetMaxY(self.view.frame)-70, self.view.frame.size.width, 70);
     
-    button.tag = _i;
+    // Aloca o Scroll baseado no posicionamento criado
+    _scroll1 = [[UIScrollView alloc]initWithFrame:tamanhoScroll1];
     
-    [button addTarget:self
-               action:@selector(back:)
-     forControlEvents:UIControlEventTouchUpInside];
+    // Redimensiona o tamanho do Scroll
+    // Alterar para a quantidad de amigos que a pessoa possui no facebook
+    // ==================================================================================================
+    _scroll1.contentSize = CGSizeMake(self.view.frame.size.width / 3 * ([self loadFacebookFriendsIDs].count+1), 70);
     
-    [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
-    button.frame = CGRectMake(50, 50, 60, 32);
-    button.tintColor = [UIColor whiteColor];
-    button.backgroundColor = [UIColor redColor];
-    [self.view addSubview:button];
+    // Define a cor de fundo do Scroll
+    _scroll1.backgroundColor = [UIColor colorWithRed:(119.0/255) green:(185.0/255) blue:(195.0/255) alpha:1];
     
-    //Cria os botões das fases
-    for(NSDictionary *button in mapButtons){
-        _i++;
-        //Cria o botao de nivel
-        NSNumber *x = button[@"xPosition"];
-        NSNumber *y = button[@"yPosition"];
-        
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        
-        button.tag = _i;
-        
-        [button addTarget:self
-                   action:@selector(selectLevel:)
-         forControlEvents:UIControlEventTouchUpInside];
-        
-        button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        button.titleLabel.textAlignment = NSTextAlignmentCenter;
-        button.tintColor = [UIColor whiteColor];
-        button.titleLabel.font = [UIFont fontWithName:@"Arial" size:24];
-                button.frame = CGRectMake(x.integerValue, y.integerValue, 54, 34);
-        [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
-        //Necessário fazer um if para comparar se a fase está aberta ou fechada
-        [button setBackgroundImage:[UIImage imageNamed:@"fase_aberta"] forState:UIControlStateNormal];
-//        [self.view addSubview:button];
-        [_scrollView addSubview:button];
-        
-    }
-    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-400, CGRectGetMidY(self.view.frame) - self.view.frame.size.height/4, 315, 334))];
-    [self.informFase setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:self.informFase];
+    _scroll1.delegate = self;
     
-    //Retangulo
-    self.informFase.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]];
-    
-    //botao sair
-    _btn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 45, 15, 25,25)];
-    [_btn setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
-    [_btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
-    
-    //botao jogar
-    _btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 + 30, 150,55)];
-    [_btnJogar setTitle:@"Jogar" forState:UIControlStateNormal];
-    [_btnJogar setFont:[UIFont fontWithName:@"Chewy" size:40]];
-    [_btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
-    _btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    
-    [self.informFase addSubview:_btn];
-    [self.informFase addSubview:_btnJogar];
-    
-    // Aloca o Scroll na view
-    [self.view addSubview:_scroll1];
-}
-
-- (void)insertPeopleOnScroll{
     // Mostra imagens
     UIImageView *imagem;
     
@@ -160,7 +106,7 @@
     NSMutableArray *arrayNames = [NSMutableArray array];
     
     NSArray* tempArrayName;
-//    NSLog(@"Count = %d",[self loadFacebookFriendsIDs].count);
+    
     for (NSDictionary* friends in [[self loadFacebookFriendsIDs] objectForKey:@"facebookFriends"]) {
         
         [arrayIds addObject:[friends objectForKey:@"id"]];
@@ -205,6 +151,7 @@
         nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 35, 60, 40)];
         
         tempArrayName = [[arrayNames objectAtIndex:i] componentsSeparatedByString:@" "];
+        NSLog(@"tempArrayName = %@", tempArrayName[0]);
         nome.text = tempArrayName[0];
         [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
         nome.textColor = [UIColor whiteColor];
@@ -226,24 +173,106 @@
         i++;
     }
     
-}
+    //Cria o botao back
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    
+    button.tag = _i;
+    
+    [button addTarget:self
+               action:@selector(back:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
+    [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
+    button.frame = CGRectMake(50, 50, 60, 32);
+    button.tintColor = [UIColor whiteColor];
+    button.backgroundColor = [UIColor redColor];
+    [self.view addSubview:button];
+    
+    //Cria os botões das fases
+    for(NSDictionary *button in mapButtons){
+        _i++;
+        //Cria o botao de nivel
+        NSNumber *x = button[@"xPosition"];
+        NSNumber *y = button[@"yPosition"];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        button.tag = _i;
+        
+        [button addTarget:self
+                   action:@selector(selectLevel:)
+         forControlEvents:UIControlEventTouchUpInside];
+        
+        button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        button.titleLabel.textAlignment = NSTextAlignmentCenter;
+        button.tintColor = [UIColor whiteColor];
+        button.titleLabel.font = [UIFont fontWithName:@"Arial" size:24];
+        button.frame = CGRectMake(x.integerValue, y.integerValue, 54, 34);
+        [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
+        //Necessário fazer um if para comparar se a fase está aberta ou fechada
+        [button setBackgroundImage:[UIImage imageNamed:@"fase_aberta"] forState:UIControlStateNormal];
+        //        [self.view addSubview:button];
+        [_scrollView addSubview:button];
+        
+    }
+    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-400, CGRectGetMidY(self.view.frame) - self.view.frame.size.height/4, 315, 334))];
+    [self.informFase setBackgroundColor:[UIColor clearColor]];
+    [self.view addSubview:self.informFase];
+    
+    //Retangulo
+    self.informFase.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]];
+    
+    //botao sair
+    _btn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 45, 15, 25,25)];
+    [_btn setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
+    [_btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
+    
+    //botao jogar
+    _btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 + 30, 150,55)];
+    [_btnJogar setTitle:@"Jogar" forState:UIControlStateNormal];
+    [_btnJogar setFont:[UIFont fontWithName:@"Chewy" size:40]];
+    [_btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
+    _btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    _btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    
+    //Fase
+    _lblFase = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMinY(self.informFase.frame) / 2 - 40, 300, 55)];
+    _lblFase.textColor = [UIColor whiteColor];
+    _lblFase.font = [UIFont fontWithName:@"Chewy" size:40];
+    _lblFase.textAlignment = UITextAlignmentCenter;
+    
+    //Target
+    _lblTarget = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 - 60, 300, 55)];
+    _lblTarget.textColor = [UIColor whiteColor];
+    _lblTarget.font = [UIFont fontWithName:@"Chewy" size:30];
+    _lblTarget.textAlignment = UITextAlignmentCenter;
 
-- (void)insertScrollFacebook{
-    // Define o posicionamento dos Scrolls CGRectGetMaxY(self.view.frame)-70
-    CGRect tamanhoScroll1 = CGRectMake(CGRectGetMinX(self.view.frame)+self.view.frame.size.width, CGRectGetMaxY(self.view.frame)-70, self.view.frame.size.width, 70);
+    //Moves
+    _lblMoves = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 - 30, 300, 55)];
+    _lblMoves.textColor = [UIColor whiteColor];
+    _lblMoves.font = [UIFont fontWithName:@"Chewy" size:20];
+    _lblMoves.textAlignment = UITextAlignmentCenter;
     
-    // Aloca o Scroll baseado no posicionamento criado
-    _scroll1 = [[UIScrollView alloc]initWithFrame:tamanhoScroll1];
+    //Estrelas
+    _star1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
+    _star2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
+    _star3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
     
-    // Redimensiona o tamanho do Scroll
-    // Alterar para a quantidad de amigos que a pessoa possui no facebook
-    // ==================================================================================================
-    _scroll1.contentSize = CGSizeMake(self.view.frame.size.width / 3 * ([self loadFacebookFriendsIDs].count+1), 70);
+    _star1.center = CGPointMake(CGRectGetMidX(self.informFase.frame) - 60, CGRectGetMidY(self.informFase.frame)/2-20);
+    _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), CGRectGetMidY(self.informFase.frame)/2-40);
+    _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, CGRectGetMidY(self.informFase.frame)/2-20);
     
-    // Define a cor de fundo do Scroll
-    _scroll1.backgroundColor = [UIColor colorWithRed:(119.0/255) green:(185.0/255) blue:(195.0/255) alpha:1];
+    [self.informFase addSubview:_btn];
+    [self.informFase addSubview:_btnJogar];
+    [self.informFase addSubview:_lblTarget];
+    [self.informFase addSubview:_lblMoves];
+    [self.informFase addSubview:_lblFase];
+    [self.informFase addSubview:_star1];
+    [self.informFase addSubview:_star2];
+    [self.informFase addSubview:_star3];
     
-    _scroll1.delegate = self;
+    // Aloca o Scroll na view
+    [self.view addSubview:_scroll1];
 }
 
 - (void)dealloc{
@@ -296,10 +325,13 @@
         NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj);
             return obj;
-        }
-        else{
-            NSLog(@"Error reading facebook Friends: %@",error.localizedDescription);
+            //            NSMutableArray *arrayIds = [NSMutableArray array];
+            //            for (NSDictionary* friends in [obj objectForKey:@"facebookFriends"]) {
+            //                [arrayIds addObject:[friends objectForKey:@"id"]];
+            //            }
+            //            return [arrayIds copy];
         }
     }
     return nil;
@@ -313,6 +345,7 @@
         NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj);
             return obj;
         }
     }
@@ -322,8 +355,9 @@
 - (void)getUserLives{
     //Carregando as Vidas do Arquivo, primeiro se desencripta e logo após seta na memória
     NSString *appDataDir = [self getAppDataDir];
+    NSLog(@"appDataDir = %@",appDataDir);
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
-       [[Life sharedInstance] loadFromFile];
+        [[Life sharedInstance] loadFromFile];
     }
     else{
         [Life sharedInstance];
@@ -414,7 +448,7 @@
         if ([obj isKindOfClass:[UIImageView class]]){
             UIImageView *imageView = (UIImageView *)obj;
             /* as Tags das Vidas começam de 10 até 15,então se for maior que 10 significa que é
-               uma UIImageView que está mostrando as vidas
+             uma UIImageView que está mostrando as vidas
              */
             if (imageView.tag >= 10){
                 /*Verificando a Tag(lembrando que ela começa de 10) então subtrai-se 10 para verificar se é menor ou igual a quantidade de vidas do usuário, caso positivo esta imageView é mostrado, caso contrário ela fica escondida.
@@ -470,44 +504,35 @@
         default:
             return;
     }
-     self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    NSLog(@"Timer Fired");
 }
 
 #pragma mark - Level
 -(IBAction)back:(id)sender
 {
-  [self fexarTela:self];
-  [self performSegueWithIdentifier:@"Menu" sender:self];
-  
+    [self fexarTela:self];
+    [self performSegueWithIdentifier:@"Menu" sender:self];
+    
     
 }
 -(IBAction)selectLevel:(id)sender
 {
-    /*
-    UIButton *btn = (UIButton *)sender;
-    btn.enabled = NO;
-    NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
     
-    if(_i > -1){
-        if ([self shouldPerformSegueWithIdentifier:@"Level" sender:self]){
-            [self performSegueWithIdentifier:@"Level" sender:self];
-        }
-        else{
-            btn.enabled = YES;
-        }
-        
-        
-    }else{
-        [self performSegueWithIdentifier:@"Menu" sender:self];
-    }
-     */
     UIButton *level = (UIButton *)sender;
     _i = level.tag;
+    
+    //Obtem o target score
+    JIMCLevel *lvl = [[JIMCLevel alloc]initWithFile:[NSString stringWithFormat:@"Level_%d",(int)_i]];
+    NSLog(@"Target = %d",(int)lvl.targetScore);
+    
+    _lblFase.text   = [NSString stringWithFormat:@"Fase %d",(int)_i+1];
+    _lblTarget.text = [NSString stringWithFormat:@"Objetivo = %d pts",(int)lvl.targetScore];
+    _lblMoves.text  = [NSString stringWithFormat:@"%d jogadas",(int)lvl.maximumMoves];
     
     //Escurece o fundo
     UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
     blurView.backgroundColor = [UIColor clearColor];
-    //[self insertPeopleOnScroll];
     [self.view insertSubview:blurView atIndex:4];
     
     [UIView animateWithDuration:1.5
@@ -520,12 +545,18 @@
                          self.informFase.center   = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
                          self.scroll1.center      = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
                          _btnJogar.center         = CGPointMake(CGRectGetMidX(self.informFase.frame), _btnJogar.center.y);
+                         _lblTarget.center        = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblTarget.center.y);
+                         _lblMoves.center         = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblMoves.center.y);
+                         _lblFase.center          = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblFase.center.y);
+                         _star1.center = CGPointMake(CGRectGetMidX(self.informFase.frame) - 60, _star1.center.y);
+                         _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), _star2.center.y);
+                         _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, _star1.center.y);
                      }completion:nil];
 }
 
 -(IBAction)jogar:(id)sender
 {
-   [self performSegueWithIdentifier:@"Level" sender:self];
+    [self performSegueWithIdentifier:@"Level" sender:self];
 }
 -(IBAction)fexarTela:(id)sender
 {
@@ -541,7 +572,7 @@
                          self.scroll1.center = CGPointMake(CGRectGetMinX(self.view.frame)+500, self.scroll1.center.y);
                          
                      }completion:^(BOOL finished){
-                             [blurView removeFromSuperview];
+                         [blurView removeFromSuperview];
                      }];
 }
 - (void)didReceiveMemoryWarning {
@@ -566,31 +597,17 @@
             return NO;
         }
     }
+//    NSLog(@"return YES");
     return YES;
-
-
+    
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-        if ([segue.identifier isEqualToString:@"Level"]){
-            GameViewController *view = [segue destinationViewController];
-            //Preparar a classe que carrega o nível para carregar o nível _i
-            view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
-        }
-}
-
-- (void)loadFromFile{
-    NSString *appDataDir = [AppUtils getAppDataDir];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
-        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
-        NSError *error;
-        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
-        if (!error){
-            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
-            NSLog(@"File dict = %@",obj);
-        }
-    }
-    else{
+    if ([segue.identifier isEqualToString:@"Level"]){
+        GameViewController *view = [segue destinationViewController];
+        //Preparar a classe que carrega o nível para carregar o nível _i
+        view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
     }
 }
 
