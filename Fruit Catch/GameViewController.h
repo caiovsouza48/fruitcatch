@@ -18,13 +18,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *powerUpImage1;
 @property (weak, nonatomic) IBOutlet UIImageView *powerUpImage2;
 @property (weak, nonatomic) IBOutlet UIImageView *powerUpUmage3;
-- (void)beginNextTurn ;
-- (void)updateLabels ;
 @property (nonatomic) NSString *levelString;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+
+- (void)beginNextTurn ;
+- (void)updateLabels ;
 - (void)shuffle;
 - (void)beginGame;
-
 - (void)back;
 
 @end
