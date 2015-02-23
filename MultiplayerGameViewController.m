@@ -649,6 +649,7 @@
                 tie = YES;
                 _randomNumber = arc4random();
                 [self generateRandomNumber];
+                
                 [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInt:self.randomNumber]}];
             } else {
                 //3
