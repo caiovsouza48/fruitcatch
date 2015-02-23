@@ -20,8 +20,8 @@
 
 + (void)sendMessageOfType:(NPFruitCatchMessage)messageType DictionaryData:(NSDictionary *)data{
     NSMutableDictionary *tempMutableDictionary = [NSMutableDictionary dictionary];
-    
-      NSDictionary *message = @{@"type" : [NSNumber numberWithInt:messageType]};
+    NSLog(@"Ditionary Data: %@",data);
+    NSDictionary *message = @{@"type" : [NSNumber numberWithInt:messageType]};
     [tempMutableDictionary addEntriesFromDictionary:message];
     [tempMutableDictionary addEntriesFromDictionary:data];
       NSData *dataPacket = [NSPropertyListSerialization dataWithPropertyList:tempMutableDictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
