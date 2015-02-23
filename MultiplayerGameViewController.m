@@ -71,13 +71,13 @@
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
-    [Nextpeer registerToSynchronizedEvent:START_GAME_SYNC_EVENT_NAME withTimetout:TIMEOUT];
+    
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     
     //self.scene.viewController = self;
-    
+    self.levelString = @"Level_1";
     // Load the level.
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
@@ -146,10 +146,11 @@
     _isPlayer1 = YES;
     //[self setGameState:kGameStateActive];
     [self.scene setUserInteractionEnabled:NO];
+    [Nextpeer registerToSynchronizedEvent:START_GAME_SYNC_EVENT_NAME withTimetout:TIMEOUT];
 //    [NetworkController sharedInstance].delegate = self;
 //    [self stateChanged:[NetworkController sharedInstance].state];
 //    // Let's start the game!
-    [self beginGame];
+    //[self beginGame];
     
     
 }
