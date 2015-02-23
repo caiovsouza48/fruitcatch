@@ -227,7 +227,6 @@
             }
         }
         
-        
         CGFloat animationDuration = (ABS(velocityX)*.0002)+.2;
     
         NSLog(@"the duration is: %f", animationDuration);
@@ -237,9 +236,10 @@
         //[self.power setPosition:location];
         NSInteger column, row;
        // if (CGRectContainsPoint(self.scene.fruitsLayer.frame, finalPoint)){
-            [self convertPoint:finalPoint toColumn:&column row:&row];
-             NSLog(@"column = %ld",(long)column);
-        NSLog(@"Row = %ld",(long)row);
+ 
+           [self convertPoint:finalPoint toColumn:&column row:&row];
+            NSLog(@"column = %ld",(long)column);
+            NSLog(@"Row = %ld",(long)row);
             if ((column != NSNotFound) && (row != NSNotFound)){
                 NSLog(@"Column and row found");
                 //_powerUpEmitter.position = (CGPoint){column,row};
@@ -251,9 +251,9 @@
                 CGRect frame = [[gesture view] frame];
                 frame.origin = self.initialImagePoint;
                 [[gesture view] setFrame:frame];
+                
                 NSLog(@"SetFrame = %@",NSStringFromCGRect(frame));
                 return;
-                    
             }
             [UIView beginAnimations:nil context:NULL];
             [UIView setAnimationDuration:animationDuration];
@@ -263,9 +263,10 @@
            
             [UIView commitAnimations];
 
-            
+    
     //    }
          [[gesture view] setCenter:CGPointMake(finalX, finalY)];
+       
     }
     
 }
