@@ -67,8 +67,9 @@
     [self registerNotifications];
     //[self.networkEngine setDelegate:self];
     // Configure the view.
-    SKView *skView = (SKView *)self.view;
-    skView.multipleTouchEnabled = NO;
+    SKView *skView = [[SKView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.view = skView;
+    //_multipleTouchEnabled = NO;
     
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
