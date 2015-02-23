@@ -649,6 +649,7 @@
     
     //Essa comparacao serve apenas para nao chamar o gameover duas vezes
     if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
+        self.scene.swipeHandler = nil;
         [self showGameOver];
     }
     
@@ -665,6 +666,7 @@
 
     //Chega se o usuário ganhou ou se acabaram os movimentos
     if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
+
         if(self.score >= self.scene.level.targetScore){
             [self.scene winLose:YES];
         }else{
