@@ -22,8 +22,6 @@
 #define randomNumberKey @"randomNumber"
 
 #define START_GAME_SYNC_EVENT_NAME @"com.sucodefrutasteam.fruitcatch.syncevent.startgame"
-#define MESSAGE_SEND_LEVEL 0
-#define MESSAGE_RANDOM_NUMBER 1
 #define TIMEOUT 5.0
 
 @interface MultiplayerGameViewController () <NetworkControllerDelegate,NPTournamentDelegate>
@@ -173,7 +171,7 @@
 - (void)nextpeerDidReceiveSynchronizedEvent:(NSString *)eventName withReason:(NPSynchronizedEventFireReason)fireReason{
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
-        NSDictionary *message = @{@"type" : [NSNumber numberWithInt:MESSAGE_RANDOM_NUMBER]};
+        NSDictionary *message = @{@"type" : [NSNumber numberWithInt:NPFruitCatchMessageSendRandomNumber]};
         NSData *dataPacket = [NSPropertyListSerialization dataWithPropertyList:message format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
         [Nextpeer pushDataToOtherPlayers:dataPacket];
 //        [self.scene setUserInteractionEnabled:YES];

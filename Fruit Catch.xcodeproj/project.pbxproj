@@ -27,6 +27,16 @@
 		43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4362E1A28A00300F1C358 /* MainMenuViewController.m */; };
 		DE342A031A815C7000E7630B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE342A021A815C7000E7630B /* AppUtils.m */; };
 		DE3DAC401A97A712002FE5FE /* NextpeerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DE3DAC3F1A97A712002FE5FE /* NextpeerHelper.m */; };
+		DE3DAC4D1A9B998E002FE5FE /* banana_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC421A9B998E002FE5FE /* banana_pu_h@2x.png */; };
+		DE3DAC4E1A9B998E002FE5FE /* laranja_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC431A9B998E002FE5FE /* laranja_pu_h@2x.png */; };
+		DE3DAC4F1A9B998E002FE5FE /* limao_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC441A9B998E002FE5FE /* limao_pu_h@2x.png */; };
+		DE3DAC501A9B998E002FE5FE /* morango_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC451A9B998E002FE5FE /* morango_pu_h@2x.png */; };
+		DE3DAC511A9B998E002FE5FE /* uva_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC461A9B998E002FE5FE /* uva_pu_h@2x.png */; };
+		DE3DAC521A9B998E002FE5FE /* banana_pu_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC481A9B998E002FE5FE /* banana_pu_v@2x.png */; };
+		DE3DAC531A9B998E002FE5FE /* laranja_pu_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC491A9B998E002FE5FE /* laranja_pu_v@2x.png */; };
+		DE3DAC541A9B998E002FE5FE /* limao_pu_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC4A1A9B998E002FE5FE /* limao_pu_v@2x.png */; };
+		DE3DAC551A9B998E002FE5FE /* morango_pu_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC4B1A9B998E002FE5FE /* morango_pu_v@2x.png */; };
+		DE3DAC561A9B998E002FE5FE /* uva_pu_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC4C1A9B998E002FE5FE /* uva_pu_v@2x.png */; };
 		DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */; };
 		DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DE6E98E31A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle */; };
 		DE805C611A852BAF009694C0 /* EloRating.m in Sources */ = {isa = PBXBuildFile; fileRef = DE805C601A852BAF009694C0 /* EloRating.m */; };
@@ -163,6 +173,16 @@
 		DE342A021A815C7000E7630B /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
 		DE3DAC3E1A97A712002FE5FE /* NextpeerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextpeerHelper.h; sourceTree = "<group>"; };
 		DE3DAC3F1A97A712002FE5FE /* NextpeerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextpeerHelper.m; sourceTree = "<group>"; };
+		DE3DAC421A9B998E002FE5FE /* banana_pu_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banana_pu_h@2x.png"; sourceTree = "<group>"; };
+		DE3DAC431A9B998E002FE5FE /* laranja_pu_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "laranja_pu_h@2x.png"; sourceTree = "<group>"; };
+		DE3DAC441A9B998E002FE5FE /* limao_pu_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "limao_pu_h@2x.png"; sourceTree = "<group>"; };
+		DE3DAC451A9B998E002FE5FE /* morango_pu_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "morango_pu_h@2x.png"; sourceTree = "<group>"; };
+		DE3DAC461A9B998E002FE5FE /* uva_pu_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uva_pu_h@2x.png"; sourceTree = "<group>"; };
+		DE3DAC481A9B998E002FE5FE /* banana_pu_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banana_pu_v@2x.png"; sourceTree = "<group>"; };
+		DE3DAC491A9B998E002FE5FE /* laranja_pu_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "laranja_pu_v@2x.png"; sourceTree = "<group>"; };
+		DE3DAC4A1A9B998E002FE5FE /* limao_pu_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "limao_pu_v@2x.png"; sourceTree = "<group>"; };
+		DE3DAC4B1A9B998E002FE5FE /* morango_pu_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "morango_pu_v@2x.png"; sourceTree = "<group>"; };
+		DE3DAC4C1A9B998E002FE5FE /* uva_pu_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uva_pu_v@2x.png"; sourceTree = "<group>"; };
 		DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iconTest.jpeg; sourceTree = "<group>"; };
 		DE6E98E31A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NPResources_iPhone_Portrait.bundle; sourceTree = "<group>"; };
 		DE805C5F1A852BAF009694C0 /* EloRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EloRating.h; sourceTree = "<group>"; };
@@ -476,6 +496,30 @@
 			name = MainMenu;
 			sourceTree = "<group>";
 		};
+		DE3DAC411A9B998E002FE5FE /* PowerUp_horizontal */ = {
+			isa = PBXGroup;
+			children = (
+				DE3DAC421A9B998E002FE5FE /* banana_pu_h@2x.png */,
+				DE3DAC431A9B998E002FE5FE /* laranja_pu_h@2x.png */,
+				DE3DAC441A9B998E002FE5FE /* limao_pu_h@2x.png */,
+				DE3DAC451A9B998E002FE5FE /* morango_pu_h@2x.png */,
+				DE3DAC461A9B998E002FE5FE /* uva_pu_h@2x.png */,
+			);
+			path = PowerUp_horizontal;
+			sourceTree = "<group>";
+		};
+		DE3DAC471A9B998E002FE5FE /* PowerUp_vertical */ = {
+			isa = PBXGroup;
+			children = (
+				DE3DAC481A9B998E002FE5FE /* banana_pu_v@2x.png */,
+				DE3DAC491A9B998E002FE5FE /* laranja_pu_v@2x.png */,
+				DE3DAC4A1A9B998E002FE5FE /* limao_pu_v@2x.png */,
+				DE3DAC4B1A9B998E002FE5FE /* morango_pu_v@2x.png */,
+				DE3DAC4C1A9B998E002FE5FE /* uva_pu_v@2x.png */,
+			);
+			path = PowerUp_vertical;
+			sourceTree = "<group>";
+		};
 		DE8092D81A7FDDEF008E2B37 /* Multiplayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -561,6 +605,8 @@
 		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
 			isa = PBXGroup;
 			children = (
+				DE3DAC411A9B998E002FE5FE /* PowerUp_horizontal */,
+				DE3DAC471A9B998E002FE5FE /* PowerUp_vertical */,
 				E3CFD4BA1A8BAFAA00C6FF64 /* Frameworks */,
 				DE8092D81A7FDDEF008E2B37 /* Multiplayer */,
 				DEA2D2B91A39C83D0038B65A /* Util */,
@@ -847,6 +893,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E37BB4EA1A40924B00F8E679 /* fazendeiro_fase@2x.png in Resources */,
+				DE3DAC541A9B998E002FE5FE /* limao_pu_v@2x.png in Resources */,
 				4361288B1A40612100A2B620 /* mapa@2x.png in Resources */,
 				4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */,
 				0FEE059F1A433F7E00E8CF81 /* BackButton.png in Resources */,
@@ -854,7 +901,9 @@
 				E3D2436F1A8E62C8006D7445 /* morango_pu_v@2x.png in Resources */,
 				E3D243641A8D19A8006D7445 /* limao_pu_h@2x.png in Resources */,
 				DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */,
+				DE3DAC551A9B998E002FE5FE /* morango_pu_v@2x.png in Resources */,
 				E3E3ECC21A23B34500E7E18E /* Level_1.json in Resources */,
+				DE3DAC511A9B998E002FE5FE /* uva_pu_h@2x.png in Resources */,
 				E3CFD4B71A8B86B900C6FF64 /* retangulo_generico.png in Resources */,
 				E3E3ECC31A23B34500E7E18E /* Level_2.json in Resources */,
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
@@ -863,6 +912,7 @@
 				DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
 				DECB41231A8D1849004F2DED /* spark.png in Resources */,
+				DE3DAC4D1A9B998E002FE5FE /* banana_pu_h@2x.png in Resources */,
 				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
 				E3D2436C1A8E62C8006D7445 /* banana_pu_v@2x.png in Resources */,
 				E3CFD4B61A8B86B900C6FF64 /* retangulo_configuracoes@3x.png in Resources */,
@@ -870,6 +920,7 @@
 				E3D2436D1A8E62C8006D7445 /* laranja_pu_v@2x.png in Resources */,
 				E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */,
 				E3D243621A8D19A8006D7445 /* banana_pu_h@2x.png in Resources */,
+				DE3DAC531A9B998E002FE5FE /* laranja_pu_v@2x.png in Resources */,
 				0FEE05A11A43405000E8CF81 /* NextButton.png in Resources */,
 				E37BB4E21A40580500F8E679 /* fazendeiro@2x.png in Resources */,
 				E3CFD4B41A8B86B900C6FF64 /* retangulo_configuracoes.png in Resources */,
@@ -883,15 +934,20 @@
 				E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */,
 				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
 				E3D243661A8D19A8006D7445 /* uva_pu_h@2x.png in Resources */,
+				DE3DAC521A9B998E002FE5FE /* banana_pu_v@2x.png in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
 				E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */,
 				0FEE059E1A433F7E00E8CF81 /* MenuButton.png in Resources */,
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
+				DE3DAC4F1A9B998E002FE5FE /* limao_pu_h@2x.png in Resources */,
 				E3CFD4B51A8B86B900C6FF64 /* retangulo_configuracoes@2x.png in Resources */,
 				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
 				433A10001A8B90360096B0E5 /* botao_fechar@3x.png in Resources */,
+				DE3DAC501A9B998E002FE5FE /* morango_pu_h@2x.png in Resources */,
 				E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */,
+				DE3DAC4E1A9B998E002FE5FE /* laranja_pu_h@2x.png in Resources */,
 				E37BB4E11A40580500F8E679 /* configuracoes@2x.png in Resources */,
+				DE3DAC561A9B998E002FE5FE /* uva_pu_v@2x.png in Resources */,
 				E37BB4E41A40580500F8E679 /* multiplayer@2x.png in Resources */,
 				E3CFD4B91A8B86B900C6FF64 /* retangulo_generico@3x.png in Resources */,
 				E3D2436E1A8E62C8006D7445 /* limao_pu_v@2x.png in Resources */,
@@ -1081,11 +1137,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/Italo/Documents/FacebookSDK,
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Fruit",
 					Catch,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -1104,11 +1159,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/Italo/Documents/FacebookSDK,
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Fruit",
 					Catch,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
