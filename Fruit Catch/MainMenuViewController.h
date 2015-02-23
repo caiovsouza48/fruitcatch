@@ -23,4 +23,6 @@
 @property (nonatomic) NSString* userImageURL;
 @property (nonatomic) UIImage* imageFacebook;
 
+- (void)loadFromFile;
+
 @end

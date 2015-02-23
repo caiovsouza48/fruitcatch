@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F05E8071A41F6A900D11622 /* GameOverScene.m */; };
+		0F30FFFA1A97BF0300216088 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0F30FFF81A97BF0300216088 /* MyParticle.sks */; };
+		0F30FFFB1A97BF0300216088 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F30FFF91A97BF0300216088 /* spark.png */; };
 		0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */; };
 		0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */; };
 		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
@@ -105,6 +107,8 @@
 /* Begin PBXFileReference section */
 		0F05E8061A41F6A900D11622 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		0F05E8071A41F6A900D11622 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		0F30FFF81A97BF0300216088 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
+		0F30FFF91A97BF0300216088 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		0F7808181A3F501B00883622 /* CustomSegueSinglePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueSinglePlayer.h; sourceTree = "<group>"; };
 		0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueSinglePlayer.m; sourceTree = "<group>"; };
 		0FA8DFAE1A362C2E005B994C /* JIMCBombaMaisPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCBombaMaisPowerUp.h; path = "Fruit Catch/JIMCBombaMaisPowerUp.h"; sourceTree = "<group>"; };
@@ -382,6 +386,15 @@
 			name = Segue;
 			sourceTree = "<group>";
 		};
+		0FF5C3911A96616800E26692 /* JIMCParticle */ = {
+			isa = PBXGroup;
+			children = (
+				0F30FFF81A97BF0300216088 /* MyParticle.sks */,
+				0F30FFF91A97BF0300216088 /* spark.png */,
+			);
+			name = JIMCParticle;
+			sourceTree = "<group>";
+		};
 		436CBD071A2F732E00862EDE /* WorldMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +612,7 @@
 		E3E3EC971A23ACFB00E7E18E /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				0FF5C3911A96616800E26692 /* JIMCParticle */,
 				0FA8DFB91A362E67005B994C /* JIMCBombaMaisPowerUp */,
 				0FA8DFB71A362E36005B994C /* JIMCPowerUp */,
 				0FD2EDB81A23BA5A000EB99F /* MyScene */,
@@ -734,6 +748,7 @@
 				E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */,
 				0FEE05A11A43405000E8CF81 /* NextButton.png in Resources */,
 				E37BB4E21A40580500F8E679 /* fazendeiro@2x.png in Resources */,
+				0F30FFFA1A97BF0300216088 /* MyParticle.sks in Resources */,
 				E3CFD4B41A8B86B900C6FF64 /* retangulo_configuracoes.png in Resources */,
 				E3CFD4B81A8B86B900C6FF64 /* retangulo_generico@2x.png in Resources */,
 				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
@@ -760,6 +775,7 @@
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
 				E3E3ECC41A23B34500E7E18E /* Level_3.json in Resources */,
 				E33DD8CD1A3B13BF001C2897 /* coracao.png in Resources */,
+				0F30FFFB1A97BF0300216088 /* spark.png in Resources */,
 				E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */,
 				E37BB4E51A40580500F8E679 /* singleplayer@2x.png in Resources */,
 				E3CFD4AC1A8B867000C6FF64 /* Chewy.ttf in Resources */,

@@ -381,6 +381,7 @@
             }
         }
     }
+    
     return rowChains;
 }
 
@@ -447,9 +448,10 @@
                     chain.chainType = ChainTypeHorizontal;
                     [chain addFruit:_fruits[column][row]];
                     [set addObject:chain];
-                }
             }
         }
+    }
+    
     return set;
 }
 

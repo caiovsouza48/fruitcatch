@@ -11,6 +11,7 @@
 #import "RNEncryptor.h"
 #import "AppUtils.h"
 #define SECRET @"0x777C4f3"
+#define USER_SECRET @"0x444F@c3b0ok"
 
 static Life *instance;
 
@@ -42,17 +43,15 @@ static Life *instance;
 - (instancetype)initFromFile{
     self = [super init];
     if (self){
-        NSString *appDataDir = [AppUtils getAppDataDir];
+        NSString *appDataDir = [AppUtils getAppLifeDir];
         if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
             NSData *data = [NSData dataWithContentsOfFile:appDataDir];
             NSError *error;
             NSData *decryptedData = [RNDecryptor decryptData:data withPassword:SECRET error:&error];
             if (!error){
                 self = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
-                NSLog(@"self = %@",self);
             }
             else{
-                NSLog(@"Error in getUserLives: %@",error.localizedDescription);
                 self = [[Life alloc]initFromZero];
             }
         }
@@ -78,14 +77,13 @@ static Life *instance;
 }
 
 - (void)loadFromFile{
-    NSString *appDataDir = [AppUtils getAppDataDir];
+    NSString *appDataDir = [AppUtils getAppLifeDir];
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
         NSData *data = [NSData dataWithContentsOfFile:appDataDir];
         NSError *error;
         NSData *decryptedData = [RNDecryptor decryptData:data withPassword:SECRET error:&error];
         if (!error){
             Life *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
-            NSLog(@"loadFromFile obj = %@",obj);
             self.lifeCount = obj.lifeCount;
             self.lifeTime = obj.lifeTime;
         }
@@ -94,7 +92,7 @@ static Life *instance;
 }
 
 - (void)saveToFile{
-    NSString *filePath = [AppUtils getAppDataDir];
+    NSString *filePath = [AppUtils getAppLifeDir];
     //NSLog(@"%@",self.lives);
     NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:self];
     NSError *error;

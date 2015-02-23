@@ -37,6 +37,9 @@
     [super viewWillAppear:animated];
     [self getUserLives];
     
+    
+    //[self loadFromFile];
+
     //Move a scrollView para o fundo da imagem.
     CGRect mask = CGRectMake(0, _scrollView.contentSize.height - self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     [_scrollView scrollRectToVisible:mask animated:NO];
@@ -47,9 +50,11 @@
     //[self getUserLives];
     [self registerLivesBackgroundNotification];
     [self registerAppEnterForegroundNotification];
+    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
     
-    //ScrollView
+    [self insertScrollFacebook];
+    [self insertPeopleOnScroll];
     
     //Carrega a imagem de fundo
     UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa"]];
@@ -63,7 +68,6 @@
     _scrollView.showsVerticalScrollIndicator   = NO;
     _scrollView.delegate = self;
 
-    NSLog(@"Scrollview height = %f",_scrollView.frame.size.height);
     [self.view addSubview:_scrollView];
     
     [_scrollView addSubview:fundo];
@@ -73,100 +77,6 @@
     
     _i = -1;
     
-    // Define o posicionamento dos Scrolls CGRectGetMaxY(self.view.frame)-70
-    CGRect tamanhoScroll1 = CGRectMake(CGRectGetMinX(self.view.frame)+self.view.frame.size.width, CGRectGetMaxY(self.view.frame)-70, self.view.frame.size.width, 70);
-
-    // Aloca o Scroll baseado no posicionamento criado
-    _scroll1 = [[UIScrollView alloc]initWithFrame:tamanhoScroll1];
-
-    // Redimensiona o tamanho do Scroll
-    // Alterar para a quantidad de amigos que a pessoa possui no facebook
-    // ==================================================================================================
-    _scroll1.contentSize = CGSizeMake(self.view.frame.size.width / 3 * ([self loadFacebookFriendsIDs].count+1), 70);
-
-    // Define a cor de fundo do Scroll
-    _scroll1.backgroundColor = [UIColor colorWithRed:(119.0/255) green:(185.0/255) blue:(195.0/255) alpha:1];
-
-    _scroll1.delegate = self;
-    
-    // Mostra imagens
-    UIImageView *imagem;
-    
-    // Mostra os nomes das pessoas
-    UILabel* nome;
-    
-    int i = 0;
-    
-    NSMutableArray *arrayIds = [NSMutableArray array];
-    NSMutableArray *arrayNames = [NSMutableArray array];
-    
-    NSArray* tempArrayName;
-
-    for (NSDictionary* friends in [[self loadFacebookFriendsIDs] objectForKey:@"facebookFriends"]) {
-        
-        [arrayIds addObject:[friends objectForKey:@"id"]];
-        [arrayNames addObject:[friends objectForKey:@"name"]];
-        
-        // Define a cor do botão
-        [imagem setBackgroundColor:[UIColor clearColor]];
-        // Adiciona o botão no Scroll
-        [_scroll1 addSubview:imagem];
-        [_scroll1 addSubview:nome];
-        
-        // Adiciona o usuário do facebook
-        if (i == 0) {
-            NSString* userId;
-            NSString* userName;
-            
-            userId = [[self loadFacebookUserID] objectForKey:@"facebookID"];
-            userName = [[self loadFacebookUserID] objectForKey:@"alias"];
-            tempArrayName = [userName componentsSeparatedByString:@" "];
-            
-            // Aloca um botão do tamanho da metade da tela em que está
-            imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
-            nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 35, 60, 40)];
-            
-            nome.text = tempArrayName[0];
-            [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
-            nome.textColor = [UIColor whiteColor];
-
-            NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", userId];
-            
-            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
-            imagem.image = [UIImage imageWithData:imageData];
-            imagem.contentMode = UIViewContentModeScaleToFill;
-            
-            // Adiciona a imagem no Scroll
-            [_scroll1 addSubview:imagem];
-            [_scroll1 addSubview:nome];
-        }
-
-        // Aloca uma imagem do tamanho da metade da tela em que está
-        imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
-        nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 35, 60, 40)];
-        
-        tempArrayName = [[arrayNames objectAtIndex:i] componentsSeparatedByString:@" "];
-        NSLog(@"tempArrayName = %@", tempArrayName[0]);
-        nome.text = tempArrayName[0];
-        [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
-        nome.textColor = [UIColor whiteColor];
-        
-        NSString* friendsImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [arrayIds objectAtIndex:i]];
-        
-        NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:friendsImageURL]];
-        imagem.image = [UIImage imageWithData:imageData];
-        imagem.contentMode = UIViewContentModeScaleToFill;
-        
-        // Define a cor do botão
-        [imagem setBackgroundColor:[UIColor clearColor]];
-        // Adiciona a imagem no Scroll
-        [_scroll1 addSubview:imagem];
-        
-        [_scroll1 addSubview:nome];
-
-        // Daqui em diante, adiciona os amigos do facebook
-        i++;
-    }
 
     //Cria o botao back
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -237,6 +147,105 @@
     [self.view addSubview:_scroll1];
 }
 
+- (void)insertPeopleOnScroll{
+    // Mostra imagens
+    UIImageView *imagem;
+    
+    // Mostra os nomes das pessoas
+    UILabel* nome;
+    
+    int i = 0;
+    
+    NSMutableArray *arrayIds = [NSMutableArray array];
+    NSMutableArray *arrayNames = [NSMutableArray array];
+    
+    NSArray* tempArrayName;
+//    NSLog(@"Count = %d",[self loadFacebookFriendsIDs].count);
+    for (NSDictionary* friends in [[self loadFacebookFriendsIDs] objectForKey:@"facebookFriends"]) {
+        
+        [arrayIds addObject:[friends objectForKey:@"id"]];
+        [arrayNames addObject:[friends objectForKey:@"name"]];
+        
+        // Define a cor do botão
+        [imagem setBackgroundColor:[UIColor clearColor]];
+        // Adiciona o botão no Scroll
+        [_scroll1 addSubview:imagem];
+        [_scroll1 addSubview:nome];
+        
+        // Adiciona o usuário do facebook
+        if (i == 0) {
+            NSString* userId;
+            NSString* userName;
+            
+            userId = [[self loadFacebookUserID] objectForKey:@"facebookID"];
+            userName = [[self loadFacebookUserID] objectForKey:@"alias"];
+            tempArrayName = [userName componentsSeparatedByString:@" "];
+            
+            // Aloca um botão do tamanho da metade da tela em que está
+            imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
+            nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 35, 60, 40)];
+            
+            nome.text = tempArrayName[0];
+            [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
+            nome.textColor = [UIColor whiteColor];
+            
+            NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", userId];
+            
+            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
+            imagem.image = [UIImage imageWithData:imageData];
+            imagem.contentMode = UIViewContentModeScaleToFill;
+            
+            // Adiciona a imagem no Scroll
+            [_scroll1 addSubview:imagem];
+            [_scroll1 addSubview:nome];
+        }
+        
+        // Aloca uma imagem do tamanho da metade da tela em que está
+        imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
+        nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 35, 60, 40)];
+        
+        tempArrayName = [[arrayNames objectAtIndex:i] componentsSeparatedByString:@" "];
+        nome.text = tempArrayName[0];
+        [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
+        nome.textColor = [UIColor whiteColor];
+        
+        NSString* friendsImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [arrayIds objectAtIndex:i]];
+        
+        NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:friendsImageURL]];
+        imagem.image = [UIImage imageWithData:imageData];
+        imagem.contentMode = UIViewContentModeScaleToFill;
+        
+        // Define a cor do botão
+        [imagem setBackgroundColor:[UIColor clearColor]];
+        // Adiciona a imagem no Scroll
+        [_scroll1 addSubview:imagem];
+        
+        [_scroll1 addSubview:nome];
+        
+        // Daqui em diante, adiciona os amigos do facebook
+        i++;
+    }
+    
+}
+
+- (void)insertScrollFacebook{
+    // Define o posicionamento dos Scrolls CGRectGetMaxY(self.view.frame)-70
+    CGRect tamanhoScroll1 = CGRectMake(CGRectGetMinX(self.view.frame)+self.view.frame.size.width, CGRectGetMaxY(self.view.frame)-70, self.view.frame.size.width, 70);
+    
+    // Aloca o Scroll baseado no posicionamento criado
+    _scroll1 = [[UIScrollView alloc]initWithFrame:tamanhoScroll1];
+    
+    // Redimensiona o tamanho do Scroll
+    // Alterar para a quantidad de amigos que a pessoa possui no facebook
+    // ==================================================================================================
+    _scroll1.contentSize = CGSizeMake(self.view.frame.size.width / 3 * ([self loadFacebookFriendsIDs].count+1), 70);
+    
+    // Define a cor de fundo do Scroll
+    _scroll1.backgroundColor = [UIColor colorWithRed:(119.0/255) green:(185.0/255) blue:(195.0/255) alpha:1];
+    
+    _scroll1.delegate = self;
+}
+
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -287,13 +296,10 @@
         NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
-            NSLog(@"File dict = %@",obj);
             return obj;
-//            NSMutableArray *arrayIds = [NSMutableArray array];
-//            for (NSDictionary* friends in [obj objectForKey:@"facebookFriends"]) {
-//                [arrayIds addObject:[friends objectForKey:@"id"]];
-//            }
-//            return [arrayIds copy];
+        }
+        else{
+            NSLog(@"Error reading facebook Friends: %@",error.localizedDescription);
         }
     }
     return nil;
@@ -307,7 +313,6 @@
         NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
-            NSLog(@"File dict = %@",obj);
             return obj;
         }
     }
@@ -317,7 +322,6 @@
 - (void)getUserLives{
     //Carregando as Vidas do Arquivo, primeiro se desencripta e logo após seta na memória
     NSString *appDataDir = [self getAppDataDir];
-    NSLog(@"appDataDir = %@",appDataDir);
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
        [[Life sharedInstance] loadFromFile];
     }
@@ -467,7 +471,6 @@
             return;
     }
      self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
-    NSLog(@"Timer Fired");
 }
 
 #pragma mark - Level
@@ -504,6 +507,7 @@
     //Escurece o fundo
     UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
     blurView.backgroundColor = [UIColor clearColor];
+    //[self insertPeopleOnScroll];
     [self.view insertSubview:blurView atIndex:4];
     
     [UIView animateWithDuration:1.5
@@ -562,7 +566,6 @@
             return NO;
         }
     }
-    NSLog(@"return YES");
     return YES;
 
 
@@ -574,6 +577,21 @@
             //Preparar a classe que carrega o nível para carregar o nível _i
             view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
         }
+}
+
+- (void)loadFromFile{
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj);
+        }
+    }
+    else{
+    }
 }
 
 @end
