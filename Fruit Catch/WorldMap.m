@@ -27,7 +27,12 @@
 @property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) IBOutlet UIButton *btn;
 @property (nonatomic) IBOutlet UIButton *btnJogar;
-//@property (nonatomic) UIView *blurView;
+@property (nonatomic) IBOutlet UILabel  *lblFase;
+@property (nonatomic) IBOutlet UILabel  *lblTarget;
+@property (nonatomic) IBOutlet UILabel  *lblMoves;
+@property (nonatomic) IBOutlet UIImageView *star1;
+@property (nonatomic) IBOutlet UIImageView *star2;
+@property (nonatomic) IBOutlet UIImageView *star3;
 @end
 
 @implementation WorldMap
@@ -230,8 +235,41 @@
     _btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     _btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     
+    //Fase
+    _lblFase = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMinY(self.informFase.frame) / 2 - 40, 300, 55)];
+    _lblFase.textColor = [UIColor whiteColor];
+    _lblFase.font = [UIFont fontWithName:@"Chewy" size:40];
+    _lblFase.textAlignment = UITextAlignmentCenter;
+    
+    //Target
+    _lblTarget = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 - 60, 300, 55)];
+    _lblTarget.textColor = [UIColor whiteColor];
+    _lblTarget.font = [UIFont fontWithName:@"Chewy" size:30];
+    _lblTarget.textAlignment = UITextAlignmentCenter;
+
+    //Moves
+    _lblMoves = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 - 30, 300, 55)];
+    _lblMoves.textColor = [UIColor whiteColor];
+    _lblMoves.font = [UIFont fontWithName:@"Chewy" size:20];
+    _lblMoves.textAlignment = UITextAlignmentCenter;
+    
+    //Estrelas
+    _star1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
+    _star2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
+    _star3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
+    
+    _star1.center = CGPointMake(CGRectGetMidX(self.informFase.frame) - 60, CGRectGetMidY(self.informFase.frame)/2-20);
+    _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), CGRectGetMidY(self.informFase.frame)/2-40);
+    _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, CGRectGetMidY(self.informFase.frame)/2-20);
+    
     [self.informFase addSubview:_btn];
     [self.informFase addSubview:_btnJogar];
+    [self.informFase addSubview:_lblTarget];
+    [self.informFase addSubview:_lblMoves];
+    [self.informFase addSubview:_lblFase];
+    [self.informFase addSubview:_star1];
+    [self.informFase addSubview:_star2];
+    [self.informFase addSubview:_star3];
     
     // Aloca o Scroll na view
     [self.view addSubview:_scroll1];
@@ -480,26 +518,17 @@
 }
 -(IBAction)selectLevel:(id)sender
 {
-    /*
-     UIButton *btn = (UIButton *)sender;
-     btn.enabled = NO;
-     NSLog(@"Positionx = %f, y = %f",btn.frame.origin.x, btn.frame.origin.y);
-     
-     if(_i > -1){
-     if ([self shouldPerformSegueWithIdentifier:@"Level" sender:self]){
-     [self performSegueWithIdentifier:@"Level" sender:self];
-     }
-     else{
-     btn.enabled = YES;
-     }
-     
-     
-     }else{
-     [self performSegueWithIdentifier:@"Menu" sender:self];
-     }
-     */
+    
     UIButton *level = (UIButton *)sender;
     _i = level.tag;
+    
+    //Obtem o target score
+    JIMCLevel *lvl = [[JIMCLevel alloc]initWithFile:[NSString stringWithFormat:@"Level_%d",(int)_i]];
+    NSLog(@"Target = %d",(int)lvl.targetScore);
+    
+    _lblFase.text   = [NSString stringWithFormat:@"Fase %d",(int)_i+1];
+    _lblTarget.text = [NSString stringWithFormat:@"Objetivo = %d pts",(int)lvl.targetScore];
+    _lblMoves.text  = [NSString stringWithFormat:@"%d jogadas",(int)lvl.maximumMoves];
     
     //Escurece o fundo
     UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
@@ -516,6 +545,12 @@
                          self.informFase.center   = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
                          self.scroll1.center      = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
                          _btnJogar.center         = CGPointMake(CGRectGetMidX(self.informFase.frame), _btnJogar.center.y);
+                         _lblTarget.center        = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblTarget.center.y);
+                         _lblMoves.center         = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblMoves.center.y);
+                         _lblFase.center          = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblFase.center.y);
+                         _star1.center = CGPointMake(CGRectGetMidX(self.informFase.frame) - 60, _star1.center.y);
+                         _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), _star2.center.y);
+                         _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, _star1.center.y);
                      }completion:nil];
 }
 
@@ -562,7 +597,7 @@
             return NO;
         }
     }
-    NSLog(@"return YES");
+//    NSLog(@"return YES");
     return YES;
     
     

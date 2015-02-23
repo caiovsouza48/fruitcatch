@@ -32,6 +32,8 @@
 @property (strong, nonatomic) SKCropNode *cropLayer;
 @property (strong, nonatomic) SKNode *maskLayer;
 
+@property (nonatomic) BOOL win;
+
 @end
 
 @implementation MyScene
@@ -310,7 +312,9 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"zerarRetryNotification" object:nil];
         
     }else if ([no.name isEqualToString:@"next"]){
-        NSLog(@"Next Button Clicked");
+        //Obtem o nível atual
+        NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
+        NSInteger i = [[a objectAtIndex:1] integerValue];
         
     }else if ([no.name isEqualToString:@"menu"]){
         NSLog(@"Menu Button Clicked");
@@ -511,9 +515,19 @@
         for (JIMCFruit *fruit in chain.fruits) {
             if ([fruit isKindOfClass:[JIMCFruit class]]){
                 if (fruit.sprite != nil) {
-                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.2];
+                    
+                    // Animação das explosões das frutas
+                    SKEmitterNode *emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"MyParticle" ofType:@"sks"]];
+                    emitter.zPosition = 600;
+                    emitter.position = CGPointMake(0, 0);
+                    [fruit.sprite addChild:emitter];
+                    
+                    SKAction *scaleAction = [SKAction scaleTo:0.1 duration:0.3];
+                    SKAction *acao = [SKAction fadeAlphaTo:0 duration:0.3];
+
                     scaleAction.timingMode = SKActionTimingEaseOut;
                     [fruit.sprite runAction:[SKAction sequence:@[scaleAction, [SKAction removeFromParent]]]];
+                    [emitter runAction:[SKAction sequence:@[acao, [SKAction removeFromParent]]]];
                     
                     // It may happen that the same JIMCFruit object is part of two chains
                     // (L-shape match). In that case, its sprite should only be removed
@@ -527,11 +541,16 @@
     if([SettingsSingleton sharedInstance].SFX == ON){
         [self runAction:self.matchSound];
     }
+    
+    
+    
+
     // Continue with the game after the animations have completed.
     [self runAction:[SKAction sequence:@[
                                          [SKAction waitForDuration:0.3],
                                          [SKAction runBlock:completion]
                                          ]]];
+
 }
 - (void)animateMatchedFruitsType:(NSSet *)chains completion:(dispatch_block_t)completion {
     
@@ -686,6 +705,27 @@
 }
 
 - (void)animateGameOver {
+    
+    //Texto vitória/derrota
+    SKLabelNode *winLose = [[SKLabelNode alloc] initWithFontNamed:@"Chewy"];
+    winLose.fontSize     = 40;
+    winLose.fontColor    = [SKColor whiteColor];
+    winLose.zPosition    = 50;
+    winLose.position     = CGPointMake(0, 110);
+    
+    if(_win){
+        winLose.text = @"Vitória";
+    }else{
+        winLose.text = @"Derrota";
+    }
+    
+    SKLabelNode *scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Chewy"];
+    scoreLabel.fontSize     = 40;
+    scoreLabel.fontColor    = [SKColor whiteColor];
+    scoreLabel.zPosition    = 50;
+    scoreLabel.position     = CGPointMake(0, 0);
+    scoreLabel.text         = [NSString stringWithFormat:@"%d",(int)self.viewController.score];
+    
     // Ação dos botões
     SKAction *acaoDescer = [SKAction moveToX:CGRectGetMidX(self.frame) duration:0.5];
     
@@ -700,37 +740,71 @@
     background.zPosition = 49;
     [self.gameOverScreen addChild:background];
     
-    
+    //Kasco
+    SKSpriteNode *kasco;
     
     // Imagem dos botões
-    self.gameOverScreen.retry = [[SKSpriteNode alloc]initWithImageNamed:@"RetryButton.png"];
-    self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"NextButton.png"];
-    self.gameOverScreen.menu = [[SKSpriteNode alloc]initWithImageNamed:@"MenuButton.png"];
+    self.gameOverScreen.retry = [[SKSpriteNode alloc]initWithImageNamed:@"botao_jogar_novamente"];
+    self.gameOverScreen.menu  = [[SKSpriteNode alloc]initWithImageNamed:@"botao_menu"];
+    
+    if(_win){
+        kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_pop_over"];
+        self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"botao_proxima_fase"];
+    }else{
+        kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_triste_cesta_vazia"];
+    }
 
     // Posição dos botões
-    self.gameOverScreen.retry.position = CGPointMake(-100, self.gameOverScreen.position.y);
-    self.gameOverScreen.next.position = CGPointMake(0, self.gameOverScreen.position.y);
-    self.gameOverScreen.menu.position = CGPointMake(100, self.gameOverScreen.position.y);
+    CGFloat yPos = self.gameOverScreen.position.y - 60;
+    kasco.position = CGPointMake(-90, -80);
+    
+    if(_win){
+        self.gameOverScreen.menu.position  = CGPointMake(-10, yPos);
+        self.gameOverScreen.retry.position = CGPointMake(55, yPos);
+        self.gameOverScreen.next.position  = CGPointMake(120, yPos);
+    }else{
+        self.gameOverScreen.menu.position  = CGPointMake(20, yPos);
+        self.gameOverScreen.retry.position = CGPointMake(100, yPos);
+    }
     
     // Nome dos botões
     self.gameOverScreen.retry.name = @"retry";
-    self.gameOverScreen.next.name = @"next";
-    self.gameOverScreen.menu.name = @"menu";
+    self.gameOverScreen.menu.name  = @"menu";
+    kasco.name = @"kasco";
+    
+    if(_win){
+        self.gameOverScreen.next.name = @"next";
+    }
     
     // zPosition dos botões
     self.gameOverScreen.retry.zPosition = 50;
-    self.gameOverScreen.next.zPosition = 50;
-    self.gameOverScreen.menu.zPosition = 50;
+    self.gameOverScreen.menu.zPosition  = 50;
+    kasco.zPosition = 50;
+    
+    if(_win){
+        self.gameOverScreen.next.zPosition = 50;
+    }
 
     // Tamanho dos botões
-    self.gameOverScreen.retry.size = CGSizeMake(40, 40);
-    self.gameOverScreen.next.size = CGSizeMake(40, 40);
-    self.gameOverScreen.menu.size = CGSizeMake(40, 40);
+    CGFloat btnSize = 30;
+    self.gameOverScreen.retry.size = CGSizeMake(btnSize, btnSize);
+    self.gameOverScreen.menu.size  = CGSizeMake(btnSize, btnSize);
+    kasco.size = CGSizeMake(118, 168);
+    
+    if(_win){
+        self.gameOverScreen.next.size = CGSizeMake(btnSize, btnSize);
+    }
 
     // Adiciona os botões na gameOverScreen
     [self.gameOverScreen addChild:self.gameOverScreen.retry];
-    [self.gameOverScreen addChild:self.gameOverScreen.next];
     [self.gameOverScreen addChild:self.gameOverScreen.menu];
+    [self.gameOverScreen addChild:kasco];
+    [self.gameOverScreen addChild:winLose];
+    [self.gameOverScreen addChild:scoreLabel];
+    
+    if(_win){
+        [self.gameOverScreen addChild:self.gameOverScreen.next];
+    }
 
     // Desce a tela da gameOverScreen
     [self.gameOverScreen runAction:acaoDescer];
@@ -747,13 +821,8 @@
 
 -(void)winLose:(BOOL)win
 {
-    if(win){
-        //Se ganhou
-        NSLog(@"WIN");
-    }else{
-        //Se perdeu
-        NSLog(@"Lose");
-    }
+    _win = win;
+    [self animateGameOver];
 }
 
 @end

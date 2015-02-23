@@ -12,4 +12,6 @@
 
 + (NSString *)getAppDataDir;
 
++ (NSString *)getAppLifeDir;
+
 @end

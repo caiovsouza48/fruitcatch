@@ -640,10 +640,8 @@
     [self updateLabels];
     
     if (self.score >= self.level.targetScore) {
-        [self.scene animateGameOver];
 //        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
     } else if (self.movesLeft == 0) {
-        [self.scene animateGameOver];
 //        self.movesLeft = self.level.maximumMoves;
 //        self.score = 0;
         [self updateLabels];
@@ -725,8 +723,6 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
-    
     [self.scene removeActionForKey:@"Hint"];
     if(self.hintNode){
         [self.scene runAction:[SKAction runBlock:^{

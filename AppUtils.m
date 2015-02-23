@@ -18,4 +18,12 @@
     
 }
 
++ (NSString *)getAppLifeDir {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:@"appLives"];
+    
+}
+
 @end
