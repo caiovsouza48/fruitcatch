@@ -56,6 +56,8 @@
 
 @property(nonatomic) SKEmitterNode *powerUpEmitter;
 
+@property(nonatomic) id block;
+
 @end
 
 @implementation GameViewController
@@ -83,40 +85,40 @@
     // detects that the player performs a swipe.
     
     
-   
-    id block = ^(JIMCSwap *swap) {
+    __weak typeof(self) weakSelf = self;
+    _block = ^(JIMCSwap *swap) {
         
         // While fruits are being matched and new fruits fall down to fill up
         // the holes, we don't want the player to tap on anything.
-        self.view.userInteractionEnabled = NO;
-        
-        if ([self.level isPowerSwapLike:swap]){
-            [self.level performSwap:swap];
+        //self.view.userInteractionEnabled = NO;
+        weakSelf.view.userInteractionEnabled = NO;
+        if ([weakSelf.level isPowerSwapLike:swap]){
+            [weakSelf.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].swap = swap;
-            [self.scene animateSwap:swap completion:^{
-                [self handleMatchesAll];
+            [weakSelf.scene animateSwap:swap completion:^{
+                [weakSelf handleMatchesAll];
             }];
-        }else if ([self.level isPowerSwap:swap]) {
-            [self.level performSwap:swap];
+        }else if ([weakSelf.level isPowerSwap:swap]) {
+            [weakSelf.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].swap = swap;
-            [self.scene animateSwap:swap completion:^{
-                [self handleMatchesAllType:swap];
+            [weakSelf.scene animateSwap:swap completion:^{
+                [weakSelf handleMatchesAllType:swap];
             }];
-        }else if ([self.level isPossibleSwap:swap]) {
-            [self.level performSwap:swap];
+        }else if ([weakSelf.level isPossibleSwap:swap]) {
+            [weakSelf.level performSwap:swap];
             [JIMCSwapFruitSingleton sharedInstance].swap = swap;
-            [self.scene animateSwap:swap completion:^{
-                [self handleMatches];
+            [weakSelf.scene animateSwap:swap completion:^{
+                [weakSelf handleMatches];
             }];
         } else {
-            [self.scene animateInvalidSwap:swap completion:^{
-                self.view.userInteractionEnabled = YES;
+            [weakSelf.scene animateInvalidSwap:swap completion:^{
+                weakSelf.view.userInteractionEnabled = YES;
             }];
         }
     };
     
    
-    self.scene.swipeHandler = block;
+    self.scene.swipeHandler = _block;
     
     // Hide the game over panel from the screen.
     self.gameOverPanel.hidden = YES;
@@ -438,17 +440,15 @@
     }
     
     // First, remove any matches...
+  
    
     [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
-                if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) ||
-                    (fruit.fruitPowerUp == 2 && chain.fruits.count == 4) ||  (fruit.fruitPowerUp == 3 && chain.fruits.count == 4)) {
-                    
+                if (fruit.fruitPowerUp != 0) {
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
-                    //break;
                 }
              }
         }
@@ -649,6 +649,9 @@
     
     //Essa comparacao serve apenas para nao chamar o gameover duas vezes
     if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
+        self.scene.swipeHandler = nil;
+       // self.view.userInteractionEnabled = NO;
+        
         [self showGameOver];
     }
     
@@ -665,6 +668,7 @@
 
     //Chega se o usuário ganhou ou se acabaram os movimentos
     if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
+
         if(self.score >= self.scene.level.targetScore){
             [self.scene winLose:YES];
         }else{
@@ -711,12 +715,9 @@
 }
 
 - (IBAction)shuffleButtonPressed:(id)sender {
-    //[self shuffle];
-    
-    
-        // Pressing the shuffle button costs a move.
-        [self decrementMoves];
-        [self handlePowerUp];
+    // Pressing the shuffle button costs a move.
+    [self decrementMoves];
+    [self handlePowerUp];
     
     
 }
@@ -729,6 +730,12 @@
             [self.hintNode removeFromParent];
         }]];
     }
+    if(self.scene.shouldPlay){
+        self.scene.swipeHandler = _block;
+    }else{
+        self.scene.swipeHandler = nil;
+    }
+    
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

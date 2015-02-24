@@ -32,7 +32,7 @@ static const NSInteger NumRows = 9;
 // Determines whether there's a tile at the specified column and row.
 - (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row;
 
-- (void)removeFruitAtColumn:(NSInteger)column row:(NSInteger)row;
+//- (void)removeFruitAtColumn:(NSInteger)column row:(NSInteger)row;
 
 // Swaps the positions of the two fruits from the JIMCSwap object.
 - (void)performSwap:(JIMCSwap *)swap;
@@ -43,7 +43,7 @@ static const NSInteger NumRows = 9;
 
 // Recalculates which moves are valid.
 - (NSSet *)detectPossibleSwaps;
--(int)verificaDestruir:(JIMCFruit *)fruit;
+//-(int)verificaDestruir:(JIMCFruit *)fruit;
 // Detects whether there are any chains of 3 or more fruits, and removes them
 // from the level.
 // Returns a set containing JIMCChain objects, which describe the JIMCFruits

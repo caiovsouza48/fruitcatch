@@ -32,6 +32,7 @@ static const CGFloat TileHeight = 36.0;
 @property (strong, nonatomic) SKNode *fruitsLayer;
 @property (strong, nonatomic) SKNode *tilesLayer;
 @property (strong, nonatomic) SKNode *power;
+@property (nonatomic) BOOL shouldPlay;
 
 // The scene handles touches. If it recognizes that the user makes a swipe,
 // it will call this swipe handler. This is how it communicates back to the

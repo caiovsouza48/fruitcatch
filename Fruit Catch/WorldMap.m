@@ -230,7 +230,7 @@
     //botao jogar
     _btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 + 30, 150,55)];
     [_btnJogar setTitle:@"Jogar" forState:UIControlStateNormal];
-    [_btnJogar setFont:[UIFont fontWithName:@"Chewy" size:40]];
+    [_btnJogar.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:40]];
     [_btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
     _btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     _btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
@@ -239,19 +239,19 @@
     _lblFase = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMinY(self.informFase.frame) / 2 - 40, 300, 55)];
     _lblFase.textColor = [UIColor whiteColor];
     _lblFase.font = [UIFont fontWithName:@"Chewy" size:40];
-    _lblFase.textAlignment = UITextAlignmentCenter;
+    _lblFase.textAlignment = NSTextAlignmentCenter;
     
     //Target
     _lblTarget = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 - 60, 300, 55)];
     _lblTarget.textColor = [UIColor whiteColor];
     _lblTarget.font = [UIFont fontWithName:@"Chewy" size:30];
-    _lblTarget.textAlignment = UITextAlignmentCenter;
-
+    [_lblTarget setTextAlignment:NSTextAlignmentCenter];
+    
     //Moves
     _lblMoves = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 - 30, 300, 55)];
     _lblMoves.textColor = [UIColor whiteColor];
     _lblMoves.font = [UIFont fontWithName:@"Chewy" size:20];
-    _lblMoves.textAlignment = UITextAlignmentCenter;
+    _lblMoves.textAlignment = NSTextAlignmentCenter;
     
     //Estrelas
     _star1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];

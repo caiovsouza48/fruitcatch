@@ -314,7 +314,6 @@
                 [chain addFruit:_fruits[fruit.column][fruit.row]];
                 [set addObject:chain];
             }
-            
         }
     }
     JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].swap.fruitA;
@@ -348,7 +347,7 @@
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
         [self powerUpSingleton:mut];
-        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
+       
     }else{
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];

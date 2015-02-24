@@ -18,7 +18,8 @@
 @end
 
 @implementation AppDelegate
-
+//Metodo somente para tirar o warning
+-(void)nextpeerDidTournamentEnd{}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //[[NetworkController sharedInstance] authenticateLocalUser];
