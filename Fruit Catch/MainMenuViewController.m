@@ -22,8 +22,6 @@
     UIView *connectingView;
 }
 
-@property (nonatomic) IBOutlet UIButton *musicBtn;
-@property (nonatomic) IBOutlet UIButton *soundBtn;
 @property (nonatomic) IBOutlet UIButton *singlePlayerBtn;
 @property (nonatomic) IBOutlet UIButton *multiplayerBtn;
 @property (nonatomic) IBOutlet UIButton *settingsBtn;
@@ -96,6 +94,7 @@
     _ligaMusica             = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 75, musica.frame.origin.y + 12, 100, 50)];
     _ligaMusica.onTintColor = [UIColor colorWithRed:(CGFloat)81/255 green:(CGFloat)143/255 blue:(CGFloat)195/255 alpha:1];
     _ligaMusica.tintColor   = [UIColor colorWithRed:(CGFloat)111/255 green:(CGFloat)123/255 blue:(CGFloat)148/255 alpha:1];
+    [_ligaMusica addTarget:self action:@selector(musicON_OFF:) forControlEvents:UIControlEventValueChanged];
     
     //Texto efeitos sonoros
     UILabel *efeitosSonoros = [[UILabel alloc]initWithFrame:CGRectMake(0, musica.frame.origin.y+45, 240, 50)];
@@ -108,6 +107,7 @@
     _ligaSFX             = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 75, efeitosSonoros.frame.origin.y + 12, 100, 50)];
     _ligaSFX.onTintColor = [UIColor colorWithRed:(CGFloat)81/255 green:(CGFloat)143/255 blue:(CGFloat)195/255 alpha:1];
     _ligaSFX.tintColor   = [UIColor colorWithRed:(CGFloat)111/255 green:(CGFloat)123/255 blue:(CGFloat)148/255 alpha:1];
+    [_ligaSFX addTarget:self action:@selector(soundON_OFF:) forControlEvents:UIControlEventValueChanged];
     
     //Botao fechar
     UIButton *fechar = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.configuracao.frame) - 35, 20, 19, 19)];
@@ -117,7 +117,7 @@
     //Botao restore purchase
     UIButton *restore = [[UIButton alloc]initWithFrame:CGRectMake(10, efeitosSonoros.frame.origin.y + 80, 200, 50)];
     [restore setTitle:@"Restaurar compras" forState:UIControlStateNormal];
-    [restore setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [restore.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     restore.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     restore.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:restore];
@@ -134,18 +134,14 @@
     //Botao creditos
     UIButton *creditos = [[UIButton alloc]initWithFrame:CGRectMake(10, termos.frame.origin.y + 40, 200, 50)];
     [creditos setTitle:@"Créditos" forState:UIControlStateNormal];
-    [creditos setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [creditos.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     creditos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     creditos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:creditos];
     
     //Botao facebook
-    UIButton *fbLogin = [[UIButton alloc]initWithFrame:CGRectMake(10, creditos.frame.origin.y + 40, 200, 50)];
-    [fbLogin setTitle:@"Logar com facebook" forState:UIControlStateNormal];
-    [fbLogin setFont:[UIFont fontWithName:@"Chewy" size:20]];
-    fbLogin.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    fbLogin.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    [self.configuracao addSubview:fbLogin];
+    _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(10, creditos.frame.origin.y + 50, 290, 50)];
+    [self.configuracao addSubview:_loginView];
     
     [self.configuracao addSubview:configuracao];
     [self.configuracao addSubview:musica];
@@ -159,13 +155,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    //Some com os botões de musica e sons
-    self.soundBtn.enabled = NO;
-    self.soundBtn.alpha   = 0;
-    
-    self.musicBtn.enabled = NO;
-    self.musicBtn.alpha   = 0;
-    
+    _ligaMusica.on = [SettingsSingleton sharedInstance].music;
+    _ligaSFX.on = [SettingsSingleton sharedInstance].SFX;
     self.option = NO;
     //Anima os botões single, multiplayer e options
     [UIView animateWithDuration:1
@@ -267,13 +258,11 @@
 -(IBAction)musicON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] musicON_OFF];
-    [self.view setNeedsDisplay];
 }
 
 -(IBAction)soundON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] soundON_OFF];
-    
 }
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView

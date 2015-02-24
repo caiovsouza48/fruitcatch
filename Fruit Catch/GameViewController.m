@@ -56,6 +56,8 @@
 
 @property(nonatomic) SKEmitterNode *powerUpEmitter;
 
+@property(nonatomic) id block;
+
 @end
 
 @implementation GameViewController
@@ -84,7 +86,7 @@
     
     
    
-    id block = ^(JIMCSwap *swap) {
+    _block = ^(JIMCSwap *swap) {
         
         // While fruits are being matched and new fruits fall down to fill up
         // the holes, we don't want the player to tap on anything.
@@ -116,7 +118,7 @@
     };
     
    
-    self.scene.swipeHandler = block;
+    self.scene.swipeHandler = _block;
     
     // Hide the game over panel from the screen.
     self.gameOverPanel.hidden = YES;
@@ -665,6 +667,7 @@
 
     //Chega se o usuário ganhou ou se acabaram os movimentos
     if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
+
         if(self.score >= self.scene.level.targetScore){
             [self.scene winLose:YES];
         }else{
@@ -729,6 +732,7 @@
             [self.hintNode removeFromParent];
         }]];
     }
+    
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
