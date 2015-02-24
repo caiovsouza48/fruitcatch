@@ -468,7 +468,6 @@
         }
     }
     connectingView.hidden = YES;
-    
 }
 -(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error{
     NSLog(@"%@",error);
