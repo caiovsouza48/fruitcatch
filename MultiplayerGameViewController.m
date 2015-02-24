@@ -177,7 +177,7 @@
 
 - (void)processNextpeerDidReceiveSynchronizedEvent:(NSNotification *)notification{
     NSString *eventName = [notification.userInfo objectForKey:@"eventName"];
-    NPSynchronizedEventFireReason eventFireReason = [[notification.userInfo objectForKey:@"fireReason"] intValue];
+   // NPSynchronizedEventFireReason eventFireReason = [[notification.userInfo objectForKey:@"fireReason"] intValue];
     NSLog(@"Event Firing");
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
