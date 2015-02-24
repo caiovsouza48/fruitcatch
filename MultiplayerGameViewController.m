@@ -238,7 +238,13 @@
     self.score = 0;
     [self updateLabels];
     [self.scene animateBeginGame];
-    [self shuffle];
+    //[self shuffle];
+    // Delete the old fruit sprites, but not the tiles.
+    [self.scene removeAllFruitSprites];
+    
+    // Fill up the level with new fruits, and create sprites for them.
+   // NSSet *newFruits = [self.level shuffle];
+    
     
     self.possibleMoves = [self.level detectPossibleSwaps];
     //self.hintAction = [SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]];
@@ -634,10 +640,12 @@
     switch (type) {
         case NPFruitCatchMessageSendLevel:
         {
-            [self beginGameForPlayer2];
+            
             NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
             NSSet *fruitSet = [NSKeyedUnarchiver unarchiveObjectWithData:fruitData];
+            [self beginGameForPlayer2];
             [self.level fruitsBySet:fruitSet];
+            [self.scene addSpritesForFruits:fruitSet];
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
             [self.scene setUserInteractionEnabled:YES];
             break;

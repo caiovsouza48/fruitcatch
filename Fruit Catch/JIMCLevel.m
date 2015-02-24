@@ -822,7 +822,7 @@
                 NSUInteger newFruitType;
                 do {
                     
-                    [[NetworkController sharedInstance] sendMovedSelf:1];
+                   // [[NetworkController sharedInstance] sendMovedSelf:1];
                         newFruitType = arc4random_uniform(NumFruitTypes) + 1;
                 } while (newFruitType == fruitType);
                 
