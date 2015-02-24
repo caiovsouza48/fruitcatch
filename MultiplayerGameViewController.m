@@ -246,7 +246,7 @@
    // NSSet *newFruits = [self.level shuffle];
     
     
-    self.possibleMoves = [self.level detectPossibleSwaps];
+    //self.possibleMoves = [self.level detectPossibleSwaps];
     //self.hintAction = [SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]];
     
     //[self.scene runAction: self.hintAction withKey:@"Hint"];
@@ -645,7 +645,9 @@
             NSSet *fruitSet = [NSKeyedUnarchiver unarchiveObjectWithData:fruitData];
             [self beginGameForPlayer2];
             [self.level fruitsBySet:fruitSet];
+            
             [self.scene addSpritesForFruits:fruitSet];
+            self.possibleMoves = [self.level detectPossibleSwaps];
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
             [self.scene setUserInteractionEnabled:YES];
             break;
