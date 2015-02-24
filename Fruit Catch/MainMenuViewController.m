@@ -125,7 +125,8 @@
     //Botao termos
     UIButton *termos = [[UIButton alloc]initWithFrame:CGRectMake(10, restore.frame.origin.y + 40, 200, 50)];
     [termos setTitle:@"Termos e serviços" forState:UIControlStateNormal];
-    [termos setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    //[termos setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [termos.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     termos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     termos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:termos];
@@ -417,6 +418,7 @@
  // Pass the selected object to the new view controller.
  }
  */
+
 //Abaixou dessa ponto conlocar apenas funcoes relacionadas a In App Porcharse
 #pragma mark - in-App PURCHASE
 -(void)purchaseNoAds{

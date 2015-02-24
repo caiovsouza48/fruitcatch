@@ -438,17 +438,15 @@
     }
     
     // First, remove any matches...
+  
    
     [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
-                if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) ||
-                    (fruit.fruitPowerUp == 2 && chain.fruits.count == 4) ||  (fruit.fruitPowerUp == 3 && chain.fruits.count == 4)) {
-                    
+                if (fruit.fruitPowerUp != 0) {
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
-                    //break;
                 }
              }
         }
@@ -649,6 +647,8 @@
     
     //Essa comparacao serve apenas para nao chamar o gameover duas vezes
     if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
+       // self.view.userInteractionEnabled = NO;
+        
         [self showGameOver];
     }
     

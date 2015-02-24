@@ -60,7 +60,11 @@
 @end
 
 @implementation MultiplayerGameViewController
-
+//MEtodos somente para tirar o warning
+-(void)setNotInMatch{}
+-(void)matchStarted:(Match *)match{}
+-(void)player:(unsigned char)playerIndex movedToPosX:(int)posX{}
+-(void)gameOver:(unsigned char)winnerIndex{}
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -562,8 +566,9 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInNode:self.scene];
+    //Metodos comentado para tirar o warning
+    //UITouch *touch = [touches anyObject];
+   // CGPoint point = [touch locationInNode:self.scene];
     [[NetworkController sharedInstance] sendMovedSelf:1];
     [self.scene removeActionForKey:@"Hint"];
 //    if(self.hintNode){
@@ -673,6 +678,7 @@
             break;
     }
 }
-
+-(void)stateChanged:(NetworkState)state{
+}
 
 @end

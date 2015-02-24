@@ -106,6 +106,7 @@
 		E3CFD4B71A8B86B900C6FF64 /* retangulo_generico.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4B11A8B86B900C6FF64 /* retangulo_generico.png */; };
 		E3CFD4B81A8B86B900C6FF64 /* retangulo_generico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4B21A8B86B900C6FF64 /* retangulo_generico@2x.png */; };
 		E3CFD4B91A8B86B900C6FF64 /* retangulo_generico@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4B31A8B86B900C6FF64 /* retangulo_generico@3x.png */; };
+		E3D229E41A9CC02A0039D2DD /* MyParticleSystem.scnp in Resources */ = {isa = PBXBuildFile; fileRef = E3D229E31A9CC02A0039D2DD /* MyParticleSystem.scnp */; };
 		E3DA87781A966050002E9499 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DA87751A9657B7002E9499 /* CoreText.framework */; };
 		E3DA87791A966050002E9499 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DA87731A9657AF002E9499 /* OpenGLES.framework */; };
 		E3DA877A1A966050002E9499 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DA87711A9657A5002E9499 /* Security.framework */; };
@@ -289,6 +290,7 @@
 		E3CFD4B21A8B86B900C6FF64 /* retangulo_generico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "retangulo_generico@2x.png"; sourceTree = "<group>"; };
 		E3CFD4B31A8B86B900C6FF64 /* retangulo_generico@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "retangulo_generico@3x.png"; sourceTree = "<group>"; };
 		E3CFD4BB1A8BB85F00C6FF64 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		E3D229E31A9CC02A0039D2DD /* MyParticleSystem.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = MyParticleSystem.scnp; sourceTree = "<group>"; };
 		E3DA875F1A96574D002E9499 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E3DA87611A965759002E9499 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E3DA87631A965761002E9499 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -529,6 +531,7 @@
 			children = (
 				0F30FFF81A97BF0300216088 /* MyParticle.sks */,
 				0F30FFF91A97BF0300216088 /* spark.png */,
+				E3D229E31A9CC02A0039D2DD /* MyParticleSystem.scnp */,
 			);
 			name = JIMCParticle;
 			sourceTree = "<group>";
@@ -906,6 +909,7 @@
 				TargetAttributes = {
 					DEC905A11A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 4MMC45MQ2J;
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
@@ -951,6 +955,7 @@
 				4351CD8B1A8E772800C026AA /* botao_menu.png in Resources */,
 				437B8E8A1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png in Resources */,
 				0F40CAA71A9BA16600D0CB01 /* banana_pu_h@2x.png in Resources */,
+				E3D229E41A9CC02A0039D2DD /* MyParticleSystem.scnp in Resources */,
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
 				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
 				E3DFE2F71A40A0DB00CB4D0C /* Agrupar-1@2x.png in Resources */,
@@ -1196,6 +1201,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Fruit",
@@ -1210,6 +1217,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1218,6 +1226,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Fruit",
@@ -1232,6 +1242,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
