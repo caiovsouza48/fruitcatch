@@ -715,12 +715,9 @@
 }
 
 - (IBAction)shuffleButtonPressed:(id)sender {
-    //[self shuffle];
-    
-    
-        // Pressing the shuffle button costs a move.
-        [self decrementMoves];
-        [self handlePowerUp];
+    // Pressing the shuffle button costs a move.
+    [self decrementMoves];
+    [self handlePowerUp];
     
     
 }
@@ -732,6 +729,11 @@
         [self.scene runAction:[SKAction runBlock:^{
             [self.hintNode removeFromParent];
         }]];
+    }
+    if(self.scene.shouldPlay){
+        self.scene.swipeHandler = _block;
+    }else{
+        self.scene.swipeHandler = nil;
     }
     
 }
