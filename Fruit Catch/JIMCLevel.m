@@ -523,12 +523,10 @@
                         column += 1;
                     }
                     while (column < NumColumns && _fruits[column][row].fruitType == matchType);
-                    
                     [set addObject:chain];
                     continue;
                 }
             }
-            
             // Fruit did not match or empty tile, so skip over it.
             column += 1;
         }
@@ -675,11 +673,11 @@
 -(void)powerUpSingleton:(NSSet *)chains{
     for (JIMCChain *chain in chains) {
         for (JIMCFruit *fruit in chain.fruits) {
-            if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 5) {
+            if ( chain.fruits.count == 5) {
                 _fruits[fruit.column][fruit.row].fruitPowerUp = 1;
                 _fruits[fruit.column][fruit.row].fruitType = 6;
                 break;
-            }else if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 4){
+            }else if ( chain.fruits.count == 4){
                 if ([self isSelectedVertical]) {
                     _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
                 }else{
