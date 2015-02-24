@@ -177,7 +177,10 @@
     NSLog(@"Event Firing");
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
-        NSDictionary *message = @{@"type" : [NSNumber numberWithInt:NPFruitCatchMessageSendRandomNumber]};
+        NSDictionary *message = @{@"type" : [NSNumber numberWithInt:NPFruitCatchMessageSendRandomNumber],
+                                  
+                                  @"randomNumber" : [NSNumber numberWithInteger:_randomNumber]
+                                  };
         NSData *dataPacket = [NSPropertyListSerialization dataWithPropertyList:message format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
         [Nextpeer pushDataToOtherPlayers:dataPacket];
 //        [self.scene setUserInteractionEnabled:YES];
@@ -635,6 +638,7 @@
         case NPFruitCatchMessageSendRandomNumber:
         {
             //NSDictionary *dict = [NSDictionary alloc]init
+            NSLog(@"message.playerID = %@",message.playerId);
             NSDictionary *parameterDict = @{playerIdKey : message.playerId,
                                             randomNumberKey : [gameMessage objectForKey:@"randomNumber"]
                                             };
@@ -649,6 +653,7 @@
                 tie = YES;
                 _randomNumber = arc4random();
                 [self generateRandomNumber];
+                
                 [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInt:self.randomNumber]}];
             } else {
                 //3
