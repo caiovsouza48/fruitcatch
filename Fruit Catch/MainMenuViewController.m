@@ -117,7 +117,7 @@
     //Botao restore purchase
     UIButton *restore = [[UIButton alloc]initWithFrame:CGRectMake(10, efeitosSonoros.frame.origin.y + 80, 200, 50)];
     [restore setTitle:@"Restaurar compras" forState:UIControlStateNormal];
-    [restore setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [restore.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     restore.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     restore.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:restore];
@@ -125,7 +125,7 @@
     //Botao termos
     UIButton *termos = [[UIButton alloc]initWithFrame:CGRectMake(10, restore.frame.origin.y + 40, 200, 50)];
     [termos setTitle:@"Termos e serviços" forState:UIControlStateNormal];
-    [termos setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [termos.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     termos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     termos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:termos];
@@ -133,19 +133,12 @@
     //Botao creditos
     UIButton *creditos = [[UIButton alloc]initWithFrame:CGRectMake(10, termos.frame.origin.y + 40, 200, 50)];
     [creditos setTitle:@"Créditos" forState:UIControlStateNormal];
-    [creditos setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [creditos.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     creditos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     creditos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:creditos];
     
     //Botao facebook
-//    UIButton *fbLogin = [[UIButton alloc]initWithFrame:CGRectMake(10, creditos.frame.origin.y + 40, 200, 50)];
-//    [fbLogin setTitle:@"Logar com facebook" forState:UIControlStateNormal];
-//    [fbLogin setFont:[UIFont fontWithName:@"Chewy" size:20]];
-//    fbLogin.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    fbLogin.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-//    [self.configuracao addSubview:fbLogin];
-    
     _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(10, creditos.frame.origin.y + 50, 290, 50)];
     [self.configuracao addSubview:_loginView];
     
