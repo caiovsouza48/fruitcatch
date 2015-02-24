@@ -70,6 +70,8 @@ static const NSInteger NumRows = 9;
 
 - (NSSet *)removeMatchesForPowerUp:(JIMCPowerUp *)powerUp;
 
+- (void)fruitsBySet:(NSSet *)set;
+
 @property (strong, nonatomic) MyScene *scene;
 -(NSSet *)deletarFrutas;
 - (BOOL)isPowerSwap:(JIMCSwap *)swap;
