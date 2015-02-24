@@ -24,6 +24,7 @@
     NSDictionary *message = @{@"type" : [NSNumber numberWithInt:messageType]};
     [tempMutableDictionary addEntriesFromDictionary:message];
     [tempMutableDictionary addEntriesFromDictionary:data];
+    
       NSData *dataPacket = [NSPropertyListSerialization dataWithPropertyList:tempMutableDictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
       [Nextpeer pushDataToOtherPlayers:dataPacket];
 

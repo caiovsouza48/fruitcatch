@@ -27,6 +27,7 @@
 
 #pragma mark - Level Loading
 
+
 - (instancetype)initWithFile:(NSString *)filename {
     self = [super init];
     if (self != nil) {
@@ -141,10 +142,17 @@
                 
                 // Also add the fruit to the set so we can tell our caller about it.
                 [set addObject:fruit];
+                
             }
         }
     }
     return set;
+}
+
+- (void)fruitsBySet:(NSSet *)set{
+    for (JIMCFruit *fruit in [set allObjects]) {
+        _fruits[fruit.column][fruit.row] = fruit;
+    }
 }
 
 

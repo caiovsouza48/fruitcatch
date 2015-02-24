@@ -50,8 +50,6 @@
 
 @property (nonatomic) NSSet *possibleMoves;
 
-@property(nonatomic) NetworkController *networkEngine;
-
 @property(nonatomic) NSInteger randomNumber;
 
 @property(nonatomic) NSMutableArray *orderOfPlayers;
@@ -635,11 +633,14 @@
    
     switch (type) {
         case NPFruitCatchMessageSendLevel:
+        {
             [self beginGameForPlayer2];
-            self.level = [gameMessage objectForKey:@"gameLevel"];
+            NSSet *fruitSet = [gameMessage objectForKey:@"gameLevel"];
+            [self.level fruitsBySet:fruitSet];
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
             [self.scene setUserInteractionEnabled:YES];
             break;
+        }
         case NPFruitCatchMessageSendRandomNumber:
         {
             //NSDictionary *dict = [NSDictionary alloc]init
@@ -665,7 +666,9 @@
                 if (self.randomNumber > [[gameMessage objectForKey:@"randomNumber"] intValue]){
                     [self beginGame];
                     [self.scene setUserInteractionEnabled:NO];
-                    [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : self.level}];
+                    NSSet *shuffledSet = [self.level shuffle];
+                    
+                    [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : shuffledSet}];
                     
                     
                 }
