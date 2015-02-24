@@ -635,7 +635,8 @@
         case NPFruitCatchMessageSendLevel:
         {
             [self beginGameForPlayer2];
-            NSSet *fruitSet = [gameMessage objectForKey:@"gameLevel"];
+            NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
+            NSSet *fruitSet = [NSKeyedUnarchiver unarchiveObjectWithData:fruitData];
             [self.level fruitsBySet:fruitSet];
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
             [self.scene setUserInteractionEnabled:YES];
@@ -667,8 +668,8 @@
                     [self beginGame];
                     [self.scene setUserInteractionEnabled:NO];
                     NSSet *shuffledSet = [self.level shuffle];
-                    
-                    [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : shuffledSet}];
+                    NSData *dataFromSet = [NSKeyedArchiver archivedDataWithRootObject:shuffledSet];
+                    [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : dataFromSet}];
                     
                     
                 }
