@@ -211,7 +211,7 @@
     ajuda.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - 50, CGRectGetMaxY(self.view.frame) - 50, 32, 32);
     ajuda.titleLabel.font = [UIFont fontWithName:@"Chewy" size:25];
     ajuda.tintColor = [UIColor whiteColor];
-    ajuda.backgroundColor = [UIColor blueColor];
+    ajuda.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_ajuda"]];
     [self.view addSubview:ajuda];
     
     //Cria o botao back
@@ -222,11 +222,11 @@
                action:@selector(back:)
      forControlEvents:UIControlEventTouchUpInside];
     
-    [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
+//    [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
     button.frame = CGRectMake(20, 15, 60, 32);
-    button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:20];
+//    button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:20];
     button.tintColor = [UIColor whiteColor];
-    button.backgroundColor = [UIColor redColor];
+    button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_back"]];
     [self.view addSubview:button];
     
     //Cria os botões das fases
