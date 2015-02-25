@@ -12,7 +12,8 @@
 typedef NS_ENUM(NSInteger, NPFruitCatchMessage){
     NPFruitCatchMessageSendLevel = 0,
     NPFruitCatchMessageSendRandomNumber,
-    NPFruitCatchMessageBeginGame
+    NPFruitCatchMessageBeginGame,
+    NPFruitCatchMessageEventOver
     
 };
 
