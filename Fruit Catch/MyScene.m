@@ -7,7 +7,7 @@
 #import "GameViewController.h"
 #import "WorldMap.h"
 #import "PowerUP.h"
-
+#import "ClearedLevelsSingleton.h"
 
 
 @interface MyScene ()
@@ -825,6 +825,17 @@
 {
     _win = win;
     _shouldPlay = NO;
+    
+    //Obtém o nível
+    NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
+    NSInteger level = [[a lastObject] integerValue];
+    
+    //Para checar se é o último liberado
+    if(level == [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+        //Para enfim liberar mais um nível
+        [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
+    }
+    
     [self animateGameOver];
 }
 

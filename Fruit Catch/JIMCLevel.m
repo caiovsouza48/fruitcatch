@@ -880,8 +880,6 @@
 
 #pragma mark - Querying the Level
 
-
-
 - (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row {
     NSAssert1(column >= 0 && column < NumColumns, @"Invalid column: %ld", (long)column);
     NSAssert1(row >= 0 && row < NumRows, @"Invalid row: %ld", (long)row);
