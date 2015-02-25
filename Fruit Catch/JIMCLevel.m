@@ -347,7 +347,7 @@
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
         [self powerUpSingleton:mut];
-       
+        
     }else{
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
@@ -370,7 +370,7 @@
     [horizontalChains unionSet:verticalChains];
     [horizontalChains unionSet:rowChains];
     [horizontalChains unionSet:columnChains];
-    
+
     return horizontalChains;
 }
 
@@ -615,7 +615,6 @@
                             row += 1;
                         }
                         while (row < limit);
-                        
                         [set addObject:chain];
                         continue;
                     }
@@ -637,7 +636,6 @@
                     JIMCChain *chain = [[JIMCChain alloc] init];
                     chain.chainType = ChainTypeHorizontal;
                     [chain addFruit:_fruits[column][row]];
-                
                     do {
                         if ((nil != _fruits[column+1][row]) && ([_fruits[column+1][row] isKindOfClass:[JIMCFruit class]])){
                             [chain addFruit:_fruits[column+1][row]];
@@ -670,23 +668,28 @@
         }
     }
 }
--(void)powerUpSingleton:(NSSet *)chains{
+-(int)powerUpSingleton:(NSSet *)chains{
+    int var = 0;
     for (JIMCChain *chain in chains) {
         for (JIMCFruit *fruit in chain.fruits) {
-            if ( chain.fruits.count == 5) {
+            if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 5) {
                 _fruits[fruit.column][fruit.row].fruitPowerUp = 1;
                 _fruits[fruit.column][fruit.row].fruitType = 6;
+                var = 1;
                 break;
-            }else if ( chain.fruits.count == 4){
+                
+            }else if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 4){
                 if ([self isSelectedVertical]) {
                     _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
                 }else{
                     _fruits[fruit.column][fruit.row].fruitPowerUp = 3;
                 }
+                var = 1;
                 break;
             }
         }
     }
+    return var;
 }
 
 - (BOOL)isPerfectChain:(JIMCChain *)chain{
@@ -742,8 +745,7 @@
 - (void)calculateScoresAllType:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        chain.score+=30;
-       
+        chain.score+=10;
     }
 }
 
