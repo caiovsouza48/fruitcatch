@@ -48,6 +48,15 @@
     [aCoder encodeInteger:self.fruitPowerUp forKey:@"fruitPowerUp"];
 }
 
+- (JIMCFruitStruct)structRepresentation{
+    JIMCFruitStruct fruitStruct;
+    fruitStruct.column = self.column;
+    fruitStruct.row = self.row;
+    fruitStruct.fruitType = self.fruitType;
+    return fruitStruct;
+   
+}
+
 - (NSString *)highlightedSpriteName {
     static NSString * const highlightedSpriteNames[] = {
         @"laranja",
