@@ -705,6 +705,7 @@
                         [self.scene setUserInteractionEnabled:NO];
                         int pointerSize=0;
                         JIMCFruitStruct *shuffledFruitStruct = [self fruitStructArrayByShuffle:&pointerSize];
+                    NSLog(@"Pointer Size = %d",pointerSize);
                         NSData *dataFromSet = [NSData dataWithBytes:&shuffledFruitStruct length:sizeof(shuffledFruitStruct)];
                         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : dataFromSet,
                                             @"pointerSize" :[NSNumber numberWithInt:pointerSize]}];
