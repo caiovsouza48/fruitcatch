@@ -659,11 +659,11 @@
         case NPFruitCatchMessageSendLevel:
         {
             NSLog(@"Received Message Level");
-            NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
+            //NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
+            NSArray *wrapperArray = [gameMessage objectForKey:@"gameLevel"];
             int pointerSize = [[gameMessage objectForKey:@"pointerSize"] intValue];
-            JIMCFruitStruct *receivedFruitStruct;
-            [fruitData getBytes:&receivedFruitStruct length:pointerSize];
-            
+            JIMCFruitStruct *receivedFruitStruct = [self fruitStructWithArray:wrapperArray];
+            //[fruitData getBytes:&receivedFruitStruct length:pointerSize];
             
             [self beginGameForPlayer2];
             [self.scene removeAllFruitSprites];
@@ -706,8 +706,9 @@
                         int pointerSize=0;
                         JIMCFruitStruct *shuffledFruitStruct = [self fruitStructArrayByShuffle:&pointerSize];
                     NSLog(@"Pointer Size = %d",pointerSize);
-                        NSData *dataFromSet = [NSData dataWithBytes:&shuffledFruitStruct length:sizeof(shuffledFruitStruct)];
-                        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : dataFromSet,
+                        //NSData *dataFromSet = [NSData dataWithBytes:&shuffledFruitStruct length:sizeof(shuffledFruitStruct)];
+                    NSArray *wrapperArray = [self wrapStructIntoArray:shuffledFruitStruct PointerLimit:pointerSize];
+                        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : wrapperArray,
                                             @"pointerSize" :[NSNumber numberWithInt:pointerSize]}];
             }
         }
@@ -720,6 +721,24 @@
         }
         
     }
+}
+
+- (NSArray *)wrapStructIntoArray:(JIMCFruitStruct *)fruitStruct PointerLimit:(int)pointerLimit{
+    NSMutableArray *wrapperArray = [NSMutableArray array];
+    for (int i=0; i<pointerLimit; i++) {
+        [wrapperArray addObject:[NSValue valueWithBytes:&fruitStruct[i] objCType:@encode(JIMCFruitStruct)]];
+    }
+    return [wrapperArray copy];
+}
+
+- (JIMCFruitStruct *)fruitStructWithArray:(NSArray *)array{
+    JIMCFruitStruct *fruitStructPointer = (JIMCFruitStruct *) malloc(sizeof(JIMCFruitStruct)*array.count);
+    int i=0;
+    for (NSValue *value in array) {
+        [value getValue:&fruitStructPointer[i]];
+        i++;
+    }
+    return fruitStructPointer;
 }
 
 
