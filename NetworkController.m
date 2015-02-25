@@ -117,7 +117,7 @@ static NetworkController *sharedController = nil;
     
     if (_outputBuffer == nil) return;
     
-    int dataLength = data.length;
+    int dataLength = (int)data.length;
     dataLength = htonl(dataLength);
     [_outputBuffer appendBytes:&dataLength length:sizeof(dataLength)];
     [_outputBuffer appendData:data];
@@ -300,7 +300,7 @@ static NetworkController *sharedController = nil;
         NSData * message = [_inputBuffer subdataWithRange:NSMakeRange(4, msgLength)];
         [self processMessage:message];
         
-        int amtRemaining = _inputBuffer.length - msgLength - sizeof(int);
+        int amtRemaining = (int)_inputBuffer.length - msgLength - sizeof(int);
         if (amtRemaining == 0) {
             self.inputBuffer = [[NSMutableData alloc] init];
         } else {
@@ -361,16 +361,16 @@ static NetworkController *sharedController = nil;
 }
 
 - (BOOL)writeChunk {
-    int amtToWrite = MIN(_outputBuffer.length, 1024);
+    int amtToWrite = (int)MIN(_outputBuffer.length, 1024);
     if (amtToWrite == 0) return FALSE;
     
     NSLog(@"Amt to write: %d/%lu", amtToWrite, (unsigned long)_outputBuffer.length);
     
-    int amtWritten = [self.outputStream write:_outputBuffer.bytes maxLength:amtToWrite];
+    int amtWritten = (int)[self.outputStream write:_outputBuffer.bytes maxLength:amtToWrite];
     if (amtWritten < 0) {
         [self reconnect];
     }
-    int amtRemaining = _outputBuffer.length - amtWritten;
+    int amtRemaining = (int)_outputBuffer.length - amtWritten;
     if (amtRemaining == 0) {
         self.outputBuffer = [NSMutableData data];
     } else {
