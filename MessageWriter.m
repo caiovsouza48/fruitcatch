@@ -33,7 +33,7 @@
 
 - (void)writeString:(NSString *)value {
     const char * utf8Value = [value UTF8String];
-    int length = strlen(utf8Value) + 1; // for null terminator
+    int length = (int)strlen(utf8Value) + 1; // for null terminator
     [self writeInt:length];
     [self writeBytes:(void *)utf8Value length:length];
 }

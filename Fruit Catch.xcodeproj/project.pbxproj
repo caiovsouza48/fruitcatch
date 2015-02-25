@@ -40,6 +40,8 @@
 		4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128881A40612100A2B620 /* fase_aberta@2x.png */; };
 		4361288B1A40612100A2B620 /* mapa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128891A40612100A2B620 /* mapa@2x.png */; };
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
+		436D9BEA1A9E05FE00EA5D4A /* ClearedLevelsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D9BE91A9E05FE00EA5D4A /* ClearedLevelsSingleton.m */; };
+		436D9BEC1A9E07D600EA5D4A /* fase_fechada@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436D9BEB1A9E07D600EA5D4A /* fase_fechada@2x.png */; };
 		437737B61A9B9E0C007474BF /* SettingsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 437737B51A9B9E0C007474BF /* SettingsSingleton.m */; };
 		4378401F1A97B911009BE3FB /* estrela_outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 4378401C1A97B911009BE3FB /* estrela_outline.png */; };
 		437840201A97B911009BE3FB /* estrela_outline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4378401D1A97B911009BE3FB /* estrela_outline@2x.png */; };
@@ -197,6 +199,9 @@
 		436128881A40612100A2B620 /* fase_aberta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fase_aberta@2x.png"; sourceTree = "<group>"; };
 		436128891A40612100A2B620 /* mapa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa@2x.png"; sourceTree = "<group>"; };
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
+		436D9BE81A9E05FE00EA5D4A /* ClearedLevelsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearedLevelsSingleton.h; sourceTree = "<group>"; };
+		436D9BE91A9E05FE00EA5D4A /* ClearedLevelsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearedLevelsSingleton.m; sourceTree = "<group>"; };
+		436D9BEB1A9E07D600EA5D4A /* fase_fechada@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fase_fechada@2x.png"; sourceTree = "<group>"; };
 		437737B41A9B9E0C007474BF /* SettingsSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsSingleton.h; sourceTree = "<group>"; };
 		437737B51A9B9E0C007474BF /* SettingsSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSingleton.m; sourceTree = "<group>"; };
 		4378401C1A97B911009BE3FB /* estrela_outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = estrela_outline.png; sourceTree = "<group>"; };
@@ -454,7 +459,6 @@
 		0FD2EDB71A23BA4D000EB99F /* GameViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E37BB4D61A40567E00F8E679 /* imagens */,
 				DEC905B11A239C6D003DD444 /* GameViewController.h */,
 				DEC905B21A239C6D003DD444 /* GameViewController.m */,
 			);
@@ -541,19 +545,32 @@
 			children = (
 				0F40CA981A9B9F7500D0CB01 /* WorldMap.h */,
 				0F40CA991A9B9F7500D0CB01 /* WorldMap.m */,
-				436128881A40612100A2B620 /* fase_aberta@2x.png */,
-				436128891A40612100A2B620 /* mapa@2x.png */,
 				436CBD0B1A2F739400862EDE /* MapButtons.plist */,
 			);
 			name = WorldMap;
 			sourceTree = "<group>";
 		};
-		43F4362C1A289FE000F1C358 /* MainMenu */ = {
+		436D9BE61A9E059F00EA5D4A /* SettingsSingleton */ = {
 			isa = PBXGroup;
 			children = (
 				437737B41A9B9E0C007474BF /* SettingsSingleton.h */,
 				437737B51A9B9E0C007474BF /* SettingsSingleton.m */,
-				E3CFD4AD1A8B869600C6FF64 /* configuracoes */,
+			);
+			name = SettingsSingleton;
+			sourceTree = "<group>";
+		};
+		436D9BE71A9E05CF00EA5D4A /* ClearedLevelsSingleton */ = {
+			isa = PBXGroup;
+			children = (
+				436D9BE81A9E05FE00EA5D4A /* ClearedLevelsSingleton.h */,
+				436D9BE91A9E05FE00EA5D4A /* ClearedLevelsSingleton.m */,
+			);
+			name = ClearedLevelsSingleton;
+			sourceTree = "<group>";
+		};
+		43F4362C1A289FE000F1C358 /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
 				43F4362D1A28A00300F1C358 /* MainMenuViewController.h */,
 				43F4362E1A28A00300F1C358 /* MainMenuViewController.m */,
 				E3DFE2F81A40A2B500CB4D0C /* JIMCMainMenu.h */,
@@ -671,6 +688,8 @@
 		DEC905A41A239C6D003DD444 /* Fruit Catch */ = {
 			isa = PBXGroup;
 			children = (
+				436D9BE71A9E05CF00EA5D4A /* ClearedLevelsSingleton */,
+				436D9BE61A9E059F00EA5D4A /* SettingsSingleton */,
 				DE3DAC411A9B998E002FE5FE /* PowerUp_horizontal */,
 				DE3DAC471A9B998E002FE5FE /* PowerUp_vertical */,
 				E3CFD4BA1A8BAFAA00C6FF64 /* Frameworks */,
@@ -688,8 +707,7 @@
 				DEC905B41A239C6D003DD444 /* Main.storyboard */,
 				DEC905B71A239C6D003DD444 /* Images.xcassets */,
 				DEC905B91A239C6D003DD444 /* LaunchScreen.xib */,
-				E33DD8CC1A3B13BF001C2897 /* coracao.png */,
-				DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */,
+				E37BB4D61A40567E00F8E679 /* imagens */,
 				E3E3ECBB1A23B32000E7E18E /* Levels */,
 				E3E3ECAE1A23B2FA00E7E18E /* Sounds */,
 				E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */,
@@ -728,6 +746,12 @@
 		E37BB4D61A40567E00F8E679 /* imagens */ = {
 			isa = PBXGroup;
 			children = (
+				436128881A40612100A2B620 /* fase_aberta@2x.png */,
+				436D9BEB1A9E07D600EA5D4A /* fase_fechada@2x.png */,
+				436128891A40612100A2B620 /* mapa@2x.png */,
+				E3CFD4AD1A8B869600C6FF64 /* configuracoes */,
+				E33DD8CC1A3B13BF001C2897 /* coracao.png */,
+				DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */,
 				0F40CA9B1A9BA16600D0CB01 /* PowerUp_horizontal */,
 				0F40CAA11A9BA16600D0CB01 /* PowerUp_vertical */,
 				4378401C1A97B911009BE3FB /* estrela_outline.png */,
@@ -909,7 +933,6 @@
 				TargetAttributes = {
 					DEC905A11A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 4MMC45MQ2J;
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
@@ -954,6 +977,7 @@
 				E3E3ECC31A23B34500E7E18E /* Level_2.json in Resources */,
 				4351CD8B1A8E772800C026AA /* botao_menu.png in Resources */,
 				437B8E8A1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png in Resources */,
+				436D9BEC1A9E07D600EA5D4A /* fase_fechada@2x.png in Resources */,
 				0F40CAA71A9BA16600D0CB01 /* banana_pu_h@2x.png in Resources */,
 				E3D229E41A9CC02A0039D2DD /* MyParticleSystem.scnp in Resources */,
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
@@ -1044,6 +1068,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436D9BEA1A9E05FE00EA5D4A /* ClearedLevelsSingleton.m in Sources */,
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
 				DEA2D2B31A39BBEE0038B65A /* Life.m in Sources */,
 				DE805C641A852D40009694C0 /* kFactor.m in Sources */,

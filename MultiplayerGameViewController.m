@@ -659,7 +659,7 @@
                 _randomNumber = arc4random();
                 [self generateRandomNumber];
                 
-                [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInt:self.randomNumber]}];
+                [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInt:(int)self.randomNumber]}];
             } else {
                 //3
                 if (self.randomNumber > [[gameMessage objectForKey:@"randomNumber"] intValue]){
