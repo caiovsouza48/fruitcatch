@@ -61,6 +61,14 @@
     return self;
 }
 
+- (int)getNumOfColumns{
+    return NumColumns;
+}
+
+- (int)getNumOfRows{
+    return NumRows;
+}
+
 - (NSDictionary *)loadJSON:(NSString *)filename {
     
     NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"json"];
@@ -153,6 +161,28 @@
     for (JIMCFruit *fruit in [set allObjects]) {
         _fruits[fruit.column][fruit.row] = fruit;
     }
+}
+
+- (void)fruitsByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize{
+    for (int i=0; i<pointerSize; i++) {
+        JIMCFruit *fruit = [[JIMCFruit alloc]init];
+        fruit.column = fruitStructPointer[i].column;
+        fruit.row = fruitStructPointer[i].row;
+        fruit.fruitType = fruitStructPointer[i].fruitType;
+        _fruits[fruit.column][fruit.row] = fruit;
+    }
+}
+
+- (NSSet *)setByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize{
+    NSMutableSet *mutableFruitSet = [NSMutableSet set];
+    for (int i=0; i<pointerSize; i++) {
+        JIMCFruit *fruit = [[JIMCFruit alloc]init];
+        fruit.column = fruitStructPointer[i].column;
+        fruit.row = fruitStructPointer[i].row;
+        fruit.fruitType = fruitStructPointer[i].fruitType;
+        [mutableFruitSet addObject:fruit];
+    }
+    return [mutableFruitSet copy];
 }
 
 

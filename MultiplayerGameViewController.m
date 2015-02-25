@@ -252,13 +252,28 @@
     [self.scene addSpritesForFruits:newFruits];
 }
 
-- (NSSet *)setByShuffle{
+- (JIMCFruitStruct *)fruitStructArrayByShuffle:(int *)sizeOfPointer{
     [self.scene removeAllFruitSprites];
     
-    // Fill up the level with new fruits, and create sprites for them.
+//    u_int8_t **fruitMatrix = (u_int8_t **) malloc(sizeof(u_int8_t) * [self.level getNumOfColumns]);
+//    *fruitMatrix = (u_int8_t *) malloc(sizeof(u_int8_t) * [self.level getNumOfRows]);
+//    
+//    // Fill up the level with new fruits, and create sprites for them.
+   
     NSSet *newFruits = [self.level shuffle];
-    [self.scene addSpritesForFruits:newFruits];
-    return [newFruits copy];
+    JIMCFruitStruct *fruitStructPointer = (JIMCFruitStruct *) malloc(sizeof(JIMCFruitStruct) * newFruits.count);
+    *sizeOfPointer = (int)newFruits.count;
+    int i=0;
+    for (JIMCFruit *fruit in [newFruits allObjects]) {
+        fruitStructPointer[i] = [fruit structRepresentation];
+    }
+    
+//    int i=0;
+//    for (JIMCFruit *fruit in newFruits) {
+//        fruitMatrix[fruit.column][fruit.row]
+//    }
+//    [self.scene addSpritesForFruits:newFruits];
+    return fruitStructPointer;
 }
 
 
@@ -645,11 +660,16 @@
         {
             NSLog(@"Received Message Level");
             NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
-            NSSet *fruitSet = [NSKeyedUnarchiver unarchiveObjectWithData:fruitData];
+            int pointerSize = [[gameMessage objectForKey:@"pointerSize"] intValue];
+            JIMCFruitStruct *receivedFruitStruct;
+            [fruitData getBytes:&receivedFruitStruct length:pointerSize];
+            
+            
             [self beginGameForPlayer2];
             [self.scene removeAllFruitSprites];
-            [self.level fruitsBySet:fruitSet];
-            
+            [self.level fruitsByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
+            //[self.level fruitsByFruitStruct:<#(JIMCFruitStruct *)#> PointerSize:<#(int)#>
+            NSSet *fruitSet = [self.level setByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
             [self.scene addSpritesForFruits:fruitSet];
             self.possibleMoves = [self.level detectPossibleSwaps];
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
@@ -676,26 +696,32 @@
                 _randomNumber = arc4random();
                 [self generateRandomNumber];
                 
-                [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInt:self.randomNumber]}];
+                [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInt:(int)self.randomNumber]}];
             } else {
                 //3
                 if (self.randomNumber > [[gameMessage objectForKey:@"randomNumber"] intValue]){
                     NSLog(@"my random number is greater than other random Number");
                         [self beginGame];
                         [self.scene setUserInteractionEnabled:NO];
-                        NSSet *shuffledSet = [self setByShuffle];
-                        NSData *dataFromSet = [NSKeyedArchiver archivedDataWithRootObject:shuffledSet];
-                        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : dataFromSet}];
-                    
-                    }
+                        int pointerSize=0;
+                        JIMCFruitStruct *shuffledFruitStruct = [self fruitStructArrayByShuffle:&pointerSize];
+                        NSData *dataFromSet = [NSData dataWithBytes:&shuffledFruitStruct length:sizeof(shuffledFruitStruct)];
+                        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : dataFromSet,
+                                            @"pointerSize" :[NSNumber numberWithInt:pointerSize]}];
             }
         }
         break;
+        }
         case NPFruitCatchMessageBeginGame:
+        {
             [self.scene setUserInteractionEnabled:YES];
             break;
+        }
+        
     }
 }
+
+
 -(void)stateChanged:(NetworkState)state{
 }
 

@@ -70,6 +70,7 @@ static const NSInteger NumRows = 9;
 
 - (NSSet *)removeMatchesForPowerUp:(JIMCPowerUp *)powerUp;
 
+
 - (void)fruitsBySet:(NSSet *)set;
 
 @property (strong, nonatomic) MyScene *scene;
@@ -79,5 +80,10 @@ static const NSInteger NumRows = 9;
 - (BOOL)isSelectedFruit:(JIMCFruit *)fruit;
 - (BOOL)isPowerSwapLike:(JIMCSwap *)swap;
 - (NSSet *)removeMatchesAll;
+
+- (int)getNumOfColumns;
+-(int)getNumOfRows;
+- (void)fruitsByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize;
+- (NSSet *)setByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize;
 
 @end
