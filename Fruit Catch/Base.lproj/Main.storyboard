@@ -80,44 +80,6 @@
                                     <action selector="options:" destination="uZN-3h-NbC" eventType="touchUpInside" id="mwg-eo-Lwz"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YP9-BY-bON">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Sound">
-                                    <color key="titleColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="275" y="750" width="45" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="soundON_OFF:" destination="uZN-3h-NbC" eventType="touchUpInside" id="G4x-9b-9Jg"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ol-b8-yEL">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Music">
-                                    <color key="titleColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="335" y="693" width="42" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="musicON_OFF:" destination="uZN-3h-NbC" eventType="touchUpInside" id="Cjc-1J-l85"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdi-hi-nvs" customClass="FBLoginView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="275" y="693" width="45" height="30"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="delegate" destination="Etp-xP-zSB" id="TWZ-91-aKt"/>
-                                </connections>
-                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q6o-5s-459">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
@@ -155,9 +117,6 @@
                                 <exclude reference="IhG-Bu-5QJ"/>
                                 <exclude reference="m4T-l0-ZHM"/>
                                 <exclude reference="LEv-IE-Kgo"/>
-                                <exclude reference="YP9-BY-bON"/>
-                                <exclude reference="5Ol-b8-yEL"/>
-                                <exclude reference="rdi-hi-nvs"/>
                                 <exclude reference="Q6o-5s-459"/>
                             </mask>
                             <mask key="constraints">
@@ -176,9 +135,6 @@
                                 <include reference="IhG-Bu-5QJ"/>
                                 <include reference="m4T-l0-ZHM"/>
                                 <include reference="LEv-IE-Kgo"/>
-                                <include reference="YP9-BY-bON"/>
-                                <include reference="5Ol-b8-yEL"/>
-                                <include reference="rdi-hi-nvs"/>
                                 <include reference="Q6o-5s-459"/>
                             </mask>
                             <mask key="constraints">
@@ -195,12 +151,9 @@
                     </view>
                     <connections>
                         <outlet property="facebookImage" destination="Q6o-5s-459" id="p3x-kq-OHO"/>
-                        <outlet property="loginView" destination="rdi-hi-nvs" id="PPQ-QR-eJD"/>
                         <outlet property="multiplayerBtn" destination="m4T-l0-ZHM" id="iG0-xC-8v3"/>
-                        <outlet property="musicBtn" destination="5Ol-b8-yEL" id="Od4-Qc-ZQh"/>
                         <outlet property="settingsBtn" destination="LEv-IE-Kgo" id="Gyj-VO-zbE"/>
                         <outlet property="singlePlayerBtn" destination="orL-be-TdJ" id="hW3-EV-Nbf"/>
-                        <outlet property="soundBtn" destination="YP9-BY-bON" id="kVd-av-RKe"/>
                         <segue destination="cxk-xc-d7E" kind="presentation" identifier="Single" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nfF-1N-vTy"/>
                     </connections>
                 </viewController>
@@ -289,8 +242,7 @@
                                         <exclude reference="koc-jg-6Z8"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="100" y="-1" width="400" height="100"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="jT9-hR-ils"/>
                                         <include reference="koc-jg-6Z8"/>
@@ -365,7 +317,7 @@
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="271" y="526" width="48" height="30"/>
+                                    <rect key="frame" x="271" y="726" width="48" height="30"/>
                                     <mask key="constraints">
                                         <include reference="uzd-eb-Gvm"/>
                                     </mask>
@@ -462,11 +414,11 @@
                                         <exclude reference="yQY-hS-kgP"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="205" width="400" height="209"/>
+                                <variation key="widthClass=compact" ambiguous="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="100" y="195" width="400" height="209"/>
+                                    <rect key="frame" x="100" y="295" width="400" height="209"/>
                                     <mask key="constraints">
                                         <include reference="UGm-v6-EbM"/>
                                         <include reference="yQY-hS-kgP"/>
@@ -511,8 +463,7 @@
                                         <exclude reference="G09-rV-dmX"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="444" y="485" width="156" height="115"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="FRq-7Y-wit"/>
                                         <include reference="G09-rV-dmX"/>
@@ -657,6 +608,6 @@
         <image name="ui_pontos_movimentos.png" width="320" height="55"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="p85-5r-noZ"/>
+        <segue reference="nfF-1N-vTy"/>
     </inferredMetricsTieBreakers>
 </document>

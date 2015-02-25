@@ -28,6 +28,26 @@
     return spriteNames[self.fruitType - 1];
 }
 
+- (instancetype) initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self){
+        self.sprite = [aDecoder decodeObjectForKey:@"sprite"];
+        self.column = [aDecoder decodeIntegerForKey:@"column"];
+        self.row = [aDecoder decodeIntegerForKey:@"row"];
+        self.fruitType = [aDecoder decodeIntegerForKey:@"fruitType"];
+        self.fruitPowerUp = [aDecoder decodeIntegerForKey:@"fruitPowerUp"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.sprite forKey:@"sprite"];
+    [aCoder encodeInteger:self.column forKey:@"column"];
+    [aCoder encodeInteger:self.row forKey:@"row"];
+    [aCoder encodeInteger:self.fruitType forKey:@"fruitType"];
+    [aCoder encodeInteger:self.fruitPowerUp forKey:@"fruitPowerUp"];
+}
+
 - (NSString *)highlightedSpriteName {
     static NSString * const highlightedSpriteNames[] = {
         @"laranja",

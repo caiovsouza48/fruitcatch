@@ -7,7 +7,7 @@
 #import "GameViewController.h"
 #import "WorldMap.h"
 #import "PowerUP.h"
-
+#import "ClearedLevelsSingleton.h"
 
 
 @interface MyScene ()
@@ -53,8 +53,9 @@
 
 - (id)initWithSize:(CGSize)size {
     
+    _shouldPlay = YES;
+    
     if ((self = [super initWithSize:size])) {
-        
         
         self.anchorPoint = CGPointMake(0.5, 0.5);
         
@@ -222,7 +223,7 @@
 - (void)addSpritesForFruit:(JIMCFruit *)fruit {
     SKSpriteNode *sprite;
      NSString *namePU = nil;
-    NSLog(@"power UP = %d",fruit.fruitPowerUp);
+//    NSLog(@"power UP = %d",(int)fruit.fruitPowerUp);
     if (fruit.fruitPowerUp == 1){
         sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
     }else if (fruit.fruitPowerUp == 2) {
@@ -304,7 +305,8 @@
     if ([no.name isEqualToString:@"retry"]) {
         
         SKAction *acaoDescer = [SKAction moveToX:500 duration:0.5];
-
+        
+        _shouldPlay = YES;
         [self.gameOverScreen runAction:acaoDescer];
         [self removeAllFruitSprites];
         NSSet *newFruits = [self.level shuffle];
@@ -313,8 +315,8 @@
         
     }else if ([no.name isEqualToString:@"next"]){
         //Obtem o nível atual
-        NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
-        NSInteger i = [[a objectAtIndex:1] integerValue];
+//        NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
+//        NSInteger i = [[a objectAtIndex:1] integerValue];
         
     }else if ([no.name isEqualToString:@"menu"]){
         NSLog(@"Menu Button Clicked");
@@ -822,6 +824,18 @@
 -(void)winLose:(BOOL)win
 {
     _win = win;
+    _shouldPlay = NO;
+    
+    //Obtém o nível
+    NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
+    NSInteger level = [[a lastObject] integerValue];
+    
+    //Para checar se é o último liberado
+    if(level == [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+        //Para enfim liberar mais um nível
+        [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
+    }
+    
     [self animateGameOver];
 }
 

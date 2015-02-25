@@ -27,6 +27,7 @@
 
 #pragma mark - Level Loading
 
+
 - (instancetype)initWithFile:(NSString *)filename {
     self = [super init];
     if (self != nil) {
@@ -141,10 +142,17 @@
                 
                 // Also add the fruit to the set so we can tell our caller about it.
                 [set addObject:fruit];
+                
             }
         }
     }
     return set;
+}
+
+- (void)fruitsBySet:(NSSet *)set{
+    for (JIMCFruit *fruit in [set allObjects]) {
+        _fruits[fruit.column][fruit.row] = fruit;
+    }
 }
 
 
@@ -306,7 +314,6 @@
                 [chain addFruit:_fruits[fruit.column][fruit.row]];
                 [set addObject:chain];
             }
-            
         }
     }
     JIMCFruit *selectedFruit = [JIMCSwapFruitSingleton sharedInstance].swap.fruitA;
@@ -340,7 +347,7 @@
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
         [self powerUpSingleton:mut];
-        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
+       
     }else{
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
@@ -815,7 +822,7 @@
                 NSUInteger newFruitType;
                 do {
                     
-                    [[NetworkController sharedInstance] sendMovedSelf:1];
+                   // [[NetworkController sharedInstance] sendMovedSelf:1];
                         newFruitType = arc4random_uniform(NumFruitTypes) + 1;
                 } while (newFruitType == fruitType);
                 
@@ -842,8 +849,6 @@
 
 
 #pragma mark - Querying the Level
-
-
 
 - (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row {
     NSAssert1(column >= 0 && column < NumColumns, @"Invalid column: %ld", (long)column);

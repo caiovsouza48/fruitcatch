@@ -10,6 +10,7 @@
 #import "NetworkController.h"
 #import "EloRating.h"
 #import "MultiplayerGameViewController.h"
+#import "ClearedLevelsSingleton.h"
 
 #define NEXTPEER_KEY @"08d8f6a9b74c70e157add51c12c7d272"
 
@@ -18,9 +19,19 @@
 @end
 
 @implementation AppDelegate
-
+//Metodo somente para tirar o warning
+-(void)nextpeerDidTournamentEnd{}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    //Checa se é o primeiro uso, caso seja, libera apenas o primeiro nível
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayed"])
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPlayed"];
+        [[NSUserDefaults standardUserDefaults] setInteger:(-1) forKey:@"lastCleared"];
+        [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
+    }
+    
     //[[NetworkController sharedInstance] authenticateLocalUser];
     // Override point for customization after application launch.
     [FBLoginView class];
