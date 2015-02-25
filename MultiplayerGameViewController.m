@@ -179,17 +179,7 @@
     NSLog(@"Event Firing");
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
-        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageEventOver DictionaryData:@{@"otherPlayerNumber" : [NSNumber numberWithInteger:_randomNumber]}];
-//        NSDictionary *message = @{@"type" : [NSNumber numberWithInt:NPFruitCatchMessageSendRandomNumber],
-//                                  
-//                                  @"randomNumber" : [NSNumber numberWithInteger:_randomNumber]
-//                                  };
-//        NSData *dataPacket = [NSPropertyListSerialization dataWithPropertyList:message format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
-//        [self.scene setUserInteractionEnabled:YES];
-//        NSDictionary* message = @{@"type": [NSNumber numberWithInt:MESSAGE_SEND_LEVEL]};
-//        NSData* dataPacket = [NSPropertyListSerialization dataWithPropertyList:message format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
-//        
-//        [Nextpeer pushDataToOtherPlayers:dataPacket];
+        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInteger:_randomNumber]}];
     }
 }
 
@@ -260,6 +250,15 @@
     // Fill up the level with new fruits, and create sprites for them.
     NSSet *newFruits = [self.level shuffle];
     [self.scene addSpritesForFruits:newFruits];
+}
+
+- (NSSet *)setByShuffle{
+    [self.scene removeAllFruitSprites];
+    
+    // Fill up the level with new fruits, and create sprites for them.
+    NSSet *newFruits = [self.level shuffle];
+    [self.scene addSpritesForFruits:newFruits];
+    return [newFruits copy];
 }
 
 
@@ -648,6 +647,7 @@
             NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
             NSSet *fruitSet = [NSKeyedUnarchiver unarchiveObjectWithData:fruitData];
             [self beginGameForPlayer2];
+            [self.scene removeAllFruitSprites];
             [self.level fruitsBySet:fruitSet];
             
             [self.scene addSpritesForFruits:fruitSet];
@@ -683,7 +683,7 @@
                     NSLog(@"my random number is greater than other random Number");
                         [self beginGame];
                         [self.scene setUserInteractionEnabled:NO];
-                        NSSet *shuffledSet = [self.level shuffle];
+                        NSSet *shuffledSet = [self setByShuffle];
                         NSData *dataFromSet = [NSKeyedArchiver archivedDataWithRootObject:shuffledSet];
                         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : dataFromSet}];
                     
