@@ -11,6 +11,7 @@
 #import "EloRating.h"
 #import "MultiplayerGameViewController.h"
 #import "ClearedLevelsSingleton.h"
+#import "JIMCAPHelper.h"
 
 #define NEXTPEER_KEY @"08d8f6a9b74c70e157add51c12c7d272"
 
@@ -24,6 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [JIMCAPHelper sharedInstance];
     //Checa se é o primeiro uso, caso seja, libera apenas o primeiro nível
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayed"])
     {

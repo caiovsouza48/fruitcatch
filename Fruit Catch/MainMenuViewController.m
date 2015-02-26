@@ -13,6 +13,7 @@
 #import "NetworkController.h"
 #import <Nextpeer/Nextpeer.h>
 #import "RNDecryptor.h"
+#import "JIMCAPHelper.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define ON 1
@@ -20,6 +21,7 @@
 
 @interface MainMenuViewController (){
     UIView *connectingView;
+    NSArray *_products;
 }
 
 @property (nonatomic) IBOutlet UIButton *singlePlayerBtn;
@@ -64,12 +66,29 @@
         self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
     
+    self.buyButton = [[UIButton alloc] init];
+    [self.buyButton addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
+    [self reload];
+    
     [self.view insertSubview:self.nome atIndex:1];
     [self loadFromFile];
     
     [self viewConfig];
     
     [self.view addSubview:self.configuracao];
+}
+
+- (void)reload {
+    _products = nil;
+//    [self.tableView reloadData];
+    [[JIMCAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            _products = products;
+            NSLog(@"produtos = %@", products);
+//            [self.tableView reloadData];
+        }
+//        [self.refreshControl endRefreshing];
+    }];
 }
 
 -(void)viewConfig
@@ -171,6 +190,11 @@
                          //Options
                          self.settingsBtn.transform     = CGAffineTransformMakeRotation(M_PI_4 / 4);
                      }completion:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:JIMCHelperProductPurchasedNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -530,4 +554,19 @@
     //[[AppUserDefaults sharedAppUserDefaults]setNoAds:YES];
     //[self hideAds];
 }
+
+//- (IBAction)buyButton:(UIButton *)sender {
+//    UIButton *buyButton = (UIButton *)sender;
+//    SKProduct *product = _products[buyButton.tag];
+//    
+//    NSLog(@"Buying %@...", product.productIdentifier);
+//    [[JIMCAPHelper sharedInstance] buyProduct:product];
+//}
+
+- (void)productPurchased:(NSNotification *)notification {
+    
+    NSLog(@"TESTE");
+    
+}
+
 @end
