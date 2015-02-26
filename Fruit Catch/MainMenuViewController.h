@@ -23,6 +23,7 @@
 @property (nonatomic) NSString* userImageURL;
 @property (nonatomic) UIImage* imageFacebook;
 
+@property (nonatomic) IBOutlet UIButton *buyButton;
 - (void)loadFromFile;
 
 @end

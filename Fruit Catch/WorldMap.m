@@ -155,6 +155,7 @@
             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
             imagem.image = [UIImage imageWithData:imageData];
             imagem.contentMode = UIViewContentModeScaleToFill;
+            [imagem clipsToBounds];
             
             // Adiciona a imagem no Scroll
             [_scroll1 addSubview:imagem];

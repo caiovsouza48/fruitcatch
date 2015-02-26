@@ -32,6 +32,7 @@ static const CGFloat TileHeight = 36.0;
 @property (strong, nonatomic) SKNode *fruitsLayer;
 @property (strong, nonatomic) SKNode *tilesLayer;
 @property (strong, nonatomic) SKNode *power;
+@property(nonatomic) CGPoint playerLastTouch;
 @property (nonatomic) BOOL shouldPlay;
 
 // The scene handles touches. If it recognizes that the user makes a swipe,
@@ -39,6 +40,8 @@ static const CGFloat TileHeight = 36.0;
 // ViewController that a swap needs to take place. You can also use a delegate
 // for this.
 @property (copy, nonatomic) void (^swipeHandler)(JIMCSwap *swap);
+
+
 
 - (void)addSpritesForFruits:(NSSet *)fruits;
 - (void)addTiles;
@@ -55,5 +58,7 @@ static const CGFloat TileHeight = 36.0;
 - (void)animateGameOver;
 - (void)animateBeginGame;
 - (void)winLose:(BOOL)win ;
+
+- (void)touchAtColumRowCGPoint:(CGPoint)point;
 
 @end
