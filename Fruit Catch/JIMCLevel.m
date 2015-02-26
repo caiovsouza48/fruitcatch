@@ -833,7 +833,6 @@
     return columns;
 }
 
-#warning modificar aqui
 - (NSArray *)topUpFruits {
     NSMutableArray *columns = [NSMutableArray array];
     NSUInteger fruitType = 0;
@@ -878,10 +877,9 @@
             }
         }
     }
-
+   
     return columns;
 }
-
 
 
 #pragma mark - Querying the Level
