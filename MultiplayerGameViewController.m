@@ -24,7 +24,7 @@
 #define START_GAME_SYNC_EVENT_NAME @"com.sucodefrutasteam.fruitcatch.syncevent.startgame"
 #define TIMEOUT 5.0
 
-@interface MultiplayerGameViewController () <NetworkControllerDelegate,NPTournamentDelegate>
+@interface MultiplayerGameViewController () <NPTournamentDelegate>
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
 @property (nonatomic) JIMCLevel *level;
@@ -54,6 +54,8 @@
 
 @property(nonatomic) NSMutableArray *orderOfPlayers;
 
+@property(nonatomic) JIMCFruitStruct *fruitStruct;
+
 
 @end
 
@@ -78,7 +80,7 @@
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     
     //self.scene.viewController = self;
-    self.levelString = @"Level_1";
+    self.levelString = @"Level_0";
     // Load the level.
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
@@ -115,6 +117,7 @@
             
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
+               // [NextpeerHelper sendMessageOfType:<#(NPFruitCatchMessage)#> DictionaryData:<#(NSDictionary *)#>]
             }];
             
             
@@ -252,13 +255,42 @@
     [self.scene addSpritesForFruits:newFruits];
 }
 
-- (NSSet *)setByShuffle{
+- (NSArray *)shuffledStringArrayOfFruits{
+     [self.scene removeAllFruitSprites];
+    NSSet * newFruits = [self.level shuffle];
+    NSMutableArray *fruitStringArray = [NSMutableArray array];
+    for (JIMCFruit *fruit in [newFruits allObjects]) {
+        [fruitStringArray addObject:[fruit stringRepresentation]];
+    }
+    [self.scene addSpritesForFruits:newFruits];
+    return fruitStringArray;
+    
+}
+
+- (void)fruitStructArrayByShuffle:(int *)sizeOfPointer{
     [self.scene removeAllFruitSprites];
     
-    // Fill up the level with new fruits, and create sprites for them.
+//    u_int8_t **fruitMatrix = (u_int8_t **) malloc(sizeof(u_int8_t) * [self.level getNumOfColumns]);
+//    *fruitMatrix = (u_int8_t *) malloc(sizeof(u_int8_t) * [self.level getNumOfRows]);
+//    
+//    // Fill up the level with new fruits, and create sprites for them.
+   
     NSSet *newFruits = [self.level shuffle];
+    _fruitStruct = (JIMCFruitStruct *) malloc(sizeof(JIMCFruitStruct) * newFruits.count);
+    *sizeOfPointer = (int)newFruits.count;
+    int i=0;
+    for (JIMCFruit *fruit in [newFruits allObjects]) {
+        _fruitStruct[i] = [fruit structRepresentation];
+    }
+    
+    
+    
+//    int i=0;
+//    for (JIMCFruit *fruit in newFruits) {
+//        fruitMatrix[fruit.column][fruit.row]
+//    }
     [self.scene addSpritesForFruits:newFruits];
-    return [newFruits copy];
+    //return fruitStructPointer;
 }
 
 
@@ -572,7 +604,7 @@
     //Metodos comentado para tirar o warning
     //UITouch *touch = [touches anyObject];
    // CGPoint point = [touch locationInNode:self.scene];
-    [[NetworkController sharedInstance] sendMovedSelf:1];
+    //[[NetworkController sharedInstance] sendMovedSelf:1];
     [self.scene removeActionForKey:@"Hint"];
 //    if(self.hintNode){
 //        [self.scene runAction:[SKAction runBlock:^{
@@ -628,6 +660,13 @@
     }
 }
 
+- (void)showTurnAlert:(BOOL)isMyTurn{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Turno" message:[NSString stringWithFormat:@"%@",isMyTurn ? @"Agora é a sua Vez!" : @"Turno do Oponente"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alertView show];
+
+
+}
+
 -(void)processNextpeerDidReceiveTournamentCustomMessage:(NSNotification *)notification{
     
     NPTournamentCustomMessageContainer* message = (NPTournamentCustomMessageContainer*)[notification.userInfo objectForKey:@"userMessage"];
@@ -644,17 +683,25 @@
         case NPFruitCatchMessageSendLevel:
         {
             NSLog(@"Received Message Level");
-            NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
-            NSSet *fruitSet = [NSKeyedUnarchiver unarchiveObjectWithData:fruitData];
+            //NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
+            NSArray *wrapperArray = [gameMessage objectForKey:@"gameLevel"];
+           
+            NSSet *receivedFruitSet = [self fruitObjectSetByFruitArray:wrapperArray];
+            //[fruitData getBytes:&receivedFruitStruct length:pointerSize];
+            
             [self beginGameForPlayer2];
             [self.scene removeAllFruitSprites];
-            [self.level fruitsBySet:fruitSet];
-            
-            [self.scene addSpritesForFruits:fruitSet];
+            [self.level setFruitsBySet:receivedFruitSet];
+            //[self.level fruitsByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
+            //[self.level fruitsByFruitStruct:<#(JIMCFruitStruct *)#> PointerSize:<#(int)#>
+            //NSSet *fruitSet = [self.level setByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
+            [self.scene addSpritesForFruits:receivedFruitSet];
             self.possibleMoves = [self.level detectPossibleSwaps];
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
-            [self.scene setUserInteractionEnabled:YES];
+            [self.scene setUserInteractionEnabled:NO];
+            [self showTurnAlert:NO];
             break;
+            
         }
         case NPFruitCatchMessageSendRandomNumber:
         {
@@ -680,23 +727,34 @@
             } else {
                 //3
                 if (self.randomNumber > [[gameMessage objectForKey:@"randomNumber"] intValue]){
-                    NSLog(@"my random number is greater than other random Number");
                         [self beginGame];
                         [self.scene setUserInteractionEnabled:NO];
-                        NSSet *shuffledSet = [self setByShuffle];
-                        NSData *dataFromSet = [NSKeyedArchiver archivedDataWithRootObject:shuffledSet];
-                        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : dataFromSet}];
-                    
-                    }
+                        //NSData *dataFromSet = [NSData dataWithBytes:&shuffledFruitStruct length:sizeof(shuffledFruitStruct)];
+                    NSArray *wrapperArray = [self shuffledStringArrayOfFruits];
+                    //NSLog(@"Wrapper Array of Sender: %@",wrapperArray);
+                        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : wrapperArray,
+                                            }];
+                    [self showTurnAlert:YES];
             }
         }
         break;
+        }
         case NPFruitCatchMessageBeginGame:
+        {
             [self.scene setUserInteractionEnabled:YES];
             break;
+        }
+        
     }
 }
--(void)stateChanged:(NetworkState)state{
+
+- (NSSet *)fruitObjectSetByFruitArray:(NSArray *)fruitArray{
+    NSMutableSet *ret = [NSMutableSet set];
+    for (NSString *stringRepresentation in fruitArray) {
+        [ret addObject:[JIMCFruit fruitByStringRepresentation:stringRepresentation]];
+    }
+    return [ret copy];
+    
 }
 
 @end

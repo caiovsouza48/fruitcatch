@@ -8,6 +8,12 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+typedef struct{
+    u_int16_t column;
+    u_int16_t row;
+    u_int16_t fruitType;
+}JIMCFruitStruct;
+
 static const NSUInteger NumFruitTypes = 4;
 
 @interface JIMCFruit : NSObject<NSCoding>
@@ -17,6 +23,10 @@ static const NSUInteger NumFruitTypes = 4;
 @property (strong, nonatomic) SKSpriteNode *sprite;
 @property(nonatomic) NSInteger fruitPowerUp;
 
+
++ (JIMCFruit *)fruitByStringRepresentation:(NSString *)stringRepresentation;
+- (NSString *)stringRepresentation;
+- (JIMCFruitStruct) structRepresentation;
 - (NSString *)spriteName;
 - (NSString *)highlightedSpriteName;
 

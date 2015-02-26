@@ -48,6 +48,18 @@
     [aCoder encodeInteger:self.fruitPowerUp forKey:@"fruitPowerUp"];
 }
 
+- (JIMCFruitStruct)structRepresentation{
+    JIMCFruitStruct fruitStruct;
+    fruitStruct.column = self.column;
+    fruitStruct.row = self.row;
+    fruitStruct.fruitType = self.fruitType;
+    return fruitStruct;
+}
+
+- (NSString *)stringRepresentation{
+    return [NSString stringWithFormat:@"%ld,%ld,%lu",(long)self.column,(long)self.row,(unsigned long)self.fruitType];
+}
+
 - (NSString *)highlightedSpriteName {
     static NSString * const highlightedSpriteNames[] = {
         @"laranja",
@@ -65,6 +77,15 @@
     };
     
     return highlightedSpriteNames[self.fruitType - 1];
+}
+
++ (JIMCFruit *)fruitByStringRepresentation:(NSString *)stringRepresentation{
+    JIMCFruit *fruit = [[JIMCFruit alloc]init];
+    NSArray *componentsArray = [stringRepresentation componentsSeparatedByString:@","];
+    fruit.column = [componentsArray[0] intValue];
+    fruit.row = [componentsArray[1] intValue];
+    fruit.fruitType = [componentsArray[2] intValue];
+    return fruit;
 }
 
 //- (BOOL)isEqual:(id)other
