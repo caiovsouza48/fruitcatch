@@ -248,8 +248,10 @@
  
            [self convertPoint:finalPoint toColumn:&column row:&row];
         
+            NSLog(@"coluna linha %@",NSStringFromCGPoint([self pointForColumn:column row:row]));
             NSLog(@"column = %ld",(long)column);
             NSLog(@"Row = %ld",(long)row);
+        
         
             if ((column != NSNotFound) && (row != NSNotFound)){
                 NSLog(@"Column and row found");
@@ -280,6 +282,10 @@
        
     }
     
+}
+// Converts a column,row pair into a CGPoint that is relative to the fruitLayer.
+- (CGPoint)pointForColumn:(NSInteger)column row:(NSInteger)row {
+    return CGPointMake(column*TileWidth + TileWidth/2, row*TileHeight + TileHeight/2);
 }
 
 // Converts a point relative to the fruitLayer into column and row numbers.

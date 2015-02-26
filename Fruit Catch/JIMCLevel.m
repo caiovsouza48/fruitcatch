@@ -917,6 +917,7 @@
 }
 
 - (NSSet *) executePowerUp:(JIMCPowerUp *)powerUp{
+    
      return [self removeMatchesForPowerUp:powerUp];
 }
 
