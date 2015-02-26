@@ -933,10 +933,11 @@
 				TargetAttributes = {
 					DEC905A11A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = V3QPSCZ857;
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = BLCXKG795L;
+						DevelopmentTeam = V3QPSCZ857;
 						TestTargetID = DEC905A11A239C6D003DD444;
 					};
 				};
@@ -1243,7 +1244,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "113fd5b6-6b9d-453d-b5cc-e51f8ae120d8";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1268,7 +1269,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "113fd5b6-6b9d-453d-b5cc-e51f8ae120d8";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
