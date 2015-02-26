@@ -240,8 +240,10 @@
        // if (CGRectContainsPoint(self.scene.fruitsLayer.frame, finalPoint)){
  
            [self convertPoint:finalPoint toColumn:&column row:&row];
+        
             NSLog(@"column = %ld",(long)column);
             NSLog(@"Row = %ld",(long)row);
+        
             if ((column != NSNotFound) && (row != NSNotFound)){
                 NSLog(@"Column and row found");
                 //_powerUpEmitter.position = (CGPoint){column,row};

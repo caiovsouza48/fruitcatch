@@ -398,28 +398,6 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wtf-1w-1vB">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="UGm-v6-EbM"/>
-                                    <constraint firstAttribute="height" constant="209" id="yQY-hS-kgP"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="UGm-v6-EbM"/>
-                                        <exclude reference="yQY-hS-kgP"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="UGm-v6-EbM"/>
-                                        <include reference="yQY-hS-kgP"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NHk-PR-yXA">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <constraints>
@@ -484,14 +462,12 @@
                             <constraint firstAttribute="centerX" secondItem="9HX-Nk-Azn" secondAttribute="centerX" id="U2i-Ec-LkE">
                                 <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                             </constraint>
-                            <constraint firstAttribute="centerX" secondItem="wtf-1w-1vB" secondAttribute="centerX" id="UhX-j3-M5e"/>
                             <constraint firstItem="nx2-K0-R3n" firstAttribute="top" secondItem="NwU-VO-8hz" secondAttribute="bottom" constant="4" id="YqY-Px-A6W"/>
                             <constraint firstItem="QyQ-FX-Ikx" firstAttribute="top" secondItem="TIk-HB-muN" secondAttribute="bottom" constant="4" id="bT3-vk-fDx"/>
                             <constraint firstAttribute="centerX" secondItem="nx2-K0-R3n" secondAttribute="centerX" id="h4J-ch-nhV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9uF-AV-uaC" secondAttribute="trailing" constant="20" id="hJ6-ZH-vUe">
                                 <variation key="heightClass=regular-widthClass=compact" constant="19"/>
                             </constraint>
-                            <constraint firstAttribute="centerY" secondItem="wtf-1w-1vB" secondAttribute="centerY" id="hnR-vs-kAR"/>
                             <constraint firstItem="NwU-VO-8hz" firstAttribute="top" secondItem="maK-i9-Uhn" secondAttribute="bottom" constant="8" id="jFR-3Z-gmk"/>
                             <constraint firstItem="NHk-PR-yXA" firstAttribute="top" secondItem="9uF-AV-uaC" secondAttribute="bottom" constant="4" id="jwa-hv-R3c"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NHk-PR-yXA" secondAttribute="trailing" constant="13" id="pMO-HO-CNY"/>
@@ -510,7 +486,6 @@
                                 <exclude reference="TIk-HB-muN"/>
                                 <exclude reference="QyQ-FX-Ikx"/>
                                 <exclude reference="9uF-AV-uaC"/>
-                                <exclude reference="wtf-1w-1vB"/>
                                 <exclude reference="NHk-PR-yXA"/>
                                 <exclude reference="9VR-cb-S6F"/>
                             </mask>
@@ -530,8 +505,6 @@
                                 <exclude reference="FE7-eu-cHl"/>
                                 <exclude reference="sqS-tg-duj"/>
                                 <exclude reference="y3x-zO-EtY"/>
-                                <exclude reference="UhX-j3-M5e"/>
-                                <exclude reference="hnR-vs-kAR"/>
                                 <exclude reference="U2i-Ec-LkE"/>
                                 <exclude reference="ANI-X6-NbJ"/>
                                 <exclude reference="rcn-FB-Swc"/>
@@ -544,7 +517,6 @@
                                 <include reference="TIk-HB-muN"/>
                                 <include reference="QyQ-FX-Ikx"/>
                                 <include reference="9uF-AV-uaC"/>
-                                <include reference="wtf-1w-1vB"/>
                                 <include reference="NHk-PR-yXA"/>
                             </mask>
                         </variation>
@@ -569,8 +541,6 @@
                                 <include reference="FE7-eu-cHl"/>
                                 <include reference="sqS-tg-duj"/>
                                 <include reference="y3x-zO-EtY"/>
-                                <include reference="UhX-j3-M5e"/>
-                                <include reference="hnR-vs-kAR"/>
                                 <include reference="U2i-Ec-LkE"/>
                                 <include reference="ANI-X6-NbJ"/>
                                 <include reference="rcn-FB-Swc"/>
@@ -579,7 +549,6 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="9HX-Nk-Azn" id="OzX-Gq-VYa"/>
-                        <outlet property="gameOverPanel" destination="wtf-1w-1vB" id="eHv-CF-O3z"/>
                         <outlet property="movesLabel" destination="nx2-K0-R3n" id="3wR-1g-vqM"/>
                         <outlet property="scoreLabel" destination="NHk-PR-yXA" id="Bng-KN-R4q"/>
                         <outlet property="targetLabel" destination="QyQ-FX-Ikx" id="u0S-5q-H8I"/>
