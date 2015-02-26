@@ -38,7 +38,6 @@
 @property int offset;
 @property (nonatomic) UIScrollView *shopScrollView;
 @property BOOL shopOpen;
-@property (nonatomic) UIView *test;
 
 @end
 
@@ -362,11 +361,6 @@
     
     // Aloca o Scroll na view
     [self.view addSubview:_scroll1];
-    
-    _test = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    _test.backgroundColor = [UIColor purpleColor];
-    [self.scrollView addSubview:_test];
-//    _test.layer.anchorPoint = CGPointMake(_test.center.x + _test.frame.size.width/2, _test.center.y + _test.frame.size.height/2);
 }
 
 - (void)dealloc{
@@ -698,9 +692,6 @@
 
 -(IBAction)ajuda:(id)sender
 {
-    [UIView animateWithDuration:1 animations:^{
-        _test.transform = CGAffineTransformMakeRotation(180);
-    }];
 }
 
 - (void)didReceiveMemoryWarning {
