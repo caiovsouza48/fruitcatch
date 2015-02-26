@@ -7,12 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <StoreKit/StoreKit.h>
+
+UIKIT_EXTERN NSString *const JIMCHelperProductPurchasedNotification;
 
 typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray * products);
 
-@interface JIMCHelper : NSObject
+@interface JIMCHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers;
 - (void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler;
+
+- (void)buyProduct:(SKProduct *)product;
+- (BOOL)productPurchased:(NSString *)productIdentifier;
 
 @end

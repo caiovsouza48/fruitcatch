@@ -17,7 +17,9 @@
 #import "Life.h"
 #import "GameOverScene.h"
 
-@interface GameViewController ()
+@interface GameViewController (){
+    NSNumberFormatter * _priceFormatter;
+}
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
 @property (nonatomic) JIMCLevel *level;
@@ -135,6 +137,11 @@
         [self.backgroundMusic play];
     }
     [self loadPowerUpsView];
+    
+    _priceFormatter = [[NSNumberFormatter alloc] init];
+    [_priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [_priceFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
     // Let's start the game!
     [self beginGame];
 }
