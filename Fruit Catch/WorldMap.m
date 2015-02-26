@@ -148,6 +148,7 @@
             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
             imagem.image = [UIImage imageWithData:imageData];
             imagem.contentMode = UIViewContentModeScaleToFill;
+            [imagem clipsToBounds];
             
             // Adiciona a imagem no Scroll
             [_scroll1 addSubview:imagem];
@@ -653,8 +654,6 @@
     }
 //    NSLog(@"return YES");
     return YES;
-    
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

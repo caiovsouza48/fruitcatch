@@ -25,6 +25,8 @@
 		0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */; };
 		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
 		0FF5BF5E1A3A13670090873A /* CustomSegueWorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */; };
+		0FF9E80E1A9D14D00071C0B2 /* JIMCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF9E80D1A9D14D00071C0B2 /* JIMCHelper.m */; };
+		0FFC7F411A9E3EE0005D858D /* JIMCAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC7F401A9E3EE0005D858D /* JIMCAPHelper.m */; };
 		433A0FFF1A8B90360096B0E5 /* botao_fechar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A0FFD1A8B90360096B0E5 /* botao_fechar@2x.png */; };
 		433A10001A8B90360096B0E5 /* botao_fechar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A0FFE1A8B90360096B0E5 /* botao_fechar@3x.png */; };
 		433A10021A8B904F0096B0E5 /* botao_fechar.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A10011A8B904F0096B0E5 /* botao_fechar.png */; };
@@ -186,6 +188,10 @@
 		0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCPowerUp.m; path = "Fruit Catch/JIMCPowerUp.m"; sourceTree = "<group>"; };
 		0FF5BF5C1A3A13670090873A /* CustomSegueWorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegueWorldMap.h; sourceTree = "<group>"; };
 		0FF5BF5D1A3A13670090873A /* CustomSegueWorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegueWorldMap.m; sourceTree = "<group>"; };
+		0FF9E80C1A9D14D00071C0B2 /* JIMCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCHelper.h; sourceTree = "<group>"; };
+		0FF9E80D1A9D14D00071C0B2 /* JIMCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCHelper.m; sourceTree = "<group>"; };
+		0FFC7F3F1A9E3EE0005D858D /* JIMCAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCAPHelper.h; sourceTree = "<group>"; };
+		0FFC7F401A9E3EE0005D858D /* JIMCAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCAPHelper.m; sourceTree = "<group>"; };
 		433A0FFD1A8B90360096B0E5 /* botao_fechar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_fechar@2x.png"; sourceTree = "<group>"; };
 		433A0FFE1A8B90360096B0E5 /* botao_fechar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_fechar@3x.png"; sourceTree = "<group>"; };
 		433A10011A8B904F0096B0E5 /* botao_fechar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = botao_fechar.png; sourceTree = "<group>"; };
@@ -544,6 +550,24 @@
 			name = JIMCParticle;
 			sourceTree = "<group>";
 		};
+		0FF9E80B1A9D14B20071C0B2 /* JIMCHelper */ = {
+			isa = PBXGroup;
+			children = (
+				0FF9E80C1A9D14D00071C0B2 /* JIMCHelper.h */,
+				0FF9E80D1A9D14D00071C0B2 /* JIMCHelper.m */,
+			);
+			name = JIMCHelper;
+			sourceTree = "<group>";
+		};
+		0FFC7F3E1A9E3ECE005D858D /* JIMCAPHelper */ = {
+			isa = PBXGroup;
+			children = (
+				0FFC7F3F1A9E3EE0005D858D /* JIMCAPHelper.h */,
+				0FFC7F401A9E3EE0005D858D /* JIMCAPHelper.m */,
+			);
+			name = JIMCAPHelper;
+			sourceTree = "<group>";
+		};
 		436CBD071A2F732E00862EDE /* WorldMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -852,6 +876,8 @@
 		E3E3EC971A23ACFB00E7E18E /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				0FFC7F3E1A9E3ECE005D858D /* JIMCAPHelper */,
+				0FF9E80B1A9D14B20071C0B2 /* JIMCHelper */,
 				0FF5C3911A96616800E26692 /* JIMCParticle */,
 				0FA8DFB91A362E67005B994C /* JIMCBombaMaisPowerUp */,
 				0FA8DFB71A362E36005B994C /* JIMCPowerUp */,
@@ -1102,6 +1128,7 @@
 				437737B61A9B9E0C007474BF /* SettingsSingleton.m in Sources */,
 				DEA2D2B41A39BBEE0038B65A /* RNCryptor.m in Sources */,
 				DEA2D2B61A39BBEE0038B65A /* RNDecryptor.m in Sources */,
+				0FFC7F411A9E3EE0005D858D /* JIMCAPHelper.m in Sources */,
 				DE8092D31A7FDDE3008E2B37 /* MessageReader.m in Sources */,
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
@@ -1112,6 +1139,7 @@
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 				0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */,
 				0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */,
+				0FF9E80E1A9D14D00071C0B2 /* JIMCHelper.m in Sources */,
 				DE8092D41A7FDDE3008E2B37 /* MessageWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

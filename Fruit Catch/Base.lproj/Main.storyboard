@@ -92,6 +92,19 @@
                                     <rect key="frame" x="99" y="379" width="240" height="128"/>
                                 </variation>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjG-Y3-Kdg">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="33" y="90" width="46" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="buyButton:" destination="uZN-3h-NbC" eventType="touchUpInside" id="puu-dG-4wH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -118,6 +131,7 @@
                                 <exclude reference="m4T-l0-ZHM"/>
                                 <exclude reference="LEv-IE-Kgo"/>
                                 <exclude reference="Q6o-5s-459"/>
+                                <exclude reference="qjG-Y3-Kdg"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Yc2-IE-dKe"/>
@@ -136,6 +150,7 @@
                                 <include reference="m4T-l0-ZHM"/>
                                 <include reference="LEv-IE-Kgo"/>
                                 <include reference="Q6o-5s-459"/>
+                                <include reference="qjG-Y3-Kdg"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Yc2-IE-dKe"/>
@@ -150,6 +165,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="buyButton" destination="qjG-Y3-Kdg" id="oI6-BW-Rn9"/>
                         <outlet property="facebookImage" destination="Q6o-5s-459" id="p3x-kq-OHO"/>
                         <outlet property="multiplayerBtn" destination="m4T-l0-ZHM" id="iG0-xC-8v3"/>
                         <outlet property="settingsBtn" destination="LEv-IE-Kgo" id="Gyj-VO-zbE"/>
