@@ -23,6 +23,9 @@ static const NSUInteger NumFruitTypes = 4;
 @property (strong, nonatomic) SKSpriteNode *sprite;
 @property(nonatomic) NSInteger fruitPowerUp;
 
+
++ (JIMCFruit *)fruitByStringRepresentation:(NSString *)stringRepresentation;
+- (NSString *)stringRepresentation;
 - (JIMCFruitStruct) structRepresentation;
 - (NSString *)spriteName;
 - (NSString *)highlightedSpriteName;

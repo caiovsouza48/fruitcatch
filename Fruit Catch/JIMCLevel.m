@@ -173,6 +173,12 @@
     }
 }
 
+- (void)setFruitsBySet:(NSSet *)set{
+    for (JIMCFruit *fruit in [set allObjects]) {
+        _fruits[fruit.column][fruit.row] = fruit;
+    }
+}
+
 - (NSSet *)setByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize{
     NSMutableSet *mutableFruitSet = [NSMutableSet set];
     for (int i=0; i<pointerSize; i++) {
