@@ -345,6 +345,58 @@
     }
 }
 
+- (void)touchAtColumRowCGPoint:(CGPoint)point{
+    // Convert the touch location to a point relative to the fruitsLayer.
+    
+    // If the touch is inside a square, then this might be the start of a
+    // swipe motion.
+    NSInteger column = point.x , row = point.y;
+    // The touch must be on a fruit, not on an empty tile.
+    JIMCFruit *fruit = [self.level fruitAtColumn:point.x row:point.y];
+    if (fruit != nil) {
+        
+        // Remember in which column and row the swipe started, so we can compare
+        // them later to find the direction of the swipe. This is also the first
+        // fruit that will be swapped.
+        self.swipeFromColumn = column;
+        self.swipeFromRow = row;
+        
+        [self showSelectionIndicatorForFruit:fruit];
+    }
+    if (self.swipeFromColumn == NSNotFound) return;
+    
+   
+    //[self.power setPosition:location];
+   
+        
+        // Figure out in which direction the player swiped. Diagonal swipes
+        // are not allowed.
+        NSInteger horzDelta = 0, vertDelta = 0;
+        if (column < self.swipeFromColumn) {          // swipe left
+            horzDelta = -1;
+        } else if (column > self.swipeFromColumn) {   // swipe right
+            horzDelta = 1;
+        } else if (row < self.swipeFromRow) {         // swipe down
+            vertDelta = -1;
+        } else if (row > self.swipeFromRow) {         // swipe up
+            vertDelta = 1;
+        }
+        
+        // Only try swapping when the user swiped into a new square.
+        if (horzDelta != 0 || vertDelta != 0) {
+            
+            [self trySwapHorizontal:horzDelta vertical:vertDelta];
+            [self hideSelectionIndicator];
+            
+            // Ignore the rest of this swipe motion from now on. Just setting
+            // swipeFromColumn is enough; no need to set swipeFromRow as well.
+            self.swipeFromColumn = NSNotFound;
+            self.playerLastTouch = (CGPoint){column,row};
+        }
+
+    
+}
+
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     
     // If swipeFromColumn is NSNotFound then either the swipe began outside
@@ -381,6 +433,7 @@
             // Ignore the rest of this swipe motion from now on. Just setting
             // swipeFromColumn is enough; no need to set swipeFromRow as well.
             self.swipeFromColumn = NSNotFound;
+            self.playerLastTouch = (CGPoint){column,row};
         }
     }
 }
