@@ -24,6 +24,10 @@
 @property (nonatomic) UIImage* imageFacebook;
 
 @property (nonatomic) IBOutlet UIButton *buyButton;
+@property (nonatomic) IBOutlet UIButton *engineButtonLeft;
+
+@property (nonatomic) UIView* engineViewLeft;
+
 - (void)loadFromFile;
 
 @end
