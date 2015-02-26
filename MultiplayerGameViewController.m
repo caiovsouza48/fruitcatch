@@ -139,7 +139,7 @@
             for (NSArray *array in _arrayOfColumnArray) {
                 [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
             }
-        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
+        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
         }
     };
     
