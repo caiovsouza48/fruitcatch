@@ -54,7 +54,11 @@
 
 @property(nonatomic) NSMutableArray *orderOfPlayers;
 
-@property(nonatomic) JIMCFruitStruct *fruitStruct;
+@property(nonatomic) NSMutableArray *arrayOfColumnArray;
+
+@property(nonatomic) BOOL isMyMove;
+
+@property(nonatomic) int fruitCounter;
 
 
 @end
@@ -65,9 +69,12 @@
 -(void)matchStarted:(Match *)match{}
 -(void)player:(unsigned char)playerIndex movedToPosX:(int)posX{}
 -(void)gameOver:(unsigned char)winnerIndex{}
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    _isMyMove = NO;
     [self registerNotifications];
     //[self.networkEngine setDelegate:self];
     // Configure the view.
@@ -117,7 +124,7 @@
             
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
-               // [NextpeerHelper sendMessageOfType:<#(NPFruitCatchMessage)#> DictionaryData:<#(NSDictionary *)#>]
+               
             }];
             
             
@@ -126,6 +133,13 @@
             [self.scene animateInvalidSwap:swap completion:^{
                 self.view.userInteractionEnabled = YES;
             }];
+        }
+        if (_isMyMove){
+            NSMutableArray *sendingArray = [NSMutableArray array];
+            for (NSArray *array in _arrayOfColumnArray) {
+                [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
+            }
+        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
         }
     };
     
@@ -155,8 +169,18 @@
 //    [self stateChanged:[NetworkController sharedInstance].state];
 //    // Let's start the game!
     //[self beginGame];
+    _fruitCounter = 0;
     
     
+}
+
+- (NSArray *)fruitObjToFruitStringArray:(NSArray *)fruitObjArray{
+    NSMutableArray *ret = [NSMutableArray array];
+    for (JIMCFruit *fruit in fruitObjArray) {
+        [ret addObject:[fruit stringRepresentation]];
+    }
+    return [ret copy];
+
 }
 
 - (void)dealloc{
@@ -265,32 +289,6 @@
     [self.scene addSpritesForFruits:newFruits];
     return fruitStringArray;
     
-}
-
-- (void)fruitStructArrayByShuffle:(int *)sizeOfPointer{
-    [self.scene removeAllFruitSprites];
-    
-//    u_int8_t **fruitMatrix = (u_int8_t **) malloc(sizeof(u_int8_t) * [self.level getNumOfColumns]);
-//    *fruitMatrix = (u_int8_t *) malloc(sizeof(u_int8_t) * [self.level getNumOfRows]);
-//    
-//    // Fill up the level with new fruits, and create sprites for them.
-   
-    NSSet *newFruits = [self.level shuffle];
-    _fruitStruct = (JIMCFruitStruct *) malloc(sizeof(JIMCFruitStruct) * newFruits.count);
-    *sizeOfPointer = (int)newFruits.count;
-    int i=0;
-    for (JIMCFruit *fruit in [newFruits allObjects]) {
-        _fruitStruct[i] = [fruit structRepresentation];
-    }
-    
-    
-    
-//    int i=0;
-//    for (JIMCFruit *fruit in newFruits) {
-//        fruitMatrix[fruit.column][fruit.row]
-//    }
-    [self.scene addSpritesForFruits:newFruits];
-    //return fruitStructPointer;
 }
 
 
@@ -408,8 +406,18 @@
         NSArray *columns = [self.level fillHoles];
         [self.scene animateFallingFruits:columns completion:^{
             
+            NSArray *columns;
             // ...and finally, add new fruits at the top.
-            NSArray *columns = [self.level topUpFruits];
+            if (_isMyMove){
+                columns = [self.level topUpFruits];
+            }
+            else{
+                columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                _fruitCounter++;
+            }
+            
+           
+            
             [self.scene animateNewFruits:columns completion:^{
                 
                 // Keep repeating this cycle until there are no more matches.
@@ -417,6 +425,7 @@
             }];
         }];
     }];
+    _fruitCounter = 0;
 }
 
 - (void)handlePowerUp {
@@ -679,6 +688,7 @@
             
         case NPFruitCatchMessageEventOver:
         {
+            break;
         }
         case NPFruitCatchMessageSendLevel:
         {
@@ -692,14 +702,12 @@
             [self beginGameForPlayer2];
             [self.scene removeAllFruitSprites];
             [self.level setFruitsBySet:receivedFruitSet];
-            //[self.level fruitsByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
-            //[self.level fruitsByFruitStruct:<#(JIMCFruitStruct *)#> PointerSize:<#(int)#>
-            //NSSet *fruitSet = [self.level setByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
             [self.scene addSpritesForFruits:receivedFruitSet];
             self.possibleMoves = [self.level detectPossibleSwaps];
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
             [self.scene setUserInteractionEnabled:NO];
             [self showTurnAlert:NO];
+            _isMyMove = NO;
             break;
             
         }
@@ -707,7 +715,6 @@
         {
             NSLog(@"Received Random Number");
             //NSDictionary *dict = [NSDictionary alloc]init
-            NSLog(@"message.playerID = %@",message.playerId);
             NSDictionary *parameterDict = @{playerIdKey : message.playerId,
                                             randomNumberKey : [gameMessage objectForKey:@"randomNumber"]
                                             };
@@ -735,6 +742,7 @@
                         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : wrapperArray,
                                             }];
                     [self showTurnAlert:YES];
+                    _isMyMove = YES;
             }
         }
         break;
@@ -744,8 +752,34 @@
             [self.scene setUserInteractionEnabled:YES];
             break;
         }
+        case NPFruitCatchMessageMove:
+        {
+            _isMyMove = NO;
+            CGPoint oponentLocation = CGPointMake([[gameMessage objectForKey:@"moveColumn"] intValue], [[gameMessage objectForKey:@"moveRow"] intValue]);
+            _arrayOfColumnArray = [gameMessage objectForKey:@"topUpFruits"];
+            _arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
+            [self.scene touchAtColumRowCGPoint:oponentLocation];
+            _isMyMove = YES;
+            [self showTurnAlert:YES];
+            [self.scene setUserInteractionEnabled:YES];
+            _arrayOfColumnArray = [NSMutableArray array];
+            break;
+        }
         
     }
+}
+
+- (NSMutableArray *)fruitStringRepresentationArrayToObjArray{
+    NSMutableArray *ret = [NSMutableArray array];
+    NSMutableArray *auxiliaryArray = [NSMutableArray array];
+    for (NSArray *array in _arrayOfColumnArray) {
+        for (NSString *str in array) {
+            [auxiliaryArray addObject:[JIMCFruit fruitByStringRepresentation:str]];
+        }
+        [ret addObject:auxiliaryArray];
+        auxiliaryArray = [NSMutableArray array];
+    }
+    return ret;
 }
 
 - (NSSet *)fruitObjectSetByFruitArray:(NSArray *)fruitArray{
