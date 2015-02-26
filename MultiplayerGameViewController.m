@@ -707,6 +707,7 @@
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
             [self.scene setUserInteractionEnabled:NO];
             [self showTurnAlert:NO];
+            _isMyMove = NO;
             break;
             
         }
@@ -741,6 +742,7 @@
                         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : wrapperArray,
                                             }];
                     [self showTurnAlert:YES];
+                    _isMyMove = YES;
             }
         }
         break;
