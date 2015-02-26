@@ -69,7 +69,7 @@
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
-
+    skView.showsNodeCount = YES;
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;

@@ -694,8 +694,6 @@
 			children = (
 				436D9BE71A9E05CF00EA5D4A /* ClearedLevelsSingleton */,
 				436D9BE61A9E059F00EA5D4A /* SettingsSingleton */,
-				DE3DAC411A9B998E002FE5FE /* PowerUp_horizontal */,
-				DE3DAC471A9B998E002FE5FE /* PowerUp_vertical */,
 				E3CFD4BA1A8BAFAA00C6FF64 /* Frameworks */,
 				DE8092D81A7FDDEF008E2B37 /* Multiplayer */,
 				DEA2D2B91A39C83D0038B65A /* Util */,
@@ -750,6 +748,8 @@
 		E37BB4D61A40567E00F8E679 /* imagens */ = {
 			isa = PBXGroup;
 			children = (
+				DE3DAC411A9B998E002FE5FE /* PowerUp_horizontal */,
+				DE3DAC471A9B998E002FE5FE /* PowerUp_vertical */,
 				E3BBEE371A9E467500B27650 /* botao_back@2x.png */,
 				E3BBEE351A9E447800B27650 /* botao_ajuda@2x.png */,
 				436128881A40612100A2B620 /* fase_aberta@2x.png */,
