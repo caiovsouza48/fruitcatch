@@ -85,5 +85,6 @@ static const NSInteger NumRows = 9;
 -(int)getNumOfRows;
 - (void)fruitsByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize;
 - (NSSet *)setByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize;
+- (void)setFruitsBySet:(NSSet *)set;
 
 @end

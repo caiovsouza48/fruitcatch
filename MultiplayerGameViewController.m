@@ -54,6 +54,8 @@
 
 @property(nonatomic) NSMutableArray *orderOfPlayers;
 
+@property(nonatomic) JIMCFruitStruct *fruitStruct;
+
 
 @end
 
@@ -252,7 +254,19 @@
     [self.scene addSpritesForFruits:newFruits];
 }
 
-- (JIMCFruitStruct *)fruitStructArrayByShuffle:(int *)sizeOfPointer{
+- (NSArray *)shuffledStringArrayOfFruits{
+     [self.scene removeAllFruitSprites];
+    NSSet * newFruits = [self.level shuffle];
+    NSMutableArray *fruitStringArray = [NSMutableArray array];
+    for (JIMCFruit *fruit in [newFruits allObjects]) {
+        [fruitStringArray addObject:[fruit stringRepresentation]];
+    }
+    [self.scene addSpritesForFruits:newFruits];
+    return fruitStringArray;
+    
+}
+
+- (void)fruitStructArrayByShuffle:(int *)sizeOfPointer{
     [self.scene removeAllFruitSprites];
     
 //    u_int8_t **fruitMatrix = (u_int8_t **) malloc(sizeof(u_int8_t) * [self.level getNumOfColumns]);
@@ -261,19 +275,21 @@
 //    // Fill up the level with new fruits, and create sprites for them.
    
     NSSet *newFruits = [self.level shuffle];
-    JIMCFruitStruct *fruitStructPointer = (JIMCFruitStruct *) malloc(sizeof(JIMCFruitStruct) * newFruits.count);
+    _fruitStruct = (JIMCFruitStruct *) malloc(sizeof(JIMCFruitStruct) * newFruits.count);
     *sizeOfPointer = (int)newFruits.count;
     int i=0;
     for (JIMCFruit *fruit in [newFruits allObjects]) {
-        fruitStructPointer[i] = [fruit structRepresentation];
+        _fruitStruct[i] = [fruit structRepresentation];
     }
+    
+    
     
 //    int i=0;
 //    for (JIMCFruit *fruit in newFruits) {
 //        fruitMatrix[fruit.column][fruit.row]
 //    }
-//    [self.scene addSpritesForFruits:newFruits];
-    return fruitStructPointer;
+    [self.scene addSpritesForFruits:newFruits];
+    //return fruitStructPointer;
 }
 
 
@@ -659,18 +675,21 @@
         case NPFruitCatchMessageSendLevel:
         {
             NSLog(@"Received Message Level");
-            NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
+            //NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
+            NSArray *wrapperArray = [gameMessage objectForKey:@"gameLevel"];
+            NSLog(@"received WrapperArray = %@",wrapperArray);
             int pointerSize = [[gameMessage objectForKey:@"pointerSize"] intValue];
-            JIMCFruitStruct *receivedFruitStruct;
-            [fruitData getBytes:&receivedFruitStruct length:pointerSize];
             
+            NSSet *receivedFruitSet = [self fruitObjectSetByFruitArray:wrapperArray];
+            //[fruitData getBytes:&receivedFruitStruct length:pointerSize];
             
             [self beginGameForPlayer2];
             [self.scene removeAllFruitSprites];
-            [self.level fruitsByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
+            [self.level setFruitsBySet:receivedFruitSet];
+            //[self.level fruitsByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
             //[self.level fruitsByFruitStruct:<#(JIMCFruitStruct *)#> PointerSize:<#(int)#>
-            NSSet *fruitSet = [self.level setByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
-            [self.scene addSpritesForFruits:fruitSet];
+            //NSSet *fruitSet = [self.level setByFruitStruct:receivedFruitStruct PointerSize:pointerSize];
+            [self.scene addSpritesForFruits:receivedFruitSet];
             self.possibleMoves = [self.level detectPossibleSwaps];
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageBeginGame];
             [self.scene setUserInteractionEnabled:YES];
@@ -704,10 +723,12 @@
                         [self beginGame];
                         [self.scene setUserInteractionEnabled:NO];
                         int pointerSize=0;
-                        JIMCFruitStruct *shuffledFruitStruct = [self fruitStructArrayByShuffle:&pointerSize];
-                    NSLog(@"Pointer Size = %d",pointerSize);
-                        NSData *dataFromSet = [NSData dataWithBytes:&shuffledFruitStruct length:sizeof(shuffledFruitStruct)];
-                        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : dataFromSet,
+
+                       [self fruitStructArrayByShuffle:&pointerSize];
+                        //NSData *dataFromSet = [NSData dataWithBytes:&shuffledFruitStruct length:sizeof(shuffledFruitStruct)];
+                    NSArray *wrapperArray = [self shuffledStringArrayOfFruits];
+                    //NSLog(@"Wrapper Array of Sender: %@",wrapperArray);
+                        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : wrapperArray,
                                             @"pointerSize" :[NSNumber numberWithInt:pointerSize]}];
             }
         }
@@ -720,6 +741,49 @@
         }
         
     }
+}
+
+- (NSSet *)fruitObjectSetByFruitArray:(NSArray *)fruitArray{
+    NSMutableSet *ret = [NSMutableSet set];
+    for (NSString *stringRepresentation in fruitArray) {
+        [ret addObject:[JIMCFruit fruitByStringRepresentation:stringRepresentation]];
+    }
+    return [ret copy];
+    
+}
+
+
+- (NSString *)FruitStructToNSString:(JIMCFruitStruct)fruitStruct{
+    return[NSString stringWithFormat:@"%d,%d,%d",fruitStruct.column,fruitStruct.row,fruitStruct.fruitType];
+}
+
+- (JIMCFruitStruct)stringFruitToStruct:(NSString *)stringFruit{
+    JIMCFruitStruct ret;
+    NSLog(@"String Fruit = %@",stringFruit);
+    NSArray *componentsArray = [stringFruit componentsSeparatedByString:@","];
+    ret.column = [componentsArray[0] intValue];
+    ret.row = [componentsArray[1] intValue];
+    ret.fruitType = [componentsArray[2] intValue];
+    return ret;
+}
+
+- (NSArray *)wrapStructIntoArray:(JIMCFruitStruct *)fruitStruct PointerLimit:(int)pointerLimit{
+    NSMutableArray *wrapperArray = [NSMutableArray array];
+    for (int i=0; i<pointerLimit; i++) {
+        [wrapperArray addObject:[self FruitStructToNSString:fruitStruct[i]]];
+    }
+    return [wrapperArray copy];
+}
+
+
+- (JIMCFruitStruct *)fruitStructWithArray:(NSArray *)array{
+    JIMCFruitStruct *fruitStructPointer = (JIMCFruitStruct *) malloc(sizeof(JIMCFruitStruct)*array.count);
+    int i=0;
+    for (NSString *value in array) {
+        fruitStructPointer[i] = [self stringFruitToStruct:value];
+        i++;
+    }
+    return fruitStructPointer;
 }
 
 
