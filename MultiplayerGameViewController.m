@@ -80,7 +80,7 @@
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     
     //self.scene.viewController = self;
-    self.levelString = @"Level_1";
+    self.levelString = @"Level_0";
     // Load the level.
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
