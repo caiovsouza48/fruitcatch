@@ -471,7 +471,6 @@
         }else if(vertDelta!= 0){
             swap.vertical = YES;
         }
-        NSLog(@"Multiplayer SwipeHandler Called");
         self.swipeHandler(swap);
     }
 }

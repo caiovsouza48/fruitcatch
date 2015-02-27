@@ -134,12 +134,22 @@
                 self.view.userInteractionEnabled = YES;
             }];
         }
+
+        NSLog(@"Is My Move = %@", _isMyMove ? @"YES" : @"NO");
         if (_isMyMove){
             NSMutableArray *sendingArray = [NSMutableArray array];
             for (NSArray *array in _arrayOfColumnArray) {
                 [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
             }
+            NSLog(@"Sending Array = %@",sendingArray);
         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
+        }
+        else{
+            _isMyMove = YES;
+            [self showTurnAlert:YES];
+            [self.scene setUserInteractionEnabled:YES];
+            _arrayOfColumnArray = [NSMutableArray array];
+        
         }
     };
     
@@ -778,10 +788,7 @@
             NSLog(@"_arrayOfColumnArray %@",_arrayOfColumnArray);
             _arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
             [self.scene touchAtColumRowCGPoint:oponentLocation];
-            _isMyMove = YES;
-            [self showTurnAlert:YES];
-            [self.scene setUserInteractionEnabled:YES];
-            _arrayOfColumnArray = [NSMutableArray array];
+            
             break;
         }
         
