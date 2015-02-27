@@ -336,9 +336,11 @@
     [shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
     shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.view addSubview:shopi];
+    
+    int numberOfItens = 10;
 
     _shopScrollView = [[UIScrollView alloc] initWithFrame: CGRectMake(0, 60, 290, 260)];
-    _shopScrollView.contentSize = CGSizeMake(290, 700);
+    _shopScrollView.contentSize = CGSizeMake(290, 60 * numberOfItens); //o 60 é pra teste, caso precise aumenta o valor
     _shopScrollView.showsHorizontalScrollIndicator = NO;
     _shopScrollView.showsVerticalScrollIndicator   = NO;
     _shopScrollView.delegate = self;
