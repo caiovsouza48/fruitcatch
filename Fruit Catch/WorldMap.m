@@ -626,7 +626,7 @@
 
 -(IBAction)ajuda:(id)sender
 {
-
+   
     
 }
 

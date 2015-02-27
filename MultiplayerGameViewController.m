@@ -356,7 +356,15 @@
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
-            NSArray *columns = [self.level topUpFruits];
+            NSArray *columns;
+            if (_isMyMove){
+                columns = [self.level topUpFruits];
+            }
+            else{
+                columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                _fruitCounter++;
+            }
+
             [self.scene animateNewFruits:columns completion:^{
                 
                 [self handleMatches];
@@ -413,6 +421,7 @@
             }
             else{
                 columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                [self.level topUpFruitsFor:columns];
                 _fruitCounter++;
             }
             
@@ -461,7 +470,16 @@
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
-            NSArray *columns = [self.level topUpFruits];
+            NSArray *columns;
+            if (_isMyMove){
+                columns = [self.level topUpFruits];
+            }
+            else{
+                columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                _fruitCounter++;
+            }
+
+            
             [self.scene animateNewFruits:columns completion:^{
                 
                 // Keep repeating this cycle until there are no more matches.
@@ -757,6 +775,7 @@
             _isMyMove = NO;
             CGPoint oponentLocation = CGPointMake([[gameMessage objectForKey:@"moveColumn"] intValue], [[gameMessage objectForKey:@"moveRow"] intValue]);
             _arrayOfColumnArray = [gameMessage objectForKey:@"topUpFruits"];
+            NSLog(@"_arrayOfColumnArray %@",_arrayOfColumnArray);
             _arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
             [self.scene touchAtColumRowCGPoint:oponentLocation];
             _isMyMove = YES;
