@@ -246,7 +246,7 @@
         NSInteger column, row;
        // if (CGRectContainsPoint(self.scene.fruitsLayer.frame, finalPoint)){
  
-           [self convertPoint:finalPoint toColumn:&column row:&row];
+           [self convertPoint:translatedPoint toColumn:&column row:&row];
         
             NSLog(@"coluna linha %@",NSStringFromCGPoint([self pointForColumn:column row:row]));
             NSLog(@"column = %ld",(long)column);
@@ -258,6 +258,7 @@
                 //_powerUpEmitter.position = (CGPoint){column,row};
                 JIMCPowerUp *powerUp = [[JIMCPowerUp alloc]init];
                 powerUp.position = (CGPoint){column,row};
+                
                 [self handlePowerUpObject:powerUp];
             }
             else{

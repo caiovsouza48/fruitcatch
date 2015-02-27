@@ -668,6 +668,7 @@
     NSMutableSet *set = [NSMutableSet set];
     int column = (int)powerUp.position.x;
     int row = (int)powerUp.position.y;
+    NSLog(@"linha e coluna %d %f ",column,powerUp.position.y);
             if (_fruits[column][row] != nil) {
                     // ...then add all the fruits from this chain into the set.
                     JIMCChain *chain = [[JIMCChain alloc] init];
