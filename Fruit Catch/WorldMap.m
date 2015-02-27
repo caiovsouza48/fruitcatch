@@ -713,6 +713,8 @@
 
 -(IBAction)ajuda:(id)sender
 {
+   
+    
 }
 
 - (void)didReceiveMemoryWarning {
