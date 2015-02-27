@@ -34,7 +34,11 @@
 @property (nonatomic) IBOutlet UIImageView *star1;
 @property (nonatomic) IBOutlet UIImageView *star2;
 @property (nonatomic) IBOutlet UIImageView *star3;
+
 @property int offset;
+@property (nonatomic) UIScrollView *shopScrollView;
+@property BOOL shopOpen;
+
 @end
 
 @implementation WorldMap
@@ -50,6 +54,8 @@
 }
 
 - (void)viewDidLoad {
+    
+    _shopOpen = NO;
     _offset = 70;
     [super viewDidLoad];
     //[self getUserLives];
@@ -67,7 +73,7 @@
     frame.origin = CGPointMake(0, _offset); // remover
     fundo.frame  = frame;
     _scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
-    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height + _offset); //remover +100
+    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height + _offset); //remover
     _scrollView.backgroundColor = [UIColor cyanColor];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator   = NO;
@@ -212,7 +218,7 @@
     ajuda.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - 50, CGRectGetMaxY(self.view.frame) - 50, 32, 32);
     ajuda.titleLabel.font = [UIFont fontWithName:@"Chewy" size:25];
     ajuda.tintColor = [UIColor whiteColor];
-    ajuda.backgroundColor = [UIColor blueColor];
+    ajuda.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_ajuda"]];
     [self.view addSubview:ajuda];
     
     //Cria o botao back
@@ -223,11 +229,11 @@
                action:@selector(back:)
      forControlEvents:UIControlEventTouchUpInside];
     
-    [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
+//    [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
     button.frame = CGRectMake(20, 15, 60, 32);
-    button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:20];
+//    button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:20];
     button.tintColor = [UIColor whiteColor];
-    button.backgroundColor = [UIColor redColor];
+    button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_back"]];
     [self.view addSubview:button];
     
     //Cria os botões das fases
@@ -316,6 +322,44 @@
     [self.informFase addSubview:_star1];
     [self.informFase addSubview:_star2];
     [self.informFase addSubview:_star3];
+    
+    
+    //----------------------------------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------------------------------//
+    
+    //Shopi
+    
+    UIButton *shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 50, 55,55)];
+    [shopi setTitle:@"Shop" forState:UIControlStateNormal];
+    shopi.backgroundColor = [UIColor yellowColor];
+    [shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
+    shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [self.view addSubview:shopi];
+    
+    int numberOfItens = 10;
+
+    _shopScrollView = [[UIScrollView alloc] initWithFrame: CGRectMake(0, 60, 290, 260)];
+    _shopScrollView.contentSize = CGSizeMake(290, 60 * numberOfItens); //o 60 é pra teste, caso precise aumenta o valor
+    _shopScrollView.showsHorizontalScrollIndicator = NO;
+    _shopScrollView.showsVerticalScrollIndicator   = NO;
+    _shopScrollView.delegate = self;
+    
+    for(int j = 0; j < 10; j++){
+        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(20, (60 * j), 50, 50)];
+        item.backgroundColor = [UIColor colorWithHue:(CGFloat)j/10 saturation:1 brightness:1 alpha:1];
+        [_shopScrollView addSubview:item];
+        
+        UILabel *descpription = [[UILabel alloc] initWithFrame:CGRectMake(80,(60 * j), 150, 50)];
+        descpription.text = @"Lorem ipsum dolor sit amet";
+        [_shopScrollView addSubview:descpription];
+    }
+    
+    [self.informFase addSubview:_shopScrollView];
+    
+    //----------------------------------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------------------------------//
+    //----------------------------------------------------------------------------------------------------//
     
     // Aloca o Scroll na view
     [self.view addSubview:_scroll1];
@@ -602,12 +646,36 @@
     }
 }
 
+-(IBAction)shop:(id)sender
+{
+    if(!_shopOpen){
+        //Escurece o fundo
+        UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
+        blurView.backgroundColor = [UIColor clearColor];
+        [self.view insertSubview:blurView atIndex:4];
+        
+        [UIView animateWithDuration:1.5
+                              delay:0
+             usingSpringWithDamping:0.65
+              initialSpringVelocity:0
+                            options:0
+                         animations:^{
+                             blurView.backgroundColor   = [UIColor colorWithWhite:0 alpha:0.5];
+                             self.informFase.center     = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
+                             self.shopScrollView.center = CGPointMake(CGRectGetMidX(self.view.frame), self.shopScrollView.center.y);
+                         }completion:nil];
+        _shopOpen = YES;
+    }
+
+}
+
 -(IBAction)jogar:(id)sender
 {
     [self performSegueWithIdentifier:@"Level" sender:self];
 }
 -(IBAction)fexarTela:(id)sender
 {
+    _shopOpen = NO;
     UIView *blurView = [[self.view subviews] objectAtIndex:4];
     [UIView animateWithDuration:1.5
                           delay:0
@@ -652,8 +720,9 @@
             return NO;
         }
     }
-//    NSLog(@"return YES");
+    
     return YES;
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -34,6 +34,7 @@
 @property (nonatomic) UIView *blurView;
 @property (nonatomic) BOOL option;
 @property(nonatomic) NSArray *fbFriends;
+@property(nonatomic) BOOL flag;
 
 @end
 
@@ -41,10 +42,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _flag = false;
     
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     _loginView.delegate = self;
     
+    // Butão de configuração do mini menu
+    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
+    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
+    self.engineButtonLeft.transform = rotate;
+    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
+    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
+    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
+    self.engineViewLeft.transform = rotate;
+    
+    [self.view addSubview:self.engineViewLeft];
+    [self.view addSubview:self.engineButtonLeft];
     
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
     fundo.center = self.view.center;
@@ -492,7 +508,6 @@
         }
     }
     connectingView.hidden = YES;
-    
 }
 -(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error{
     NSLog(@"%@",error);
@@ -567,6 +582,29 @@
     
     NSLog(@"TESTE");
     
+}
+
+- (IBAction)openMenu:(id)sender{
+    
+    if (!_flag) {
+        [UIButton animateWithDuration:1.0
+                                delay:0.0
+                              options:UIViewAnimationOptionCurveEaseInOut
+                           animations:^{
+                               self.engineButtonLeft.transform = CGAffineTransformMakeRotation(M_PI_2);
+                               self.engineViewLeft.transform = CGAffineTransformMakeRotation(M_PI_2);
+                           } completion:nil];
+        _flag = true;
+    }else{
+        [UIButton animateWithDuration:1.0
+                                delay:0.0
+                              options:UIViewAnimationOptionCurveEaseInOut
+                           animations:^{
+                               self.engineButtonLeft.transform = CGAffineTransformMakeRotation(0);
+                               self.engineViewLeft.transform = CGAffineTransformMakeRotation(0);
+                           } completion:nil];
+        _flag = false;
+    }
 }
 
 @end
