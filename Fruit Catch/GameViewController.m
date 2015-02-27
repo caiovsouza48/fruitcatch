@@ -71,7 +71,7 @@
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
-
+    skView.showsNodeCount = YES;
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -246,14 +246,19 @@
         NSInteger column, row;
        // if (CGRectContainsPoint(self.scene.fruitsLayer.frame, finalPoint)){
  
-           [self convertPoint:finalPoint toColumn:&column row:&row];
+           [self convertPoint:translatedPoint toColumn:&column row:&row];
+        
+            NSLog(@"coluna linha %@",NSStringFromCGPoint([self pointForColumn:column row:row]));
             NSLog(@"column = %ld",(long)column);
             NSLog(@"Row = %ld",(long)row);
+        
+        
             if ((column != NSNotFound) && (row != NSNotFound)){
                 NSLog(@"Column and row found");
                 //_powerUpEmitter.position = (CGPoint){column,row};
                 JIMCPowerUp *powerUp = [[JIMCPowerUp alloc]init];
                 powerUp.position = (CGPoint){column,row};
+                
                 [self handlePowerUpObject:powerUp];
             }
             else{
@@ -278,6 +283,10 @@
        
     }
     
+}
+// Converts a column,row pair into a CGPoint that is relative to the fruitLayer.
+- (CGPoint)pointForColumn:(NSInteger)column row:(NSInteger)row {
+    return CGPointMake(column*TileWidth + TileWidth/2, row*TileHeight + TileHeight/2);
 }
 
 // Converts a point relative to the fruitLayer into column and row numbers.

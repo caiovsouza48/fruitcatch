@@ -52,7 +52,6 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
     _productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:_productIdentifiers];
     _productsRequest.delegate = self;
     [_productsRequest start];
-    
 }
 
 #pragma mark - SKProductsRequestDelegate
