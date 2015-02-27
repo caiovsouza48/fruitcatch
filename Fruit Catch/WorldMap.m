@@ -38,6 +38,7 @@
 @property int offset;
 @property (nonatomic) UIScrollView *shopScrollView;
 @property BOOL shopOpen;
+@property (nonatomic) IBOutlet UIButton *shopi;
 
 @end
 
@@ -330,12 +331,12 @@
     
     //Shopi
     
-    UIButton *shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 50, 55,55)];
-    [shopi setTitle:@"Shop" forState:UIControlStateNormal];
-    shopi.backgroundColor = [UIColor yellowColor];
-    [shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
-    shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [self.view addSubview:shopi];
+    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 50, 55,55)];
+    [_shopi setTitle:@"Shop" forState:UIControlStateNormal];
+    _shopi.backgroundColor = [UIColor yellowColor];
+    [_shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
+    _shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [self.view addSubview:_shopi];
     
     int numberOfItens = 10;
 
@@ -612,6 +613,12 @@
     UIButton *level = (UIButton *)sender;
     _i = level.tag;
     
+    //Tira o shop
+    if(!_shopOpen){
+        self.shopScrollView.center = CGPointMake(-400, self.shopScrollView.center.y);
+        _shopi.enabled = NO;
+    }
+    
     if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
         //Obtem o target score
         JIMCLevel *lvl = [[JIMCLevel alloc]initWithFile:[NSString stringWithFormat:@"Level_%d",(int)_i]];
@@ -648,6 +655,17 @@
 
 -(IBAction)shop:(id)sender
 {
+    
+    //Tira as infos da fase
+    self.scroll1.center      = CGPointMake(500, CGRectGetMaxY(self.view.frame)-35);
+    _btnJogar.center         = CGPointMake(-400, _btnJogar.center.y);
+    _lblTarget.center        = CGPointMake(-400, _lblTarget.center.y);
+    _lblMoves.center         = CGPointMake(-400, _lblMoves.center.y);
+    _lblFase.center          = CGPointMake(-400, _lblFase.center.y);
+    _star1.center = CGPointMake(-400, _star1.center.y);
+    _star2.center = CGPointMake(-400, _star2.center.y);
+    _star3.center = CGPointMake(-400, _star1.center.y);
+    
     if(!_shopOpen){
         //Escurece o fundo
         UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
@@ -676,6 +694,7 @@
 -(IBAction)fexarTela:(id)sender
 {
     _shopOpen = NO;
+    _shopi.enabled = YES;
     UIView *blurView = [[self.view subviews] objectAtIndex:4];
     [UIView animateWithDuration:1.5
                           delay:0
