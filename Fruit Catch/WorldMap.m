@@ -154,6 +154,7 @@
         i++;
     }
     
+    
     [self adicionaVidas];
     [self adicionaMoedas];
     [self adicionaAjuda];

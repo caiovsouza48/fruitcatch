@@ -888,46 +888,49 @@
     offStar2.zPosition = 50;
     offStar3.zPosition = 50;
     
+    int offset  = 60;
+    int offsetY = 65;
+    
     if(_win){
         //estrela_fill
         if(self.viewController.score >= self.level.targetScore * 1.5){
-            onStar1.position = CGPointMake(CGRectGetMidX(self.gameOverScreen.frame) - 60, CGRectGetMidY(self.gameOverScreen.frame));
-            onStar2.position = CGPointMake(self.gameOverScreen.position.x / 2, self.gameOverScreen.position.y / 2);
-            onStar3.position = CGPointMake(self.gameOverScreen.position.x / 2 + 60, self.gameOverScreen.position.y / 2);
+            onStar1.position = CGPointMake(-offset, offsetY);
+            onStar2.position = CGPointMake(0, offsetY + offset/4);
+            onStar3.position = CGPointMake(offset,offsetY);
             
             [self.gameOverScreen addChild:onStar1];
             [self.gameOverScreen addChild:onStar2];
             [self.gameOverScreen addChild:onStar3];
         }else{
             if(self.viewController.score >= self.level.targetScore * 1.25){
-                onStar1.position = CGPointMake(CGRectGetMidX(self.gameOverScreen.frame) - 60, CGRectGetMidY(self.gameOverScreen.frame));
-                onStar2.position = CGPointMake(self.gameOverScreen.position.x / 2 + 60, self.gameOverScreen.position.y / 2);
-                offStar3.position = CGPointMake(self.gameOverScreen.position.x / 2 + 60, self.gameOverScreen.position.y / 2);
+                onStar1.position  = CGPointMake(-offset, offsetY);
+                onStar2.position  = CGPointMake(0, offsetY + offset/4);
+                offStar3.position = CGPointMake(offset, offsetY);
                 
                 [self.gameOverScreen addChild:onStar1];
                 [self.gameOverScreen addChild:onStar2];
                 [self.gameOverScreen addChild:offStar3];
             }else{
-                if (self.viewController.score >= self.level.targetScore * 1) {
-                    onStar1.position = CGPointMake(CGRectGetMidX(self.gameOverScreen.frame) - 60, CGRectGetMidY(self.gameOverScreen.frame));
-                    offStar2.position = CGPointMake(self.gameOverScreen.position.x / 2 + 60, self.gameOverScreen.position.y / 2);
-                    offStar3.position = CGPointMake(self.gameOverScreen.position.x / 2 + 60, self.gameOverScreen.position.y / 2);
+                if (self.viewController.score >= self.level.targetScore) {
+                    onStar1.position  = CGPointMake(-offset, offsetY);
+                    offStar2.position = CGPointMake(0, offsetY + offset/4);
+                    offStar3.position = CGPointMake(offset, offsetY);
 
                     [self.gameOverScreen addChild:onStar1];
                     [self.gameOverScreen addChild:offStar2];
                     [self.gameOverScreen addChild:offStar3];
-                }else{
-                    offStar1.position = CGPointMake(CGRectGetMidX(self.gameOverScreen.frame) - 60, CGRectGetMidY(self.gameOverScreen.frame));
-                    offStar2.position = CGPointMake(self.gameOverScreen.position.x / 2 + 60, self.gameOverScreen.position.y / 2);
-                    offStar3.position = CGPointMake(self.gameOverScreen.position.x / 2 + 60, self.gameOverScreen.position.y / 2);
-                    
-                    [self.gameOverScreen addChild:offStar1];
-                    [self.gameOverScreen addChild:offStar2];
-                    [self.gameOverScreen addChild:offStar3];
-
                 }
             }
         }
+    }else{
+        offStar1.position = CGPointMake(-offset, offsetY);
+        offStar2.position = CGPointMake(0, offsetY + offset/4);
+        offStar3.position = CGPointMake(offset, offsetY);
+        
+        [self.gameOverScreen addChild:offStar1];
+        [self.gameOverScreen addChild:offStar2];
+        [self.gameOverScreen addChild:offStar3];
+        
     }
     
     // Desce a tela da gameOverScreen
