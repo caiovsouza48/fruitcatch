@@ -39,6 +39,7 @@
 @property (nonatomic) UIScrollView *shopScrollView;
 @property BOOL shopOpen;
 @property (nonatomic) IBOutlet UIButton *shopi;
+@property (nonatomic) NSString *plistPath;
 
 @end
 
@@ -55,6 +56,10 @@
 }
 
 - (void)viewDidLoad {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
     
     _shopOpen = NO;
     _offset = 70;
@@ -426,7 +431,6 @@
     if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
         //Obtem o target score
         JIMCLevel *lvl = [[JIMCLevel alloc]initWithFile:[NSString stringWithFormat:@"Level_%d",(int)_i]];
-        NSLog(@"Target = %d",(int)lvl.targetScore);
         
         _lblFase.text   = [NSString stringWithFormat:@"Fase %d",(int)_i+1];
         _lblTarget.text = [NSString stringWithFormat:@"Objetivo = %d pts",(int)lvl.targetScore];
@@ -436,6 +440,33 @@
         UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
         blurView.backgroundColor = [UIColor clearColor];
         [self.view insertSubview:blurView atIndex:4];
+        
+        NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
+        NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:_i]];
+        
+        NSInteger score = [dic[@"HighScore"] integerValue];
+        
+        if(score >= lvl.targetScore * 1.5){
+            _star1.image = [UIImage imageNamed:@"estrela_fill"];
+            _star2.image = [UIImage imageNamed:@"estrela_fill"];
+            _star3.image = [UIImage imageNamed:@"estrela_fill"];
+        }else{
+            if(score >= lvl.targetScore * 1.25){
+                _star1.image = [UIImage imageNamed:@"estrela_fill"];
+                _star2.image = [UIImage imageNamed:@"estrela_fill"];
+                _star3.image = [UIImage imageNamed:@"estrela_outline"];
+            }else{
+                if(score >= lvl.targetScore * 1){
+                    _star1.image = [UIImage imageNamed:@"estrela_fill"];
+                    _star2.image = [UIImage imageNamed:@"estrela_outline"];
+                    _star3.image = [UIImage imageNamed:@"estrela_outline"];
+                }else{
+                    _star1.image = [UIImage imageNamed:@"estrela_outline"];
+                    _star2.image = [UIImage imageNamed:@"estrela_outline"];
+                    _star3.image = [UIImage imageNamed:@"estrela_outline"];
+                }
+            }
+        }
         
         [UIView animateWithDuration:1.5
                               delay:0

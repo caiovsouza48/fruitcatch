@@ -697,6 +697,9 @@
         }else{
             [self.scene winLose:NO];
         }
+        
+        [self saveScore];
+        
     }
     
 }
@@ -801,6 +804,38 @@
             view = nil;
         }
     }
+}
+
+-(void)saveScore
+{
+    //Carrega o score do plist
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+    
+    NSMutableArray *array  = [NSMutableArray arrayWithContentsOfFile:plistPath];
+    
+    NSArray *a = [self.levelString componentsSeparatedByString:@"Level_"];
+    NSInteger level = [[a lastObject] integerValue];
+    
+    NSMutableDictionary *levelHighScore = [[NSMutableDictionary alloc] initWithDictionary:[array objectAtIndex:level]];
+    NSNumber *highScore = [NSNumber numberWithInteger:self.score];
+    
+    //Compara os scores
+    
+    //Se não tem score gravado ou se o score é maior
+    if(levelHighScore[@"HighScore"] == 0 || levelHighScore[@"HighScore"] < highScore){
+        [levelHighScore setObject:highScore forKey:@"HighScore"];
+        //Implementar tempo
+    }
+    
+    //Mesmo score, tempo menor
+    if(levelHighScore[@"HighScore"] == highScore){//Comparar tempo
+        //Alterar tempo
+    }
+    
+    [array replaceObjectAtIndex:level withObject:levelHighScore];
+    [array writeToFile:plistPath atomically:YES];
 }
 
 @end
