@@ -861,6 +861,77 @@
         [self.gameOverScreen addChild:self.gameOverScreen.next];
     }
 
+    //Estrelas
+    
+    SKSpriteNode *onStar1 = [[SKSpriteNode alloc] initWithImageNamed:@"estrela_fill"];
+    SKSpriteNode *onStar2 = [[SKSpriteNode alloc] initWithImageNamed:@"estrela_fill"];
+    SKSpriteNode *onStar3 = [[SKSpriteNode alloc] initWithImageNamed:@"estrela_fill"];
+    
+    onStar1.name = @"onStar1";
+    onStar2.name = @"onStar2";
+    onStar3.name = @"onStar3";
+    
+    onStar1.zPosition = 50;
+    onStar2.zPosition = 50;
+    onStar3.zPosition = 50;
+    
+    SKSpriteNode *offStar1 = [[SKSpriteNode alloc] initWithImageNamed:@"estrela_outline"];
+    SKSpriteNode *offStar2 = [[SKSpriteNode alloc] initWithImageNamed:@"estrela_outline"];
+    SKSpriteNode *offStar3 = [[SKSpriteNode alloc] initWithImageNamed:@"estrela_outline"];
+    
+    offStar1.name = @"offStar1";
+    offStar2.name = @"offStar2";
+    offStar3.name = @"offStar3";
+    
+    offStar1.zPosition = 50;
+    offStar2.zPosition = 50;
+    offStar3.zPosition = 50;
+    
+    int offset  = 60;
+    int offsetY = 65;
+    
+    if(_win){
+        //estrela_fill
+        if(self.viewController.score >= self.level.targetScore * 1.5){
+            onStar1.position = CGPointMake(-offset, offsetY);
+            onStar2.position = CGPointMake(0, offsetY + offset/4);
+            onStar3.position = CGPointMake(offset,offsetY);
+            
+            [self.gameOverScreen addChild:onStar1];
+            [self.gameOverScreen addChild:onStar2];
+            [self.gameOverScreen addChild:onStar3];
+        }else{
+            if(self.viewController.score >= self.level.targetScore * 1.25){
+                onStar1.position  = CGPointMake(-offset, offsetY);
+                onStar2.position  = CGPointMake(0, offsetY + offset/4);
+                offStar3.position = CGPointMake(offset, offsetY);
+                
+                [self.gameOverScreen addChild:onStar1];
+                [self.gameOverScreen addChild:onStar2];
+                [self.gameOverScreen addChild:offStar3];
+            }else{
+                if (self.viewController.score >= self.level.targetScore) {
+                    onStar1.position  = CGPointMake(-offset, offsetY);
+                    offStar2.position = CGPointMake(0, offsetY + offset/4);
+                    offStar3.position = CGPointMake(offset, offsetY);
+
+                    [self.gameOverScreen addChild:onStar1];
+                    [self.gameOverScreen addChild:offStar2];
+                    [self.gameOverScreen addChild:offStar3];
+                }
+            }
+        }
+    }else{
+        offStar1.position = CGPointMake(-offset, offsetY);
+        offStar2.position = CGPointMake(0, offsetY + offset/4);
+        offStar3.position = CGPointMake(offset, offsetY);
+        
+        [self.gameOverScreen addChild:offStar1];
+        [self.gameOverScreen addChild:offStar2];
+        [self.gameOverScreen addChild:offStar3];
+        
+    }
+    
     // Desce a tela da gameOverScreen
     [self.gameOverScreen runAction:acaoDescer];
     [self addChild:self.gameOverScreen];

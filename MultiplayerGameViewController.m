@@ -60,6 +60,8 @@
 
 @property(nonatomic) int fruitCounter;
 
+@property(nonatomic) BOOL isFirstRound;
+
 
 @end
 
@@ -75,6 +77,7 @@
     
     [super viewDidLoad];
     _isMyMove = NO;
+    _isFirstRound = YES;
     [self registerNotifications];
     //[self.networkEngine setDelegate:self];
     // Configure the view.
@@ -134,12 +137,20 @@
                 self.view.userInteractionEnabled = YES;
             }];
         }
-        if (_isMyMove){
+
+        if ((_isMyMove) && (!_isFirstRound)){
             NSMutableArray *sendingArray = [NSMutableArray array];
             for (NSArray *array in _arrayOfColumnArray) {
                 [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
             }
         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
+        }
+        else{
+            _isMyMove = YES;
+            [self showTurnAlert:YES];
+            [self.scene setUserInteractionEnabled:YES];
+            _arrayOfColumnArray = [NSMutableArray array];
+        
         }
     };
     
@@ -356,7 +367,15 @@
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
-            NSArray *columns = [self.level topUpFruits];
+            NSArray *columns;
+            if (_isMyMove){
+                columns = [self.level topUpFruits];
+            }
+            else{
+                columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                _fruitCounter++;
+            }
+
             [self.scene animateNewFruits:columns completion:^{
                 
                 [self handleMatches];
@@ -410,9 +429,11 @@
             // ...and finally, add new fruits at the top.
             if (_isMyMove){
                 columns = [self.level topUpFruits];
+                [_arrayOfColumnArray addObject:columns];
             }
             else{
                 columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                [self.level topUpFruitsFor:columns];
                 _fruitCounter++;
             }
             
@@ -461,7 +482,16 @@
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
-            NSArray *columns = [self.level topUpFruits];
+            NSArray *columns;
+            if (_isMyMove){
+                columns = [self.level topUpFruits];
+            }
+            else{
+                columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                _fruitCounter++;
+            }
+
+            
             [self.scene animateNewFruits:columns completion:^{
                 
                 // Keep repeating this cycle until there are no more matches.
@@ -757,12 +787,10 @@
             _isMyMove = NO;
             CGPoint oponentLocation = CGPointMake([[gameMessage objectForKey:@"moveColumn"] intValue], [[gameMessage objectForKey:@"moveRow"] intValue]);
             _arrayOfColumnArray = [gameMessage objectForKey:@"topUpFruits"];
+            NSLog(@"_arrayOfColumnArray %@",_arrayOfColumnArray);
             _arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
             [self.scene touchAtColumRowCGPoint:oponentLocation];
-            _isMyMove = YES;
-            [self showTurnAlert:YES];
-            [self.scene setUserInteractionEnabled:YES];
-            _arrayOfColumnArray = [NSMutableArray array];
+            
             break;
         }
         

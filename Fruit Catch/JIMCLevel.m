@@ -883,6 +883,12 @@
     return columns;
 }
 
+- (void)topUpFruitsFor:(NSArray *)array{
+    for (JIMCFruit *fruit in array) {
+        [self createFruitAtColumn:fruit.column row:fruit.row withType:fruit.fruitType];
+    }
+}
+
 
 #pragma mark - Querying the Level
 

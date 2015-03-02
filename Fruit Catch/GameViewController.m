@@ -686,26 +686,18 @@
     if(self.score >= self.scene.level.targetScore || self.movesLeft == 0){
 
         if(self.score >= self.scene.level.targetScore){
+            
+            if(self.movesLeft > 0){
+                self.score += (self.movesLeft * 100);
+                self.movesLeft = 0;
+                [self updateLabels];
+            }
+            
             [self.scene winLose:YES];
         }else{
             [self.scene winLose:NO];
         }
     }
-    
-//    [self.scene removeActionForKey:@"Hint"];
-//    if(self.hintNode){
-//        [self.scene runAction:[SKAction runBlock:^{
-//            [self.hintNode removeFromParent];
-//        }]];
-//    }
-//    
-//    self.gameOverPanel.hidden = NO;
-//    self.scene.userInteractionEnabled = NO;
-//    
-//    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideGameOver)];
-//    [self.view addGestureRecognizer:self.tapGestureRecognizer];
-//    
-//    self.shuffleButton.hidden = YES;
     
 }
 
