@@ -16,10 +16,13 @@
 #import "RNDecryptor.h"
 #import "AppUtils.h"
 #import "ClearedLevelsSingleton.h"
+#import "JIMCAPHelper.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 
-@interface WorldMap ()
+@interface WorldMap (){
+    NSArray *_products;
+}
 
 @property NSInteger i;
 
@@ -345,15 +348,28 @@
     _shopScrollView.showsVerticalScrollIndicator   = NO;
     _shopScrollView.delegate = self;
     
-    for(int j = 0; j < 10; j++){
-        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(20, (60 * j), 50, 50)];
-        item.backgroundColor = [UIColor colorWithHue:(CGFloat)j/10 saturation:1 brightness:1 alpha:1];
-        [_shopScrollView addSubview:item];
-        
-        UILabel *descpription = [[UILabel alloc] initWithFrame:CGRectMake(80,(60 * j), 150, 50)];
-        descpription.text = @"Lorem ipsum dolor sit amet";
-        [_shopScrollView addSubview:descpription];
-    }
+    [[JIMCAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            _products = products;
+            
+            int j = 0;
+            for(SKProduct* prod in _products){
+                UIView *item = [[UIView alloc] initWithFrame:CGRectMake(20, (60 * j), 50, 50)];
+                item.backgroundColor = [UIColor colorWithHue:(CGFloat)j/10 saturation:1 brightness:1 alpha:1];
+                [_shopScrollView addSubview:item];
+                
+                UILabel *descpription = [[UILabel alloc] initWithFrame:CGRectMake(80,(60 * j), 150, 50)];
+                
+                descpription.text = prod.localizedTitle;
+                [_shopScrollView addSubview:descpription];
+                j++;
+            }
+        }
+    }];
+    
+    NSLog(@"Notify");
+    NSLog(@"produtos = %@", _products);
+    //_products = nil;
     
     [self.informFase addSubview:_shopScrollView];
     
@@ -417,11 +433,6 @@
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
             NSLog(@"File dict = %@",obj);
             return obj;
-            //            NSMutableArray *arrayIds = [NSMutableArray array];
-            //            for (NSDictionary* friends in [obj objectForKey:@"facebookFriends"]) {
-            //                [arrayIds addObject:[friends objectForKey:@"id"]];
-            //            }
-            //            return [arrayIds copy];
         }
     }
     return nil;
@@ -666,7 +677,6 @@
                          }completion:nil];
         _shopOpen = YES;
     }
-
 }
 
 -(IBAction)jogar:(id)sender

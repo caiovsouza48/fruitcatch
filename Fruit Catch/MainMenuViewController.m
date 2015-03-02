@@ -82,29 +82,12 @@
         self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
     
-    self.buyButton = [[UIButton alloc] init];
-    [self.buyButton addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
-    [self reload];
-    
     [self.view insertSubview:self.nome atIndex:1];
     [self loadFromFile];
     
     [self viewConfig];
     
     [self.view addSubview:self.configuracao];
-}
-
-- (void)reload {
-    _products = nil;
-//    [self.tableView reloadData];
-    [[JIMCAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
-        if (success) {
-            _products = products;
-            NSLog(@"produtos = %@", products);
-//            [self.tableView reloadData];
-        }
-//        [self.refreshControl endRefreshing];
-    }];
 }
 
 -(void)viewConfig
