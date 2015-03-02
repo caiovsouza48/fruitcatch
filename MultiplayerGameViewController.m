@@ -154,7 +154,6 @@
             _arrayOfColumnArray = [NSMutableArray array];
         
         }
-    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
     };
     
     
@@ -333,7 +332,15 @@
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
-            NSArray *columns = [self.level topUpFruits];
+            
+            NSArray *columns; //= [self.level topUpFruits];
+            if (_isMyMove){
+                columns = [self.level topUpFruits];
+            }
+            else{
+                columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                _fruitCounter++;
+            }
             [self.scene animateNewFruits:columns completion:^{
                 
                 [self handleMatches];
@@ -565,7 +572,7 @@
 }
 
 - (void)decrementMoves{
-    self.movesLeft--;
+    //self.movesLeft--;
     [self updateLabels];
     
     if (self.score >= self.level.targetScore) {
@@ -796,7 +803,6 @@
             _arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
             
             [self.scene touchAtColumRowCGPoint:oponentLocation];
-            dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
             _isMyMove = YES;
             
             break;
