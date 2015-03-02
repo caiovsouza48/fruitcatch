@@ -62,6 +62,8 @@
 
 @property(nonatomic) BOOL isFirstRound;
 
+@property(nonatomic) dispatch_semaphore_t semaphore;
+
 
 @end
 
@@ -152,6 +154,7 @@
             _arrayOfColumnArray = [NSMutableArray array];
         
         }
+    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
     };
     
     
@@ -498,6 +501,7 @@
                 [self handleMatches];
             }];
         }];
+        _fruitCounter = 0;
     }];
 }
 
@@ -784,12 +788,16 @@
         }
         case NPFruitCatchMessageMove:
         {
+            _semaphore  = dispatch_semaphore_create(0);
             _isMyMove = NO;
             CGPoint oponentLocation = CGPointMake([[gameMessage objectForKey:@"moveColumn"] intValue], [[gameMessage objectForKey:@"moveRow"] intValue]);
             _arrayOfColumnArray = [gameMessage objectForKey:@"topUpFruits"];
             NSLog(@"_arrayOfColumnArray %@",_arrayOfColumnArray);
             _arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
+            
             [self.scene touchAtColumRowCGPoint:oponentLocation];
+            dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
+            _isMyMove = YES;
             
             break;
         }
