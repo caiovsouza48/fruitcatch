@@ -60,6 +60,8 @@
 
 @property(nonatomic) int fruitCounter;
 
+@property(nonatomic) BOOL isFirstRound;
+
 
 @end
 
@@ -75,6 +77,7 @@
     
     [super viewDidLoad];
     _isMyMove = NO;
+    _isFirstRound = YES;
     [self registerNotifications];
     //[self.networkEngine setDelegate:self];
     // Configure the view.
@@ -135,13 +138,11 @@
             }];
         }
 
-        NSLog(@"Is My Move = %@", _isMyMove ? @"YES" : @"NO");
-        if (_isMyMove){
+        if ((_isMyMove) && (!_isFirstRound)){
             NSMutableArray *sendingArray = [NSMutableArray array];
             for (NSArray *array in _arrayOfColumnArray) {
                 [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
             }
-            NSLog(@"Sending Array = %@",sendingArray);
         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
         }
         else{
@@ -428,6 +429,7 @@
             // ...and finally, add new fruits at the top.
             if (_isMyMove){
                 columns = [self.level topUpFruits];
+                [_arrayOfColumnArray addObject:columns];
             }
             else{
                 columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
