@@ -129,6 +129,26 @@
             
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
+                if ((_isMyMove) && (!_isFirstRound)){
+                    NSMutableArray *sendingArray = [NSMutableArray array];
+                    for (NSArray *array in _arrayOfColumnArray) {
+                        [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
+                    }
+                    NSLog(@"sending Move to Opponent %@",@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray});
+                    
+                    [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
+                    _isMyMove = NO;
+                }
+                else{
+                    if (!_isFirstRound){
+                        _isMyMove = YES;
+                        [self showTurnAlert:YES];
+                        [self.scene setUserInteractionEnabled:YES];
+                        _arrayOfColumnArray = [NSMutableArray array];
+                    }
+                    
+                    
+                }
                
             }];
             
@@ -140,25 +160,6 @@
             }];
         }
 
-        if ((_isMyMove) && (!_isFirstRound)){
-            NSMutableArray *sendingArray = [NSMutableArray array];
-            for (NSArray *array in _arrayOfColumnArray) {
-                [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
-            }
-            NSLog(@"sending Move to Opponent %@",@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray});
-            
-        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
-        }
-        else{
-            if (!_isFirstRound){
-                _isMyMove = YES;
-                [self showTurnAlert:YES];
-                [self.scene setUserInteractionEnabled:YES];
-                _arrayOfColumnArray = [NSMutableArray array];
-            }
-            
-        
-        }
         _isFirstRound = NO;
     };
     
@@ -273,6 +274,7 @@
     self.movesLeft = self.level.maximumMoves;
     self.score = 0;
     [self updateLabels];
+    [self.level resetComboMultiplier];
     [self.scene animateBeginGame];
     //[self shuffle];
     // Delete the old fruit sprites, but not the tiles.
