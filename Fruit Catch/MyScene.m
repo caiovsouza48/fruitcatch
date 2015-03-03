@@ -354,7 +354,7 @@
     // The touch must be on a fruit, not on an empty tile.
     JIMCFruit *fruit = [self.level fruitAtColumn:point.x row:point.y];
     if (fruit != nil) {
-        
+        NSLog(@"Fruit != nil");
         // Remember in which column and row the swipe started, so we can compare
         // them later to find the direction of the swipe. This is also the first
         // fruit that will be swapped.

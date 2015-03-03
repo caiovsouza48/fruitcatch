@@ -27,4 +27,6 @@
 
 @property(nonatomic) UIScrollView *scroll1;
 
+@property(nonatomic) BOOL flag;
+
 @end

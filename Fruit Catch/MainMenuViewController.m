@@ -47,20 +47,7 @@
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     _loginView.delegate = self;
     
-    // Butão de configuração do mini menu
-    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
-    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
-    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
-    self.engineButtonLeft.transform = rotate;
-    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
-    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
-    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
-    self.engineViewLeft.transform = rotate;
-    
-    [self.view addSubview:self.engineViewLeft];
-    [self.view addSubview:self.engineButtonLeft];
+    [self addEngineLeft];
     
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
     fundo.center = self.view.center;
@@ -82,10 +69,6 @@
         self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
     
-    self.buyButton = [[UIButton alloc] init];
-    [self.buyButton addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
-    [self reload];
-    
     [self.view insertSubview:self.nome atIndex:1];
     [self loadFromFile];
     
@@ -94,17 +77,23 @@
     [self.view addSubview:self.configuracao];
 }
 
-- (void)reload {
-    _products = nil;
-//    [self.tableView reloadData];
-    [[JIMCAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
-        if (success) {
-            _products = products;
-            NSLog(@"produtos = %@", products);
-//            [self.tableView reloadData];
-        }
-//        [self.refreshControl endRefreshing];
-    }];
+-(void)addEngineLeft{
+    // Botão de configuração do mini menu
+    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
+    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
+    self.engineButtonLeft.transform = rotate;
+    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // View animada do botão
+    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
+    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
+    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
+    self.engineViewLeft.transform = rotate;
+    
+    // Adiciona na view o botão e a view animada
+    [self.view addSubview:self.engineViewLeft];
+    [self.view addSubview:self.engineButtonLeft];
 }
 
 -(void)viewConfig

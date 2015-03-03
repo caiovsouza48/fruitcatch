@@ -16,10 +16,13 @@
 #import "RNDecryptor.h"
 #import "AppUtils.h"
 #import "ClearedLevelsSingleton.h"
+#import "JIMCAPHelper.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 
-@interface WorldMap ()
+@interface WorldMap (){
+    NSArray *_products;
+}
 
 @property NSInteger i;
 
@@ -804,17 +807,47 @@
     _shopScrollView.showsVerticalScrollIndicator   = NO;
     _shopScrollView.delegate = self;
     
-    for(int j = 0; j < 10; j++){
-        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(20, (60 * j), 50, 50)];
-        item.backgroundColor = [UIColor colorWithHue:(CGFloat)j/10 saturation:1 brightness:1 alpha:1];
-        [_shopScrollView addSubview:item];
-        
-        UILabel *descpription = [[UILabel alloc] initWithFrame:CGRectMake(80,(60 * j), 150, 50)];
-        descpription.text = @"Lorem ipsum dolor sit amet";
-        [_shopScrollView addSubview:descpription];
-    }
+    _flag = false;
+    
+    [[JIMCAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            _products = products;
+            
+            int j = 0;
+            for(SKProduct* prod in _products){
+                UIView *item = [[UIView alloc] initWithFrame:CGRectMake(20, (60 * j), 50, 50)];
+                item.backgroundColor = [UIColor colorWithHue:(CGFloat)j/10 saturation:1 brightness:1 alpha:1];
+                [_shopScrollView addSubview:item];
+                
+                UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(80,(60 * j), 150, 50)];
+                UIButton* buyButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-150,(60 * j), 150, 50)];
+                
+                [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+                [buyButton setTag:j];
+               
+                [_shopScrollView addSubview:buyButton];
+                [buyButton addTarget:self action:@selector(buyButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+                
+                description.text = prod.localizedTitle;
+                [_shopScrollView addSubview:description];
+                j++;
+                _flag = true;
+            }
+        }
+    }];
     
     [self.informFase addSubview:_shopScrollView];
+}
+
+- (void)buyButtonTapped:(id)sender {
+    
+    if (_flag) {
+        UIButton *buyButton = (UIButton *)sender;
+        SKProduct *product = _products[buyButton.tag];
+        
+        NSLog(@"Buying %@...", product.productIdentifier);
+        [[JIMCAPHelper sharedInstance] buyProduct:product];
+    }
 }
 
 @end

@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F05E8071A41F6A900D11622 /* GameOverScene.m */; };
+		0F19535A1AA4D3FE0041E8D1 /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1953591AA4D3FE0041E8D1 /* WorldMap.m */; };
 		0F30FFFA1A97BF0300216088 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0F30FFF81A97BF0300216088 /* MyParticle.sks */; };
 		0F30FFFB1A97BF0300216088 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F30FFF91A97BF0300216088 /* spark.png */; };
-		0F40CA9A1A9B9F7500D0CB01 /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F40CA991A9B9F7500D0CB01 /* WorldMap.m */; };
 		0F40CAA71A9BA16600D0CB01 /* banana_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F40CA9C1A9BA16600D0CB01 /* banana_pu_h@2x.png */; };
 		0F40CAA81A9BA16600D0CB01 /* laranja_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F40CA9D1A9BA16600D0CB01 /* laranja_pu_h@2x.png */; };
 		0F40CAA91A9BA16600D0CB01 /* limao_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F40CA9E1A9BA16600D0CB01 /* limao_pu_h@2x.png */; };
@@ -169,10 +169,10 @@
 /* Begin PBXFileReference section */
 		0F05E8061A41F6A900D11622 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		0F05E8071A41F6A900D11622 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		0F1953591AA4D3FE0041E8D1 /* WorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMap.m; sourceTree = "<group>"; };
 		0F30FFF81A97BF0300216088 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		0F30FFF91A97BF0300216088 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		0F40CA981A9B9F7500D0CB01 /* WorldMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMap.h; sourceTree = "<group>"; };
-		0F40CA991A9B9F7500D0CB01 /* WorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMap.m; sourceTree = "<group>"; };
 		0F40CA9C1A9BA16600D0CB01 /* banana_pu_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banana_pu_h@2x.png"; sourceTree = "<group>"; };
 		0F40CA9D1A9BA16600D0CB01 /* laranja_pu_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "laranja_pu_h@2x.png"; sourceTree = "<group>"; };
 		0F40CA9E1A9BA16600D0CB01 /* limao_pu_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "limao_pu_h@2x.png"; sourceTree = "<group>"; };
@@ -578,7 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				0F40CA981A9B9F7500D0CB01 /* WorldMap.h */,
-				0F40CA991A9B9F7500D0CB01 /* WorldMap.m */,
+				0F1953591AA4D3FE0041E8D1 /* WorldMap.m */,
 				436CBD0B1A2F739400862EDE /* MapButtons.plist */,
 			);
 			name = WorldMap;
@@ -974,7 +974,7 @@
 				TargetAttributes = {
 					DEC905A11A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = V3QPSCZ857;
+						DevelopmentTeam = BLCXKG795L;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -983,7 +983,7 @@
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 4MMC45MQ2J;
+						DevelopmentTeam = BLCXKG795L;
 						TestTargetID = DEC905A11A239C6D003DD444;
 					};
 				};
@@ -1136,11 +1136,11 @@
 				DE8092D51A7FDDE3008E2B37 /* MultiplayerGameViewController.m in Sources */,
 				DE805C611A852BAF009694C0 /* EloRating.m in Sources */,
 				E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */,
+				0F19535A1AA4D3FE0041E8D1 /* WorldMap.m in Sources */,
 				E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */,
 				E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */,
 				E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */,
 				DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */,
-				0F40CA9A1A9B9F7500D0CB01 /* WorldMap.m in Sources */,
 				43F4362F1A28A00300F1C358 /* MainMenuViewController.m in Sources */,
 				437737B61A9B9E0C007474BF /* SettingsSingleton.m in Sources */,
 				DEA2D2B41A39BBEE0038B65A /* RNCryptor.m in Sources */,
@@ -1297,7 +1297,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "113fd5b6-6b9d-453d-b5cc-e51f8ae120d8";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1322,7 +1322,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "113fd5b6-6b9d-453d-b5cc-e51f8ae120d8";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
