@@ -129,6 +129,7 @@
             
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
+                NSLog(@"_isMyMove && (!_isFirstRound = %d/n isMyMove = %d",((_isMyMove) && (!_isFirstRound)),_isMyMove);
                 if ((_isMyMove) && (!_isFirstRound)){
                     NSMutableArray *sendingArray = [NSMutableArray array];
                     for (NSArray *array in _arrayOfColumnArray) {
