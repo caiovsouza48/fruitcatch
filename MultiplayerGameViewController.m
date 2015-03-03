@@ -62,6 +62,8 @@
 
 @property(nonatomic) BOOL isFirstRound;
 
+@property(nonatomic) dispatch_semaphore_t semaphore;
+
 
 @end
 
@@ -127,6 +129,27 @@
             
             [self.scene animateSwap:swap completion:^{
                 [self handleMatches];
+                NSLog(@"_isMyMove && (!_isFirstRound = %d/n isMyMove = %d",((_isMyMove) && (!_isFirstRound)),_isMyMove);
+                if ((_isMyMove) && (!_isFirstRound)){
+                    NSMutableArray *sendingArray = [NSMutableArray array];
+                    for (NSArray *array in _arrayOfColumnArray) {
+                        [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
+                    }
+                    NSLog(@"sending Move to Opponent %@",@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray});
+                    
+                    [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
+                    _isMyMove = NO;
+                }
+                else{
+                    if (!_isFirstRound){
+                        _isMyMove = YES;
+                        [self showTurnAlert:YES];
+                        [self.scene setUserInteractionEnabled:YES];
+                        _arrayOfColumnArray = [NSMutableArray array];
+                    }
+                    
+                    
+                }
                
             }];
             
@@ -138,20 +161,7 @@
             }];
         }
 
-        if ((_isMyMove) && (!_isFirstRound)){
-            NSMutableArray *sendingArray = [NSMutableArray array];
-            for (NSArray *array in _arrayOfColumnArray) {
-                [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
-            }
-        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : sendingArray}];
-        }
-        else{
-            _isMyMove = YES;
-            [self showTurnAlert:YES];
-            [self.scene setUserInteractionEnabled:YES];
-            _arrayOfColumnArray = [NSMutableArray array];
-        
-        }
+        _isFirstRound = NO;
     };
     
     
@@ -265,6 +275,7 @@
     self.movesLeft = self.level.maximumMoves;
     self.score = 0;
     [self updateLabels];
+    [self.level resetComboMultiplier];
     [self.scene animateBeginGame];
     //[self shuffle];
     // Delete the old fruit sprites, but not the tiles.
@@ -330,7 +341,15 @@
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
-            NSArray *columns = [self.level topUpFruits];
+            
+            NSArray *columns; //= [self.level topUpFruits];
+            if (_isMyMove){
+                columns = [self.level topUpFruits];
+            }
+            else{
+                columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
+                _fruitCounter++;
+            }
             [self.scene animateNewFruits:columns completion:^{
                 
                 [self handleMatches];
@@ -437,8 +456,6 @@
                 _fruitCounter++;
             }
             
-           
-            
             [self.scene animateNewFruits:columns completion:^{
                 
                 // Keep repeating this cycle until there are no more matches.
@@ -446,7 +463,6 @@
             }];
         }];
     }];
-    _fruitCounter = 0;
 }
 
 - (void)handlePowerUp {
@@ -561,7 +577,7 @@
 }
 
 - (void)decrementMoves{
-    self.movesLeft--;
+    //self.movesLeft--;
     [self updateLabels];
     
     if (self.score >= self.level.targetScore) {
@@ -770,7 +786,7 @@
                     NSArray *wrapperArray = [self shuffledStringArrayOfFruits];
                     //NSLog(@"Wrapper Array of Sender: %@",wrapperArray);
                         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendLevel DictionaryData:@{@"gameLevel" : wrapperArray,
-                                            }];
+                                           }];
                     [self showTurnAlert:YES];
                     _isMyMove = YES;
             }
@@ -784,12 +800,16 @@
         }
         case NPFruitCatchMessageMove:
         {
+            NSLog(@"Received Message Move");
             _isMyMove = NO;
             CGPoint oponentLocation = CGPointMake([[gameMessage objectForKey:@"moveColumn"] intValue], [[gameMessage objectForKey:@"moveRow"] intValue]);
             _arrayOfColumnArray = [gameMessage objectForKey:@"topUpFruits"];
             NSLog(@"_arrayOfColumnArray %@",_arrayOfColumnArray);
             _arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
+            
             [self.scene touchAtColumRowCGPoint:oponentLocation];
+            
+            _fruitCounter = 0;
             
             break;
         }
