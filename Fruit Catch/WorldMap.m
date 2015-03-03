@@ -158,181 +158,16 @@
     }
     
     
-    //Moedas
-    UILabel *moedas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.view.frame) - 90, 5, 80, 60)];
-    moedas.text = @"Moedas\n??";
-    moedas.numberOfLines = 3;
-    moedas.lineBreakMode = UILineBreakModeWordWrap;
-    moedas.font = [UIFont fontWithName:@"Chewy" size:20];
-    moedas.textColor = [UIColor whiteColor];
-    moedas.textAlignment = UITextAlignmentCenter;
-    [self.view addSubview:moedas];
-    
-    //Botao ajuda
-    UIButton *ajuda = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [ajuda addTarget:self
-              action:@selector(ajuda:)
-    forControlEvents:UIControlEventTouchUpInside];
-    
-    [ajuda setTitle:[NSString stringWithFormat:@"?"] forState:UIControlStateNormal];
-    ajuda.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - 50, CGRectGetMaxY(self.view.frame) - 50, 32, 32);
-    ajuda.titleLabel.font = [UIFont fontWithName:@"Chewy" size:25];
-    ajuda.tintColor = [UIColor whiteColor];
-    ajuda.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_ajuda"]];
-    [self.view addSubview:ajuda];
-    
-    //Cria o botao back
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button.tag = _i;
-
-    [button addTarget:self
-               action:@selector(back:)
-     forControlEvents:UIControlEventTouchUpInside];
-    
-//    [button setTitle:[NSString stringWithFormat:@"Back"] forState:UIControlStateNormal];
-    button.frame = CGRectMake(20, 15, 60, 32);
-//    button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:20];
-    button.tintColor = [UIColor whiteColor];
-    button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_back"]];
-    [self.view addSubview:button];
-    
-    //Cria os botões das fases
-    for(NSDictionary *button in mapButtons){
-        _i++;
-        //Cria o botao de nivel
-        NSNumber *x = button[@"xPosition"];
-        NSNumber *y = button[@"yPosition"];
-        
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        
-        button.tag = _i;
-        
-        [button addTarget:self
-                   action:@selector(selectLevel:)
-         forControlEvents:UIControlEventTouchUpInside];
-        
-        button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        button.titleLabel.textAlignment = NSTextAlignmentCenter;
-        button.tintColor = [UIColor whiteColor];
-        button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:24];
-        button.frame = CGRectMake(x.integerValue, y.integerValue + _offset, 54, 34); //remover o + offset
-        [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
-
-        if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
-            [button setBackgroundImage:[UIImage imageNamed:@"fase_aberta"] forState:UIControlStateNormal];
-        }else{
-            [button setBackgroundImage:[UIImage imageNamed:@"fase_fechada"] forState:UIControlStateNormal];
-        }
-        
-        [_scrollView addSubview:button];
-        
-    }
-    self.informFase = [[UIView alloc]initWithFrame:(CGRectMake(CGRectGetMinX((self.view.frame))-400, CGRectGetMidY(self.view.frame) - self.view.frame.size.height/4, 315, 334))];
-    [self.informFase setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:self.informFase];
-    
-    //Retangulo
-    self.informFase.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]];
-    
-    //botao sair
-    _btn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 45, 15, 25,25)];
-    [_btn setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
-    [_btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
-    
-    //botao jogar
-    _btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 + 30, 150,55)];
-    [_btnJogar setTitle:@"Jogar" forState:UIControlStateNormal];
-    [_btnJogar.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:40]];
-    [_btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
-    _btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    
-    //Fase
-    _lblFase = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMinY(self.informFase.frame) / 2 - 40, 300, 55)];
-    _lblFase.textColor = [UIColor whiteColor];
-    _lblFase.font = [UIFont fontWithName:@"Chewy" size:40];
-    _lblFase.textAlignment = NSTextAlignmentCenter;
-    
-    //Target
-    _lblTarget = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 - 60, 300, 55)];
-    _lblTarget.textColor = [UIColor whiteColor];
-    _lblTarget.font = [UIFont fontWithName:@"Chewy" size:30];
-    [_lblTarget setTextAlignment:NSTextAlignmentCenter];
-    
-    //Moves
-    _lblMoves = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 - 30, 300, 55)];
-    _lblMoves.textColor = [UIColor whiteColor];
-    _lblMoves.font = [UIFont fontWithName:@"Chewy" size:20];
-    _lblMoves.textAlignment = NSTextAlignmentCenter;
-    
-    //Estrelas
-    _star1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
-    _star2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
-    _star3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
-    
-    _star1.center = CGPointMake(CGRectGetMidX(self.informFase.frame) - 60, CGRectGetMidY(self.informFase.frame)/2-20);
-    _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), CGRectGetMidY(self.informFase.frame)/2-40);
-    _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, CGRectGetMidY(self.informFase.frame)/2-20);
-    
-    [self.informFase addSubview:_btn];
-    [self.informFase addSubview:_btnJogar];
-    [self.informFase addSubview:_lblTarget];
-    [self.informFase addSubview:_lblMoves];
-    [self.informFase addSubview:_lblFase];
-    [self.informFase addSubview:_star1];
-    [self.informFase addSubview:_star2];
-    [self.informFase addSubview:_star3];
-    
-    
-    //----------------------------------------------------------------------------------------------------//
-    //----------------------------------------------------------------------------------------------------//
-    //----------------------------------------------------------------------------------------------------//
-    
-    //Shopi
-    
-    UIButton *shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 50, 55,55)];
-    [shopi setTitle:@"Shop" forState:UIControlStateNormal];
-    shopi.backgroundColor = [UIColor yellowColor];
-    [shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
-    shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [self.view addSubview:shopi];
-    
-    int numberOfItens = 10;
-
-    _shopScrollView = [[UIScrollView alloc] initWithFrame: CGRectMake(0, 60, 290, 260)];
-    _shopScrollView.contentSize = CGSizeMake(290, 60 * numberOfItens); //o 60 é pra teste, caso precise aumenta o valor
-    _shopScrollView.showsHorizontalScrollIndicator = NO;
-    _shopScrollView.showsVerticalScrollIndicator   = NO;
-    _shopScrollView.delegate = self;
-    
-    [[JIMCAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
-        if (success) {
-            _products = products;
-            
-            int j = 0;
-            for(SKProduct* prod in _products){
-                UIView *item = [[UIView alloc] initWithFrame:CGRectMake(20, (60 * j), 50, 50)];
-                item.backgroundColor = [UIColor colorWithHue:(CGFloat)j/10 saturation:1 brightness:1 alpha:1];
-                [_shopScrollView addSubview:item];
-                
-                UILabel *descpription = [[UILabel alloc] initWithFrame:CGRectMake(80,(60 * j), 150, 50)];
-                
-                descpription.text = prod.localizedTitle;
-                [_shopScrollView addSubview:descpription];
-                j++;
-            }
-        }
-    }];
-    
-    NSLog(@"Notify");
-    NSLog(@"produtos = %@", _products);
-    //_products = nil;
-    
-    [self.informFase addSubview:_shopScrollView];
-    
-    //----------------------------------------------------------------------------------------------------//
-    //----------------------------------------------------------------------------------------------------//
-    //----------------------------------------------------------------------------------------------------//
+    [self adicionaVidas];
+    [self adicionaMoedas];
+    [self adicionaAjuda];
+    [self adicionaBotaoBack];
+    [self adicionaBotoesFases];
+    [self adicionaInformFase];
+    [self adicionaBotaoSair];
+    [self adicionaBotaoJogar];
+    [self adicionaDetalhesDaFase];
+    [self adicionaShop];
     
     // Aloca o Scroll na view
     [self.view addSubview:_scroll1];
@@ -390,6 +225,11 @@
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
             NSLog(@"File dict = %@",obj);
             return obj;
+            //            NSMutableArray *arrayIds = [NSMutableArray array];
+            //            for (NSDictionary* friends in [obj objectForKey:@"facebookFriends"]) {
+            //                [arrayIds addObject:[friends objectForKey:@"id"]];
+            //            }
+            //            return [arrayIds copy];
         }
     }
     return nil;
@@ -651,6 +491,7 @@
                          }completion:nil];
         _shopOpen = YES;
     }
+
 }
 
 -(IBAction)jogar:(id)sender
@@ -935,17 +776,47 @@
     _shopScrollView.showsVerticalScrollIndicator   = NO;
     _shopScrollView.delegate = self;
     
-    for(int j = 0; j < 10; j++){
-        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(20, (60 * j), 50, 50)];
-        item.backgroundColor = [UIColor colorWithHue:(CGFloat)j/10 saturation:1 brightness:1 alpha:1];
-        [_shopScrollView addSubview:item];
-        
-        UILabel *descpription = [[UILabel alloc] initWithFrame:CGRectMake(80,(60 * j), 150, 50)];
-        descpription.text = @"Lorem ipsum dolor sit amet";
-        [_shopScrollView addSubview:descpription];
-    }
+    _flag = false;
+    
+    [[JIMCAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            _products = products;
+            
+            int j = 0;
+            for(SKProduct* prod in _products){
+                UIView *item = [[UIView alloc] initWithFrame:CGRectMake(20, (60 * j), 50, 50)];
+                item.backgroundColor = [UIColor colorWithHue:(CGFloat)j/10 saturation:1 brightness:1 alpha:1];
+                [_shopScrollView addSubview:item];
+                
+                UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(80,(60 * j), 150, 50)];
+                UIButton* buyButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-150,(60 * j), 150, 50)];
+                
+                [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+                [buyButton setTag:j];
+               
+                [_shopScrollView addSubview:buyButton];
+                [buyButton addTarget:self action:@selector(buyButtonTapped:)forControlEvents:UIControlEventTouchUpInside];
+                
+                description.text = prod.localizedTitle;
+                [_shopScrollView addSubview:description];
+                j++;
+                _flag = true;
+            }
+        }
+    }];
     
     [self.informFase addSubview:_shopScrollView];
+}
+
+- (void)buyButtonTapped:(id)sender {
+    
+    if (_flag) {
+        UIButton *buyButton = (UIButton *)sender;
+        SKProduct *product = _products[buyButton.tag];
+        
+        NSLog(@"Buying %@...", product.productIdentifier);
+        [[JIMCAPHelper sharedInstance] buyProduct:product];
+    }
 }
 
 @end
