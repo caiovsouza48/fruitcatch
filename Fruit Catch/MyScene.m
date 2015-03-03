@@ -888,7 +888,7 @@
     offStar3.zPosition = 50;
     
     int offset  = 60;
-    int offsetY = 65;
+    int offsetY = 60;
     
     if(_win){
         //estrela_fill
