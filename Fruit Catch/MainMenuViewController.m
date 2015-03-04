@@ -94,6 +94,16 @@
     // Adiciona na view o botão e a view animada
     [self.view addSubview:self.engineViewLeft];
     [self.view addSubview:self.engineButtonLeft];
+    
+    // Adiciona os botões dentro da view animada
+    [self addButton1OnEngineView];
+}
+
+-(void)addButton1OnEngineView{
+    UIButton *button1 = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, 40, 40)];
+    [button1 setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
+    [button1 addTarget:self action:@selector(options:) forControlEvents:UIControlEventTouchUpInside];
+    [self.engineViewLeft addSubview:button1];
 }
 
 -(void)viewConfig
