@@ -56,6 +56,10 @@
     //Move a scrollView para o fundo da imagem.
     CGRect mask = CGRectMake(0, _scrollView.contentSize.height - self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     [_scrollView scrollRectToVisible:mask animated:NO];
+    
+    if(_nextStage > -1){
+        [self forceSelect];
+    }
 }
 
 - (void)viewDidLoad {
@@ -848,6 +852,14 @@
         NSLog(@"Buying %@...", product.productIdentifier);
         [[JIMCAPHelper sharedInstance] buyProduct:product];
     }
+}
+
+-(void)forceSelect
+{
+    UIButton *force = [[UIButton alloc]init];
+    force.tag = _nextStage;
+    
+    [self selectLevel:force];
 }
 
 @end

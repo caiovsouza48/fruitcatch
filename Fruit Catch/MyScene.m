@@ -315,8 +315,7 @@
         
     }else if ([no.name isEqualToString:@"next"]){
         //Obtem o nível atual
-//        NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
-//        NSInteger i = [[a objectAtIndex:1] integerValue];
+        [self.viewController nextStage];
         
     }else if ([no.name isEqualToString:@"menu"]){
         NSLog(@"Menu Button Clicked");

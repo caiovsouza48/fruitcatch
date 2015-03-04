@@ -16,6 +16,7 @@
 #import "SettingsSingleton.h"
 #import "Life.h"
 #import "GameOverScene.h"
+#import "WorldMap.h"
 
 @interface GameViewController (){
     NSNumberFormatter * _priceFormatter;
@@ -23,7 +24,6 @@
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
 @property (nonatomic) JIMCLevel *level;
-
 
 // The scene draws the tiles and fruit sprites, and handles swipes.
 @property (nonatomic) MyScene *scene;
@@ -56,11 +56,17 @@
 @property (nonatomic) NSInteger segundos;
 @property (nonatomic) NSTimer *cronometro;
 
+@property BOOL next;
+
 @end
 
 @implementation GameViewController
 
 - (void)viewDidLoad {
+    
+    _next = NO;
+    _timerStarted = NO;
+    
     [super viewDidLoad];
     [self registerRetryNotification];
     _powerUpEmitter = nil;
@@ -760,7 +766,12 @@
     [self performSegueWithIdentifier:@"Back" sender:self];
 }
 
--(void)back {
+-(void)back{
+    [self performSegueWithIdentifier:@"Back" sender:self];
+}
+
+-(void)nextStage{
+    _next = YES;
     [self performSegueWithIdentifier:@"Back" sender:self];
 }
 
@@ -779,6 +790,7 @@
     if([segue.identifier isEqualToString:@"Back"]){
         if(self.scene != nil)
         {
+            WorldMap *viewWP = [segue destinationViewController];
             Life *life = [Life sharedInstance];
             life.lifeCount--;
             NSDate *oldDate = life.lifeTime;
@@ -802,6 +814,15 @@
             [view presentScene:nil];
             
             view = nil;
+            
+            if(_next){
+                NSArray *a = [self.levelString componentsSeparatedByString:@"Level_"];
+                NSInteger i = [[a objectAtIndex:1] integerValue];
+                viewWP.nextStage = i+1;
+                
+            }else{
+                viewWP.nextStage = -1;
+            }
         }
     }
 }

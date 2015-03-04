@@ -14,6 +14,7 @@
 #import <Nextpeer/Nextpeer.h>
 #import "RNDecryptor.h"
 #import "JIMCAPHelper.h"
+#import "WorldMap.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define ON 1
@@ -405,15 +406,17 @@
     }
 }
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+     if([segue.identifier isEqualToString:@"Single"]){
+         WorldMap *view = [segue destinationViewController];
+         view.nextStage = -1;
+     }
  }
- */
+ 
 
 //Abaixou dessa ponto conlocar apenas funcoes relacionadas a In App Porcharse
 #pragma mark - in-App PURCHASE
