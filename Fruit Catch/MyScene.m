@@ -315,8 +315,7 @@
         
     }else if ([no.name isEqualToString:@"next"]){
         //Obtem o nível atual
-//        NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
-//        NSInteger i = [[a objectAtIndex:1] integerValue];
+        [self.viewController nextStage];
         
     }else if ([no.name isEqualToString:@"menu"]){
         NSLog(@"Menu Button Clicked");
@@ -769,16 +768,16 @@
     winLose.position     = CGPointMake(0, 110);
     
     if(_win){
-        winLose.text = @"Vitória";
+        winLose.text = @"Victory";
     }else{
-        winLose.text = @"Derrota";
+        winLose.text = @"Defeat";
     }
     
     SKLabelNode *scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Chewy"];
     scoreLabel.fontSize     = 40;
     scoreLabel.fontColor    = [SKColor whiteColor];
     scoreLabel.zPosition    = 50;
-    scoreLabel.position     = CGPointMake(0, 0);
+    scoreLabel.position     = CGPointMake(0, -10);
     scoreLabel.text         = [NSString stringWithFormat:@"%d",(int)self.viewController.score];
     
     // Ação dos botões
@@ -888,7 +887,7 @@
     offStar3.zPosition = 50;
     
     int offset  = 60;
-    int offsetY = 65;
+    int offsetY = 60;
     
     if(_win){
         //estrela_fill

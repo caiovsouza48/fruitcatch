@@ -16,6 +16,7 @@
 #import "SettingsSingleton.h"
 #import "Life.h"
 #import "GameOverScene.h"
+#import "WorldMap.h"
 
 @interface GameViewController (){
     NSNumberFormatter * _priceFormatter;
@@ -23,7 +24,6 @@
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
 @property (nonatomic) JIMCLevel *level;
-
 
 // The scene draws the tiles and fruit sprites, and handles swipes.
 @property (nonatomic) MyScene *scene;
@@ -38,33 +38,35 @@
 @property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
 
 @property (nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
-
 @property (nonatomic) AVAudioPlayer *backgroundMusic;
-
 @property (nonatomic) NSSet *possibleMoves;
-
 @property SKSpriteNode *hintNode;
 @property SKAction *hintAction;
 
-@property(nonatomic) int firstX;
+@property (nonatomic) int firstX;
+@property (nonatomic) int firstY;
+@property (nonatomic) int finalX;
+@property (nonatomic) int finalY;
+@property (nonatomic) CGPoint initialImagePoint;
 
-@property(nonatomic) int firstY;
+@property (nonatomic) SKEmitterNode *powerUpEmitter;
+@property (nonatomic) id block;
 
-@property(nonatomic) int finalX;
+@property (nonatomic) BOOL timerStarted;
+@property (nonatomic) NSInteger segundos;
+@property (nonatomic) NSTimer *cronometro;
 
-@property(nonatomic) int finalY;
-
-@property(nonatomic) CGPoint initialImagePoint;
-
-@property(nonatomic) SKEmitterNode *powerUpEmitter;
-
-@property(nonatomic) id block;
+@property BOOL next;
 
 @end
 
 @implementation GameViewController
 
 - (void)viewDidLoad {
+    
+    _next = NO;
+    _timerStarted = NO;
+    
     [super viewDidLoad];
     [self registerRetryNotification];
     _powerUpEmitter = nil;
@@ -168,7 +170,9 @@
     //[self.powerUpImage1 addGestureRecognizer:powerUpPanGesture];
     [powerUpImageView addGestureRecognizer:powerUpPanGesture];
     
-    
+    //Trava o cronômetro
+    _timerStarted = NO;
+    _segundos = 0;
 }
 
 - (IBAction)movePowerUp:(UIPanGestureRecognizer *)gesture{
@@ -354,6 +358,15 @@
     self.hintAction = [SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]];
 
     [self.scene runAction: self.hintAction withKey:@"Hint"];
+    
+    if(!_timerStarted){
+        _timerStarted = YES;
+        _cronometro = [NSTimer scheduledTimerWithTimeInterval:1
+                                                       target:self
+                                                     selector:@selector(cronometro)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    }
 }
 
 - (void)shuffle {
@@ -456,8 +469,6 @@
     }
     
     // First, remove any matches...
-  
-   
     [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
@@ -671,12 +682,7 @@
         [self showGameOver];
     }
     
-    [self.scene removeActionForKey:@"Hint"];
-    if(self.hintNode){
-        [self.scene runAction:[SKAction runBlock:^{
-            [self.hintNode removeFromParent];
-        }]];
-    }
+    [self removeDica];
     
 }
 
@@ -697,18 +703,16 @@
         }else{
             [self.scene winLose:NO];
         }
+        
+        [self saveScore];
+        
     }
     
 }
 
 - (void)hideGameOver {
     
-    [self.scene removeActionForKey:@"Hint"];
-    if(self.hintNode){
-        [self.scene runAction:[SKAction runBlock:^{
-            [self.hintNode removeFromParent];
-        }]];
-    }
+    [self removeDica];
     
     [self.view removeGestureRecognizer:self.tapGestureRecognizer];
     self.tapGestureRecognizer = nil;
@@ -732,14 +736,19 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.scene removeActionForKey:@"Hint"];
-    if(self.hintNode){
-        [self.scene runAction:[SKAction runBlock:^{
-            [self.hintNode removeFromParent];
-        }]];
-    }
+    [self removeDica];
     if(self.scene.shouldPlay){
         self.scene.swipeHandler = _block;
+        
+        if(!_timerStarted){
+            _timerStarted = YES;
+            _cronometro = [NSTimer scheduledTimerWithTimeInterval:1
+                                                           target:self
+                                                         selector:@selector(cronometro)
+                                                         userInfo:nil
+                                                          repeats:YES];
+        }
+        
     }else{
         self.scene.swipeHandler = nil;
     }
@@ -757,7 +766,12 @@
     [self performSegueWithIdentifier:@"Back" sender:self];
 }
 
--(void)back {
+-(void)back{
+    [self performSegueWithIdentifier:@"Back" sender:self];
+}
+
+-(void)nextStage{
+    _next = YES;
     [self performSegueWithIdentifier:@"Back" sender:self];
 }
 
@@ -776,6 +790,7 @@
     if([segue.identifier isEqualToString:@"Back"]){
         if(self.scene != nil)
         {
+            WorldMap *viewWP = [segue destinationViewController];
             Life *life = [Life sharedInstance];
             life.lifeCount--;
             NSDate *oldDate = life.lifeTime;
@@ -799,7 +814,72 @@
             [view presentScene:nil];
             
             view = nil;
+            
+            if(_next){
+                NSArray *a = [self.levelString componentsSeparatedByString:@"Level_"];
+                NSInteger i = [[a objectAtIndex:1] integerValue];
+                viewWP.nextStage = i+1;
+                
+            }else{
+                viewWP.nextStage = -1;
+            }
         }
+    }
+}
+
+-(void)saveScore
+{
+    
+    [self removeDica];
+    _timerStarted = NO;
+    //Carrega o score do plist
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+    
+    NSMutableArray *array  = [NSMutableArray arrayWithContentsOfFile:plistPath];
+    
+    NSArray *a = [self.levelString componentsSeparatedByString:@"Level_"];
+    NSInteger level = [[a lastObject] integerValue];
+    
+    NSMutableDictionary *levelHighScore = [[NSMutableDictionary alloc] initWithDictionary:[array objectAtIndex:level]];
+    NSNumber *highScore = [NSNumber numberWithInteger:self.score];
+    NSNumber *tempo = [NSNumber numberWithInteger:_segundos];
+    
+    //Compara os scores
+    
+    //Se não tem score gravado ou se o score é maior
+    if(levelHighScore[@"HighScore"] == 0 || levelHighScore[@"HighScore"] < highScore){
+        [levelHighScore setObject:highScore forKey:@"HighScore"];
+        [levelHighScore setObject:tempo forKey:@"Time"];
+    }
+    
+    //Mesmo score, tempo menor
+    if((levelHighScore[@"HighScore"] == highScore) && (levelHighScore[@"Time"] > tempo)){
+        [levelHighScore setObject:tempo forKey:@"Time"];
+    }
+    
+    [array replaceObjectAtIndex:level withObject:levelHighScore];
+    [array writeToFile:plistPath atomically:YES];
+}
+
+-(void)removeDica
+{
+    [self.scene removeActionForKey:@"Hint"];
+    if(self.hintNode){
+        [self.scene runAction:[SKAction runBlock:^{
+            [self.hintNode removeFromParent];
+        }]];
+    }
+}
+
+-(void)cronometro
+{
+    if(_timerStarted){
+        _segundos++;
+    }else{
+        [_cronometro invalidate];
+        _segundos = 0;
     }
 }
 
