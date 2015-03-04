@@ -18,8 +18,6 @@
 		0F22E09D1AA79E5A00C2BF51 /* Level_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E0961AA79E5A00C2BF51 /* Level_2.json */; };
 		0F22E09E1AA79E5A00C2BF51 /* Level_3.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E0971AA79E5A00C2BF51 /* Level_3.json */; };
 		0F22E09F1AA79E5A00C2BF51 /* Level_4.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E0981AA79E5A00C2BF51 /* Level_4.json */; };
-		0F22E0A01AA79E5A00C2BF51 /* Level_5.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E0991AA79E5A00C2BF51 /* Level_5.json */; };
-		0F22E0A11AA79E5A00C2BF51 /* Level_6.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E09A1AA79E5A00C2BF51 /* Level_6.json */; };
 		0F30FFFA1A97BF0300216088 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0F30FFF81A97BF0300216088 /* MyParticle.sks */; };
 		0F30FFFB1A97BF0300216088 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F30FFF91A97BF0300216088 /* spark.png */; };
 		0F40CAA71A9BA16600D0CB01 /* banana_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F40CA9C1A9BA16600D0CB01 /* banana_pu_h@2x.png */; };
@@ -1054,7 +1052,6 @@
 				DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */,
 				E3BBEE381A9E467500B27650 /* botao_back@2x.png in Resources */,
 				0F40CAAF1A9BA16600D0CB01 /* morango_pu_v@2x.png in Resources */,
-				0F22E0A01AA79E5A00C2BF51 /* Level_5.json in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
 				437B8E851A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png in Resources */,
 				DE3DAC4D1A9B998E002FE5FE /* banana_pu_h@2x.png in Resources */,
@@ -1077,7 +1074,6 @@
 				0F40CAAA1A9BA16600D0CB01 /* morango_pu_h@2x.png in Resources */,
 				433C4F331AA0ED43007329E7 /* estrela_fill@2x.png in Resources */,
 				4351CD8A1A8E772800C026AA /* botao_jogar_novamente@3x.png in Resources */,
-				0F22E0A11AA79E5A00C2BF51 /* Level_6.json in Resources */,
 				4351CD811A8E76F500C026AA /* botao_proxima_fase@3x.png in Resources */,
 				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
 				0F22E09C1AA79E5A00C2BF51 /* Level_1.json in Resources */,
