@@ -25,8 +25,10 @@
 @property (nonatomic) CGFloat xPosition;
 @property (nonatomic) CGFloat yPosition;
 
-@property(nonatomic) UIScrollView *scroll1;
+@property (nonatomic) UIScrollView *scroll1;
 
-@property(nonatomic) BOOL flag;
+@property (nonatomic) BOOL flag;
+
+@property (nonatomic) NSInteger nextStage;
 
 @end
