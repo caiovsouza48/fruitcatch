@@ -435,9 +435,9 @@
         //Obtem o target score
         JIMCLevel *lvl = [[JIMCLevel alloc]initWithFile:[NSString stringWithFormat:@"Level_%d",(int)_i]];
         
-        _lblFase.text   = [NSString stringWithFormat:@"Fase %d",(int)_i+1];
-        _lblTarget.text = [NSString stringWithFormat:@"Objetivo = %d pts",(int)lvl.targetScore];
-        _lblMoves.text  = [NSString stringWithFormat:@"%d jogadas",(int)lvl.maximumMoves];
+        _lblFase.text   = [NSString stringWithFormat:@"Stage %d",(int)_i+1];
+        _lblTarget.text = [NSString stringWithFormat:@"Goal = %d pts",(int)lvl.targetScore];
+        _lblMoves.text  = [NSString stringWithFormat:@"%d moves",(int)lvl.maximumMoves];
         
         //Escurece o fundo
         UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
@@ -626,7 +626,7 @@
 {
     //Vidas
     UILabel *vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 40, 5, 80, 60)];
-    vidas.text = @"Vidas\n??";
+    vidas.text = @"Lifes\n??";
     vidas.numberOfLines = 3;
     vidas.lineBreakMode = UILineBreakModeWordWrap;
     vidas.font = [UIFont fontWithName:@"Chewy" size:20];
@@ -639,7 +639,7 @@
 {
     //Moedas
     UILabel *moedas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.view.frame) - 90, 5, 80, 60)];
-    moedas.text = @"Moedas\n??";
+    moedas.text = @"Coins\n??";
     moedas.numberOfLines = 3;
     moedas.lineBreakMode = UILineBreakModeWordWrap;
     moedas.font = [UIFont fontWithName:@"Chewy" size:20];
@@ -743,7 +743,7 @@
 {
     //botao jogar
     _btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 + 30, 150,55)];
-    [_btnJogar setTitle:@"Jogar" forState:UIControlStateNormal];
+    [_btnJogar setTitle:@"Play!" forState:UIControlStateNormal];
     [_btnJogar.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:40]];
     [_btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
     _btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -775,9 +775,9 @@
     _star2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
     _star3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"estrela_outline"]];
     
-    _star1.center = CGPointMake(CGRectGetMidX(self.informFase.frame) - 60, CGRectGetMidY(self.informFase.frame)/2-20);
-    _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), CGRectGetMidY(self.informFase.frame)/2-40);
-    _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, CGRectGetMidY(self.informFase.frame)/2-20);
+    _star1.center = CGPointMake(CGRectGetMidX(self.informFase.frame) - 60, CGRectGetMidY(self.informFase.frame)/2-15);
+    _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), CGRectGetMidY(self.informFase.frame)/2-35);
+    _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, CGRectGetMidY(self.informFase.frame)/2-15);
     
     [self.informFase addSubview:_btn];
     [self.informFase addSubview:_btnJogar];

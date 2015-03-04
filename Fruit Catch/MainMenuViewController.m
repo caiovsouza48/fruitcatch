@@ -103,14 +103,14 @@
     //Texto configuracao
     UILabel *configuracao = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.configuracao.frame)-157, 10, 315, 50)];
     configuracao.font = [UIFont fontWithName:@"Chewy" size:40];
-    configuracao.text = @"Configurações";
+    configuracao.text = @"Settings";
     configuracao.textAlignment = NSTextAlignmentCenter;
     configuracao.textColor = [UIColor whiteColor];
     
     //Texto Musica
     UILabel *musica = [[UILabel alloc]initWithFrame:CGRectMake(0, configuracao.frame.origin.y+70, 130, 50)];
     musica.font = [UIFont fontWithName:@"Chewy" size:35];
-    musica.text = @"Música";
+    musica.text = @"Music";
     musica.textAlignment = NSTextAlignmentCenter;
     musica.textColor = [UIColor whiteColor];
     
@@ -123,7 +123,7 @@
     //Texto efeitos sonoros
     UILabel *efeitosSonoros = [[UILabel alloc]initWithFrame:CGRectMake(0, musica.frame.origin.y+45, 240, 50)];
     efeitosSonoros.font = [UIFont fontWithName:@"Chewy" size:35];
-    efeitosSonoros.text = @"Efeitos Sonoros";
+    efeitosSonoros.text = @"Sound effects";
     efeitosSonoros.textAlignment = NSTextAlignmentCenter;
     efeitosSonoros.textColor = [UIColor whiteColor];
     
@@ -140,7 +140,7 @@
     
     //Botao restore purchase
     UIButton *restore = [[UIButton alloc]initWithFrame:CGRectMake(10, efeitosSonoros.frame.origin.y + 80, 200, 50)];
-    [restore setTitle:@"Restaurar compras" forState:UIControlStateNormal];
+    [restore setTitle:@"Restore purchases" forState:UIControlStateNormal];
     [restore.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     restore.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     restore.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
@@ -148,7 +148,7 @@
     
     //Botao termos
     UIButton *termos = [[UIButton alloc]initWithFrame:CGRectMake(10, restore.frame.origin.y + 40, 200, 50)];
-    [termos setTitle:@"Termos e serviços" forState:UIControlStateNormal];
+    [termos setTitle:@"Terms of service" forState:UIControlStateNormal];
     //[termos setFont:[UIFont fontWithName:@"Chewy" size:20]];
     [termos.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     termos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -157,7 +157,7 @@
     
     //Botao creditos
     UIButton *creditos = [[UIButton alloc]initWithFrame:CGRectMake(10, termos.frame.origin.y + 40, 200, 50)];
-    [creditos setTitle:@"Créditos" forState:UIControlStateNormal];
+    [creditos setTitle:@"Credits" forState:UIControlStateNormal];
     [creditos.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
     creditos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     creditos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
@@ -240,29 +240,7 @@
                          }completion:^(BOOL fisished){
                              self.option = YES;
                          }];
-        
-        /*
-         self.musicBtn.enabled = YES;
-         self.musicBtn.alpha   = 1;
-         
-         self.soundBtn.enabled = YES;
-         self.soundBtn.alpha   = 1;
-         */
-        //Fazer a animacao dos botoes surgindo
-    }else{
-        
-        
-        /*
-         
-         self.musicBtn.enabled = NO;
-         self.musicBtn.alpha   = 0;
-         
-         self.soundBtn.enabled = NO;
-         self.soundBtn.alpha   = 0;
-         */
-        
     }
-    
     
 }
 

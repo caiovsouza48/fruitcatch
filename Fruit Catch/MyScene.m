@@ -769,16 +769,16 @@
     winLose.position     = CGPointMake(0, 110);
     
     if(_win){
-        winLose.text = @"Vitória";
+        winLose.text = @"Victory";
     }else{
-        winLose.text = @"Derrota";
+        winLose.text = @"Defeat";
     }
     
     SKLabelNode *scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Chewy"];
     scoreLabel.fontSize     = 40;
     scoreLabel.fontColor    = [SKColor whiteColor];
     scoreLabel.zPosition    = 50;
-    scoreLabel.position     = CGPointMake(0, 0);
+    scoreLabel.position     = CGPointMake(0, -10);
     scoreLabel.text         = [NSString stringWithFormat:@"%d",(int)self.viewController.score];
     
     // Ação dos botões
