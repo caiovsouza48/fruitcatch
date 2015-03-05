@@ -44,6 +44,12 @@
 		4351CD8D1A8E772800C026AA /* botao_menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4351CD871A8E772800C026AA /* botao_menu@3x.png */; };
 		435D17FB1AA78AE7007704C0 /* Level_5.json in Resources */ = {isa = PBXBuildFile; fileRef = 435D17FA1AA78AE7007704C0 /* Level_5.json */; };
 		435D17FD1AA78EFC007704C0 /* Level_6.json in Resources */ = {isa = PBXBuildFile; fileRef = 435D17FC1AA78EFC007704C0 /* Level_6.json */; };
+		435D18031AA8F0E2007704C0 /* Fazendeiro_Severino.png in Resources */ = {isa = PBXBuildFile; fileRef = 435D18001AA8F0E2007704C0 /* Fazendeiro_Severino.png */; };
+		435D18041AA8F0E2007704C0 /* Fazendeiro_Severino@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435D18011AA8F0E2007704C0 /* Fazendeiro_Severino@2x.png */; };
+		435D18051AA8F0E2007704C0 /* Fazendeiro_Severino@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435D18021AA8F0E2007704C0 /* Fazendeiro_Severino@3x.png */; };
+		435D18091AA8F604007704C0 /* fundo_main_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 435D18061AA8F604007704C0 /* fundo_main_menu.png */; };
+		435D180A1AA8F604007704C0 /* fundo_main_menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435D18071AA8F604007704C0 /* fundo_main_menu@2x.png */; };
+		435D180B1AA8F604007704C0 /* fundo_main_menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435D18081AA8F604007704C0 /* fundo_main_menu@3x.png */; };
 		4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128881A40612100A2B620 /* fase_aberta@2x.png */; };
 		4361288B1A40612100A2B620 /* mapa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128891A40612100A2B620 /* mapa@2x.png */; };
 		436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 436CBD0B1A2F739400862EDE /* MapButtons.plist */; };
@@ -214,6 +220,12 @@
 		4351CD871A8E772800C026AA /* botao_menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_menu@3x.png"; sourceTree = "<group>"; };
 		435D17FA1AA78AE7007704C0 /* Level_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_5.json; sourceTree = "<group>"; };
 		435D17FC1AA78EFC007704C0 /* Level_6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_6.json; sourceTree = "<group>"; };
+		435D18001AA8F0E2007704C0 /* Fazendeiro_Severino.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fazendeiro_Severino.png; sourceTree = "<group>"; };
+		435D18011AA8F0E2007704C0 /* Fazendeiro_Severino@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Fazendeiro_Severino@2x.png"; sourceTree = "<group>"; };
+		435D18021AA8F0E2007704C0 /* Fazendeiro_Severino@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Fazendeiro_Severino@3x.png"; sourceTree = "<group>"; };
+		435D18061AA8F604007704C0 /* fundo_main_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fundo_main_menu.png; sourceTree = "<group>"; };
+		435D18071AA8F604007704C0 /* fundo_main_menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundo_main_menu@2x.png"; sourceTree = "<group>"; };
+		435D18081AA8F604007704C0 /* fundo_main_menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundo_main_menu@3x.png"; sourceTree = "<group>"; };
 		436128881A40612100A2B620 /* fase_aberta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fase_aberta@2x.png"; sourceTree = "<group>"; };
 		436128891A40612100A2B620 /* mapa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa@2x.png"; sourceTree = "<group>"; };
 		436CBD0B1A2F739400862EDE /* MapButtons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MapButtons.plist; sourceTree = "<group>"; };
@@ -578,6 +590,19 @@
 			name = JIMCAPHelper;
 			sourceTree = "<group>";
 		};
+		435D17FF1AA8F0D3007704C0 /* Novas imagens */ = {
+			isa = PBXGroup;
+			children = (
+				435D18001AA8F0E2007704C0 /* Fazendeiro_Severino.png */,
+				435D18011AA8F0E2007704C0 /* Fazendeiro_Severino@2x.png */,
+				435D18021AA8F0E2007704C0 /* Fazendeiro_Severino@3x.png */,
+				435D18061AA8F604007704C0 /* fundo_main_menu.png */,
+				435D18071AA8F604007704C0 /* fundo_main_menu@2x.png */,
+				435D18081AA8F604007704C0 /* fundo_main_menu@3x.png */,
+			);
+			name = "Novas imagens";
+			sourceTree = "<group>";
+		};
 		436CBD071A2F732E00862EDE /* WorldMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -744,6 +769,7 @@
 				DEC905B41A239C6D003DD444 /* Main.storyboard */,
 				DEC905B71A239C6D003DD444 /* Images.xcassets */,
 				DEC905B91A239C6D003DD444 /* LaunchScreen.xib */,
+				435D17FF1AA8F0D3007704C0 /* Novas imagens */,
 				E37BB4D61A40567E00F8E679 /* imagens */,
 				E3E3ECBB1A23B32000E7E18E /* Levels */,
 				E3E3ECAE1A23B2FA00E7E18E /* Sounds */,
@@ -1030,6 +1056,7 @@
 				DE3DAC511A9B998E002FE5FE /* uva_pu_h@2x.png in Resources */,
 				E3CFD4B71A8B86B900C6FF64 /* retangulo_generico.png in Resources */,
 				E3E3ECC31A23B34500E7E18E /* Level_2.json in Resources */,
+				435D18031AA8F0E2007704C0 /* Fazendeiro_Severino.png in Resources */,
 				4351CD8B1A8E772800C026AA /* botao_menu.png in Resources */,
 				437B8E8A1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png in Resources */,
 				436D9BEC1A9E07D600EA5D4A /* fase_fechada@2x.png in Resources */,
@@ -1040,6 +1067,7 @@
 				E3DFE2F71A40A0DB00CB4D0C /* Agrupar-1@2x.png in Resources */,
 				0F40CAAC1A9BA16600D0CB01 /* banana_pu_v@2x.png in Resources */,
 				DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */,
+				435D180A1AA8F604007704C0 /* fundo_main_menu@2x.png in Resources */,
 				E3BBEE381A9E467500B27650 /* botao_back@2x.png in Resources */,
 				0F40CAAF1A9BA16600D0CB01 /* morango_pu_v@2x.png in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
@@ -1076,6 +1104,7 @@
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
 				DE3DAC4F1A9B998E002FE5FE /* limao_pu_h@2x.png in Resources */,
 				0F40CAAB1A9BA16600D0CB01 /* uva_pu_h@2x.png in Resources */,
+				435D180B1AA8F604007704C0 /* fundo_main_menu@3x.png in Resources */,
 				0F40CAB01A9BA16600D0CB01 /* uva_pu_v@2x.png in Resources */,
 				E3CFD4B51A8B86B900C6FF64 /* retangulo_configuracoes@2x.png in Resources */,
 				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
@@ -1089,7 +1118,9 @@
 				E3BBEE361A9E447800B27650 /* botao_ajuda@2x.png in Resources */,
 				437B8E8C1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png in Resources */,
 				DE3DAC501A9B998E002FE5FE /* morango_pu_h@2x.png in Resources */,
+				435D18041AA8F0E2007704C0 /* Fazendeiro_Severino@2x.png in Resources */,
 				E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */,
+				435D18091AA8F604007704C0 /* fundo_main_menu.png in Resources */,
 				DE3DAC4E1A9B998E002FE5FE /* laranja_pu_h@2x.png in Resources */,
 				E37BB4E11A40580500F8E679 /* configuracoes@2x.png in Resources */,
 				DE3DAC561A9B998E002FE5FE /* uva_pu_v@2x.png in Resources */,
@@ -1108,6 +1139,7 @@
 				E33DD8CD1A3B13BF001C2897 /* coracao.png in Resources */,
 				0F30FFFB1A97BF0300216088 /* spark.png in Resources */,
 				E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */,
+				435D18051AA8F0E2007704C0 /* Fazendeiro_Severino@3x.png in Resources */,
 				E37BB4E51A40580500F8E679 /* singleplayer@2x.png in Resources */,
 				E3CFD4AC1A8B867000C6FF64 /* Chewy.ttf in Resources */,
 				433A10021A8B904F0096B0E5 /* botao_fechar.png in Resources */,

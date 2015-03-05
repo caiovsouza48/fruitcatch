@@ -25,6 +25,7 @@
     NSArray *_products;
 }
 
+@property (nonatomic) IBOutlet UIImageView *kasco;
 @property (nonatomic) IBOutlet UIButton *singlePlayerBtn;
 @property (nonatomic) IBOutlet UIButton *multiplayerBtn;
 @property (nonatomic) IBOutlet UIButton *settingsBtn;
@@ -50,19 +51,31 @@
     
     [self addEngineLeft];
     
-    UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
+    UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundo_main_menu.png"]];
+    fundo.contentMode = UIViewContentModeScaleAspectFill;
+    fundo.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     fundo.center = self.view.center;
+    
     [self.view insertSubview:fundo atIndex:0];
+    
     self.nome = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
+    _nome.contentMode = UIViewContentModeScaleAspectFill;
+    _nome.frame = CGRectMake(0, 0, self.view.frame.size.width / 2.5, self.view.frame.size.width / 2.5);
+    
+    _kasco = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Fazendeiro_Severino"]];
+    _kasco.contentMode = UIViewContentModeScaleAspectFill;
+    _kasco.frame = CGRectMake(-5, CGRectGetMaxY(self.view.frame) / 2, CGRectGetMidX(self.view.frame) * 1.5, CGRectGetMidX(self.view.frame) * 1.5);
+    [self.view insertSubview:_kasco atIndex:1];
+    
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"Launch"] == YES){
-        self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-400);
+        self.nome.center = CGPointMake(self.view.center.x, -100);
         [UIView animateWithDuration:2
                               delay:0.75
              usingSpringWithDamping:0.35
               initialSpringVelocity:0
                             options:0
                          animations:^{
-                             self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
+                             self.nome.center = CGPointMake(self.view.center.x, self.view.center.y / 3);
                          }
                          completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Launch"];
@@ -70,12 +83,10 @@
         self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
     
-    [self.view insertSubview:self.nome atIndex:1];
+    [self.view addSubview:self.nome];
     [self loadFromFile];
     
     [self viewConfig];
-    
-    [self.view addSubview:self.configuracao];
 }
 
 -(void)addEngineLeft{
