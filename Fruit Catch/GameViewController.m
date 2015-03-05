@@ -57,6 +57,9 @@
 @property (nonatomic) NSTimer *cronometro;
 
 @property BOOL next;
+@property BOOL showFirstTutorial;
+@property BOOL show4FruitTutorial;
+@property BOOL show5FruitTutorial;
 
 @end
 
@@ -66,6 +69,22 @@
     
     _next = NO;
     _timerStarted = NO;
+    
+    _showFirstTutorial  = NO;
+    _show4FruitTutorial = NO;
+    _show5FruitTutorial = NO;
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTutorial"]){
+        _showFirstTutorial = YES;
+    }
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"4FruitTutorial"]){
+        _show4FruitTutorial = YES;
+    }
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTutorial"]){
+        _show5FruitTutorial = YES;
+    }
     
     [super viewDidLoad];
     [self registerRetryNotification];
@@ -346,6 +365,11 @@
 }
 
 - (void)beginGame {
+    
+    if(_showFirstTutorial){
+        [self firstTutorial];
+    }
+    
     self.movesLeft = self.level.maximumMoves;
     self.score = 0;
     [self updateLabels];
@@ -881,6 +905,25 @@
         [_cronometro invalidate];
         _segundos = 0;
     }
+}
+
+-(void)firstTutorial
+{
+    NSLog(@"First tutorial");
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstTutorial"];
+    _showFirstTutorial  = NO;
+}
+
+-(void)tutorial4Fruits
+{
+    NSLog(@"4 fruit tutorial");
+    _show4FruitTutorial = NO;
+}
+
+-(void)tutorial5Fruits
+{
+    NSLog(@"5 fruit tutorial");
+    _show5FruitTutorial = NO;
 }
 
 @end
