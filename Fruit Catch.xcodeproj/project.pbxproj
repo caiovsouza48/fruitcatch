@@ -32,6 +32,8 @@
 		0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7808191A3F501B00883622 /* CustomSegueSinglePlayer.m */; };
 		0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */; };
 		0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */; };
+		0FAF24D61AAA239500682521 /* popSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0FAF24D51AAA239500682521 /* popSound.mp3 */; };
+		0FAF24D81AAA326600682521 /* swap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0FAF24D71AAA326600682521 /* swap.mp3 */; };
 		0FF235881AA7A56800562511 /* WorldMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF235871AA7A56800562511 /* WorldMap.m */; };
 		0FF2358C1AA7A60500562511 /* Level_5.json in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2358A1AA7A60500562511 /* Level_5.json */; };
 		0FF2358F1AA7A67500562511 /* Level_6.json in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2358E1AA7A67500562511 /* Level_6.json */; };
@@ -202,6 +204,8 @@
 		0FA8DFAF1A362C2E005B994C /* JIMCBombaMaisPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCBombaMaisPowerUp.m; path = "Fruit Catch/JIMCBombaMaisPowerUp.m"; sourceTree = "<group>"; };
 		0FA8DFB01A362C2E005B994C /* JIMCPowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JIMCPowerUp.h; path = "Fruit Catch/JIMCPowerUp.h"; sourceTree = "<group>"; };
 		0FA8DFB11A362C2E005B994C /* JIMCPowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JIMCPowerUp.m; path = "Fruit Catch/JIMCPowerUp.m"; sourceTree = "<group>"; };
+		0FAF24D51AAA239500682521 /* popSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = popSound.mp3; sourceTree = "<group>"; };
+		0FAF24D71AAA326600682521 /* swap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swap.mp3; sourceTree = "<group>"; };
 		0FF235871AA7A56800562511 /* WorldMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMap.m; sourceTree = "<group>"; };
 		0FF235891AA7A57000562511 /* WorldMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldMap.h; sourceTree = "<group>"; };
 		0FF2358A1AA7A60500562511 /* Level_5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_5.json; sourceTree = "<group>"; };
@@ -915,6 +919,8 @@
 		E3E3ECAE1A23B2FA00E7E18E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				0FAF24D71AAA326600682521 /* swap.mp3 */,
+				0FAF24D51AAA239500682521 /* popSound.mp3 */,
 				E3E3ECAF1A23B31900E7E18E /* Chomp.wav */,
 				E3E3ECB01A23B31900E7E18E /* Drip.wav */,
 				E3E3ECB11A23B31900E7E18E /* Error.wav */,
@@ -928,13 +934,13 @@
 		E3E3ECBB1A23B32000E7E18E /* Levels */ = {
 			isa = PBXGroup;
 			children = (
-				0FF2358E1AA7A67500562511 /* Level_6.json */,
-				0FF2358A1AA7A60500562511 /* Level_5.json */,
 				0F22E0941AA79E5A00C2BF51 /* Level_0.json */,
 				0F22E0951AA79E5A00C2BF51 /* Level_1.json */,
 				0F22E0961AA79E5A00C2BF51 /* Level_2.json */,
 				0F22E0971AA79E5A00C2BF51 /* Level_3.json */,
 				0F22E0981AA79E5A00C2BF51 /* Level_4.json */,
+				0FF2358A1AA7A60500562511 /* Level_5.json */,
+				0FF2358E1AA7A67500562511 /* Level_6.json */,
 				0F22E08C1AA78B3A00C2BF51 /* Level_7.json */,
 				0F22E08E1AA78B4700C2BF51 /* Level_8.json */,
 				0F22E0901AA78B6700C2BF51 /* Level_9.json */,
@@ -1071,6 +1077,7 @@
 				E3CFD4B41A8B86B900C6FF64 /* retangulo_configuracoes.png in Resources */,
 				437B8E861A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png in Resources */,
 				E3CFD4B81A8B86B900C6FF64 /* retangulo_generico@2x.png in Resources */,
+				0FAF24D81AAA326600682521 /* swap.mp3 in Resources */,
 				0F40CAA81A9BA16600D0CB01 /* laranja_pu_h@2x.png in Resources */,
 				0F40CAAD1A9BA16600D0CB01 /* laranja_pu_v@2x.png in Resources */,
 				0F40CAAA1A9BA16600D0CB01 /* morango_pu_h@2x.png in Resources */,
@@ -1083,6 +1090,7 @@
 				E37BB4E81A4061D000F8E679 /* fundo@2x.png in Resources */,
 				E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */,
 				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
+				0FAF24D61AAA239500682521 /* popSound.mp3 in Resources */,
 				DE3DAC521A9B998E002FE5FE /* banana_pu_v@2x.png in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
 				E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */,

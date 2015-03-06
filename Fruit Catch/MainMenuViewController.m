@@ -45,9 +45,6 @@
     [super viewDidLoad];
     _flag = false;
     
-    self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
-    _loginView.delegate = self;
-    
     [self addEngineLeft];
     
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Agrupar-1.png"]];
@@ -176,6 +173,8 @@
     
     //Botao facebook
     _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(10, creditos.frame.origin.y + 50, 290, 50)];
+    self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    _loginView.delegate = self;
     [self.configuracao addSubview:_loginView];
     
     [self.configuracao addSubview:configuracao];
