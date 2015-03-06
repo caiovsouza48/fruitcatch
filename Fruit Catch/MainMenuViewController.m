@@ -15,6 +15,7 @@
 #import "RNDecryptor.h"
 #import "JIMCAPHelper.h"
 #import "WorldMap.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define ON 1
@@ -26,6 +27,7 @@
 }
 
 @property (nonatomic) IBOutlet UIImageView *kasco;
+@property (nonatomic) IBOutlet UIImageView *fundoConfig;
 @property (nonatomic) IBOutlet UIButton *singlePlayerBtn;
 @property (nonatomic) IBOutlet UIButton *multiplayerBtn;
 @property (nonatomic) IBOutlet UIButton *settingsBtn;
@@ -50,11 +52,45 @@
     _loginView.delegate = self;
     
     [self addEngineLeft];
-    
+    [self adicionaElementos];
+    [self loadFromFile];
+    [self viewConfig];
+}
+
+-(void)adicionaElementos
+{
     UIImageView *fundo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fundo_main_menu.png"]];
     fundo.contentMode = UIViewContentModeScaleAspectFill;
     fundo.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     fundo.center = self.view.center;
+    
+    CGFloat buttonSize = 0.45 * self.view.frame.size.width;
+    _singlePlayerBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.center.x, CGRectGetMaxY(self.view.frame) - 150, buttonSize, buttonSize/4)];
+    _singlePlayerBtn.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
+    _singlePlayerBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    _singlePlayerBtn.layer.borderWidth = 2.0;
+    _singlePlayerBtn.layer.cornerRadius = 12.0;
+    _singlePlayerBtn.titleLabel.textColor = [UIColor whiteColor];
+    _singlePlayerBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _singlePlayerBtn.reversesTitleShadowWhenHighlighted = YES;
+    [_singlePlayerBtn setTitle:@"Single Player" forState:UIControlStateNormal];
+    [_singlePlayerBtn.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [_singlePlayerBtn addTarget:self action:@selector(singlePlayer:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _multiplayerBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.center.x, CGRectGetMaxY(self.view.frame) - 100, buttonSize, buttonSize/4)];
+    _multiplayerBtn.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
+    _multiplayerBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    _multiplayerBtn.layer.borderWidth = 2.0;
+    _multiplayerBtn.layer.cornerRadius = 12.0;
+    _multiplayerBtn.titleLabel.textColor = [UIColor whiteColor];
+    _multiplayerBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    _multiplayerBtn.reversesTitleShadowWhenHighlighted = YES;
+    [_multiplayerBtn setTitle:@"Multiplayer" forState:UIControlStateNormal];
+    [_multiplayerBtn.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [_multiplayerBtn addTarget:self action:@selector(multiplayer:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view insertSubview:_singlePlayerBtn atIndex:1];
+    [self.view insertSubview:_multiplayerBtn atIndex:2];
     
     [self.view insertSubview:fundo atIndex:0];
     
@@ -83,10 +119,15 @@
         self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
     
-    [self.view addSubview:self.nome];
-    [self loadFromFile];
+    NSInteger settingsSize = 45;
+    CGRect frame = self.view.frame;
+    _settingsBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(frame) - settingsSize, CGRectGetMaxY(frame) - settingsSize, settingsSize, settingsSize)];
+    [_settingsBtn setBackgroundImage:[UIImage imageNamed:@"icon_config"] forState:UIControlStateNormal];
+    [_settingsBtn addTarget:self action:@selector(options:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self viewConfig];
+    [self.view insertSubview:_settingsBtn atIndex:2];
+    
+    [self.view addSubview:self.nome];
 }
 
 -(void)addEngineLeft{
@@ -110,40 +151,52 @@
 
 -(void)viewConfig
 {
-    self.configuracao = [[UIView alloc]initWithFrame:(CGRectMake(self.view.frame.origin.x, CGRectGetMinY(self.view.frame)-404, 315, 404))];
+    self.configuracao = [[UIView alloc]initWithFrame:(CGRectMake(self.view.center.x - 150, -410, 300, 404))];
+    
+    //Fundo
+    _fundoConfig = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"retangulo_configuracoes"]];
+    _fundoConfig.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self.configuracao addSubview:_fundoConfig];
     
     //Texto configuracao
-    UILabel *configuracao = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.configuracao.frame)-157, 10, 315, 50)];
+    UILabel *configuracao = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 290, 50)];
     configuracao.font = [UIFont fontWithName:@"Chewy" size:40];
     configuracao.text = @"Settings";
     configuracao.textAlignment = NSTextAlignmentCenter;
     configuracao.textColor = [UIColor whiteColor];
-    
-    //Texto Musica
-    UILabel *musica = [[UILabel alloc]initWithFrame:CGRectMake(0, configuracao.frame.origin.y+70, 130, 50)];
-    musica.font = [UIFont fontWithName:@"Chewy" size:35];
-    musica.text = @"Music";
-    musica.textAlignment = NSTextAlignmentCenter;
-    musica.textColor = [UIColor whiteColor];
-    
-    //Switch da musica
-    _ligaMusica             = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 75, musica.frame.origin.y + 12, 100, 50)];
-    _ligaMusica.onTintColor = [UIColor colorWithRed:(CGFloat)81/255 green:(CGFloat)143/255 blue:(CGFloat)195/255 alpha:1];
-    _ligaMusica.tintColor   = [UIColor colorWithRed:(CGFloat)111/255 green:(CGFloat)123/255 blue:(CGFloat)148/255 alpha:1];
-    [_ligaMusica addTarget:self action:@selector(musicON_OFF:) forControlEvents:UIControlEventValueChanged];
-    
-    //Texto efeitos sonoros
-    UILabel *efeitosSonoros = [[UILabel alloc]initWithFrame:CGRectMake(0, musica.frame.origin.y+45, 240, 50)];
-    efeitosSonoros.font = [UIFont fontWithName:@"Chewy" size:35];
-    efeitosSonoros.text = @"Sound effects";
-    efeitosSonoros.textAlignment = NSTextAlignmentCenter;
-    efeitosSonoros.textColor = [UIColor whiteColor];
-    
-    //Switch dos SFX
-    _ligaSFX             = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 75, efeitosSonoros.frame.origin.y + 12, 100, 50)];
-    _ligaSFX.onTintColor = [UIColor colorWithRed:(CGFloat)81/255 green:(CGFloat)143/255 blue:(CGFloat)195/255 alpha:1];
-    _ligaSFX.tintColor   = [UIColor colorWithRed:(CGFloat)111/255 green:(CGFloat)123/255 blue:(CGFloat)148/255 alpha:1];
-    [_ligaSFX addTarget:self action:@selector(soundON_OFF:) forControlEvents:UIControlEventValueChanged];
+//    
+//    //Texto Musica
+//    UILabel *musica = [[UILabel alloc]initWithFrame:CGRectMake(10, configuracao.frame.origin.y+70, 130, 50)];
+//    musica.font = [UIFont fontWithName:@"Chewy" size:35];
+//    musica.text = @"Music";
+//    musica.textAlignment = NSTextAlignmentCenter;
+//    musica.textColor = [UIColor whiteColor];
+//    
+//    //Switch da musica
+//    _ligaMusica             = [[UISwitch alloc] initWithFrame:CGRectMake(_configuracao.frame.size.width - 50, musica.frame.origin.y + 12, 51, 31)];
+////    _ligaMusica.onTintColor = [UIColor colorWithRed:(CGFloat)130/255 green:(CGFloat)165/255 blue:(CGFloat)170/255 alpha:1];
+//    _ligaMusica.onTintColor = [UIColor blueColor];
+//    _ligaMusica.tintColor   = [UIColor redColor];
+//    _ligaMusica.backgroundColor = [UIColor redColor];
+//    _ligaMusica.layer.cornerRadius = 16.0;
+//    [_ligaMusica addTarget:self action:@selector(musicON_OFF:) forControlEvents:UIControlEventValueChanged];
+//    
+//    //Texto efeitos sonoros
+//    UILabel *efeitosSonoros = [[UILabel alloc]initWithFrame:CGRectMake(10, musica.frame.origin.y+45, 240, 50)];
+//    efeitosSonoros.font = [UIFont fontWithName:@"Chewy" size:35];
+//    efeitosSonoros.text = @"Sound effects";
+//    efeitosSonoros.textAlignment = NSTextAlignmentCenter;
+//    efeitosSonoros.textColor = [UIColor whiteColor];
+//    
+//    //Switch dos SFX
+//    _ligaSFX             = [[UISwitch alloc] initWithFrame:CGRectMake(_ligaMusica.frame.origin.x, efeitosSonoros.frame.origin.y + 12, 51, 31)];
+////    _ligaSFX.onTintColor = [UIColor colorWithRed:(CGFloat)130/255 green:(CGFloat)165/255 blue:(CGFloat)170/255 alpha:1];
+//    _ligaSFX.onTintColor = [UIColor blueColor];
+//    _ligaSFX.tintColor   = [UIColor redColor];
+//    _ligaSFX.backgroundColor = [UIColor redColor];
+//    _ligaSFX.layer.cornerRadius = 16.0;
+//    [_ligaSFX addTarget:self action:@selector(soundON_OFF:) forControlEvents:UIControlEventValueChanged];
     
     //Botao fechar
     UIButton *fechar = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.configuracao.frame) - 35, 20, 19, 19)];
@@ -151,41 +204,58 @@
     [fechar addTarget:self action:@selector(fechar:)forControlEvents:UIControlEventTouchUpInside];
     
     //Botao restore purchase
-    UIButton *restore = [[UIButton alloc]initWithFrame:CGRectMake(10, efeitosSonoros.frame.origin.y + 80, 200, 50)];
+    UIButton *restore = [[UIButton alloc] initWithFrame:CGRectMake(30, 80, 250, 50)];
+    restore.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+    restore.layer.borderColor = [UIColor whiteColor].CGColor;
+    restore.layer.borderWidth = 2.0;
+    restore.layer.cornerRadius = 12.0;
+    restore.titleLabel.textColor = [UIColor whiteColor];
+    restore.titleLabel.textAlignment = NSTextAlignmentCenter;
+    restore.reversesTitleShadowWhenHighlighted = YES;
     [restore setTitle:@"Restore purchases" forState:UIControlStateNormal];
     [restore.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
-    restore.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    restore.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:restore];
     
     //Botao termos
-    UIButton *termos = [[UIButton alloc]initWithFrame:CGRectMake(10, restore.frame.origin.y + 40, 200, 50)];
+    UIButton *termos = [[UIButton alloc]initWithFrame:CGRectMake(30, restore.frame.origin.y + 80, 250, 50)];
+    termos.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+    termos.layer.borderColor = [UIColor whiteColor].CGColor;
+    termos.layer.borderWidth = 2.0;
+    termos.layer.cornerRadius = 12.0;
+    termos.titleLabel.textColor = [UIColor whiteColor];
+    termos.titleLabel.textAlignment = NSTextAlignmentCenter;
+    termos.reversesTitleShadowWhenHighlighted = YES;
     [termos setTitle:@"Terms of service" forState:UIControlStateNormal];
-    //[termos setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [termos.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [termos.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
-    termos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    termos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:termos];
     
     //Botao creditos
-    UIButton *creditos = [[UIButton alloc]initWithFrame:CGRectMake(10, termos.frame.origin.y + 40, 200, 50)];
+    UIButton *creditos = [[UIButton alloc]initWithFrame:CGRectMake(30, termos.frame.origin.y + 80, 250, 50)];
+    creditos.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+    creditos.layer.borderColor = [UIColor whiteColor].CGColor;
+    creditos.layer.borderWidth = 2.0;
+    creditos.layer.cornerRadius = 12.0;
+    creditos.titleLabel.textColor = [UIColor whiteColor];
+    creditos.titleLabel.textAlignment = NSTextAlignmentCenter;
+    creditos.reversesTitleShadowWhenHighlighted = YES;
     [creditos setTitle:@"Credits" forState:UIControlStateNormal];
     [creditos.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
-    creditos.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    creditos.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self.configuracao addSubview:creditos];
     
     //Botao facebook
-    _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(10, creditos.frame.origin.y + 50, 290, 50)];
-    [self.configuracao addSubview:_loginView];
+    _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(30, creditos.frame.origin.y + 80, 250, 50)];
+    _loginView.layer.borderColor = [UIColor whiteColor].CGColor;
+    _loginView.layer.borderWidth = 2.0;
+    _loginView.layer.cornerRadius = 12.0;
     
+    [self.configuracao addSubview:_loginView];
     [self.configuracao addSubview:configuracao];
-    [self.configuracao addSubview:musica];
     [self.configuracao addSubview:_ligaMusica];
-    [self.configuracao addSubview:efeitosSonoros];
     [self.configuracao addSubview:_ligaSFX];
     [self.configuracao addSubview:fechar];
-    [self.configuracao setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_configuracoes"]]];
+    
+    [self.view addSubview:_configuracao];
     
 }
 
@@ -226,10 +296,12 @@
           initialSpringVelocity:0
                         options:0
                      animations:^{
-                         [self.blurView removeFromSuperview];
-                         self.configuracao.center = CGPointMake(self.configuracao.center.x, CGRectGetMinY(self.view.frame)-300);
+                         self.nome.alpha = 1;
+                         self.blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+                         self.configuracao.center = CGPointMake(self.configuracao.center.x, -410);
                      }completion:^(BOOL fisished){
                          self.option = NO;
+                         [self.blurView removeFromSuperview];
                      }];
     
 }
@@ -241,13 +313,14 @@
         self.blurView.backgroundColor = [UIColor clearColor];
         [self.view insertSubview:self.blurView atIndex:7];
         
-        [UIView animateWithDuration:1.5
+        [UIView animateWithDuration:1.25
                               delay:0
              usingSpringWithDamping:0.65
               initialSpringVelocity:0
                             options:0
                          animations:^{
-                             self.blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.875];
+                             self.nome.alpha = 0.15;
+                             self.blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.85];
                              self.configuracao.center = CGPointMake(self.view.center.x, self.view.center.y);
                          }completion:^(BOOL fisished){
                              self.option = YES;
