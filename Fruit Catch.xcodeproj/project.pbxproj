@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F025B241AAE219500467A38 /* FunnyBounceMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0F025B231AAE219500467A38 /* FunnyBounceMusic.mp3 */; };
 		0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F05E8071A41F6A900D11622 /* GameOverScene.m */; };
 		0F22E08D1AA78B3A00C2BF51 /* Level_7.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E08C1AA78B3A00C2BF51 /* Level_7.json */; };
 		0F22E08F1AA78B4700C2BF51 /* Level_8.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F22E08E1AA78B4700C2BF51 /* Level_8.json */; };
@@ -156,11 +157,8 @@
 		E3E3ECA61A23AE8700E7E18E /* JIMCChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3ECA51A23AE8700E7E18E /* JIMCChain.m */; };
 		E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */; };
 		E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */; };
-		E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECAF1A23B31900E7E18E /* Chomp.wav */; };
 		E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB01A23B31900E7E18E /* Drip.wav */; };
 		E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB11A23B31900E7E18E /* Error.wav */; };
-		E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB21A23B31900E7E18E /* Ka-Ching.wav */; };
-		E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB31A23B31900E7E18E /* Mining by Moonlight.mp3 */; };
 		E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3E3ECB41A23B31900E7E18E /* Scrape.wav */; };
 /* End PBXBuildFile section */
 
@@ -175,6 +173,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F025B231AAE219500467A38 /* FunnyBounceMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = FunnyBounceMusic.mp3; sourceTree = "<group>"; };
 		0F05E8061A41F6A900D11622 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		0F05E8071A41F6A900D11622 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		0F22E08C1AA78B3A00C2BF51 /* Level_7.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_7.json; sourceTree = "<group>"; };
@@ -365,11 +364,8 @@
 		E3E3ECA51A23AE8700E7E18E /* JIMCChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCChain.m; sourceTree = "<group>"; };
 		E3E3ECAA1A23B1A900E7E18E /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
 		E3E3ECAB1A23B1A900E7E18E /* Grid.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Grid.atlas; sourceTree = "<group>"; };
-		E3E3ECAF1A23B31900E7E18E /* Chomp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Chomp.wav; sourceTree = "<group>"; };
 		E3E3ECB01A23B31900E7E18E /* Drip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Drip.wav; sourceTree = "<group>"; };
 		E3E3ECB11A23B31900E7E18E /* Error.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Error.wav; sourceTree = "<group>"; };
-		E3E3ECB21A23B31900E7E18E /* Ka-Ching.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Ka-Ching.wav"; sourceTree = "<group>"; };
-		E3E3ECB31A23B31900E7E18E /* Mining by Moonlight.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mining by Moonlight.mp3"; sourceTree = "<group>"; };
 		E3E3ECB41A23B31900E7E18E /* Scrape.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Scrape.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -921,11 +917,9 @@
 			children = (
 				0FAF24D71AAA326600682521 /* swap.mp3 */,
 				0FAF24D51AAA239500682521 /* popSound.mp3 */,
-				E3E3ECAF1A23B31900E7E18E /* Chomp.wav */,
 				E3E3ECB01A23B31900E7E18E /* Drip.wav */,
 				E3E3ECB11A23B31900E7E18E /* Error.wav */,
-				E3E3ECB21A23B31900E7E18E /* Ka-Ching.wav */,
-				E3E3ECB31A23B31900E7E18E /* Mining by Moonlight.mp3 */,
+				0F025B231AAE219500467A38 /* FunnyBounceMusic.mp3 */,
 				E3E3ECB41A23B31900E7E18E /* Scrape.wav */,
 			);
 			name = Sounds;
@@ -1064,7 +1058,6 @@
 				437B8E851A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png in Resources */,
 				DE3DAC4D1A9B998E002FE5FE /* banana_pu_h@2x.png in Resources */,
 				0F40CAA91A9BA16600D0CB01 /* limao_pu_h@2x.png in Resources */,
-				E3E3ECB91A23B31900E7E18E /* Mining by Moonlight.mp3 in Resources */,
 				E3CFD4B61A8B86B900C6FF64 /* retangulo_configuracoes@3x.png in Resources */,
 				E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */,
 				0F22E09F1AA79E5A00C2BF51 /* Level_4.json in Resources */,
@@ -1088,7 +1081,6 @@
 				0F22E09C1AA79E5A00C2BF51 /* Level_1.json in Resources */,
 				E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */,
 				E37BB4E81A4061D000F8E679 /* fundo@2x.png in Resources */,
-				E3E3ECB81A23B31900E7E18E /* Ka-Ching.wav in Resources */,
 				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
 				0FAF24D61AAA239500682521 /* popSound.mp3 in Resources */,
 				DE3DAC521A9B998E002FE5FE /* banana_pu_v@2x.png in Resources */,
@@ -1101,6 +1093,7 @@
 				0F40CAB01A9BA16600D0CB01 /* uva_pu_v@2x.png in Resources */,
 				E3CFD4B51A8B86B900C6FF64 /* retangulo_configuracoes@2x.png in Resources */,
 				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
+				0F025B241AAE219500467A38 /* FunnyBounceMusic.mp3 in Resources */,
 				0F22E09D1AA79E5A00C2BF51 /* Level_2.json in Resources */,
 				4351CD891A8E772800C026AA /* botao_jogar_novamente@2x.png in Resources */,
 				4378401F1A97B911009BE3FB /* estrela_outline.png in Resources */,
@@ -1131,7 +1124,6 @@
 				433C4F321AA0ED43007329E7 /* estrela_fill.png in Resources */,
 				E33DD8CD1A3B13BF001C2897 /* coracao.png in Resources */,
 				0F30FFFB1A97BF0300216088 /* spark.png in Resources */,
-				E3E3ECB51A23B31900E7E18E /* Chomp.wav in Resources */,
 				E37BB4E51A40580500F8E679 /* singleplayer@2x.png in Resources */,
 				E3CFD4AC1A8B867000C6FF64 /* Chewy.ttf in Resources */,
 				433A10021A8B904F0096B0E5 /* botao_fechar.png in Resources */,
