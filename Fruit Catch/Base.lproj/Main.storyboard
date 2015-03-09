@@ -20,7 +20,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orL-be-TdJ">
                                 <rect key="frame" x="279" y="265" width="43" height="30"/>
-                                <state key="normal" image="C0E65D3E-86CB-4740-A4B0-FA4AD612E846">
+                                <state key="normal" image="7A0DAFB5-5362-4767-906C-EE97C3BF6A8E">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -29,7 +29,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4T-l0-ZHM">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" image="7A27B70B-FA39-4364-95D6-E796D7BACF7E">
+                                <state key="normal" image="2D81E787-5970-4B53-82D0-46C1A0CC8455">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -473,7 +473,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="7A27B70B-FA39-4364-95D6-E796D7BACF7E" width="193" height="58">
+        <image name="2D81E787-5970-4B53-82D0-46C1A0CC8455" width="193" height="58">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1270,7 +1270,7 @@ uEi4UbhkuGi4e7iGuI+4lLicuJ+4pLizuLe4vrjGuNO42LjauNy44bjpuOy48bj5uPy5DrkRuRYAAAAA
 AAACAQAAAAAAAABCAAAAAAAAAAAAAAAAAAC5GA
 </mutableData>
         </image>
-        <image name="C0E65D3E-86CB-4740-A4B0-FA4AD612E846" width="193" height="58">
+        <image name="7A0DAFB5-5362-4767-906C-EE97C3BF6A8E" width="193" height="58">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

@@ -387,7 +387,7 @@
         _timerStarted = YES;
         _cronometro = [NSTimer scheduledTimerWithTimeInterval:1
                                                        target:self
-                                                     selector:@selector(cronometro)
+                                                     selector:@selector(cronometro:)
                                                      userInfo:nil
                                                       repeats:YES];
     }
@@ -768,7 +768,7 @@
             _timerStarted = YES;
             _cronometro = [NSTimer scheduledTimerWithTimeInterval:1
                                                            target:self
-                                                         selector:@selector(cronometro)
+                                                         selector:@selector(cronometro:)
                                                          userInfo:nil
                                                           repeats:YES];
         }
@@ -897,7 +897,7 @@
     }
 }
 
--(void)cronometro
+-(IBAction)cronometro:(id)sender
 {
     if(_timerStarted){
         _segundos++;

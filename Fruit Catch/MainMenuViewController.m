@@ -31,14 +31,23 @@
 @property (nonatomic) IBOutlet UIButton *singlePlayerBtn;
 @property (nonatomic) IBOutlet UIButton *multiplayerBtn;
 @property (nonatomic) IBOutlet UIButton *settingsBtn;
+@property (nonatomic) IBOutlet UIButton *fechar;
 @property (nonatomic) IBOutlet UIImageView *nome;
-@property (nonatomic) IBOutlet UISwitch *ligaMusica;
-@property (nonatomic) IBOutlet UISwitch *ligaSFX;
 @property (nonatomic) UIView *configuracao;
 @property (nonatomic) UIView *blurView;
 @property (nonatomic) BOOL option;
 @property(nonatomic) NSArray *fbFriends;
 @property(nonatomic) BOOL flag;
+
+//Menu rápido
+@property (nonatomic) IBOutlet UIButton *menuRapido;
+@property (nonatomic) IBOutlet UIImageView *fundoMenuRapido;
+@property (nonatomic) BOOL quickMenuOpen;
+@property (nonatomic) IBOutlet UIImageView *blockMusic;
+@property (nonatomic) IBOutlet UIImageView *blockSFK;
+@property (nonatomic) IBOutlet UIButton *ligaMusica;
+@property (nonatomic) IBOutlet UIButton *ligaSFX;
+@property (nonatomic) IBOutlet UIButton *ajuda;
 
 @end
 
@@ -51,7 +60,8 @@
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     _loginView.delegate = self;
     
-    [self addEngineLeft];
+//    [self addEngineLeft];
+    [self adicionaMenuRapido];
     [self adicionaElementos];
     [self loadFromFile];
     [self viewConfig];
@@ -65,7 +75,7 @@
     fundo.center = self.view.center;
     
     CGFloat buttonSize = 0.45 * self.view.frame.size.width;
-    _singlePlayerBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.center.x, CGRectGetMaxY(self.view.frame) - 150, buttonSize, buttonSize/4)];
+    _singlePlayerBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.center.x, CGRectGetMaxY(self.view.frame) - 180, buttonSize, buttonSize/3.5)];
     _singlePlayerBtn.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
     _singlePlayerBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     _singlePlayerBtn.layer.borderWidth = 2.0;
@@ -74,10 +84,10 @@
     _singlePlayerBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     _singlePlayerBtn.reversesTitleShadowWhenHighlighted = YES;
     [_singlePlayerBtn setTitle:@"Single Player" forState:UIControlStateNormal];
-    [_singlePlayerBtn.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [_singlePlayerBtn.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:23]];
     [_singlePlayerBtn addTarget:self action:@selector(singlePlayer:) forControlEvents:UIControlEventTouchUpInside];
     
-    _multiplayerBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.center.x, CGRectGetMaxY(self.view.frame) - 100, buttonSize, buttonSize/4)];
+    _multiplayerBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.center.x, CGRectGetMaxY(self.view.frame) - 120, buttonSize, buttonSize/3.5)];
     _multiplayerBtn.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
     _multiplayerBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     _multiplayerBtn.layer.borderWidth = 2.0;
@@ -86,7 +96,7 @@
     _multiplayerBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     _multiplayerBtn.reversesTitleShadowWhenHighlighted = YES;
     [_multiplayerBtn setTitle:@"Multiplayer" forState:UIControlStateNormal];
-    [_multiplayerBtn.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:20]];
+    [_multiplayerBtn.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:23]];
     [_multiplayerBtn addTarget:self action:@selector(multiplayer:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view insertSubview:_singlePlayerBtn atIndex:1];
@@ -119,34 +129,8 @@
         self.nome.center = CGPointMake(self.view.center.x, self.view.center.y-200);
     }
     
-    NSInteger settingsSize = 45;
-    CGRect frame = self.view.frame;
-    _settingsBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(frame) - settingsSize, CGRectGetMaxY(frame) - settingsSize, settingsSize, settingsSize)];
-    [_settingsBtn setBackgroundImage:[UIImage imageNamed:@"icon_config"] forState:UIControlStateNormal];
-    [_settingsBtn addTarget:self action:@selector(options:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view insertSubview:_settingsBtn atIndex:2];
-    
     [self.view addSubview:self.nome];
-}
 
--(void)addEngineLeft{
-    // Botão de configuração do mini menu
-    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
-    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
-    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
-    self.engineButtonLeft.transform = rotate;
-    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // View animada do botão
-    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
-    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
-    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
-    self.engineViewLeft.transform = rotate;
-    
-    // Adiciona na view o botão e a view animada
-    [self.view addSubview:self.engineViewLeft];
-    [self.view addSubview:self.engineButtonLeft];
 }
 
 -(void)viewConfig
@@ -199,9 +183,9 @@
 //    [_ligaSFX addTarget:self action:@selector(soundON_OFF:) forControlEvents:UIControlEventValueChanged];
     
     //Botao fechar
-    UIButton *fechar = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.configuracao.frame) - 35, 20, 19, 19)];
-    [fechar setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
-    [fechar addTarget:self action:@selector(fechar:)forControlEvents:UIControlEventTouchUpInside];
+    _fechar = [[UIButton alloc]initWithFrame:CGRectMake(self.configuracao.frame.origin.x + 282, self.configuracao.frame.origin.y - 30, 35, 35)];
+    [_fechar setBackgroundImage:[UIImage imageNamed:@"fechar"] forState:UIControlStateNormal];
+    [_fechar addTarget:self action:@selector(fechar:)forControlEvents:UIControlEventTouchUpInside];
     
     //Botao restore purchase
     UIButton *restore = [[UIButton alloc] initWithFrame:CGRectMake(30, 80, 250, 50)];
@@ -244,16 +228,16 @@
     [self.configuracao addSubview:creditos];
     
     //Botao facebook
-    _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(30, creditos.frame.origin.y + 80, 250, 50)];
+    CGFloat buttonSize = 0.45 * self.view.frame.size.width;
+    _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(30, creditos.frame.origin.y + 80, 250, buttonSize/4)];
     _loginView.layer.borderColor = [UIColor whiteColor].CGColor;
     _loginView.layer.borderWidth = 2.0;
     _loginView.layer.cornerRadius = 12.0;
     
     [self.configuracao addSubview:_loginView];
+    [self.view addSubview:_fechar];
     [self.configuracao addSubview:configuracao];
-    [self.configuracao addSubview:_ligaMusica];
-    [self.configuracao addSubview:_ligaSFX];
-    [self.configuracao addSubview:fechar];
+//    [self.configuracao addSubview:fechar];
     
     [self.view addSubview:_configuracao];
     
@@ -261,9 +245,16 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    _ligaMusica.on = [SettingsSingleton sharedInstance].music;
-    _ligaSFX.on = [SettingsSingleton sharedInstance].SFX;
+    if ([SettingsSingleton sharedInstance].music) {
+        //adicionar ícone de proibido
+    }
+    
+    if ([SettingsSingleton sharedInstance].SFX) {
+        //adicionar ícone de proibido
+    }
+    
     self.option = NO;
+    self.quickMenuOpen = NO;
     //Anima os botões single, multiplayer e options
     [UIView animateWithDuration:1
                           delay:0
@@ -275,7 +266,7 @@
                          //Multi
                          self.multiplayerBtn.transform  = CGAffineTransformMakeScale(1.02, 1.02);
                          //Options
-                         self.settingsBtn.transform     = CGAffineTransformMakeRotation(M_PI_4 / 4);
+//                         self.settingsBtn.transform     = CGAffineTransformMakeRotation(M_PI_4 / 4);
                      }completion:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:JIMCHelperProductPurchasedNotification object:nil];
 }
@@ -288,6 +279,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(IBAction)fechar:(id)sender
 {
     [UIView animateWithDuration:1.5
@@ -299,6 +291,7 @@
                          self.nome.alpha = 1;
                          self.blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
                          self.configuracao.center = CGPointMake(self.configuracao.center.x, -410);
+                         _fechar.center = CGPointMake(self.configuracao.frame.origin.x + 282, self.configuracao.frame.origin.y - 30);
                      }completion:^(BOOL fisished){
                          self.option = NO;
                          [self.blurView removeFromSuperview];
@@ -307,7 +300,6 @@
 }
 -(IBAction)options:(id)sender
 {
-    
     if(!self.option){
         self.blurView = [[UIView alloc] initWithFrame:self.view.frame];
         self.blurView.backgroundColor = [UIColor clearColor];
@@ -322,6 +314,7 @@
                              self.nome.alpha = 0.15;
                              self.blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.85];
                              self.configuracao.center = CGPointMake(self.view.center.x, self.view.center.y);
+                             _fechar.center = CGPointMake(self.configuracao.frame.origin.x + 282, self.configuracao.frame.origin.y - 30);
                          }completion:^(BOOL fisished){
                              self.option = YES;
                          }];
@@ -347,9 +340,17 @@
     
 }
 
+-(IBAction)help:(id)sender
+{
+    
+}
+
 -(IBAction)musicON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] musicON_OFF];
+    if(![SettingsSingleton sharedInstance].music){
+        
+    }
 }
 
 -(IBAction)soundON_OFF:(id)sender
@@ -429,11 +430,7 @@
         }
     }
     else{
-        
-        
     }
-    
-    
 }
 
 
@@ -633,32 +630,158 @@
 //}
 
 - (void)productPurchased:(NSNotification *)notification {
-    
     NSLog(@"TESTE");
-    
 }
 
-- (IBAction)openMenu:(id)sender{
+-(void)adicionaMenuRapido
+{
+    CGFloat buttonSize = 28.0;
+    _menuRapido = [[UIButton alloc] initWithFrame:CGRectMake(3, CGRectGetMaxY(self.view.frame) - buttonSize -3, buttonSize, buttonSize)];
+    _menuRapido.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_open"]];
+    [_menuRapido addTarget:self action:@selector(menuRapido:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view insertSubview:_menuRapido aboveSubview:self.view];
     
-    if (!_flag) {
-        [UIButton animateWithDuration:1.0
-                                delay:0.0
-                              options:UIViewAnimationOptionCurveEaseInOut
-                           animations:^{
-                               self.engineButtonLeft.transform = CGAffineTransformMakeRotation(M_PI_2);
-                               self.engineViewLeft.transform = CGAffineTransformMakeRotation(M_PI_2);
-                           } completion:nil];
-        _flag = true;
+    CGFloat imageSize = 62.0;
+    _fundoMenuRapido = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Menu_Rapido_Pequeno"]];
+    _fundoMenuRapido.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - imageSize, imageSize, imageSize);
+    [self.view insertSubview:_fundoMenuRapido belowSubview:_menuRapido];
+    
+    _ligaSFX = [[UIButton alloc]initWithFrame:CGRectMake(15, 40, 20, 32)];
+    [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"icon_som"] forState:UIControlStateNormal];
+    [_ligaSFX addTarget:self action:@selector(soundON_OFF:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _ligaMusica = [[UIButton alloc] initWithFrame:CGRectMake(65, 65, 24, 36)];
+    [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"icon_music"] forState:UIControlStateNormal];
+    [_ligaMusica addTarget:self action:@selector(musicON_OFF:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _ajuda = [[UIButton alloc]initWithFrame:CGRectMake(110, 105, 25, 40)];
+    [_ajuda setBackgroundImage:[UIImage imageNamed:@"icon_help"] forState:UIControlStateNormal];
+    [_ajuda addTarget:self action:@selector(help:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _settingsBtn = [[UIButton alloc]initWithFrame:CGRectMake(130, 155, 30, 33)];
+    [_settingsBtn setBackgroundImage:[UIImage imageNamed:@"icon_config"] forState:UIControlStateNormal];
+    [_settingsBtn addTarget:self action:@selector(options:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _ligaMusica.alpha = 0;
+    _ligaSFX.alpha = 0;
+    _ajuda.alpha = 0;
+    _settingsBtn.alpha = 0;
+    
+    [self.fundoMenuRapido addSubview:_ligaMusica];
+    [self.fundoMenuRapido addSubview:_ligaSFX];
+    [self.fundoMenuRapido addSubview:_ajuda];
+    [self.fundoMenuRapido addSubview:_settingsBtn];
+}
+
+-(IBAction)menuRapido:(id)sender
+{
+    if(!_quickMenuOpen){
+        //Abrindo o menu
+        _quickMenuOpen = YES;
+        //Altera o fundo da cesta
+        _fundoMenuRapido.image = [UIImage imageNamed:@"Menu_Rapido_Cesta"];
+        //Altera o botão
+        _menuRapido.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_close"]];
+        
+        //Anima a porra toda
+        [UIView animateWithDuration:0.5
+                              delay:0
+             usingSpringWithDamping:0.35
+              initialSpringVelocity:0
+                            options:0
+                         animations:^{
+                             CGFloat imageSize = 203.0;
+                             CGFloat buttonSize = 27.0;
+                             
+                             _menuRapido.frame = CGRectMake(3, CGRectGetMaxY(self.view.frame) - buttonSize - 3, buttonSize, buttonSize);
+                             _fundoMenuRapido.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - imageSize, imageSize, imageSize);
+                             _ligaMusica.alpha = 1;
+                             _ligaSFX.alpha = 1;
+                             _ajuda.alpha = 1;
+                             _settingsBtn.alpha = 1;
+                         }
+                         completion:nil];
     }else{
-        [UIButton animateWithDuration:1.0
-                                delay:0.0
-                              options:UIViewAnimationOptionCurveEaseInOut
-                           animations:^{
-                               self.engineButtonLeft.transform = CGAffineTransformMakeRotation(0);
-                               self.engineViewLeft.transform = CGAffineTransformMakeRotation(0);
-                           } completion:nil];
-        _flag = false;
+        //Fechando o menu
+        _quickMenuOpen = NO;
+        //Altera o fundo da cesta
+        _fundoMenuRapido.image = [UIImage imageNamed:@"Menu_Rapido_Pequeno"];
+        //Altera o botão
+        _menuRapido.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_open"]];
+        //Anima a porra toda
+        [UIView animateWithDuration:0.5
+                              delay:0
+             usingSpringWithDamping:0.35
+              initialSpringVelocity:0
+                            options:0
+                         animations:^{
+                             CGFloat imageSize = 62.0;
+                             CGFloat buttonSize = 28.0;
+                             
+                             _menuRapido.frame = CGRectMake(3, CGRectGetMaxY(self.view.frame) - buttonSize - 3, buttonSize, buttonSize);
+                             _fundoMenuRapido.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - imageSize, imageSize, imageSize);
+                             _ligaMusica.alpha = 0;
+                             _ligaSFX.alpha = 0;
+                             _ajuda.alpha = 0;
+                             _settingsBtn.alpha = 0;
+                         }
+                         completion:nil];
     }
 }
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self.view];
+    
+    if(_quickMenuOpen){
+        if(!CGRectContainsPoint(_fundoMenuRapido.frame, location)){
+            [self menuRapido:self];
+        }
+    }
+}
+
+//-(void)addEngineLeft{
+//    
+//    // Botão de configuração do mini menu
+//    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
+//    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
+//    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
+//    self.engineButtonLeft.transform = rotate;
+//    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    // View animada do botão
+//    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
+//    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
+//    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
+//    self.engineViewLeft.transform = rotate;
+//    
+//    // Adiciona na view o botão e a view animada
+//    [self.view addSubview:self.engineViewLeft];
+//    [self.view addSubview:self.engineButtonLeft];
+//}
+//
+//- (IBAction)openMenu:(id)sender{
+//    
+//    if (!_flag) {
+//        [UIButton animateWithDuration:1.0
+//                                delay:0.0
+//                              options:UIViewAnimationOptionCurveEaseInOut
+//                           animations:^{
+//                               self.engineButtonLeft.transform = CGAffineTransformMakeRotation(M_PI_2);
+//                               self.engineViewLeft.transform = CGAffineTransformMakeRotation(M_PI_2);
+//                           } completion:nil];
+//        _flag = true;
+//    }else{
+//        [UIButton animateWithDuration:1.0
+//                                delay:0.0
+//                              options:UIViewAnimationOptionCurveEaseInOut
+//                           animations:^{
+//                               self.engineButtonLeft.transform = CGAffineTransformMakeRotation(0);
+//                               self.engineViewLeft.transform = CGAffineTransformMakeRotation(0);
+//                           } completion:nil];
+//        _flag = false;
+//    }
+//}
 
 @end
