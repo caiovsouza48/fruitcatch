@@ -31,4 +31,9 @@
 
 @property (nonatomic) NSInteger nextStage;
 
+@property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+
+- (void)startSpinning;
+- (void)stopSpinning;
+
 @end

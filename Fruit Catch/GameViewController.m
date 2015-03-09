@@ -150,7 +150,7 @@
     [skView presentScene:self.scene];
     
     // Load and start background music.
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Mining by Moonlight" withExtension:@"mp3"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"FunnyBounceMusic" withExtension:@"mp3"];
     self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     self.backgroundMusic.numberOfLoops = -1;
     

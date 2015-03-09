@@ -110,9 +110,9 @@
 }
 
 - (void)preloadResources {
-    self.swapSound = [SKAction playSoundFileNamed:@"Chomp.wav" waitForCompletion:NO];
+    self.swapSound = [SKAction playSoundFileNamed:@"swap.mp3" waitForCompletion:NO];
     self.invalidSwapSound = [SKAction playSoundFileNamed:@"Error.wav" waitForCompletion:NO];
-    self.matchSound = [SKAction playSoundFileNamed:@"Ka-Ching.wav" waitForCompletion:NO];
+    self.matchSound = [SKAction playSoundFileNamed:@"popSound.mp3" waitForCompletion:NO];
     self.fallingFruitSound = [SKAction playSoundFileNamed:@"Scrape.wav" waitForCompletion:NO];
     self.addFruitSound = [SKAction playSoundFileNamed:@"Drip.wav" waitForCompletion:NO];
     

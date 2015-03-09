@@ -69,9 +69,10 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
 //              skProduct.localizedTitle,
 //              skProduct.price.floatValue);
 //    }
-    
-    _completionHandler(YES, skProducts);
-    _completionHandler = nil;
+    if (_completionHandler){
+        _completionHandler(YES, skProducts);
+        _completionHandler = nil;
+    }
     
 }
 
