@@ -91,8 +91,8 @@
         [self forceSelect];
     }
     
-    [self startSpinning];
-    //Começa
+    // Começa o loading
+    [self startSpinningShop];
 }
 
 - (void)dealloc{
@@ -436,7 +436,7 @@
                              blurView.backgroundColor   = [UIColor colorWithWhite:0 alpha:0.5];
                              self.informFase.center     = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
                              self.shopScrollView.center = CGPointMake(CGRectGetMidX(self.view.frame), self.shopScrollView.center.y);
-                             self.activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.view.frame), self.shopScrollView.center.y);
+                             self.activityIndicatorViewShop.center = CGPointMake(CGRectGetMidX(self.view.frame), 50);
                          }completion:nil];
         _shopOpen = YES;
     }
@@ -729,8 +729,8 @@
 
     [[JIMCAPHelper sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
         if (success) {
-            //termina
-            [self stopSpinning];
+            // Termina o loading
+            [self stopSpinningShop];
             _products = products;
             
             int j = 0;
@@ -782,10 +782,10 @@
     // Aloca o Scroll na view
     [self.view addSubview:_scroll1];
     
-    self.activityIndicatorView.center = CGPointMake(-400, self.shopScrollView.center.y);
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(CGRectGetMidX(_shopScrollView.frame), CGRectGetMidY(_shopScrollView.frame), 60, 60)];
+    self.activityIndicatorViewShop.center = CGPointMake(-400, self.shopScrollView.center.y);
+    self.activityIndicatorViewShop = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(CGRectGetMidX(_shopScrollView.frame), CGRectGetMidY(_shopScrollView.frame), 60, 60)];
     
-    [self.shopScrollView addSubview:self.activityIndicatorView];
+    [self.shopScrollView addSubview:self.activityIndicatorViewShop];
 }
 
 - (void)addScrollFacebook {
@@ -823,6 +823,11 @@
         
         // Adiciona o usuário do facebook
         if (i == 0) {
+            
+            self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
+            [_scroll1 addSubview:self.activityIndicatorViewFacebook];
+            [self.activityIndicatorViewFacebook startAnimating];
+
             NSString* userId;
             NSString* userName;
             
@@ -848,7 +853,14 @@
             // Adiciona a imagem no Scroll
             [_scroll1 addSubview:imagem];
             [_scroll1 addSubview:nome];
+            if (imageData!=nil) {
+                [self stopSpinningFacebook];
+            }
         }
+        
+        self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
+        [_scroll1 addSubview:self.activityIndicatorViewFacebook];
+        [self.activityIndicatorViewFacebook startAnimating];
         
         // Aloca uma imagem do tamanho da metade da tela em que está
         imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
@@ -875,15 +887,27 @@
         
         // Daqui em diante, adiciona os amigos do facebook
         i++;
+
+        if (imageData!=nil) {
+            [self stopSpinningFacebook];
+        }
     }
 }
 
-- (void)startSpinning {
-    [self.activityIndicatorView startAnimating];
+- (void)startSpinningShop {
+    [self.activityIndicatorViewShop startAnimating];
 }
 
-- (void)stopSpinning {
-    [self.activityIndicatorView stopAnimating];
+- (void)stopSpinningShop {
+    [self.activityIndicatorViewShop stopAnimating];
+}
+
+- (void)startSpinningFacebook {
+    [self.activityIndicatorViewFacebook startAnimating];
+}
+
+- (void)stopSpinningFacebook {
+    [self.activityIndicatorViewFacebook stopAnimating];
 }
 
 @end

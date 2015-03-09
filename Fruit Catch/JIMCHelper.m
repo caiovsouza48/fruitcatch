@@ -81,8 +81,10 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
     NSLog(@"Failed to load list of products.");
     _productsRequest = nil;
     
-    _completionHandler(NO, nil);
-    _completionHandler = nil;
+    if (_completionHandler) {
+        _completionHandler(NO, nil);
+        _completionHandler = nil;
+    }
     
 }
 
