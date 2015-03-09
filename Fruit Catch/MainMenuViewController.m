@@ -130,7 +130,35 @@
     }
     
     [self.view addSubview:self.nome];
+}
 
+-(void)addEngineLeft{
+    // Botão de configuração do mini menu
+    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
+    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
+    self.engineButtonLeft.transform = rotate;
+    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // View animada do botão
+    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
+    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
+    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
+    self.engineViewLeft.transform = rotate;
+    
+    // Adiciona na view o botão e a view animada
+    [self.view addSubview:self.engineViewLeft];
+    [self.view addSubview:self.engineButtonLeft];
+    
+    // Adiciona os botões dentro da view animada
+    [self addButton1OnEngineView];
+}
+
+-(void)addButton1OnEngineView{
+    UIButton *button1 = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, 40, 40)];
+    [button1 setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
+    [button1 addTarget:self action:@selector(options:) forControlEvents:UIControlEventTouchUpInside];
+    [self.engineViewLeft addSubview:button1];
 }
 
 -(void)viewConfig
@@ -783,5 +811,4 @@
 //        _flag = false;
 //    }
 //}
-
 @end

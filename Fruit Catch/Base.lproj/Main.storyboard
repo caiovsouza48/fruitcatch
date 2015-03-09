@@ -36,6 +36,18 @@
                                     <action selector="multiplayer:" destination="uZN-3h-NbC" eventType="touchUpInside" id="Tb9-c2-ezG"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q6o-5s-459">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="652" width="240" height="128"/>
+                                </variation>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dpN-YP-twK">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="99" y="379" width="240" height="128"/>
+                                </variation>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjG-Y3-Kdg">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,9 +58,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="IhG-Bu-5QJ" firstAttribute="leading" secondItem="Etp-xP-zSB" secondAttribute="leadingMargin" constant="-10" id="Ant-Mo-JBx">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstItem="7uI-9n-bRw" firstAttribute="top" secondItem="IhG-Bu-5QJ" secondAttribute="bottom" constant="20" id="Hc4-VB-gKO"/>
                             <constraint firstItem="m4T-l0-ZHM" firstAttribute="top" secondItem="orL-be-TdJ" secondAttribute="bottom" constant="8" id="OWQ-9a-Igw"/>
                             <constraint firstAttribute="centerY" secondItem="orL-be-TdJ" secondAttribute="centerY" constant="20" id="OrN-tn-Ndz">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-136"/>
+                            </constraint>
+                            <constraint firstItem="IhG-Bu-5QJ" firstAttribute="leading" secondItem="Etp-xP-zSB" secondAttribute="leadingMargin" id="jjS-kd-LXF">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
                             </constraint>
                             <constraint firstAttribute="centerX" secondItem="orL-be-TdJ" secondAttribute="centerX" id="l3R-6L-2Ex"/>
                             <constraint firstAttribute="centerX" secondItem="m4T-l0-ZHM" secondAttribute="centerX" id="uc1-Ia-1eh"/>
@@ -56,21 +75,31 @@
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="m4T-l0-ZHM"/>
+                                <exclude reference="Q6o-5s-459"/>
                                 <exclude reference="qjG-Y3-Kdg"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="OWQ-9a-Igw"/>
                                 <exclude reference="uc1-Ia-1eh"/>
+                                <exclude reference="Ant-Mo-JBx"/>
+                                <exclude reference="jjS-kd-LXF"/>
+                                <exclude reference="Hc4-VB-gKO"/>
+                                <exclude reference="l7S-uV-8zc"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="m4T-l0-ZHM"/>
+                                <include reference="Q6o-5s-459"/>
                                 <exclude reference="qjG-Y3-Kdg"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="OWQ-9a-Igw"/>
                                 <include reference="uc1-Ia-1eh"/>
+                                <include reference="Ant-Mo-JBx"/>
+                                <include reference="jjS-kd-LXF"/>
+                                <include reference="Hc4-VB-gKO"/>
+                                <exclude reference="l7S-uV-8zc"/>
                             </mask>
                         </variation>
                     </view>
