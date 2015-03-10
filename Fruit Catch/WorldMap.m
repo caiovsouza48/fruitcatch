@@ -22,6 +22,11 @@
 #define IPHONE6 (self.view.frame.size.width == 375)
 #define IPHONE6PLUS (self.view.frame.size.width == 414)
 
+#define IPHONE6_XSCALE 1.171875
+#define IPHONE6_YSCALE 1.174285774647887
+#define IPHONE6PLUS_XSCALE 1.29375
+#define IPHONE6PLUS_YSCALE 1.295774647887324
+
 @interface WorldMap (){
     NSArray *_products;
 }
@@ -517,10 +522,12 @@
     //Carrega a imagem de fundo
     UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa"]];
     
-    CGRect frame = fundo.frame;
+    CGRect frame = self.view.frame;
     
     frame.origin = CGPointMake(0, _offset); // remover
     fundo.frame  = frame;
+    fundo.contentMode = UIViewContentModeScaleAspectFit;
+    
     _scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
     _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height + _offset); //remover
     _scrollView.backgroundColor = [UIColor cyanColor];
@@ -612,8 +619,18 @@
     for(NSDictionary *button in mapButtons){
         _i++;
         //Cria o botao de nivel
-        NSNumber *x = button[@"xPosition"];
+        NSNumber *x = button[@"xPosition"];;
         NSNumber *y = button[@"yPosition"];
+        if(IPHONE6){
+            x = [NSNumber numberWithFloat: x.doubleValue * IPHONE6_XSCALE];
+            y = [NSNumber numberWithFloat: y.doubleValue * IPHONE6_YSCALE];
+        }else if(IPHONE6PLUS){
+            x = [NSNumber numberWithFloat: x.doubleValue * IPHONE6PLUS_XSCALE];
+            y = [NSNumber numberWithFloat: y.doubleValue * IPHONE6PLUS_YSCALE];;
+        }else{
+            x = button[@"xPosition"];
+            y = button[@"yPosition"];
+        }
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
@@ -626,8 +643,22 @@
         button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
         button.tintColor = [UIColor whiteColor];
-        button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:24];
-        button.frame = CGRectMake(x.integerValue, y.integerValue + _offset, 54, 34); //remover o + offset
+        
+        if(IPHONE6){
+            button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:28];
+        }else if(IPHONE6PLUS){
+            button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:32];
+        }else{
+            button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:24];
+        }
+        
+        if(IPHONE6){
+            button.frame = CGRectMake(x.doubleValue, y.doubleValue + _offset, 54 * IPHONE6_XSCALE, 34 * IPHONE6_YSCALE); //remover o + offset
+        }else if(IPHONE6PLUS){
+            button.frame = CGRectMake(x.doubleValue, y.doubleValue + _offset, 54 * IPHONE6PLUS_XSCALE, 34 * IPHONE6PLUS_YSCALE); //remover o + offset
+        }else{
+            button.frame = CGRectMake(x.doubleValue, y.doubleValue + _offset, 54, 34); //remover o + offset
+        }
         [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
         
         if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
