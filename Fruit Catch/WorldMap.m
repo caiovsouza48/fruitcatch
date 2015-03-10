@@ -19,6 +19,8 @@
 #import "JIMCAPHelper.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
+#define IPHONE6 (self.view.frame.size.width == 375)
+#define IPHONE6PLUS (self.view.frame.size.width == 414)
 
 @interface WorldMap (){
     NSArray *_products;
