@@ -824,6 +824,7 @@
         // Adiciona o usuário do facebook
         if (i == 0) {
             
+            // Inicia animação de loading
             self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
             [_scroll1 addSubview:self.activityIndicatorViewFacebook];
             [self.activityIndicatorViewFacebook startAnimating];
@@ -853,11 +854,14 @@
             // Adiciona a imagem no Scroll
             [_scroll1 addSubview:imagem];
             [_scroll1 addSubview:nome];
+            
+            // Encerra animação de loading
             if (imageData!=nil) {
                 [self stopSpinningFacebook];
             }
         }
         
+        // Inicia animação de loading
         self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
         [_scroll1 addSubview:self.activityIndicatorViewFacebook];
         [self.activityIndicatorViewFacebook startAnimating];
@@ -888,6 +892,7 @@
         // Daqui em diante, adiciona os amigos do facebook
         i++;
 
+        // Encerra animação de loading
         if (imageData!=nil) {
             [self stopSpinningFacebook];
         }
