@@ -164,7 +164,6 @@
 		E37BB4EA1A40924B00F8E679 /* fazendeiro_fase@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4E91A40924B00F8E679 /* fazendeiro_fase@2x.png */; };
 		E3BBEE361A9E447800B27650 /* botao_ajuda@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3BBEE351A9E447800B27650 /* botao_ajuda@2x.png */; };
 		E3BBEE381A9E467500B27650 /* botao_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3BBEE371A9E467500B27650 /* botao_back@2x.png */; };
-		E3BBEE3A1AA0D49300B27650 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3BBEE391AA0D49300B27650 /* StoreKit.framework */; };
 		E3CFD4AC1A8B867000C6FF64 /* Chewy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4AB1A8B867000C6FF64 /* Chewy.ttf */; };
 		E3CFD4B71A8B86B900C6FF64 /* retangulo_generico.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4B11A8B86B900C6FF64 /* retangulo_generico.png */; };
 		E3CFD4B81A8B86B900C6FF64 /* retangulo_generico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4B21A8B86B900C6FF64 /* retangulo_generico@2x.png */; };
@@ -404,7 +403,6 @@
 		E37BB4E91A40924B00F8E679 /* fazendeiro_fase@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro_fase@2x.png"; sourceTree = "<group>"; };
 		E3BBEE351A9E447800B27650 /* botao_ajuda@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_ajuda@2x.png"; sourceTree = SOURCE_ROOT; };
 		E3BBEE371A9E467500B27650 /* botao_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_back@2x.png"; sourceTree = SOURCE_ROOT; };
-		E3BBEE391AA0D49300B27650 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E3CFD4AB1A8B867000C6FF64 /* Chewy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chewy.ttf; sourceTree = "<group>"; };
 		E3CFD4B11A8B86B900C6FF64 /* retangulo_generico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retangulo_generico.png; sourceTree = "<group>"; };
 		E3CFD4B21A8B86B900C6FF64 /* retangulo_generico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "retangulo_generico@2x.png"; sourceTree = "<group>"; };
@@ -466,7 +464,6 @@
 				E3DA87801A966050002E9499 /* QuartzCore.framework in Frameworks */,
 				E3DA87811A966050002E9499 /* UIKit.framework in Frameworks */,
 				E3DA87821A966050002E9499 /* CoreGraphics.framework in Frameworks */,
-				E3BBEE3A1AA0D49300B27650 /* StoreKit.framework in Frameworks */,
 				E3DA87831A966050002E9499 /* Foundation.framework in Frameworks */,
 				E3DA87851A966050002E9499 /* FacebookSDK.framework in Frameworks */,
 			);
@@ -841,7 +838,6 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
-				E3BBEE391AA0D49300B27650 /* StoreKit.framework */,
 				E3DA878A1A9661D3002E9499 /* libz.dylib */,
 				E3DA87881A9661C6002E9499 /* libsqlite3.dylib */,
 				DEC905A41A239C6D003DD444 /* Fruit Catch */,
@@ -1117,16 +1113,15 @@
 				TargetAttributes = {
 					DEC905A11A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = V3QPSCZ857;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = BLCXKG795L;
+						DevelopmentTeam = V3QPSCZ857;
 						TestTargetID = DEC905A11A239C6D003DD444;
 					};
 				};
