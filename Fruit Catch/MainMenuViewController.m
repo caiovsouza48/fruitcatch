@@ -44,7 +44,7 @@
 @property (nonatomic) IBOutlet UIImageView *fundoMenuRapido;
 @property (nonatomic) BOOL quickMenuOpen;
 @property (nonatomic) IBOutlet UIImageView *blockMusic;
-@property (nonatomic) IBOutlet UIImageView *blockSFK;
+@property (nonatomic) IBOutlet UIImageView *blockSFX;
 @property (nonatomic) IBOutlet UIButton *ligaMusica;
 @property (nonatomic) IBOutlet UIButton *ligaSFX;
 @property (nonatomic) IBOutlet UIButton *ajuda;
@@ -132,27 +132,27 @@
     [self.view addSubview:self.nome];
 }
 
--(void)addEngineLeft{
-    // Botão de configuração do mini menu
-    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
-    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
-    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
-    self.engineButtonLeft.transform = rotate;
-    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // View animada do botão
-    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
-    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
-    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
-    self.engineViewLeft.transform = rotate;
-    
-    // Adiciona na view o botão e a view animada
-    [self.view addSubview:self.engineViewLeft];
-    [self.view addSubview:self.engineButtonLeft];
-    
-    // Adiciona os botões dentro da view animada
-    [self addButton1OnEngineView];
-}
+//-(void)addEngineLeft{
+//    // Botão de configuração do mini menu
+//    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
+//    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
+//    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
+//    self.engineButtonLeft.transform = rotate;
+//    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    // View animada do botão
+//    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
+//    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
+//    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
+//    self.engineViewLeft.transform = rotate;
+//    
+//    // Adiciona na view o botão e a view animada
+//    [self.view addSubview:self.engineViewLeft];
+//    [self.view addSubview:self.engineButtonLeft];
+//    
+//    // Adiciona os botões dentro da view animada
+//    [self addButton1OnEngineView];
+//}
 
 -(void)addButton1OnEngineView{
     UIButton *button1 = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, 40, 40)];
@@ -263,8 +263,8 @@
     _loginView.layer.cornerRadius = 12.0;
     
     [self.configuracao addSubview:_loginView];
-    [self.view addSubview:_fechar];
     [self.configuracao addSubview:configuracao];
+    [self.view insertSubview:_fechar belowSubview:_configuracao];
 //    [self.configuracao addSubview:fechar];
     
     [self.view addSubview:_configuracao];
@@ -273,12 +273,24 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    if ([SettingsSingleton sharedInstance].music) {
+    if (![SettingsSingleton sharedInstance].music) {
         //adicionar ícone de proibido
+        [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"no_music"] forState:UIControlStateNormal];
+        _ligaMusica.frame = CGRectMake(_ligaMusica.center.x - 19.5, _ligaMusica.center.y - 21.5, 39, 43);
+    }else{
+        //remove ícone de proibido
+        [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"icon_music"] forState:UIControlStateNormal];
+        _ligaMusica.frame = CGRectMake(65, 65, 24, 36);
     }
     
-    if ([SettingsSingleton sharedInstance].SFX) {
+    if (![SettingsSingleton sharedInstance].SFX) {
         //adicionar ícone de proibido
+        [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"no_sfx"] forState:UIControlStateNormal];
+        _ligaSFX.frame = CGRectMake(_ligaSFX.center.x - 19.5, _ligaSFX.center.y - 21.5, 39, 43);
+    }else{
+        //remove ícone de proibido
+        [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"icon_som"] forState:UIControlStateNormal];
+        _ligaSFX.frame = CGRectMake(15, 40, 20, 32);
     }
     
     self.option = NO;
@@ -331,7 +343,7 @@
     if(!self.option){
         self.blurView = [[UIView alloc] initWithFrame:self.view.frame];
         self.blurView.backgroundColor = [UIColor clearColor];
-        [self.view insertSubview:self.blurView atIndex:7];
+        [self.view insertSubview:self.blurView belowSubview:self.fechar];
         
         [UIView animateWithDuration:1.25
                               delay:0
@@ -376,14 +388,29 @@
 -(IBAction)musicON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] musicON_OFF];
-    if(![SettingsSingleton sharedInstance].music){
-        
+    if (![SettingsSingleton sharedInstance].music) {
+        //adicionar ícone de proibido
+        [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"no_music"] forState:UIControlStateNormal];
+        _ligaMusica.frame = CGRectMake(_ligaMusica.center.x - 19.5, _ligaMusica.center.y - 21.5, 39, 43);
+    }else{
+        //remove ícone de proibido
+        [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"icon_music"] forState:UIControlStateNormal];
+        _ligaMusica.frame = CGRectMake(65, 65, 24, 36);
     }
 }
 
 -(IBAction)soundON_OFF:(id)sender
 {
     [[SettingsSingleton sharedInstance] soundON_OFF];
+    if (![SettingsSingleton sharedInstance].SFX) {
+        //adicionar ícone de proibido
+        [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"no_sfx"] forState:UIControlStateNormal];
+        _ligaSFX.frame = CGRectMake(_ligaSFX.center.x - 19.5, _ligaSFX.center.y - 21.5, 39, 43);
+    }else{
+        //remove ícone de proibido
+        [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"icon_som"] forState:UIControlStateNormal];
+        _ligaSFX.frame = CGRectMake(15, 40, 20, 32);
+    }
 }
 
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
@@ -699,6 +726,8 @@
     [self.fundoMenuRapido addSubview:_ligaSFX];
     [self.fundoMenuRapido addSubview:_ajuda];
     [self.fundoMenuRapido addSubview:_settingsBtn];
+    
+    self.fundoMenuRapido.userInteractionEnabled = YES;
 }
 
 -(IBAction)menuRapido:(id)sender
