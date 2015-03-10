@@ -166,10 +166,46 @@
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
             NSLog(@"File dict = %@",obj);
+//            if ([self sendToWebService:obj]) {
+//                NSLog(@"Envio com sucesso !");
+//            }
             return obj;
         }
     }
     return nil;
+}
+
+- (BOOL)sendToWebService:(NSDictionary*)object {
+    
+    NSString* userId = [object objectForKey:@"id"];
+    NSString* userName = [object objectForKey:@"name"];
+    
+    NSString* url = @"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/%@/%@/%@/%@/%@";
+    NSString* postRequest = [NSString stringWithFormat:url,
+                             userId, // idUsuario
+                             userName, // nome
+                             userId, // elo
+                             userId, // qtdeMoedas
+                             userId, // qtdeVidas
+                             userId, // qtdeVidasMult
+                             userId]; // linkImage
+    
+    NSError *error;
+    NSHTTPURLResponse *response;
+    NSMutableURLRequest *request = [NSMutableURLRequest new];
+    
+    [request setURL:[NSURL URLWithString:postRequest]];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    NSData *resposta = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    if ([response statusCode] >= 200 && [response statusCode] < 300) {
+        [NSJSONSerialization JSONObjectWithData:resposta options:NSJSONReadingMutableContainers error:&error];
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (void)getUserLives{
@@ -824,11 +860,6 @@
         // Adiciona o usuário do facebook
         if (i == 0) {
             
-            // Inicia animação de loading
-            self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
-            [_scroll1 addSubview:self.activityIndicatorViewFacebook];
-            [self.activityIndicatorViewFacebook startAnimating];
-
             NSString* userId;
             NSString* userName;
             
@@ -845,19 +876,17 @@
             nome.textColor = [UIColor whiteColor];
             
             NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", userId];
+            NSLog(@"user %@", userImageURL);
             
             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
             imagem.image = [UIImage imageWithData:imageData];
             imagem.contentMode = UIViewContentModeScaleToFill;
             [imagem clipsToBounds];
             
-            // Adiciona a imagem no Scroll
-            [_scroll1 addSubview:imagem];
-            [_scroll1 addSubview:nome];
-            
             // Encerra animação de loading
             if (imageData!=nil) {
-                [self stopSpinningFacebook];
+                [_scroll1 addSubview:nome];
+                [_scroll1 addSubview:imagem];
             }
         }
         
@@ -885,9 +914,6 @@
         // Define a cor do botão
         [imagem setBackgroundColor:[UIColor clearColor]];
         // Adiciona a imagem no Scroll
-        [_scroll1 addSubview:imagem];
-        
-        [_scroll1 addSubview:nome];
         
         // Daqui em diante, adiciona os amigos do facebook
         i++;
@@ -895,6 +921,9 @@
         // Encerra animação de loading
         if (imageData!=nil) {
             [self stopSpinningFacebook];
+            
+            [_scroll1 addSubview:imagem];
+            [_scroll1 addSubview:nome];
         }
     }
 }

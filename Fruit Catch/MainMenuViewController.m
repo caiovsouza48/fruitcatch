@@ -404,7 +404,6 @@
             NSLog(@"IMAGEM = %@", self.userImageURL);
             NSLog(@"USERNAME = %@", self.userName);
         }
-      
     }];
     //__block NSArray *friends;
     [FBRequestConnection startWithGraphPath:@"me/friends" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -421,7 +420,6 @@
                                    @"alias" : user.name,
                                    @"facebookFriends" : [result objectForKey:@"data"]
                                    };
-        
         
         NSString *filePath = [AppUtils getAppDataDir];
         //NSLog(@"%@",self.lives);

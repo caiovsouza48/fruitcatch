@@ -34,7 +34,4 @@
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorViewShop;
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorViewFacebook;
 
-- (void)startSpinning;
-- (void)stopSpinning;
-
 @end
