@@ -92,7 +92,7 @@
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
-    skView.showsNodeCount = YES;
+    //skView.showsNodeCount = YES;
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -157,7 +157,7 @@
     if([SettingsSingleton sharedInstance].music == ON){
         [self.backgroundMusic play];
     }
-    [self loadPowerUpsView];
+    //[self loadPowerUpsView];
     
     _priceFormatter = [[NSNumberFormatter alloc] init];
     [_priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];

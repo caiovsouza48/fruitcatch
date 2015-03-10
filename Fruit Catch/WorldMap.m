@@ -75,7 +75,7 @@
     [self adicionaBotaoSair];
     [self adicionaBotaoJogar];
     [self adicionaDetalhesDaFase];
-    [self adicionaShop];
+    //[self adicionaShop];
     [self allocScrollViewFacebook];
 }
 

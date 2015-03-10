@@ -1099,7 +1099,7 @@
 				TargetAttributes = {
 					DEC905A11A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = V3QPSCZ857;
+						DevelopmentTeam = 4MMC45MQ2J;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -1108,7 +1108,7 @@
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = BLCXKG795L;
+						DevelopmentTeam = 4MMC45MQ2J;
 						TestTargetID = DEC905A11A239C6D003DD444;
 					};
 				};

@@ -114,7 +114,7 @@
         // If there are no possible moves, then keep trying again until there are.
     }
     while ([self.possibleSwaps count] == 0);
-   
+    
     return set;
 }
 
@@ -150,7 +150,6 @@
                 
                 // Also add the fruit to the set so we can tell our caller about it.
                 [set addObject:fruit];
-                
             }
         }
     }
@@ -191,15 +190,13 @@
     return [mutableFruitSet copy];
 }
 
-
-
 - (JIMCFruit *)createFruitAtColumn:(NSInteger)column row:(NSInteger)row withType:(NSUInteger)fruitType {
     JIMCFruit *fruit = [[JIMCFruit alloc] init];
     fruit.fruitType = fruitType;
     fruit.column = column;
     fruit.row = row;
     _fruits[column][row] = fruit;
-
+    
     return fruit;
 }
 
@@ -212,7 +209,7 @@
 - (NSSet *)detectPossibleSwaps {
     
     NSMutableSet *set = [NSMutableSet set];
-   
+    
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             
@@ -279,7 +276,7 @@
     
     
     //[self removeFruits:set2];
- 
+    
     
     self.possibleSwaps = set;
     
@@ -322,7 +319,7 @@
 
 #pragma mark - Detecting Matches
 -(NSSet *)deletarFrutas:(JIMCSwap *)fruitDeletar{
-     NSMutableSet *set = [NSMutableSet set];
+    NSMutableSet *set = [NSMutableSet set];
     for (NSInteger row = 0; row < NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             JIMCFruit *fruit = _fruits [column][row];
@@ -359,53 +356,104 @@
     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
     return set;
 }
+-(NSSet *)deletarFrutasRec:(JIMCFruit *)fruitDeletar{
+    NSMutableSet *set = [NSMutableSet set];
+    for (NSInteger row = 0; row < NumRows; row++) {
+        for (NSInteger column = 0; column < NumColumns; column++) {
+            JIMCFruit *fruit = _fruits [column][row];
+            if (fruit.fruitType == fruitDeletar.fruitType) {
+                JIMCChain *chain = [[JIMCChain alloc] init];
+                [chain addFruit:_fruits[fruit.column][fruit.row]];
+                [set addObject:chain];
+            }
+        }
+    }
+    return set;
+}
+#warning recursividade do capeta
+
+-(NSSet*)removeMatchesRecursive:(NSSet *)chains {
+    NSMutableSet *chain = [[NSMutableSet alloc]init];
+    [chain unionSet:chains];
+    for (JIMCChain *jim in chains) {
+        for (JIMCFruit *fruit in jim.fruits) {
+            // Tem power UP
+            // executar power up
+            if (fruit.fruitPowerUp == 2){
+                fruit.fruitPowerUp = 0;
+                NSSet *del = [self detectFruitsInRow:fruit];
+                [chain unionSet:[self removeMatchesRecursive:del]];
+            }else if ( fruit.fruitPowerUp == 3){
+                fruit.fruitPowerUp = 0;
+                NSSet *del = [self detectFruitsInColumn:fruit];
+                [chain unionSet:[self removeMatchesRecursive:del]];
+            }else if ( fruit.fruitPowerUp == 1){
+                
+                JIMCFruit *fruitP = [jim.fruits objectAtIndex:0];
+                NSSet *del = [self deletarFrutasRec:fruitP];
+                fruit.fruitPowerUp = 0;
+                [chain unionSet:[self removeMatchesRecursive:del]];
+            }
+            
+        }
+    }
+    return chain;
+}
+
 
 - (NSSet *)removeMatches {
     NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self detectHorizontalMatches]];
     NSSet *verticalChains = [self detectVerticalMatches];
     NSMutableSet *mut = [[NSMutableSet alloc]init];
-   //NSSet *deletarFrutas = [self deletarFrutas];
+    NSMutableSet *comboRecursivo = [[NSMutableSet alloc]init];
+    //NSSet *deletarFrutas = [self deletarFrutas];
     NSSet *rowChains = nil;
     NSSet *columnChains = nil;
     
     rowChains = [self chainedRow:horizontalChains];
     columnChains = [self chainedColumn:verticalChains];
     
+    [comboRecursivo unionSet:rowChains];
+    [comboRecursivo unionSet:columnChains];
+    NSSet *recursivo = [self removeMatchesRecursive:comboRecursivo];
+    
     //NSSet *deletarFrutas = [self deletarFrutas];
     //NSSet *frutas = [self deletarFrutas];
-
+    
     // Note: to detect more advanced patterns such as an L shape, you can see
     // whether a fruit is in both the horizontal & vertical chains sets and
     // whether it is the first or last in the array (at a corner). Then you
     // create a new JIMCChain object with the new type and remove the other two.
     
     if ([JIMCSwapFruitSingleton sharedInstance].swap!=nil) {
-        [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
+        [mut unionSet:horizontalChains];
         [self powerUpSingleton:mut];
+        
     }else{
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
         [self powerUpCombo:mut];
-        //[self powerUpCombo:horizontalChains];
-        //[self powerUpCombo:verticalChains];
     }
-    [self removeFruits:horizontalChains];
-    [self removeFruits:verticalChains];
-
-    [self removeFruitsAllType:rowChains];
-    [self removeFruitsAllType:columnChains];
-    [self calculateScoresAllType:columnChains];
-    [self calculateScoresAllType:rowChains];
-    //[self removeFruits:deletarFrutas];
     
+    
+    [self calculateScoresAllType:recursivo];
+    [self calculateScores:columnChains];
+    [self calculateScores:rowChains];
     [self calculateScores:horizontalChains];
     [self calculateScores:verticalChains];
     
+    [self removeFruits:recursivo];
+    [self removeFruits:horizontalChains];
+    [self removeFruits:verticalChains];
+    [self removeFruits:rowChains];
+    [self removeFruits:columnChains];
+    
+    [horizontalChains unionSet:recursivo];
     [horizontalChains unionSet:verticalChains];
     [horizontalChains unionSet:rowChains];
     [horizontalChains unionSet:columnChains];
-
+    
     return horizontalChains;
 }
 
@@ -421,14 +469,12 @@
     NSSet *rowChains;
     for (JIMCChain *chain in horizontalChains) {
         for (JIMCFruit *fruit in chain.fruits) {
-            if (fruit.fruitPowerUp == 2) {
-                fruit.fruitPowerUp =0;
+            if (fruit.fruitPowerUp == 2 ) {
+                //fruit.fruitPowerUp =0;
                 rowChains = [self detectFruitsInRow:fruit];
-                
-            }else if ( fruit.fruitPowerUp == 3){
-                fruit.fruitPowerUp =0;
+            }else if ( fruit.fruitPowerUp == 3 ){
+                //fruit.fruitPowerUp =0;
                 rowChains = [self detectFruitsInColumn:fruit];
-                
             }
         }
     }
@@ -440,14 +486,12 @@
     NSSet *columnChains;
     for (JIMCChain *chain in verticalChains) {
         for (JIMCFruit *fruit in chain.fruits) {
-            if (fruit.fruitPowerUp == 2) {
-                fruit.fruitPowerUp =0;
+            if (fruit.fruitPowerUp == 2 ) {
+                // fruit.fruitPowerUp =0;
                 columnChains = [self detectFruitsInRow:fruit];
-                
-            }else if ( fruit.fruitPowerUp == 3){
-                fruit.fruitPowerUp =0;
+            }else if (fruit.fruitPowerUp == 3 ){
+                //fruit.fruitPowerUp =0;
                 columnChains = [self detectFruitsInColumn:fruit];
-                
             }
         }
     }
@@ -455,8 +499,8 @@
 }
 
 - (NSSet *)removeMatchesForPowerUp:(JIMCPowerUp *)powerUp {
-   NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self checkHorizontalFruitsToRemoveForPowerUp:powerUp andLimit:0]];
-  
+    NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self checkHorizontalFruitsToRemoveForPowerUp:powerUp andLimit:0]];
+    
     NSSet *verticalChains = [self checkVerticalFruitsToRemoveForPowerUp:powerUp andLimit:0];
     //NSLog(@"horizontalChains = %lu",(unsigned long)horizontalChains.count);
     //NSLog(@"VerticalChains = %lu",(unsigned long)verticalChains.count);
@@ -486,11 +530,12 @@
         // Note: for-loop without increment.
         for (NSInteger column = 0; column < NumColumns ;column++ ) {
             // If there is a fruit/tile at this position...
-            if ((_fruits[column][row] != nil) && (_fruits[column][row].column == fruit.column)) {
-                    JIMCChain *chain = [[JIMCChain alloc] init];
-                    chain.chainType = ChainTypeHorizontal;
-                    [chain addFruit:_fruits[column][row]];
-                    [set addObject:chain];
+            if ((_fruits[column][row] != nil) && (_fruits[column][row].column == fruit.column) ) {
+                JIMCChain *chain = [[JIMCChain alloc] init];
+                chain.chainType = ChainTypeHorizontal;
+                //_fruits[column][row].fruitPowerUp = 0;
+                [chain addFruit:_fruits[column][row]];
+                [set addObject:chain];
             }
         }
     }
@@ -501,30 +546,28 @@
     NSMutableSet *set = [NSMutableSet set];
     for (NSInteger column = 0; column < NumColumns; column++) {
         for (NSInteger row = 0; row < NumRows; row++) {
-            if ((_fruits[column][row] != nil) && (_fruits[column][row].row == fruit.row )) {
-                    JIMCChain *chain = [[JIMCChain alloc] init];
-                    chain.chainType = ChainTypeVertical;
-                    
-                    [chain addFruit:_fruits[column][row]];
-                    [set addObject:chain];
-                }
+            if ((_fruits[column][row] != nil) && (_fruits[column][row].row == fruit.row)) {
+                JIMCChain *chain = [[JIMCChain alloc] init];
+                chain.chainType = ChainTypeVertical;
+                //_fruits[column][row].fruitPowerUp = 0;
+                [chain addFruit:_fruits[column][row]];
+                [set addObject:chain];
+            }
         }
     }
+    
     return set;
 }
 - (NSSet *)removeMatchesAllType:(JIMCSwap *)fruit {
-   
+    
     NSSet *removeAllType = [self deletarFrutas:fruit];
-
     [self removeFruitsAllType:removeAllType];
     [self calculateScoresAllType:removeAllType];
-
     return removeAllType ;
 }
 - (NSSet *)removeMatchesAll{
     
     NSSet *removeAllType = [self deletarFrutas];
-    
     [self removeFruitsAllType:removeAllType];
     [self calculateScoresAllType:removeAllType];
     
@@ -617,9 +660,9 @@
         [chain addFruit:_fruits[column][row]];
         do {
             if (nil != _fruits[column][row+1]){
-              if (nil != _fruits[column][row-1]){
-                  [chain addFruit:_fruits[column][row-1]];
-              }
+                if (nil != _fruits[column][row-1]){
+                    [chain addFruit:_fruits[column][row-1]];
+                }
                 [chain addFruit:_fruits[column][row+1]];
                 row += 1;
             }
@@ -640,57 +683,59 @@
 
 // Same as the horizontal version but just steps through the array differently.
 - (NSSet *)checkVerticalFruitsToRemove:(NSInteger)limit{
-        NSMutableSet *set = [NSMutableSet set];
-        
-        for (NSInteger column = 0; column < NumColumns; column++) {
-            for (NSInteger row = 0; row < NumRows - 2; ) {
-                if (_fruits[column][row] != nil) {
-                        JIMCChain *chain = [[JIMCChain alloc] init];
-                        chain.chainType = ChainTypeVertical;
-                        do {
-                            [chain addFruit:_fruits[column][row]];
-                            row += 1;
-                        }
-                        while (row < limit);
-                        [set addObject:chain];
-                        continue;
-                    }
-                row += 1;
+    NSMutableSet *set = [NSMutableSet set];
+    
+    for (NSInteger column = 0; column < NumColumns; column++) {
+        for (NSInteger row = 0; row < NumRows - 2; ) {
+            if (_fruits[column][row] != nil) {
+                JIMCChain *chain = [[JIMCChain alloc] init];
+                chain.chainType = ChainTypeVertical;
+                do {
+                    [chain addFruit:_fruits[column][row]];
+                    row += 1;
                 }
+                while (row < limit);
+                [set addObject:chain];
+                continue;
+            }
+            row += 1;
         }
-        return set;
+    }
+    return set;
 }
 
 - (NSSet *)checkHorizontalFruitsToRemoveForPowerUp:(JIMCPowerUp *)powerUp andLimit:(NSInteger)limit {
     
     // Contains the JIMCFruit objects that were part of a horizontal chain.
     // These fruits must be removed.
+    
     NSMutableSet *set = [NSMutableSet set];
     int column = (int)powerUp.position.x;
     int row = (int)powerUp.position.y;
-    NSLog(@"linha e coluna %d %f ",column,powerUp.position.y);
-            if (_fruits[column][row] != nil) {
-                    // ...then add all the fruits from this chain into the set.
-                    JIMCChain *chain = [[JIMCChain alloc] init];
-                    chain.chainType = ChainTypeHorizontal;
-                    [chain addFruit:_fruits[column][row]];
-                    do {
-                        if ((nil != _fruits[column+1][row]) && ([_fruits[column+1][row] isKindOfClass:[JIMCFruit class]])){
-                            [chain addFruit:_fruits[column+1][row]];
-                            
-                            if ((nil != _fruits[column-1][row]) && ([_fruits[column-1][row] isKindOfClass:[JIMCFruit class]])){
-                                [chain addFruit:_fruits[column-1][row]];
-                            }
-                            column += 1;
-                        }
-                        else{
-                            continue;
-                        }
-                     [set addObject:chain];
-                    } while (column < limit);
+    
+    // NSLog(@"linha e coluna %d %f ",column,powerUp.position.y);
+    if (_fruits[column][row] != nil) {
+        // ...then add all the fruits from this chain into the set.
+        JIMCChain *chain = [[JIMCChain alloc] init];
+        chain.chainType = ChainTypeHorizontal;
+        [chain addFruit:_fruits[column][row]];
+        do {
+            if ((nil != _fruits[column+1][row]) && ([_fruits[column+1][row] isKindOfClass:[JIMCFruit class]])){
+                [chain addFruit:_fruits[column+1][row]];
+                
+                if ((nil != _fruits[column-1][row]) && ([_fruits[column-1][row] isKindOfClass:[JIMCFruit class]])){
+                    [chain addFruit:_fruits[column-1][row]];
+                }
+                column += 1;
             }
-            // Fruit did not match or empty tile, so skip over it.
-            return set;
+            else{
+                continue;
+            }
+            [set addObject:chain];
+        } while (column < limit);
+    }
+    // Fruit did not match or empty tile, so skip over it.
+    return set;
 }
 -(void)powerUpCombo:(NSSet *)chains{
     for (JIMCChain *chain in chains) {
@@ -700,7 +745,10 @@
                 _fruits[fruit.column][fruit.row].fruitType = 6;
                 break;
             }else if (chain.fruits.count == 4){
-                _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
+                if(chain.fruits.count %2== 0)
+                    _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
+                else
+                    _fruits[fruit.column][fruit.row].fruitPowerUp = 3;
                 break;
             }
         }
@@ -713,8 +761,7 @@
             if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 5) {
                 _fruits[fruit.column][fruit.row].fruitPowerUp = 1;
                 _fruits[fruit.column][fruit.row].fruitType = 6;
-                var = 1;
-                break;
+                
                 
             }else if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 4){
                 if ([self isSelectedVertical]) {
@@ -722,8 +769,7 @@
                 }else{
                     _fruits[fruit.column][fruit.row].fruitPowerUp = 3;
                 }
-                var = 1;
-                break;
+                
             }
         }
     }
@@ -743,6 +789,7 @@
     for (JIMCChain *chain in chains) {
         for (JIMCFruit *fruit in chain.fruits) {
             _fruits[fruit.column][fruit.row] = nil;
+            _fruits[fruit.column][fruit.row].fruitPowerUp=0;
         }
     }
 }
@@ -752,6 +799,7 @@
             if ([fruit isKindOfClass:[JIMCFruit class]]){
                 if (_fruits[fruit.column][fruit.row].fruitPowerUp == 0){
                     _fruits[fruit.column][fruit.row] = nil;
+                    _fruits[fruit.column][fruit.row].fruitPowerUp=0;
                 }
             }
         }
@@ -776,14 +824,20 @@
 - (void)calculateScores:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        chain.score = 30 * ([chain.fruits count] - 2) * self.comboMultiplier;
+        if ([chain.fruits count] == 1) {
+            chain.score = 30 * ([chain.fruits count]) * self.comboMultiplier;
+            
+        }else{
+            chain.score = 30 * ([chain.fruits count] - 2) * self.comboMultiplier;
+        }
         self.comboMultiplier++;
     }
 }
 - (void)calculateScoresAllType:(NSSet *)chains {
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        chain.score+=10;
+        chain.score = 10 ;
+        
     }
 }
 
@@ -859,8 +913,8 @@
                 NSUInteger newFruitType;
                 do {
                     
-                   // [[NetworkController sharedInstance] sendMovedSelf:1];
-                        newFruitType = arc4random_uniform(NumFruitTypes) + 1;
+                    // [[NetworkController sharedInstance] sendMovedSelf:1];
+                    newFruitType = arc4random_uniform(NumFruitTypes) + 1;
                 } while (newFruitType == fruitType);
                 
                 fruitType = newFruitType;
@@ -879,30 +933,20 @@
             }
         }
     }
-   
     return columns;
 }
-
-- (void)topUpFruitsFor:(NSArray *)array{
-    for (JIMCFruit *fruit in array) {
-        [self createFruitAtColumn:fruit.column row:fruit.row withType:fruit.fruitType];
-    }
-}
-
 
 #pragma mark - Querying the Level
 
 - (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row {
     NSAssert1(column >= 0 && column < NumColumns, @"Invalid column: %ld", (long)column);
     NSAssert1(row >= 0 && row < NumRows, @"Invalid row: %ld", (long)row);
-    
     return _tiles[column][row];
 }
 
 - (JIMCFruit *)fruitAtColumn:(NSInteger)column row:(NSInteger)row {
     NSAssert1(column >= 0 && column < NumColumns, @"Invalid column: %ld", (long)column);
     NSAssert1(row >= 0 && row < NumRows, @"Invalid row: %ld", (long)row);
-    
     return _fruits[column][row];
 }
 - (BOOL)isPowerSwap:(JIMCSwap *)swap {
@@ -923,7 +967,7 @@
 
 - (NSSet *) executePowerUp:(JIMCPowerUp *)powerUp{
     
-     return [self removeMatchesForPowerUp:powerUp];
+    return [self removeMatchesForPowerUp:powerUp];
 }
 
 @end
