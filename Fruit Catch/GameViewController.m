@@ -873,14 +873,14 @@
     //Compara os scores
     
     //Se não tem score gravado ou se o score é maior
-    if(levelHighScore[@"HighScore"] == 0 || levelHighScore[@"HighScore"] < highScore){
+    if([levelHighScore[@"HighScore"] integerValue] == 0 || [levelHighScore[@"HighScore"] integerValue] < [highScore integerValue]){
         [levelHighScore setObject:highScore forKey:@"HighScore"];
         [levelHighScore setObject:tempo forKey:@"Time"];
-    }
-    
-    //Mesmo score, tempo menor
-    if((levelHighScore[@"HighScore"] == highScore) && (levelHighScore[@"Time"] > tempo)){
-        [levelHighScore setObject:tempo forKey:@"Time"];
+    }else{
+        //Mesmo score, tempo menor
+        if(([levelHighScore[@"HighScore"] integerValue] == [highScore integerValue]) && ([levelHighScore[@"Time"] integerValue] > [tempo integerValue])){
+            [levelHighScore setObject:tempo forKey:@"Time"];
+        }
     }
     
     [array replaceObjectAtIndex:level withObject:levelHighScore];
