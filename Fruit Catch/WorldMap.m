@@ -60,9 +60,16 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-    
     _shopOpen = NO;
-    _offset = 70;
+    
+    if(IPHONE6){
+        _offset = 80 * IPHONE6_YSCALE;
+    }else if(IPHONE6PLUS){
+        _offset = 80 * IPHONE6PLUS_YSCALE;
+    }else{
+        _offset = 80;
+    }
+    
     [super viewDidLoad];
     //[self getUserLives];
     [self registerLivesBackgroundNotification];
@@ -520,16 +527,22 @@
     //ScrollView
     
     //Carrega a imagem de fundo
-    UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa"]];
+    UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa_2.0"]];
     
-    CGRect frame = self.view.frame;
+    CGRect frame = fundo.frame;
     
     frame.origin = CGPointMake(0, _offset); // remover
-    fundo.frame  = frame;
-    fundo.contentMode = UIViewContentModeScaleAspectFit;
+//    fundo.frame  = CGRectMake(0, 0, _scrollView.contentSize.width, _scrollView.contentSize.height);
+    fundo.contentMode = UIViewContentModeScaleToFill;
+    
+    if (IPHONE6) {
+        fundo.frame = CGRectMake(0, 0, fundo.frame.size.width * IPHONE6_XSCALE, fundo.frame.size.height);
+    }else if(IPHONE6PLUS){
+        fundo.frame = CGRectMake(0, 0, fundo.frame.size.width * IPHONE6PLUS_XSCALE, fundo.frame.size.height);
+    }
     
     _scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
-    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height + _offset); //remover
+    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height - _offset); //remover
     _scrollView.backgroundColor = [UIColor cyanColor];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator   = NO;
@@ -619,17 +632,17 @@
     for(NSDictionary *button in mapButtons){
         _i++;
         //Cria o botao de nivel
-        NSNumber *x = button[@"xPosition"];;
+        NSNumber *x = button[@"xPosition"];
         NSNumber *y = button[@"yPosition"];
+        CGFloat yOffset = _scrollView.contentSize.height - self.view.frame.size.height - _offset;
         if(IPHONE6){
             x = [NSNumber numberWithFloat: x.doubleValue * IPHONE6_XSCALE];
-            y = [NSNumber numberWithFloat: y.doubleValue * IPHONE6_YSCALE];
+            y = [NSNumber numberWithFloat: yOffset + y.doubleValue * IPHONE6_YSCALE];
         }else if(IPHONE6PLUS){
             x = [NSNumber numberWithFloat: x.doubleValue * IPHONE6PLUS_XSCALE];
-            y = [NSNumber numberWithFloat: y.doubleValue * IPHONE6PLUS_YSCALE];;
+            y = [NSNumber numberWithFloat: yOffset + y.doubleValue * IPHONE6PLUS_YSCALE];;
         }else{
-            x = button[@"xPosition"];
-            y = button[@"yPosition"];
+            y = [NSNumber numberWithFloat: yOffset + y.doubleValue];
         }
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
