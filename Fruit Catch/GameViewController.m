@@ -870,16 +870,14 @@
     NSNumber *highScore = [NSNumber numberWithInteger:self.score];
     NSNumber *tempo = [NSNumber numberWithInteger:_segundos];
     
-    //Compara os scores
-    
-    //Se não tem score gravado ou se o score é maior
-    if(levelHighScore[@"HighScore"] == 0 || levelHighScore[@"HighScore"] < highScore){
-        [levelHighScore setObject:highScore forKey:@"HighScore"];
+    //Mesmo score, tempo menor
+    if(([levelHighScore[@"HighScore"] integerValue] == highScore.integerValue) && ((int)levelHighScore[@"Time"] > tempo.integerValue)){
         [levelHighScore setObject:tempo forKey:@"Time"];
     }
     
-    //Mesmo score, tempo menor
-    if((levelHighScore[@"HighScore"] == highScore) && (levelHighScore[@"Time"] > tempo)){
+    //Se não tem score gravado ou se o score é maior
+    if([levelHighScore[@"HighScore"] integerValue] == 0 || [levelHighScore[@"HighScore"]integerValue] < highScore.integerValue){
+        [levelHighScore setObject:highScore forKey:@"HighScore"];
         [levelHighScore setObject:tempo forKey:@"Time"];
     }
     
