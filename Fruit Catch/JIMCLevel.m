@@ -388,7 +388,6 @@
                 NSSet *del = [self detectFruitsInColumn:fruit];
                 [chain unionSet:[self removeMatchesRecursive:del]];
             }else if ( fruit.fruitPowerUp == 1){
-                
                 JIMCFruit *fruitP = [jim.fruits objectAtIndex:0];
                 NSSet *del = [self deletarFrutasRec:fruitP];
                 fruit.fruitPowerUp = 0;
@@ -761,15 +760,14 @@
             if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 5) {
                 _fruits[fruit.column][fruit.row].fruitPowerUp = 1;
                 _fruits[fruit.column][fruit.row].fruitType = 6;
-                
-                
+                break;
             }else if ([self isSelectedFruit:_fruits[fruit.column][fruit.row]] == YES && chain.fruits.count == 4){
                 if ([self isSelectedVertical]) {
                     _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
                 }else{
                     _fruits[fruit.column][fruit.row].fruitPowerUp = 3;
                 }
-                
+                break;
             }
         }
     }
