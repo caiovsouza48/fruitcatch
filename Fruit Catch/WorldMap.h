@@ -34,4 +34,7 @@
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorViewShop;
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorViewFacebook;
 
+@property (nonatomic) NSString* userId;
+@property (nonatomic) NSString* userName;
+
 @end

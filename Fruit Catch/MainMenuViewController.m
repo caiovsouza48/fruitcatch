@@ -58,7 +58,6 @@
     _flag = false;
     
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
-    _loginView.delegate = self;
     
 //    [self addEngineLeft];
     [self adicionaMenuRapido];
@@ -258,6 +257,7 @@
     //Botao facebook
     CGFloat buttonSize = 0.45 * self.view.frame.size.width;
     _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(30, creditos.frame.origin.y + 80, 250, buttonSize/4)];
+    _loginView.delegate = self;
     _loginView.layer.borderColor = [UIColor whiteColor].CGColor;
     _loginView.layer.borderWidth = 2.0;
     _loginView.layer.cornerRadius = 12.0;

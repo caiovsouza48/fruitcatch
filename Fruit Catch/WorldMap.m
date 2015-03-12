@@ -168,9 +168,11 @@
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
             NSLog(@"File dict = %@",obj);
-//            if ([self sendToWebService:obj]) {
-//                NSLog(@"Envio com sucesso !");
-//            }
+            
+            // Enviar para o servidor
+            if ([self sendToWebService:obj]) {
+                NSLog(@"Envio com sucesso !");
+            }
             return obj;
         }
     }
@@ -179,31 +181,16 @@
 
 - (BOOL)sendToWebService:(NSDictionary*)object {
     
-    NSString* userId = [object objectForKey:@"id"];
-    NSString* userName = [object objectForKey:@"name"];
+    NSError * erro = nil;
+
+    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", self.userId, self.userName, self.userId];
+    NSLog(@"%@", strUrl);
     
-    NSString* url = @"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/%@/%@/%@/%@/%@";
-    NSString* postRequest = [NSString stringWithFormat:url,
-                             userId, // idUsuario
-                             userName, // nome
-                             userId, // elo
-                             userId, // qtdeMoedas
-                             userId, // qtdeVidas
-                             userId, // qtdeVidasMult
-                             userId]; // linkImage
-    
-    NSError *error;
-    NSHTTPURLResponse *response;
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    
-    [request setURL:[NSURL URLWithString:postRequest]];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    
-    NSData *resposta = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if ([response statusCode] >= 200 && [response statusCode] < 300) {
-        [NSJSONSerialization JSONObjectWithData:resposta options:NSJSONReadingMutableContainers error:&error];
+    NSURL *url = [[NSURL alloc]initWithString:strUrl];
+    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+    if (erro == nil && dados != nil) {
+        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+        NSLog(@"%@", dadosWebService);
         return YES;
     }
     
@@ -848,6 +835,33 @@
     
     NSArray* tempArrayName;
     
+    self.userId = [[self loadFacebookUserID] objectForKey:@"facebookID"];
+    self.userName = [[self loadFacebookUserID] objectForKey:@"alias"];
+    tempArrayName = [self.userName componentsSeparatedByString:@" "];
+    
+    // Aloca um botão do tamanho da metade da tela em que está
+    imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
+    nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 35, 60, 40)];
+    
+    nome.text = tempArrayName[0];
+    [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
+    nome.textColor = [UIColor whiteColor];
+    
+    NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", self.userId];
+    NSLog(@"user %@", userImageURL);
+    
+    NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
+    imagem.image = [UIImage imageWithData:imageData];
+    imagem.contentMode = UIViewContentModeScaleToFill;
+    [imagem clipsToBounds];
+    
+    // Encerra animação de loading
+    if (imageData!=nil) {
+        [_scroll1 addSubview:nome];
+        [_scroll1 addSubview:imagem];
+    }
+
+    
     for (NSDictionary* friends in [[self loadFacebookFriendsIDs] objectForKey:@"facebookFriends"]) {
         
         [arrayIds addObject:[friends objectForKey:@"id"]];
@@ -861,35 +875,7 @@
         
         // Adiciona o usuário do facebook
         if (i == 0) {
-            
-            NSString* userId;
-            NSString* userName;
-            
-            userId = [[self loadFacebookUserID] objectForKey:@"facebookID"];
-            userName = [[self loadFacebookUserID] objectForKey:@"alias"];
-            tempArrayName = [userName componentsSeparatedByString:@" "];
-            
-            // Aloca um botão do tamanho da metade da tela em que está
-            imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
-            nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 35, 60, 40)];
-            
-            nome.text = tempArrayName[0];
-            [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
-            nome.textColor = [UIColor whiteColor];
-            
-            NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", userId];
-            NSLog(@"user %@", userImageURL);
-            
-            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
-            imagem.image = [UIImage imageWithData:imageData];
-            imagem.contentMode = UIViewContentModeScaleToFill;
-            [imagem clipsToBounds];
-            
-            // Encerra animação de loading
-            if (imageData!=nil) {
-                [_scroll1 addSubview:nome];
-                [_scroll1 addSubview:imagem];
-            }
+// <<<<<<<<
         }
         
         // Inicia animação de loading
