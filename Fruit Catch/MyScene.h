@@ -33,6 +33,9 @@ static const CGFloat TileHeight = 36.0;
 @property (strong, nonatomic) SKNode *tilesLayer;
 @property (strong, nonatomic) SKNode *power;
 @property(nonatomic) CGPoint playerLastTouch;
+@property(nonatomic) BOOL lastTouchAssigned;
+@property(nonatomic) CGPoint swipeFromLastPoint;
+@property(nonatomic) BOOL playerLastSwipeFromAssigned;
 @property (nonatomic) BOOL shouldPlay;
 
 // The scene handles touches. If it recognizes that the user makes a swipe,
@@ -59,6 +62,6 @@ static const CGFloat TileHeight = 36.0;
 - (void)animateBeginGame;
 - (void)winLose:(BOOL)win ;
 
-- (void)touchAtColumRowCGPoint:(CGPoint)point;
+- (void)touchAtColumRowCGPoint:(CGPoint)point OpponentSwipe:(CGPoint)opponentSwipe;
 
 @end
