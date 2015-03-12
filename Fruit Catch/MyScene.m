@@ -56,7 +56,7 @@
     _shouldPlay = YES;
     
     if ((self = [super initWithSize:size])) {
-        
+        self.lastTouchAssigned = NO;
         self.anchorPoint = CGPointMake(0.5, 0.5);
         
         // Put an image on the background. Because the scene's anchorPoint is
@@ -333,19 +333,21 @@
         // The touch must be on a fruit, not on an empty tile.
         JIMCFruit *fruit = [self.level fruitAtColumn:column row:row];
         if (fruit != nil) {
-            
+           
             // Remember in which column and row the swipe started, so we can compare
             // them later to find the direction of the swipe. This is also the first
             // fruit that will be swapped.
             self.swipeFromColumn = column;
             self.swipeFromRow = row;
+            self.swipeFromLastPoint = (CGPoint){column,row};
+            self.lastTouchAssigned = YES;
             
             [self showSelectionIndicatorForFruit:fruit];
         }
     }
 }
 
-- (void)touchAtColumRowCGPoint:(CGPoint)point{
+- (void)touchAtColumRowCGPoint:(CGPoint)point OpponentSwipe:(CGPoint)opponentSwipe{
     // Convert the touch location to a point relative to the fruitsLayer.
     
     // If the touch is inside a square, then this might be the start of a
@@ -354,18 +356,16 @@
     // The touch must be on a fruit, not on an empty tile.
     JIMCFruit *fruit = [self.level fruitAtColumn:point.x row:point.y];
     if (fruit != nil) {
-        NSLog(@"Fruit != nil");
+        
         // Remember in which column and row the swipe started, so we can compare
         // them later to find the direction of the swipe. This is also the first
         // fruit that will be swapped.
-        self.swipeFromColumn = column;
-        self.swipeFromRow = row;
+        self.swipeFromColumn = opponentSwipe.x;
+        self.swipeFromRow = opponentSwipe.y;
         
         [self showSelectionIndicatorForFruit:fruit];
     }
     if (self.swipeFromColumn == NSNotFound) return;
-    
-   
     //[self.power setPosition:location];
    
         
@@ -381,7 +381,6 @@
         } else if (row > self.swipeFromRow) {         // swipe up
             vertDelta = 1;
         }
-        
         // Only try swapping when the user swiped into a new square.
         if (horzDelta != 0 || vertDelta != 0) {
             
@@ -391,7 +390,6 @@
             // Ignore the rest of this swipe motion from now on. Just setting
             // swipeFromColumn is enough; no need to set swipeFromRow as well.
             self.swipeFromColumn = NSNotFound;
-            self.playerLastTouch = (CGPoint){column,row};
         }
 
     
@@ -410,7 +408,11 @@
     //[self.power setPosition:location];
     NSInteger column, row;
     if ([self convertPoint:location toColumn:&column row:&row]) {
-        
+        if (!_lastTouchAssigned){
+            self.playerLastTouch = (CGPoint){column,row};
+            _lastTouchAssigned = YES;
+        }
+        self.playerLastTouch = (CGPoint){column,row};
         // Figure out in which direction the player swiped. Diagonal swipes
         // are not allowed.
         NSInteger horzDelta = 0, vertDelta = 0;
@@ -433,7 +435,6 @@
             // Ignore the rest of this swipe motion from now on. Just setting
             // swipeFromColumn is enough; no need to set swipeFromRow as well.
             self.swipeFromColumn = NSNotFound;
-            self.playerLastTouch = (CGPoint){column,row};
         }
     }
 }
@@ -471,6 +472,8 @@
         }else if(vertDelta!= 0){
             swap.vertical = YES;
         }
+        NSLog(@"tryng SwapHandler");
+        
         self.swipeHandler(swap);
     }
 }
@@ -710,11 +713,12 @@
     __block NSTimeInterval longestDuration = 0;
     
     for (NSArray *array in columns) {
-        
+        NSLog(@"AnimateNewFruits Array = %@",array);
         // The new sprite should start out just above the first tile in this column.
         // An easy way to find this tile is to look at the row of the first fruit
         // in the array, which is always the top-most one for this column.
-        NSInteger startRow = ((JIMCFruit *)[array firstObject]).row + 1;
+        JIMCFruit *fruitInArray = [array firstObject];
+        NSInteger startRow = fruitInArray.row + 1;
         
         [array enumerateObjectsUsingBlock:^(JIMCFruit *fruit, NSUInteger idx, BOOL *stop) {
             

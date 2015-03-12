@@ -15,6 +15,10 @@
 // and so on. This multiplier is reset for every next turn.
 @property (assign, nonatomic) NSUInteger comboMultiplier;
 @property (strong, nonatomic) GameViewController *gameView;
+@property(nonatomic) BOOL endArray;
+
+
+
 @end
 
 @implementation JIMCLevel {
@@ -32,7 +36,6 @@
     self = [super init];
     if (self != nil) {
         NSDictionary *dictionary = [self loadJSON:filename];
-        
         // The dictionary contains an array named "tiles". This array contains one
         // element for each row of the level. Each of those row elements in turn is
         // also an array describing the columns in that row. If a column is 1, it
@@ -116,6 +119,7 @@
     while ([self.possibleSwaps count] == 0);
    
     return set;
+    
 }
 
 - (NSSet *)createInitialFruits {
@@ -835,13 +839,63 @@
     return columns;
 }
 
+- (NSArray *)multiplayerTopUpFruits{
+    NSMutableArray *columns = [NSMutableArray array];
+    NSUInteger fruitType = 0;
+    _parameter = [NSMutableArray array];
+    // Detect where we have to add the new fruits. If a column has X holes,
+    // then it also needs X new fruits. The holes are all on the top of the
+    // column now, but the fact that therre may be gaps in the tiles makes this
+    // a little trickier.
+    for (NSInteger column = 0; column < NumColumns; column++) {
+        
+        // This time scan from top to bottom. We can end when we've found the
+        // first fruit.
+        NSMutableArray *array;
+        for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
+            
+            // Found a hole?
+            if (_tiles[column][row] != nil) {
+                
+                // Randomly create a new fruit type. The only restriction is that
+                // it cannot be equal to the previous type. This prevents too many
+                // "freebie" matches.
+                NSUInteger newFruitType;
+                do {
+                    
+                    // [[NetworkController sharedInstance] sendMovedSelf:1];
+                    newFruitType = arc4random_uniform(NumFruitTypes) + 1;
+                } while (newFruitType == fruitType);
+                
+                fruitType = newFruitType;
+                
+                // Create a new fruit.
+                JIMCFruit *fruit = [self createFruitAtColumn:column row:row withType:fruitType];
+                [_parameter addObject:[NSNumber numberWithUnsignedInteger:newFruitType]];
+                // Add the fruit to the array for this column.
+                // Note that we only allocate an array if a column actually has holes.
+                // This cuts down on unnecessary allocations.
+                if (array == nil) {
+                    array = [NSMutableArray array];
+                    [columns addObject:array];
+                }
+                [array addObject:fruit];
+            }
+        }
+    }
+    NSLog(@"Columns = %@",columns);
+    return columns;
+}
+
+
+
 - (NSArray *)topUpFruits {
     NSMutableArray *columns = [NSMutableArray array];
     NSUInteger fruitType = 0;
     
     // Detect where we have to add the new fruits. If a column has X holes,
     // then it also needs X new fruits. The holes are all on the top of the
-    // column now, but the fact that there may be gaps in the tiles makes this
+    // column now, but the fact that therre may be gaps in the tiles makes this
     // a little trickier.
     for (NSInteger column = 0; column < NumColumns; column++) {
         
@@ -879,15 +933,190 @@
             }
         }
     }
-   
+    NSLog(@"Columns = %@",columns);
     return columns;
 }
 
-- (void)topUpFruitsFor:(NSArray *)array{
-    for (JIMCFruit *fruit in array) {
-        [self createFruitAtColumn:fruit.column row:fruit.row withType:fruit.fruitType];
+- (JIMCFruit *)fruitAtColumnRowFromOpponentArray:(NSArray *)opponentArray ActualColumn:(NSInteger)actualColumn ActualRow:(NSInteger)actualRow{
+    int i=0;
+    NSLog(@"OPPONENT ARRAY = %@",opponentArray);
+    for (NSArray *array1 in opponentArray) {
+        for (NSArray *array2 in array1) {
+            for (JIMCFruit *fruit in array2) {
+                if ((fruit.column == actualColumn) && (fruit.row == actualRow)){
+                    //[opponentArray[actualColumn][actualRow][i] delete:fruit];
+                    return  fruit;
+                }
+                i++;
+            }
+        }
     }
+    return nil;
 }
+
+- (BOOL)isPosition:(CGPoint)position InArray:(NSArray *)array{
+        for (NSArray *array2 in array) {
+            for (JIMCFruit *fruit in array2)
+                if ((fruit.column == position.x) && (fruit.row == position.y)){
+                return YES;
+            }
+        }
+
+    return NO;
+}
+
+- (NSInteger)maiorColunaDoArray:(NSArray *)array{
+    NSInteger ret=-1;
+    for (NSArray *array2 in array)
+        for (NSArray *array3 in array2) {
+            for (JIMCFruit *fruit in array3)
+                if (fruit.column > ret) {
+                    ret = fruit.column;
+                }
+        }
+    
+    NSLog(@"maior Linha = %ld",(long)ret);
+    return ret;
+}
+
+
+- (NSInteger)maiorLinhaDoArray:(NSArray *)array{
+    NSInteger ret=-1;
+    for (NSArray *array2 in array)
+        for (NSArray *array3 in array2) {
+            for (JIMCFruit *fruit in array3)
+                if (fruit.row > ret) {
+                ret = fruit.row;
+            }
+    }
+    
+    NSLog(@"maior Linha = %ld",(long)ret);
+    return ret;
+}
+
+
+
+- (NSArray *)newTopUpFruitsFor:(NSArray*)array{
+        NSLog(@"topUpFruitsFor: %@",array);
+        BOOL hasHole=NO;
+        NSMutableArray *columns = [NSMutableArray array];
+        for (NSInteger column = 0; column < NumColumns; column++) {
+            
+            // This time scan from top to bottom. We can end when we've found the
+            // first fruit.
+            NSMutableArray *array2;
+            
+            for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
+            //sfor (NSInteger row = 0; row <= 0 && _fruits[column][row] == nil; row++){
+                
+                // Found a hole?
+               NSLog(@"Column = %d, Row = %d",column,row);
+                if (_tiles[column][row] != nil){
+                    hasHole = YES;
+                    NSLog(@"Found a Hole");
+                    JIMCFruit *replacedFruit = _fruits[column][row] = [self fruitAtColumnRowFromOpponentArray:array ActualColumn:column ActualRow:row];
+                    //JIMCFruit *fruit = [self createFruitAtColumn:column row:row withType:newFruitType];
+                    
+                    // Add the fruit to the array for this column.
+                    // Nrote that we only allocate an array if a column actually has holes.
+                    // This cuts down on unnecessary allocations.
+                    if (array2 == nil) {
+                        array2 = [NSMutableArray array];
+                        [columns addObject:array2];
+                    }
+                    [array2 addObject:replacedFruit];
+                }
+            }
+        }
+    NSLog(@"Returning Columns = %@",columns);
+    return columns;
+    //return array;
+}
+
+- (NSArray *)insertTopUpFruitsFor:(NSArray*)array{
+    NSLog(@"topUpFruitsFor: %@",array);
+    for (NSArray *array1 in array) {
+        for (JIMCFruit *fruit in array1) {
+            _fruits[fruit.column][fruit.row] = nil;
+             _fruits[fruit.column][fruit.row] = fruit;
+            
+        }
+    }
+    
+    //return columns;
+    return array;
+}
+
+
+
+#warning Criar um Array aqui... Copiar o conteudo do original nele...remover dele. e no fim do método, setar o array removido com o original
+- (NSArray *)topUpFruitsFor:(NSMutableArray *)array{
+    _fruitTypeArray = [array mutableCopy];
+    NSLog(@"topUpFruitsFor: %@",array);
+    NSMutableArray *columns = [NSMutableArray array];
+    
+    for (NSInteger column = 0; column < NumColumns; column++) {
+        
+        // This time scan from top to bottom. We can end when we've found the
+        // first fruit.
+        NSMutableArray *array2;
+        
+        //for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
+        for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
+           
+            // Found a hole?
+            if (_tiles[column][row] != nil) {
+                    NSNumber *firstElement = [_fruitTypeArray objectAtIndex:0];
+                [_fruitTypeArray removeObjectAtIndex:0];
+                JIMCFruit *fruit = [self createFruitAtColumn:column row:row withType:[firstElement intValue]];
+                
+                // Add the fruit to the array for this column.
+                // Note that we only allocate an array if a column actually has holes.
+                // This cuts down on unnecessary allocations.
+                if (array2 == nil) {
+                    array2 = [NSMutableArray array];
+                    [columns addObject:array2];
+                }
+                [array2 addObject:fruit];
+             }
+            
+        }
+    }
+    NSLog(@"Method ended");
+    return columns;
+}
+
+- (JIMCChain *)chainByFruitArray:(NSArray *)array{
+    JIMCChain *chain = [[JIMCChain alloc]init];
+    for (JIMCFruit *fruit in array) {
+        [chain addFruit:fruit];
+    }
+    return chain;
+}
+
+- (NSArray *)createTopUpFruitsFor:(NSArray *)array{
+    NSLog(@"array = %@",array);
+    NSMutableArray *ret = [NSMutableArray array];
+     NSMutableArray *ret2 = [NSMutableArray array];
+    for (NSArray *array1 in array) {
+        for (NSArray *array2 in array1) {
+            JIMCChain *chain = [self chainByFruitArray:array2];
+            [self removeFruits:[NSSet setWithObject:chain]];
+            for (JIMCFruit *fruit in array2) {
+                     JIMCFruit *newFruit = [self createFruitAtColumn:fruit.column row:fruit.row withType:fruit.fruitType];
+                    [ret addObject:newFruit];
+                }
+                [ret2 addObject:[ret copy]];
+                ret = [NSMutableArray array];
+            }
+        }
+    NSLog(@"ret2");
+    return ret2;
+    
+}
+
+
+
 
 
 #pragma mark - Querying the Level
