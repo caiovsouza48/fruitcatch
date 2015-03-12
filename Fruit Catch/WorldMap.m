@@ -22,6 +22,11 @@
 #define IPHONE6 (self.view.frame.size.width == 375)
 #define IPHONE6PLUS (self.view.frame.size.width == 414)
 
+#define IPHONE6_XSCALE 1.171875
+#define IPHONE6_YSCALE 1.174285774647887
+#define IPHONE6PLUS_XSCALE 1.29375
+#define IPHONE6PLUS_YSCALE 1.295774647887324
+
 @interface WorldMap (){
     NSArray *_products;
 }
@@ -55,9 +60,16 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-    
     _shopOpen = NO;
-    _offset = 70;
+    
+    if(IPHONE6){
+        _offset = 80 * IPHONE6_YSCALE;
+    }else if(IPHONE6PLUS){
+        _offset = 80 * IPHONE6PLUS_YSCALE;
+    }else{
+        _offset = 80;
+    }
+    
     [super viewDidLoad];
     //[self getUserLives];
     [self registerLivesBackgroundNotification];
@@ -538,14 +550,22 @@
     //ScrollView
     
     //Carrega a imagem de fundo
-    UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa"]];
+    UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa_2.0"]];
     
     CGRect frame = fundo.frame;
     
     frame.origin = CGPointMake(0, _offset); // remover
-    fundo.frame  = frame;
+//    fundo.frame  = CGRectMake(0, 0, _scrollView.contentSize.width, _scrollView.contentSize.height);
+    fundo.contentMode = UIViewContentModeScaleToFill;
+    
+    if (IPHONE6) {
+        fundo.frame = CGRectMake(0, 0, fundo.frame.size.width * IPHONE6_XSCALE, fundo.frame.size.height);
+    }else if(IPHONE6PLUS){
+        fundo.frame = CGRectMake(0, 0, fundo.frame.size.width * IPHONE6PLUS_XSCALE, fundo.frame.size.height);
+    }
+    
     _scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
-    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height + _offset); //remover
+    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height - _offset); //remover
     _scrollView.backgroundColor = [UIColor cyanColor];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator   = NO;
@@ -637,6 +657,16 @@
         //Cria o botao de nivel
         NSNumber *x = button[@"xPosition"];
         NSNumber *y = button[@"yPosition"];
+        CGFloat yOffset = _scrollView.contentSize.height - self.view.frame.size.height - _offset;
+        if(IPHONE6){
+            x = [NSNumber numberWithFloat: x.doubleValue * IPHONE6_XSCALE];
+            y = [NSNumber numberWithFloat: yOffset + y.doubleValue * IPHONE6_YSCALE];
+        }else if(IPHONE6PLUS){
+            x = [NSNumber numberWithFloat: x.doubleValue * IPHONE6PLUS_XSCALE];
+            y = [NSNumber numberWithFloat: yOffset + y.doubleValue * IPHONE6PLUS_YSCALE];;
+        }else{
+            y = [NSNumber numberWithFloat: yOffset + y.doubleValue];
+        }
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
@@ -649,8 +679,22 @@
         button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
         button.tintColor = [UIColor whiteColor];
-        button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:24];
-        button.frame = CGRectMake(x.integerValue, y.integerValue + _offset, 54, 34); //remover o + offset
+        
+        if(IPHONE6){
+            button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:28];
+        }else if(IPHONE6PLUS){
+            button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:32];
+        }else{
+            button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:24];
+        }
+        
+        if(IPHONE6){
+            button.frame = CGRectMake(x.doubleValue, y.doubleValue + _offset, 54 * IPHONE6_XSCALE, 34 * IPHONE6_YSCALE); //remover o + offset
+        }else if(IPHONE6PLUS){
+            button.frame = CGRectMake(x.doubleValue, y.doubleValue + _offset, 54 * IPHONE6PLUS_XSCALE, 34 * IPHONE6PLUS_YSCALE); //remover o + offset
+        }else{
+            button.frame = CGRectMake(x.doubleValue, y.doubleValue + _offset, 54, 34); //remover o + offset
+        }
         [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
         
         if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){

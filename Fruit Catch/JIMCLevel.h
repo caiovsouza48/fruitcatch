@@ -15,6 +15,7 @@ static const NSInteger NumRows = 9;
 
 @property (assign, nonatomic) NSUInteger targetScore;
 @property (assign, nonatomic) NSUInteger maximumMoves;
+@property(nonatomic) BOOL isOpponentMove;
 
 // Create a level by loading it from a file.
 - (instancetype)initWithFile:(NSString *)filename;
@@ -74,6 +75,10 @@ static const NSInteger NumRows = 9;
 - (void)fruitsBySet:(NSSet *)set;
 
 @property (strong, nonatomic) MyScene *scene;
+@property(nonatomic) NSInteger i;
+@property(nonatomic) NSMutableArray *parameter;
+@property(nonatomic) NSMutableArray *fruitTypeArray;
+
 -(NSSet *)deletarFrutas;
 - (BOOL)isPowerSwap:(JIMCSwap *)swap;
 
@@ -86,6 +91,9 @@ static const NSInteger NumRows = 9;
 - (void)fruitsByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize;
 - (NSSet *)setByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize;
 - (void)setFruitsBySet:(NSSet *)set;
-- (void)topUpFruitsFor:(NSArray *)array;
+- (NSArray *)topUpFruitsFor:(NSArray *)array;
+- (NSArray *)multiplayerTopUpFruits;
+
+
 
 @end
