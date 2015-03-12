@@ -994,6 +994,39 @@
     return columns;
 }
 
+- (NSArray *)topUpFruitsFor:(NSMutableArray *)array{
+    _fruitTypeArray = [array mutableCopy];
+    NSMutableArray *columns = [NSMutableArray array];
+    
+    for (NSInteger column = 0; column < NumColumns; column++) {
+        
+        // This time scan from top to bottom. We can end when we've found the
+        // first fruit.
+        NSMutableArray *array2;
+        
+        //for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
+        for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
+            
+            // Found a hole?
+            if (_tiles[column][row] != nil) {
+                NSNumber *firstElement = [_fruitTypeArray objectAtIndex:0];
+                [_fruitTypeArray removeObjectAtIndex:0];
+                JIMCFruit *fruit = [self createFruitAtColumn:column row:row withType:[firstElement intValue]];
+                
+                // Add the fruit to the array for this column.
+                // Note that we only allocate an array if a column actually has holes.
+                // This cuts down on unnecessary allocations.
+                if (array2 == nil) {
+                    array2 = [NSMutableArray array];
+                    [columns addObject:array2];
+                }
+                [array2 addObject:fruit];
+            }
+            
+        }
+    }
+    return columns;
+}
 #pragma mark - Querying the Level
 
 - (JIMCTile *)tileAtColumn:(NSInteger)column row:(NSInteger)row {
