@@ -15,7 +15,6 @@
 // and so on. This multiplier is reset for every next turn.
 @property (assign, nonatomic) NSUInteger comboMultiplier;
 @property (strong, nonatomic) GameViewController *gameView;
-@property(nonatomic) BOOL endArray;
 
 
 
@@ -778,6 +777,9 @@
         return NO;
 }
 - (void)calculateScores:(NSSet *)chains {
+    if (_isOpponentMove){
+        return;
+    }
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
         chain.score = 30 * ([chain.fruits count] - 2) * self.comboMultiplier;
@@ -785,6 +787,10 @@
     }
 }
 - (void)calculateScoresAllType:(NSSet *)chains {
+    if (_isOpponentMove){
+        return;
+    }
+
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
         chain.score+=10;
@@ -965,94 +971,10 @@
     return NO;
 }
 
-- (NSInteger)maiorColunaDoArray:(NSArray *)array{
-    NSInteger ret=-1;
-    for (NSArray *array2 in array)
-        for (NSArray *array3 in array2) {
-            for (JIMCFruit *fruit in array3)
-                if (fruit.column > ret) {
-                    ret = fruit.column;
-                }
-        }
-    
-    NSLog(@"maior Linha = %ld",(long)ret);
-    return ret;
-}
 
 
-- (NSInteger)maiorLinhaDoArray:(NSArray *)array{
-    NSInteger ret=-1;
-    for (NSArray *array2 in array)
-        for (NSArray *array3 in array2) {
-            for (JIMCFruit *fruit in array3)
-                if (fruit.row > ret) {
-                ret = fruit.row;
-            }
-    }
-    
-    NSLog(@"maior Linha = %ld",(long)ret);
-    return ret;
-}
-
-
-
-- (NSArray *)newTopUpFruitsFor:(NSArray*)array{
-        NSLog(@"topUpFruitsFor: %@",array);
-        BOOL hasHole=NO;
-        NSMutableArray *columns = [NSMutableArray array];
-        for (NSInteger column = 0; column < NumColumns; column++) {
-            
-            // This time scan from top to bottom. We can end when we've found the
-            // first fruit.
-            NSMutableArray *array2;
-            
-            for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
-            //sfor (NSInteger row = 0; row <= 0 && _fruits[column][row] == nil; row++){
-                
-                // Found a hole?
-               NSLog(@"Column = %d, Row = %d",column,row);
-                if (_tiles[column][row] != nil){
-                    hasHole = YES;
-                    NSLog(@"Found a Hole");
-                    JIMCFruit *replacedFruit = _fruits[column][row] = [self fruitAtColumnRowFromOpponentArray:array ActualColumn:column ActualRow:row];
-                    //JIMCFruit *fruit = [self createFruitAtColumn:column row:row withType:newFruitType];
-                    
-                    // Add the fruit to the array for this column.
-                    // Nrote that we only allocate an array if a column actually has holes.
-                    // This cuts down on unnecessary allocations.
-                    if (array2 == nil) {
-                        array2 = [NSMutableArray array];
-                        [columns addObject:array2];
-                    }
-                    [array2 addObject:replacedFruit];
-                }
-            }
-        }
-    NSLog(@"Returning Columns = %@",columns);
-    return columns;
-    //return array;
-}
-
-- (NSArray *)insertTopUpFruitsFor:(NSArray*)array{
-    NSLog(@"topUpFruitsFor: %@",array);
-    for (NSArray *array1 in array) {
-        for (JIMCFruit *fruit in array1) {
-            _fruits[fruit.column][fruit.row] = nil;
-             _fruits[fruit.column][fruit.row] = fruit;
-            
-        }
-    }
-    
-    //return columns;
-    return array;
-}
-
-
-
-#warning Criar um Array aqui... Copiar o conteudo do original nele...remover dele. e no fim do método, setar o array removido com o original
 - (NSArray *)topUpFruitsFor:(NSMutableArray *)array{
     _fruitTypeArray = [array mutableCopy];
-    NSLog(@"topUpFruitsFor: %@",array);
     NSMutableArray *columns = [NSMutableArray array];
     
     for (NSInteger column = 0; column < NumColumns; column++) {
@@ -1082,41 +1004,8 @@
             
         }
     }
-    NSLog(@"Method ended");
     return columns;
 }
-
-- (JIMCChain *)chainByFruitArray:(NSArray *)array{
-    JIMCChain *chain = [[JIMCChain alloc]init];
-    for (JIMCFruit *fruit in array) {
-        [chain addFruit:fruit];
-    }
-    return chain;
-}
-
-- (NSArray *)createTopUpFruitsFor:(NSArray *)array{
-    NSLog(@"array = %@",array);
-    NSMutableArray *ret = [NSMutableArray array];
-     NSMutableArray *ret2 = [NSMutableArray array];
-    for (NSArray *array1 in array) {
-        for (NSArray *array2 in array1) {
-            JIMCChain *chain = [self chainByFruitArray:array2];
-            [self removeFruits:[NSSet setWithObject:chain]];
-            for (JIMCFruit *fruit in array2) {
-                     JIMCFruit *newFruit = [self createFruitAtColumn:fruit.column row:fruit.row withType:fruit.fruitType];
-                    [ret addObject:newFruit];
-                }
-                [ret2 addObject:[ret copy]];
-                ret = [NSMutableArray array];
-            }
-        }
-    NSLog(@"ret2");
-    return ret2;
-    
-}
-
-
-
 
 
 #pragma mark - Querying the Level
