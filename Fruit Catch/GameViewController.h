@@ -26,5 +26,6 @@
 - (void)shuffle;
 - (void)beginGame;
 - (void)back;
+- (void)nextStage;
 
 @end

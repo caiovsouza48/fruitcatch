@@ -25,6 +25,16 @@
 @property (nonatomic) CGFloat xPosition;
 @property (nonatomic) CGFloat yPosition;
 
-@property(nonatomic) UIScrollView *scroll1;
+@property (nonatomic) UIScrollView *scroll1;
+
+@property (nonatomic) BOOL flag;
+
+@property (nonatomic) NSInteger nextStage;
+
+@property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorViewShop;
+@property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorViewFacebook;
+
+- (void)startSpinning;
+- (void)stopSpinning;
 
 @end

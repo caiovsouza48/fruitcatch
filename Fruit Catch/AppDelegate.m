@@ -26,12 +26,29 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [JIMCAPHelper sharedInstance];
+    
+    NSInteger numberOfLevels = 10;
+    
     //Checa se é o primeiro uso, caso seja, libera apenas o primeiro nível
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayed"])
     {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPlayed"];
         [[NSUserDefaults standardUserDefaults] setInteger:(-1) forKey:@"lastCleared"];
         [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
+        
+        NSMutableArray *array = [[NSMutableArray alloc]init];
+        for(int i=0; i<numberOfLevels; i++){
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjects:@[@0,@0] forKeys:@[@"Time",@"HighScore"]];
+            
+            [array addObject:dic];
+        }
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+        
+        [array writeToFile:plistPath atomically:YES];
+        
     }
     
     //[[NetworkController sharedInstance] authenticateLocalUser];

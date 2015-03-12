@@ -62,15 +62,17 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
     _productsRequest = nil;
     
     NSArray * skProducts = response.products;
-    for (SKProduct * skProduct in skProducts) {
-        NSLog(@"Found product: %@ %@ %0.2f",
-              skProduct.productIdentifier,
-              skProduct.localizedTitle,
-              skProduct.price.floatValue);
-    }
     
-    _completionHandler(YES, skProducts);
-    _completionHandler = nil;
+//    for (SKProduct * skProduct in skProducts) {
+//        NSLog(@"Found product: %@ %@ %0.2f",
+//              skProduct.productIdentifier,
+//              skProduct.localizedTitle,
+//              skProduct.price.floatValue);
+//    }
+    if (_completionHandler){
+        _completionHandler(YES, skProducts);
+        _completionHandler = nil;
+    }
     
 }
 
@@ -79,8 +81,10 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
     NSLog(@"Failed to load list of products.");
     _productsRequest = nil;
     
-    _completionHandler(NO, nil);
-    _completionHandler = nil;
+    if (_completionHandler) {
+        _completionHandler(NO, nil);
+        _completionHandler = nil;
+    }
     
 }
 
