@@ -15,7 +15,7 @@ static const NSInteger NumRows = 9;
 
 @property (assign, nonatomic) NSUInteger targetScore;
 @property (assign, nonatomic) NSUInteger maximumMoves;
-@property(nonatomic) int lastI;
+@property(nonatomic) BOOL isOpponentMove;
 
 // Create a level by loading it from a file.
 - (instancetype)initWithFile:(NSString *)filename;
@@ -92,9 +92,6 @@ static const NSInteger NumRows = 9;
 - (NSSet *)setByFruitStruct:(JIMCFruitStruct *)fruitStructPointer PointerSize:(int)pointerSize;
 - (void)setFruitsBySet:(NSSet *)set;
 - (NSArray *)topUpFruitsFor:(NSArray *)array;
-- (NSArray *)createTopUpFruitsFor:(NSArray *)array;
-- (NSArray *)newTopUpFruitsFor:(NSArray*)array;
-- (NSArray *)insertTopUpFruitsFor:(NSArray*)array;
 - (NSArray *)multiplayerTopUpFruits;
 
 

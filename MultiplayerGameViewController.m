@@ -64,12 +64,6 @@
 
 @property(nonatomic) BOOL isFirstRound;
 
-@property(nonatomic) BOOL isExecutingOpponentMove;
-
-@property(nonatomic) NSMutableArray *auxiliaryArray;
-
-@property(nonatomic) dispatch_semaphore_t semaphore;
-
 @property(nonatomic) int fruitCounter2;
 
 @property(nonatomic) NSMutableArray *parameter;
@@ -379,16 +373,13 @@
             }
             else{
                 //columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
-                
                 columns = [self.level topUpFruitsFor:_parameter];
-                _parameter = [self.level.fruitTypeArray mutableCopy];
+                _parameter = self.level.fruitTypeArray;
                 //columns = [self.level newTopUpFruitsFor:[_arrayOfColumnArray objectAtIndex:_fruitCounter]];
-                _fruitCounter++;
                 [self.scene animateNewFruits:columns completion:^{
                     
                     // Keep repeating this cycle until there are no more matches.
                     [self handleMatches];
-                    _auxiliaryArray = [NSMutableArray array];
                 }];
             }
         }];
@@ -460,12 +451,11 @@
             else{
                 //columns = [_arrayOfColumnArray objectAtIndex:_fruitCounter];
                 columns = [self.level topUpFruitsFor:_parameter];
-                 _parameter = [self.level.fruitTypeArray mutableCopy];
+                 _parameter = self.level.fruitTypeArray;
                 [self.scene animateNewFruits:columns completion:^{
                     
                     // Keep repeating this cycle until there are no more matches.
                     [self handleMatches];
-                    _auxiliaryArray = [NSMutableArray array];
                 }];
             }
         }];
@@ -500,10 +490,6 @@
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
             if ((_isMyMove) && (!_isFirstRound)){
-            NSMutableArray *sendingArray = [NSMutableArray array];
-            for (NSArray *array in _arrayOfColumnArray) {
-                [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
-            }
                 
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : _parameter,
                                                                                        @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
@@ -558,26 +544,14 @@
             if (_isMyMove){
                 columns = [self.level multiplayerTopUpFruits];
                 [_parameter addObjectsFromArray:self.level.parameter];
-                //[_arrayOfColumnArray addObject:columns];
                 [self.scene animateNewFruits:columns completion:^{
                     // Keep repeating this cycle until there are no more matches.
                     [self handleMatches];
                 }];
-                _isExecutingOpponentMove = NO;
             }
             else{
-                _isExecutingOpponentMove = YES;
-                
-                while ((columns == nil) || (columns.count == 0)){
-                    //_arrayOfColumnArray = [self reversedFruits:_arrayOfColumnArray];
-                    columns = [self.level topUpFruitsFor:_parameter];
-                     _parameter = [self.level.fruitTypeArray mutableCopy];
-                    
-                }
-                _fruitCounter++;
-                
-                //[self.level setI:++handleI];
-                //columns = [self.level insertTopUpFruitsFor:[_arrayOfColumnArray objectAtIndex:_fruitCounter]];
+                columns = [self.level topUpFruitsFor:_parameter];
+                _parameter = self.level.fruitTypeArray;
                 
                 [self.scene animateNewFruits:columns completion:^{
                     // Keep repeating this cycle until there are no more matches.
@@ -628,23 +602,19 @@
             if (_isMyMove){
                 columns = [self.level multiplayerTopUpFruits];
                 [_parameter addObjectsFromArray:self.level.parameter];
-                //[_arrayOfColumnArray addObject:columns];
                 [self.scene animateNewFruits:columns completion:^{
                     // Keep repeating this cycle until there are no more matches.
                     [self handleMatches];
                 }];
-                _isExecutingOpponentMove = NO;
             }
             else{
-                _isExecutingOpponentMove = YES;
                 columns = [self.level topUpFruitsFor:_parameter];
-                 _parameter = [self.level.fruitTypeArray mutableCopy];
+                 _parameter = self.level.fruitTypeArray;
                 //columns = [self.level createTopUpFruitsFor:_arrayOfColumnArray];
-                _fruitCounter++;
                 [self.scene animateNewFruits:columns completion:^{
                     // Keep repeating this cycle until there are no more matches.
                     [self handleMatches];
-                    //_auxiliaryArray = [NSMutableArray array];
+                    
                 }];
             }
             
@@ -678,7 +648,7 @@
     //SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
     
     //self.view.userInteractionEnabled = YES;
-    //[self decrementMoves];
+    [self decrementMoves];
     
 }
 
@@ -713,20 +683,20 @@
 }
 
 - (void)decrementMoves{
-    //self.movesLeft--;
+    self.movesLeft--;
     [self updateLabels];
     
-    if (self.score >= self.level.targetScore) {
-        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
-        [self showGameOver];
-    } else if (self.movesLeft == 0) {
-        
-        [self.scene animateGameOver];
-        self.movesLeft = self.level.maximumMoves;
-        self.score = 0;
-        [self updateLabels];
-        
-    }
+//    if (self.score >= self.level.targetScore) {
+//        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
+//        [self showGameOver];
+//    } else if (self.movesLeft == 0) {
+//        
+//        [self.scene animateGameOver];
+//        self.movesLeft = self.level.maximumMoves;
+//        self.score = 0;
+//        [self updateLabels];
+//        
+//    }
     
     [self.scene removeActionForKey:@"Hint"];
     
@@ -904,7 +874,6 @@
                 [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInt:self.randomNumber]}];
             } else {
                 //3
-                NSLog(@"Opponent Number = %ld",(long)[[gameMessage objectForKey:@"randomNumber"] intValue]);
                     if (self.randomNumber > [[gameMessage objectForKey:@"randomNumber"] intValue]){
                         [self beginGame];
                         [self.scene setUserInteractionEnabled:NO];
@@ -929,6 +898,7 @@
         {
             NSLog(@"Received Message Move");
             _isMyMove = NO;
+            [self.level setIsOpponentMove:YES];
             CGPoint oponentLocation = CGPointMake([[gameMessage objectForKey:@"moveColumn"] intValue], [[gameMessage objectForKey:@"moveRow"] intValue]);
             CGPoint opponentSwipe = CGPointMake([[gameMessage objectForKey:@"swipeColumn"] intValue], [[gameMessage objectForKey:@"swipeRow"] intValue]);
             _parameter = [gameMessage objectForKey:@"topUpFruits"];
@@ -938,6 +908,7 @@
             
             _fruitCounter = 0;
             [self.view setUserInteractionEnabled:YES];
+            [self.level setIsOpponentMove:NO];
             //_parameter = [NSMutableArray array];
             
             break;
