@@ -17,6 +17,9 @@
 #import <Nextpeer/Nextpeer.h>
 #import <Nextpeer/NPTournamentDelegate.h>
 #import "NextpeerHelper.h"
+#import "RNEncryptor.h"
+#import "RNDecryptor.h"
+#import "AppUtils.h"
 
 #define playerIdKey @"PlayerId"
 #define randomNumberKey @"randomNumber"
@@ -32,6 +35,18 @@
 
 // The scene draws the tiles and fruit sprites, and handles swipes.
 @property (nonatomic) MyScene *scene;
+
+@property(nonatomic) UIView *player1View;
+
+@property(nonatomic) UIView *player2View;
+
+@property(nonatomic) UILabel *player1Score;
+
+@property(nonatomic) UILabel *player2Score;
+
+@property(nonatomic) UILabel *player1EloLabel;
+
+@property(nonatomic) UILabel *player2EloLabel;
 
 
 
@@ -60,33 +75,28 @@
 
 @property(nonatomic) BOOL isMyMove;
 
-@property(nonatomic) int fruitCounter;
-
 @property(nonatomic) BOOL isFirstRound;
 
-@property(nonatomic) int fruitCounter2;
-
 @property(nonatomic) NSMutableArray *parameter;
+
+@property(nonatomic) NSUInteger player1Elo;
+
+@property(nonatomic) NSUInteger player2Elo;
 
 
 @end
 
 @implementation MultiplayerGameViewController
-//MEtodos somente para tirar o warning
--(void)setNotInMatch{}
--(void)matchStarted:(Match *)match{}
--(void)player:(unsigned char)playerIndex movedToPosX:(int)posX{}
--(void)gameOver:(unsigned char)winnerIndex{}
 
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     _parameter = [[NSMutableArray alloc]init];
+    _orderOfPlayers = [NSMutableArray array];
     _isMyMove = NO;
     _isFirstRound = YES;
     _arrayOfColumnArray = [NSMutableArray array];
-    _fruitCounter2 = 0;
     [self registerNotifications];
     //[self.networkEngine setDelegate:self];
     // Configure the view.
@@ -170,13 +180,41 @@
     //[self setGameState:kGameStateActive];
     [self.scene setUserInteractionEnabled:NO];
     [Nextpeer registerToSynchronizedEvent:START_GAME_SYNC_EVENT_NAME withTimetout:TIMEOUT];
-//    [NetworkController sharedInstance].delegate = self;
-//    [self stateChanged:[NetworkController sharedInstance].state];
-//    // Let's start the game!
-    //[self beginGame];
-    _fruitCounter = 0;
     
     
+    
+}
+
+- (void)loadPlayersView{
+    _player1View =[[UIView alloc] initWithFrame:CGRectMake(10, 10, 100, 100)];
+    UILabel *player1Name = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 100)];
+    [player1Name setTextColor:[UIColor blackColor]];
+    [_player1View setBackgroundColor:[UIColor blueColor]];
+    [player1Name setText:_orderOfPlayers[0][playerIdKey]];
+    [_player1View addSubview:player1Name];
+    _player1Score = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 100, 50)];
+    [_player1Score setText:@"0"];
+    [_player1View addSubview:_player1Score];
+    _player1EloLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 30, 100, 50)];
+    //[_player1EloLabel setText:[NSString stringWithString:@"%lu",_player1Elo]];
+    
+    [self.view addSubview:_player1View];
+    [Nextpeer enableRankingDisplay:NO];
+}
+
+- (NSUInteger) getUserElo{
+    NSString *userEloPath = [AppUtils getAppMultiplayer];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:userEloPath]) {
+        NSData *data = [NSData dataWithContentsOfFile:userEloPath];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:MULTIPLAYER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            _player1Elo = [obj[@"elo"] unsignedIntegerValue];
+        }
+    }
+
+    return 0;
 }
 
 - (NSArray *)fruitObjToFruitStringArray:(NSArray *)fruitObjArray{
@@ -219,7 +257,11 @@
     NSLog(@"Event Firing");
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
-        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInteger:_randomNumber]}];
+        [self getUserElo];
+        ;
+        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInteger:_randomNumber],
+                             @"userElo" : [NSNumber numberWithUnsignedInteger:_player1Elo],
+                            }];
     }
 }
 
@@ -362,6 +404,7 @@
         [self.scene animateFallingFruits:columns completion:^{
             NSArray *columns;
             if (_isMyMove){
+                [_player1Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 columns = [self.level multiplayerTopUpFruits];
                 [_arrayOfColumnArray addObject:columns];
                 [_parameter addObjectsFromArray:self.level.parameter];
@@ -398,11 +441,6 @@
     
     if ([chains count] == 0) {
         if ((_isMyMove) && (!_isFirstRound)){
-            NSMutableArray *sendingArray = [NSMutableArray array];
-            for (NSArray *array in _arrayOfColumnArray) {
-                [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
-            }
-            
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : _parameter,
                                                                                        @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
                                                                                        @"swipeRow" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.y]}];
@@ -439,9 +477,9 @@
         [self.scene animateFallingFruits:columns completion:^{
             NSArray *columns;
             if (_isMyMove){
+                [_player1Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 columns = [self.level multiplayerTopUpFruits];
                 [_parameter addObjectsFromArray:self.level.parameter];
-                [_arrayOfColumnArray addObject:columns];
                 [self.scene animateNewFruits:columns completion:^{
                     
                     // Keep repeating this cycle until there are no more matches.
@@ -534,6 +572,7 @@
         
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
+            
         }
         [self updateLabels];
         
@@ -542,6 +581,7 @@
         [self.scene animateFallingFruits:columns completion:^{
             NSArray *columns;
             if (_isMyMove){
+                [_player1Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 columns = [self.level multiplayerTopUpFruits];
                 [_parameter addObjectsFromArray:self.level.parameter];
                 [self.scene animateNewFruits:columns completion:^{
@@ -577,7 +617,33 @@
     NSSet *chains = [self.scene.level executePowerUp:powerUp];
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
-        //NSLog(@"Chains count is zero");
+        if ((_isMyMove) && (!_isFirstRound)){
+            //            NSMutableArray *sendingArray = [NSMutableArray array];
+            //            for (NSArray *array in _arrayOfColumnArray) {
+            //                [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
+            //            }
+            
+            [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : _parameter,
+                                                                                       @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
+                                                                                       @"swipeRow" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.y]}];
+            //_isMyMove = NO;
+            _parameter = [NSMutableArray array];
+            self.scene.playerLastTouch = (CGPoint){-1,-1};
+            self.scene.lastTouchAssigned = NO;
+            _isMyMove = NO;
+            [self.view setUserInteractionEnabled:NO];
+            [self showTurnAlert:NO];
+        }
+        else{
+            if (!_isFirstRound){
+                _isMyMove = YES;
+                [self showTurnAlert:_isMyMove];
+                [self.scene setUserInteractionEnabled:_isMyMove];
+                //_arrayOfColumnArray = [NSMutableArray array];
+            }
+        }
+        
+        //_isMyMove = _isExecutingOpponentMove;
         [self beginNextTurn];
         return;
     }
@@ -600,6 +666,7 @@
             
             NSArray *columns;
             if (_isMyMove){
+                [_player1Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 columns = [self.level multiplayerTopUpFruits];
                 [_parameter addObjectsFromArray:self.level.parameter];
                 [self.scene animateNewFruits:columns completion:^{
@@ -857,13 +924,15 @@
         {
             NSLog(@"Received Random Number");
             //NSDictionary *dict = [NSDictionary alloc]init
-            NSDictionary *parameterDict = @{playerIdKey : message.playerId,
+            NSDictionary *parameterDict = @{playerIdKey : message.playerName,
                                             randomNumberKey : [gameMessage objectForKey:@"randomNumber"]
                                             };
+           
            if (![_orderOfPlayers containsObject:parameterDict]){
                [_orderOfPlayers addObject:parameterDict];
             }
-            
+            _player2Elo = [[gameMessage objectForKey:@"userElo"] unsignedIntegerValue];
+            [self loadPlayersView];
             if ([[gameMessage objectForKey:@"randomNumber"] intValue] == _randomNumber) {
                 //2
                 
@@ -905,8 +974,6 @@
             //_arrayOfColumnArray = [gameMessage objectForKey:@"topUpFruits"];
             //_arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
             [self.scene touchAtColumRowCGPoint:oponentLocation OpponentSwipe:opponentSwipe];
-            
-            _fruitCounter = 0;
             [self.view setUserInteractionEnabled:YES];
             [self.level setIsOpponentMove:NO];
             //_parameter = [NSMutableArray array];

@@ -12,6 +12,8 @@
 #import "MultiplayerGameViewController.h"
 #import "ClearedLevelsSingleton.h"
 #import "JIMCAPHelper.h"
+#import "RNEncryptor.h"
+#import "AppUtils.h"
 
 #define NEXTPEER_KEY @"08d8f6a9b74c70e157add51c12c7d272"
 
@@ -28,10 +30,13 @@
     [JIMCAPHelper sharedInstance];
     
     NSInteger numberOfLevels = 10;
-    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[AppUtils getAppMultiplayer]]){
+        [self setUserElo];
+    }
     //Checa se é o primeiro uso, caso seja, libera apenas o primeiro nível
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayed"])
     {
+        
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPlayed"];
         [[NSUserDefaults standardUserDefaults] setInteger:(-1) forKey:@"lastCleared"];
         [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
@@ -65,6 +70,24 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Launch"];
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self]];
     return YES;
+}
+
+- (void)setUserElo{
+    NSString *userEloPath = [AppUtils getAppMultiplayer];
+    NSDictionary *userEloData = @{@"elo" : @1200};
+    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userEloData];
+    NSError *error;
+    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:MULTIPLAYER_SECRET
+                                               error:&error];
+    
+    BOOL sucess = [encryptedData writeToFile:userEloPath atomically:YES];
+    if (!sucess){
+        NSLog(@"Erro ao Salvar arquivo de Vidas");
+    }
+    
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
