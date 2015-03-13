@@ -37,4 +37,6 @@
 @property (nonatomic) NSString* userId;
 @property (nonatomic) NSString* userName;
 
+@property (nonatomic) BOOL flagFacebook;
+
 @end

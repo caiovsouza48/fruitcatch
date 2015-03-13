@@ -79,7 +79,9 @@
     [self adicionaFundo];
     [self adicionaImagemSuperior];
     [self addScrollFacebook];
-    [self addPeopleOnScrollFacebook];
+    [self allocAnimationSpinning];
+    if (self.flagFacebook)
+        [self addPeopleOnScrollFacebook];
     [self adicionaVidas];
     [self adicionaMoedas];
     [self adicionaAjuda];
@@ -181,32 +183,10 @@
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
             NSLog(@"File dict = %@",obj);
             
-            // Enviar para o servidor
-            if ([self sendToWebService:obj]) {
-                NSLog(@"Envio com sucesso !");
-            }
             return obj;
         }
     }
     return nil;
-}
-
-- (BOOL)sendToWebService:(NSDictionary*)object {
-    
-    NSError * erro = nil;
-
-    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", self.userId, self.userName, self.userId];
-    NSLog(@"%@", strUrl);
-    
-    NSURL *url = [[NSURL alloc]initWithString:strUrl];
-    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-    if (erro == nil && dados != nil) {
-        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-        NSLog(@"%@", dadosWebService);
-        return YES;
-    }
-    
-    return NO;
 }
 
 - (void)getUserLives{
@@ -917,16 +897,6 @@
         [_scroll1 addSubview:imagem];
         [_scroll1 addSubview:nome];
         
-        // Adiciona o usuário do facebook
-        if (i == 0) {
-// <<<<<<<<
-        }
-        
-        // Inicia animação de loading
-        self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
-        [_scroll1 addSubview:self.activityIndicatorViewFacebook];
-        [self.activityIndicatorViewFacebook startAnimating];
-        
         // Aloca uma imagem do tamanho da metade da tela em que está
         imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
         nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 35, 60, 40)];
@@ -958,6 +928,13 @@
             [_scroll1 addSubview:nome];
         }
     }
+}
+
+- (void)allocAnimationSpinning{
+    // Inicia animação de loading
+    self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*1)+120)/3, 5, 40, 40)];
+    [_scroll1 addSubview:self.activityIndicatorViewFacebook];
+    [self.activityIndicatorViewFacebook startAnimating];
 }
 
 - (void)startSpinningShop {
