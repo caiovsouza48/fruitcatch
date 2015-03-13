@@ -81,7 +81,7 @@
 
     [self adicionaFundo];
     [self adicionaInformFase];
-    [self adicionaImagemSuperior];
+//    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self addPeopleOnScrollFacebook];
     [self adicionaVidas];
@@ -412,7 +412,7 @@
                               delay:0
              usingSpringWithDamping:0.65
               initialSpringVelocity:0
-                            options:0
+                            options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
                              _blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
                              self.informFase.center   = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
@@ -544,12 +544,11 @@
     }
     CGRect frame = fundo.frame;
     
-    frame.origin = CGPointMake(0, _offset); // remover
-//    fundo.frame  = CGRectMake(0, 0, _scrollView.contentSize.width, _scrollView.contentSize.height);
+    frame.origin = CGPointMake(0, _offset);
     fundo.contentMode = UIViewContentModeScaleToFill;
     
     _scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
-    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height); //remover
+    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height);
     _scrollView.backgroundColor = [UIColor colorWithRed:138/255.0 green:136/255.0 blue:70/255.0 alpha:1];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator   = NO;
@@ -560,20 +559,21 @@
     [_scrollView addSubview:fundo];
 }
 
--(void)adicionaImagemSuperior
-{
-    //Carrega a imagem de cima
-    UIImageView *fundoSuperior = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_pontos_movimentos"]];
-    fundoSuperior.frame = CGRectMake(0, 0, self.view.frame.size.width, 80);
-    
-    [self.view insertSubview:fundoSuperior belowSubview:_informFase];
-}
+//-(void)adicionaImagemSuperior
+//{
+//    //Carrega a imagem de cima
+//    UIImageView *fundoSuperior = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_pontos_movimentos"]];
+//    fundoSuperior.frame = CGRectMake(0, 0, self.view.frame.size.width, 80);
+//    
+//    [self.view insertSubview:fundoSuperior belowSubview:_informFase];
+//}
 
 -(void)adicionaVidas
 {
     //Vidas
-    UILabel *vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 40, 5, 80, 60)];
+    UILabel *vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 60, 60)];
     vidas.text = @"Lifes\n??";
+    vidas.backgroundColor = [UIColor redColor];
     vidas.numberOfLines = 3;
     vidas.lineBreakMode = NSLineBreakByWordWrapping;
     vidas.font = [UIFont fontWithName:@"Chewy" size:20];
@@ -585,13 +585,14 @@
 -(void)adicionaMoedas
 {
     //Moedas
-    UILabel *moedas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.view.frame) - 90, 5, 80, 60)];
+    UILabel *moedas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.view.frame) - 80, 5, 60, 60)];
     moedas.text = @"Coins\n??";
+    moedas.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0 alpha:1];
     moedas.numberOfLines = 3;
     moedas.lineBreakMode = NSLineBreakByWordWrapping;
     moedas.font = [UIFont fontWithName:@"Chewy" size:20];
     moedas.textColor = [UIColor whiteColor];
-    moedas.textAlignment = NSLineBreakByWordWrapping;
+    moedas.textAlignment = NSTextAlignmentCenter;
     [self.view insertSubview:moedas belowSubview:_informFase];
 }
 
@@ -716,12 +717,16 @@
 -(void)adicionaBotaoJogar
 {
     //botao jogar
-    _btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 + 30, 150,55)];
+    _btnJogar = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMaxY(self.informFase.frame) / 2 + 30, 200,50)];
+    _btnJogar.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+    _btnJogar.layer.borderColor = [UIColor whiteColor].CGColor;
+    _btnJogar.layer.borderWidth = 2.0;
+    _btnJogar.layer.cornerRadius = 12.0;
+    _btnJogar.titleLabel.textColor = [UIColor whiteColor];
+    _btnJogar.titleLabel.textAlignment = NSTextAlignmentCenter;
     [_btnJogar setTitle:@"Play!" forState:UIControlStateNormal];
-    [_btnJogar.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:40]];
+    [_btnJogar.titleLabel setFont:[UIFont fontWithName:@"Chewy" size:30]];
     [_btnJogar addTarget:self action:@selector(jogar:)forControlEvents:UIControlEventTouchUpInside];
-    _btnJogar.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    _btnJogar.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
 }
 
 -(void)adicionaDetalhesDaFase

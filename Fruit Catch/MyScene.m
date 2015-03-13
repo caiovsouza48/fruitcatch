@@ -9,6 +9,13 @@
 #import "PowerUP.h"
 #import "ClearedLevelsSingleton.h"
 
+#define IPHONE6 ([[UIScreen mainScreen] bounds].size.width == 375)
+#define IPHONE6PLUS ([[UIScreen mainScreen] bounds].size.width == 414)
+
+#define IPHONE6_XSCALE 1.171875
+#define IPHONE6_YSCALE 1.174285774647887
+#define IPHONE6PLUS_XSCALE 1.29375
+#define IPHONE6PLUS_YSCALE 1.295774647887324
 
 @interface MyScene ()
 
@@ -55,6 +62,7 @@
     
     _shouldPlay = YES;
     
+    
     if ((self = [super initWithSize:size])) {
         self.lastTouchAssigned = NO;
         self.anchorPoint = CGPointMake(0.5, 0.5);
@@ -62,6 +70,15 @@
         // Put an image on the background. Because the scene's anchorPoint is
         // (0.5, 0.5), the background image will always be centered on the screen.
         SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"fundo.png"];
+        
+        if(IPHONE6){
+            background.xScale = IPHONE6_XSCALE;
+            background.yScale = IPHONE6_YSCALE;
+        }else if(IPHONE6PLUS) {
+            background.xScale = IPHONE6PLUS_XSCALE;
+            background.yScale = IPHONE6PLUS_YSCALE;
+        }
+        
        // background.blendMode = SKBlendModeScreen; //Clareia o fundo
         [self addChild:background];
         
@@ -106,6 +123,54 @@
         
         [self preloadResources];
     }
+    
+    if(IPHONE6){
+        CGFloat scale = 0.93;
+        CGPoint layerPosition = CGPointMake(-TileWidth*NumColumns * IPHONE6_XSCALE * scale/2, -TileHeight*NumRows * IPHONE6_YSCALE * scale/2);
+        
+        _fruitsLayer.xScale = IPHONE6_XSCALE * scale;
+        _fruitsLayer.yScale = IPHONE6_YSCALE * scale;
+        _fruitsLayer.position = layerPosition;
+        
+        _gameLayer.xScale = IPHONE6_XSCALE * scale;
+        _gameLayer.yScale = IPHONE6_YSCALE * scale;
+        _gameLayer.position = layerPosition;
+        
+        _tilesLayer.xScale = IPHONE6_XSCALE * scale;
+        _tilesLayer.yScale = IPHONE6_YSCALE * scale;
+        _tilesLayer.position = layerPosition;
+        
+        _power.xScale = IPHONE6_XSCALE * scale;
+        _power.yScale = IPHONE6_YSCALE * scale;
+        _power.position = layerPosition;
+        
+        _maskLayer.xScale = IPHONE6_XSCALE * scale;
+        _maskLayer.yScale = IPHONE6_YSCALE * scale;
+        _maskLayer.position = layerPosition;
+    }else if(IPHONE6PLUS){
+        CGPoint layerPosition = CGPointMake(-TileWidth*NumColumns * IPHONE6_XSCALE/2, -TileHeight*NumRows * IPHONE6_YSCALE/2);
+        
+        _fruitsLayer.xScale = IPHONE6_XSCALE;
+        _fruitsLayer.yScale = IPHONE6_YSCALE;
+        _fruitsLayer.position = layerPosition;
+        
+        _gameLayer.xScale = IPHONE6_XSCALE;
+        _gameLayer.yScale = IPHONE6_YSCALE;
+        _gameLayer.position = layerPosition;
+        
+        _tilesLayer.xScale = IPHONE6_XSCALE;
+        _tilesLayer.yScale = IPHONE6_YSCALE;
+        _tilesLayer.position = layerPosition;
+        
+        _power.xScale = IPHONE6_XSCALE;
+        _power.yScale = IPHONE6_YSCALE;
+        _power.position = layerPosition;
+        
+        _maskLayer.xScale = IPHONE6_XSCALE;
+        _maskLayer.yScale = IPHONE6_YSCALE;
+        _maskLayer.position = layerPosition;
+    }
+    
     return self;
 }
 
