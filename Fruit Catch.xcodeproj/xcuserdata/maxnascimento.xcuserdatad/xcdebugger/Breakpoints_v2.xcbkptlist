@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             scope = "0"
@@ -19,13 +19,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fruit Catch/JIMCLevel.m"
-            timestampString = "446740156.901574"
+            filePath = "Fruit Catch/MyScene.m"
+            timestampString = "447958818.811248"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "672"
-            endingLineNumber = "672"
-            landmarkName = "-checkHorizontalFruitsToRemoveForPowerUp:andLimit:"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "-addSpritesForFruit:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

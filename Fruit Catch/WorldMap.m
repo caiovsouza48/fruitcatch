@@ -51,9 +51,12 @@
 @property (nonatomic) IBOutlet UIButton *shopi;
 @property (nonatomic) NSString *plistPath;
 
+@property (nonatomic) UIView *blurView;
+
 @end
 
 @implementation WorldMap
+
 
 - (void)viewDidLoad {
     
@@ -63,7 +66,7 @@
     _shopOpen = NO;
     
     if(IPHONE6){
-        _offset = 80 * IPHONE6_YSCALE;
+        _offset = 60 * IPHONE6_YSCALE;
     }else if(IPHONE6PLUS){
         _offset = 80 * IPHONE6PLUS_YSCALE;
     }else{
@@ -77,6 +80,7 @@
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
 
     [self adicionaFundo];
+    [self adicionaInformFase];
     [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self addPeopleOnScrollFacebook];
@@ -85,13 +89,15 @@
     [self adicionaAjuda];
     [self adicionaBotaoBack];
     [self adicionaBotoesFases];
-    [self adicionaInformFase];
     [self adicionaBotaoSair];
     [self adicionaBotaoJogar];
     [self adicionaDetalhesDaFase];
-    [self adicionaShop];
+    //[self adicionaShop];
     [self allocScrollViewFacebook];
 }
+//Metodos add apenas para tirar o warning
+-(void)stopSpinning{};
+-(void)startSpinning{};
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -371,9 +377,9 @@
         _lblMoves.text  = [NSString stringWithFormat:@"%d moves",(int)lvl.maximumMoves];
         
         //Escurece o fundo
-        UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
-        blurView.backgroundColor = [UIColor clearColor];
-        [self.view insertSubview:blurView atIndex:4];
+        _blurView = [[UIView alloc] initWithFrame:self.view.frame];
+        _blurView.backgroundColor = [UIColor clearColor];
+        [self.view insertSubview:_blurView belowSubview:_informFase];
         
         NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
         NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:_i]];
@@ -408,16 +414,17 @@
               initialSpringVelocity:0
                             options:0
                          animations:^{
-                             blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+                             _blurView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
                              self.informFase.center   = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
                              self.scroll1.center      = CGPointMake(CGRectGetMidX(self.view.frame), CGRectGetMaxY(self.view.frame)-35);
-                             _btnJogar.center         = CGPointMake(CGRectGetMidX(self.informFase.frame), _btnJogar.center.y);
-                             _lblTarget.center        = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblTarget.center.y);
-                             _lblMoves.center         = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblMoves.center.y);
-                             _lblFase.center          = CGPointMake(CGRectGetMidX(self.informFase.frame), _lblFase.center.y);
-                             _star1.center = CGPointMake(CGRectGetMidX(self.informFase.frame) - 60, _star1.center.y);
-                             _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), _star2.center.y);
-                             _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, _star1.center.y);
+                             _btn.center              = CGPointMake(_informFase.frame.origin.x + 295, _informFase.frame.origin.y - 25);
+                             _lblFase.center          = CGPointMake(315/2.0, 35);
+                             _star2.center            = CGPointMake(315/2.0, _lblFase.center.y + 70);
+                             _star1.center            = CGPointMake(_star2.center.x - 60, _star2.center.y + 30);
+                             _star3.center            = CGPointMake(_star2.center.x + 60, _star2.center.y + 30);
+                             _lblTarget.center        = CGPointMake(315/2.0, _star2.center.y + 100);
+                             _lblMoves.center         = CGPointMake(315/2.0, _lblTarget.center.y + 30);
+                             _btnJogar.center         = CGPointMake(315/2.0, _lblMoves.center.y + 60);
                          }completion:nil];
     }
 }
@@ -437,9 +444,9 @@
     
     if(!_shopOpen){
         //Escurece o fundo
-        UIView *blurView = [[UIView alloc] initWithFrame:self.view.frame];
-        blurView.backgroundColor = [UIColor clearColor];
-        [self.view insertSubview:blurView atIndex:4];
+        _blurView = [[UIView alloc] initWithFrame:self.view.frame];
+        _blurView.backgroundColor = [UIColor clearColor];
+        [self.view insertSubview:_blurView belowSubview:_informFase];
         
         [UIView animateWithDuration:1.5
                               delay:0
@@ -447,7 +454,7 @@
               initialSpringVelocity:0
                             options:0
                          animations:^{
-                             blurView.backgroundColor   = [UIColor colorWithWhite:0 alpha:0.5];
+                             _blurView.backgroundColor   = [UIColor colorWithWhite:0 alpha:0.5];
                              self.informFase.center     = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
                              self.shopScrollView.center = CGPointMake(CGRectGetMidX(self.view.frame), self.shopScrollView.center.y);
                              self.activityIndicatorViewShop.center = CGPointMake(CGRectGetMidX(self.view.frame), 50);
@@ -465,19 +472,20 @@
 {
     _shopOpen = NO;
     _shopi.enabled = YES;
-    UIView *blurView = [[self.view subviews] objectAtIndex:4];
+
     [UIView animateWithDuration:1.5
                           delay:0
          usingSpringWithDamping:0.65
           initialSpringVelocity:0
                         options:0
                      animations:^{
-                         blurView.backgroundColor = [UIColor clearColor];
+                         _blurView.backgroundColor = [UIColor clearColor];
                          self.informFase.center = CGPointMake(CGRectGetMinX(self.view.frame)-300,self.informFase.center.y);
-                         self.scroll1.center = CGPointMake(CGRectGetMinX(self.view.frame)+500, self.scroll1.center.y);
+                         self.scroll1.center    = CGPointMake(CGRectGetMaxX(self.view.frame)+500, self.scroll1.center.y);
+                         _btn.center            = CGPointMake(-300, _btn.center.y);
                          
                      }completion:^(BOOL finished){
-                         [blurView removeFromSuperview];
+                         [_blurView removeFromSuperview];
                      }];
 }
 
@@ -542,8 +550,8 @@
     }
     
     _scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
-    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height - _offset); //remover
-    _scrollView.backgroundColor = [UIColor cyanColor];
+    _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height); //remover
+    _scrollView.backgroundColor = [UIColor colorWithRed:138/255.0 green:136/255.0 blue:70/255.0 alpha:1];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator   = NO;
     _scrollView.delegate = self;
@@ -559,7 +567,7 @@
     UIImageView *fundoSuperior = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_pontos_movimentos"]];
     fundoSuperior.frame = CGRectMake(0, 0, self.view.frame.size.width, 80);
     
-    [self.view addSubview:fundoSuperior];
+    [self.view insertSubview:fundoSuperior belowSubview:_informFase];
 }
 
 -(void)adicionaVidas
@@ -568,11 +576,11 @@
     UILabel *vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 40, 5, 80, 60)];
     vidas.text = @"Lifes\n??";
     vidas.numberOfLines = 3;
-    vidas.lineBreakMode = UILineBreakModeWordWrap;
+    vidas.lineBreakMode = NSLineBreakByWordWrapping;
     vidas.font = [UIFont fontWithName:@"Chewy" size:20];
     vidas.textColor = [UIColor whiteColor];
-    vidas.textAlignment = UITextAlignmentCenter;
-    [self.view addSubview:vidas];
+    vidas.textAlignment = NSTextAlignmentCenter;
+    [self.view insertSubview:vidas belowSubview:_informFase];
 }
 
 -(void)adicionaMoedas
@@ -581,11 +589,11 @@
     UILabel *moedas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.view.frame) - 90, 5, 80, 60)];
     moedas.text = @"Coins\n??";
     moedas.numberOfLines = 3;
-    moedas.lineBreakMode = UILineBreakModeWordWrap;
+    moedas.lineBreakMode = NSLineBreakByWordWrapping;
     moedas.font = [UIFont fontWithName:@"Chewy" size:20];
     moedas.textColor = [UIColor whiteColor];
-    moedas.textAlignment = UITextAlignmentCenter;
-    [self.view addSubview:moedas];
+    moedas.textAlignment = NSLineBreakByWordWrapping;
+    [self.view insertSubview:moedas belowSubview:_informFase];
 }
 
 -(void)adicionaAjuda
@@ -601,7 +609,7 @@
     ajuda.titleLabel.font = [UIFont fontWithName:@"Chewy" size:25];
     ajuda.tintColor = [UIColor whiteColor];
     ajuda.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_ajuda"]];
-    [self.view addSubview:ajuda];
+    [self.view insertSubview:ajuda belowSubview:_informFase];
 }
 
 -(void)adicionaBotaoBack
@@ -619,7 +627,7 @@
     //    button.titleLabel.font = [UIFont fontWithName:@"Chewy" size:20];
     button.tintColor = [UIColor whiteColor];
     button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_back"]];
-    [self.view addSubview:button];
+    [self.view insertSubview:button belowSubview:_informFase];
 }
 
 -(void)adicionaBotoesFases
@@ -634,7 +642,7 @@
         //Cria o botao de nivel
         NSNumber *x = button[@"xPosition"];
         NSNumber *y = button[@"yPosition"];
-        CGFloat yOffset = _scrollView.contentSize.height - self.view.frame.size.height - _offset;
+        CGFloat yOffset = _scrollView.contentSize.height - self.view.frame.size.height - _offset * 2;
         if(IPHONE6){
             x = [NSNumber numberWithFloat: x.doubleValue * IPHONE6_XSCALE];
             y = [NSNumber numberWithFloat: yOffset + y.doubleValue * IPHONE6_YSCALE];
@@ -698,9 +706,12 @@
 -(void)adicionaBotaoSair
 {
     //botao sair
-    _btn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 45, 15, 25,25)];
-    [_btn setBackgroundImage:[UIImage imageNamed:@"botao_fechar"] forState:UIControlStateNormal];
+    _btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    _btn.center = CGPointMake(_informFase.frame.origin.x + 295, _informFase.frame.origin.y - 25);
+    [_btn setBackgroundImage:[UIImage imageNamed:@"fechar"] forState:UIControlStateNormal];
     [_btn addTarget:self action:@selector(fexarTela:)forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view insertSubview:_btn aboveSubview:_informFase];
 }
 
 -(void)adicionaBotaoJogar
@@ -717,7 +728,7 @@
 -(void)adicionaDetalhesDaFase
 {
     //Fase
-    _lblFase = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.informFase.frame), CGRectGetMinY(self.informFase.frame) / 2 - 40, 300, 55)];
+    _lblFase = [[UILabel alloc]initWithFrame:CGRectMake(0, 35, 300, 55)];
     _lblFase.textColor = [UIColor whiteColor];
     _lblFase.font = [UIFont fontWithName:@"Chewy" size:40];
     _lblFase.textAlignment = NSTextAlignmentCenter;
@@ -743,7 +754,16 @@
     _star2.center = CGPointMake(CGRectGetMidX(self.informFase.frame), CGRectGetMidY(self.informFase.frame)/2-35);
     _star3.center = CGPointMake(CGRectGetMidX(self.informFase.frame) + 60, CGRectGetMidY(self.informFase.frame)/2-15);
     
-    [self.informFase addSubview:_btn];
+    //Ajustes de centros
+    
+    _lblFase.center          = CGPointMake(315/2.0, 35);
+    _star2.center            = CGPointMake(315/2.0, _lblFase.center.y + 70);
+    _star1.center            = CGPointMake(_star2.center.x - 60, _star2.center.y + 30);
+    _star3.center            = CGPointMake(_star2.center.x + 60, _star2.center.y + 30);
+    _lblTarget.center        = CGPointMake(315/2.0, _star2.center.y + 100);
+    _lblMoves.center         = CGPointMake(315/2.0, _lblTarget.center.y + 30);
+    _btnJogar.center         = CGPointMake(315/2.0, _lblMoves.center.y + 60);
+    
     [self.informFase addSubview:_btnJogar];
     [self.informFase addSubview:_lblTarget];
     [self.informFase addSubview:_lblMoves];
@@ -761,7 +781,7 @@
     _shopi.backgroundColor = [UIColor yellowColor];
     [_shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
     _shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [self.view addSubview:_shopi];
+    [self.view insertSubview:_shopi belowSubview:_informFase];
     
     int numberOfItens = 10;
     

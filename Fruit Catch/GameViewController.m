@@ -93,7 +93,7 @@
     // Configure the view.
     SKView *skView = (SKView *)self.view;
     skView.multipleTouchEnabled = NO;
-    skView.showsNodeCount = YES;
+    //skView.showsNodeCount = YES;
     // Create and configure the scene.
     self.scene = [MyScene sceneWithSize:skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -158,7 +158,7 @@
     if([SettingsSingleton sharedInstance].music == ON){
         [self.backgroundMusic play];
     }
-    [self loadPowerUpsView];
+    //[self loadPowerUpsView];
     
     _priceFormatter = [[NSNumberFormatter alloc] init];
     [_priceFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -871,17 +871,15 @@
     NSNumber *highScore = [NSNumber numberWithInteger:self.score];
     NSNumber *tempo = [NSNumber numberWithInteger:_segundos];
     
-    //Compara os scores
+    //Mesmo score, tempo menor
+    if(([levelHighScore[@"HighScore"] integerValue] == highScore.integerValue) && ((int)levelHighScore[@"Time"] > tempo.integerValue)){
+        [levelHighScore setObject:tempo forKey:@"Time"];
+    }
     
     //Se não tem score gravado ou se o score é maior
-    if([levelHighScore[@"HighScore"] integerValue] == 0 || [levelHighScore[@"HighScore"] integerValue] < [highScore integerValue]){
+    if([levelHighScore[@"HighScore"] integerValue] == 0 || [levelHighScore[@"HighScore"]integerValue] < highScore.integerValue){
         [levelHighScore setObject:highScore forKey:@"HighScore"];
         [levelHighScore setObject:tempo forKey:@"Time"];
-    }else{
-        //Mesmo score, tempo menor
-        if(([levelHighScore[@"HighScore"] integerValue] == [highScore integerValue]) && ([levelHighScore[@"Time"] integerValue] > [tempo integerValue])){
-            [levelHighScore setObject:tempo forKey:@"Time"];
-        }
     }
     
     [array replaceObjectAtIndex:level withObject:levelHighScore];
