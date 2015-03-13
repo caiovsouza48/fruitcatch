@@ -66,7 +66,7 @@
     _shopOpen = NO;
     
     if(IPHONE6){
-        _offset = 60 * IPHONE6_YSCALE;
+        _offset = 80 * IPHONE6_YSCALE;
     }else if(IPHONE6PLUS){
         _offset = 80 * IPHONE6PLUS_YSCALE;
     }else{
@@ -533,21 +533,20 @@
 -(void)adicionaFundo
 {
     //ScrollView
-    
+    UIImageView *fundo;
     //Carrega a imagem de fundo
-    UIImageView *fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa_2.0"]];
-    
+    if(IPHONE6){
+         fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa_2.0Iphone6"]];
+    }else if(IPHONE6PLUS) {
+        fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa_2.0Iphone6Plus"]];
+    }else{
+        fundo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mapa_2.0"]];
+    }
     CGRect frame = fundo.frame;
     
     frame.origin = CGPointMake(0, _offset); // remover
 //    fundo.frame  = CGRectMake(0, 0, _scrollView.contentSize.width, _scrollView.contentSize.height);
     fundo.contentMode = UIViewContentModeScaleToFill;
-    
-    if (IPHONE6) {
-        fundo.frame = CGRectMake(0, 0, fundo.frame.size.width * IPHONE6_XSCALE, fundo.frame.size.height);
-    }else if(IPHONE6PLUS){
-        fundo.frame = CGRectMake(0, 0, fundo.frame.size.width * IPHONE6PLUS_XSCALE, fundo.frame.size.height);
-    }
     
     _scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
     _scrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height); //remover
