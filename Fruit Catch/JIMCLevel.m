@@ -829,10 +829,9 @@
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
         if ([chain.fruits count] == 1) {
-            chain.score = 30 * ([chain.fruits count]) * self.comboMultiplier;
-            
+            chain.score = 10 * ([chain.fruits count]) * self.comboMultiplier;
         }else{
-            chain.score = 30 * ([chain.fruits count] - 2) * self.comboMultiplier;
+            chain.score = 10 * ([chain.fruits count] - 2) * self.comboMultiplier;
         }
         self.comboMultiplier++;
     }
@@ -841,10 +840,9 @@
     if (_isOpponentMove){
         return;
     }
-
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
-        chain.score = 10 ;
+        chain.score = 30 ;
         
     }
 }
@@ -1003,7 +1001,6 @@
         // This time scan from top to bottom. We can end when we've found the
         // first fruit.
         NSMutableArray *array2;
-        
         //for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
         for (NSInteger row = NumRows - 1; row >= 0 && _fruits[column][row] == nil; row--) {
             
@@ -1012,7 +1009,6 @@
                 NSNumber *firstElement = [_fruitTypeArray objectAtIndex:0];
                 [_fruitTypeArray removeObjectAtIndex:0];
                 JIMCFruit *fruit = [self createFruitAtColumn:column row:row withType:[firstElement intValue]];
-                
                 // Add the fruit to the array for this column.
                 // Note that we only allocate an array if a column actually has holes.
                 // This cuts down on unnecessary allocations.

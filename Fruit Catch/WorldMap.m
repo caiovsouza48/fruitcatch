@@ -57,6 +57,7 @@
 
 @implementation WorldMap
 
+
 - (void)viewDidLoad {
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -94,6 +95,9 @@
     //[self adicionaShop];
     [self allocScrollViewFacebook];
 }
+//Metodos add apenas para tirar o warning
+-(void)stopSpinning{};
+-(void)startSpinning{};
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -572,10 +576,10 @@
     UILabel *vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 40, 5, 80, 60)];
     vidas.text = @"Lifes\n??";
     vidas.numberOfLines = 3;
-    vidas.lineBreakMode = UILineBreakModeWordWrap;
+    vidas.lineBreakMode = NSLineBreakByWordWrapping;
     vidas.font = [UIFont fontWithName:@"Chewy" size:20];
     vidas.textColor = [UIColor whiteColor];
-    vidas.textAlignment = UITextAlignmentCenter;
+    vidas.textAlignment = NSTextAlignmentCenter;
     [self.view insertSubview:vidas belowSubview:_informFase];
 }
 
@@ -585,10 +589,10 @@
     UILabel *moedas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.view.frame) - 90, 5, 80, 60)];
     moedas.text = @"Coins\n??";
     moedas.numberOfLines = 3;
-    moedas.lineBreakMode = UILineBreakModeWordWrap;
+    moedas.lineBreakMode = NSLineBreakByWordWrapping;
     moedas.font = [UIFont fontWithName:@"Chewy" size:20];
     moedas.textColor = [UIColor whiteColor];
-    moedas.textAlignment = UITextAlignmentCenter;
+    moedas.textAlignment = NSLineBreakByWordWrapping;
     [self.view insertSubview:moedas belowSubview:_informFase];
 }
 
