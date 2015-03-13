@@ -651,7 +651,8 @@
                                          (firstFruit.sprite.position.y + lastFruit.sprite.position.y)/2 - 8);
     
     // Add a label for the score that slowly floats up.
-    SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"GillSans-BoldItalic"];
+    SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chewy"];
+    scoreLabel.fontColor = [self collorScoreFruit:firstFruit];
     scoreLabel.fontSize = 16;
     scoreLabel.text = [NSString stringWithFormat:@"%lu", (long)chain.score];
     scoreLabel.position = centerPosition;
@@ -665,7 +666,31 @@
                                                [SKAction removeFromParent]
                                                ]]];
 }
+-(UIColor *)collorScoreFruit:(JIMCFruit *)fruit{
+    UIColor *color;
+    switch (fruit.fruitType) {
+        case 1:
+            color = [UIColor orangeColor];
+            break;
+        case 2:
+             color = [UIColor redColor];
+            break;
+        case 3:
+             color = [UIColor greenColor];
+            break;
+        case 4:
+             color = [UIColor purpleColor];
+            break;
+        case 5:
+             color = [UIColor yellowColor];
+            break;
+        default:
+            color = [UIColor whiteColor];
+            break;
+    }
+    return color;
 
+}
 - (void)animateFallingFruits:(NSArray *)columns completion:(dispatch_block_t)completion {
     __block NSTimeInterval longestDuration = 0;
     

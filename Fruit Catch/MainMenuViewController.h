@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <StoreKit/StoreKit.h>
-@interface MainMenuViewController : UIViewController <FBLoginViewDelegate,SKProductsRequestDelegate,SKPaymentTransactionObserver>
+@interface MainMenuViewController : UIViewController <FBLoginViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *singlePlayerButton;
 @property (nonatomic) IBOutlet FBLoginView *loginView;

@@ -60,6 +60,10 @@
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     
 //    [self addEngineLeft];
+    
+    [SettingsSingleton sharedInstance].music = 1;
+    [SettingsSingleton sharedInstance].SFX = 1;
+    
     [self adicionaMenuRapido];
     [self adicionaElementos];
     [self loadFromFile];
@@ -176,38 +180,7 @@
     configuracao.text = @"Settings";
     configuracao.textAlignment = NSTextAlignmentCenter;
     configuracao.textColor = [UIColor whiteColor];
-//    
-//    //Texto Musica
-//    UILabel *musica = [[UILabel alloc]initWithFrame:CGRectMake(10, configuracao.frame.origin.y+70, 130, 50)];
-//    musica.font = [UIFont fontWithName:@"Chewy" size:35];
-//    musica.text = @"Music";
-//    musica.textAlignment = NSTextAlignmentCenter;
-//    musica.textColor = [UIColor whiteColor];
-//    
-//    //Switch da musica
-//    _ligaMusica             = [[UISwitch alloc] initWithFrame:CGRectMake(_configuracao.frame.size.width - 50, musica.frame.origin.y + 12, 51, 31)];
-////    _ligaMusica.onTintColor = [UIColor colorWithRed:(CGFloat)130/255 green:(CGFloat)165/255 blue:(CGFloat)170/255 alpha:1];
-//    _ligaMusica.onTintColor = [UIColor blueColor];
-//    _ligaMusica.tintColor   = [UIColor redColor];
-//    _ligaMusica.backgroundColor = [UIColor redColor];
-//    _ligaMusica.layer.cornerRadius = 16.0;
-//    [_ligaMusica addTarget:self action:@selector(musicON_OFF:) forControlEvents:UIControlEventValueChanged];
-//    
-//    //Texto efeitos sonoros
-//    UILabel *efeitosSonoros = [[UILabel alloc]initWithFrame:CGRectMake(10, musica.frame.origin.y+45, 240, 50)];
-//    efeitosSonoros.font = [UIFont fontWithName:@"Chewy" size:35];
-//    efeitosSonoros.text = @"Sound effects";
-//    efeitosSonoros.textAlignment = NSTextAlignmentCenter;
-//    efeitosSonoros.textColor = [UIColor whiteColor];
-//    
-//    //Switch dos SFX
-//    _ligaSFX             = [[UISwitch alloc] initWithFrame:CGRectMake(_ligaMusica.frame.origin.x, efeitosSonoros.frame.origin.y + 12, 51, 31)];
-////    _ligaSFX.onTintColor = [UIColor colorWithRed:(CGFloat)130/255 green:(CGFloat)165/255 blue:(CGFloat)170/255 alpha:1];
-//    _ligaSFX.onTintColor = [UIColor blueColor];
-//    _ligaSFX.tintColor   = [UIColor redColor];
-//    _ligaSFX.backgroundColor = [UIColor redColor];
-//    _ligaSFX.layer.cornerRadius = 16.0;
-//    [_ligaSFX addTarget:self action:@selector(soundON_OFF:) forControlEvents:UIControlEventValueChanged];
+
     
     //Botao fechar
     _fechar = [[UIButton alloc]initWithFrame:CGRectMake(self.configuracao.frame.origin.x + 282, self.configuracao.frame.origin.y - 30, 35, 35)];
@@ -547,7 +520,6 @@
     }
 }
 
-
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     self.statusLabel.text = @"You're logged in as";
 }
@@ -612,141 +584,6 @@
          view.nextStage = -1;
      }
  }
- 
-
-//Abaixou dessa ponto conlocar apenas funcoes relacionadas a In App Porcharse
-#pragma mark - in-App PURCHASE
--(void)purchaseNoAds{
-    if([SKPaymentQueue canMakePayments]){
-        NSLog(@"User can make payments!");
-        //SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:kRemoveAdsProductIdentifier]];
-           // productsRequest.delegate = self;
-          //  [productsRequest start];
-            connectingView.hidden = NO;
-     }else{
-         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops."
-                                                         message:@"I don't think you are allowed to make in-app purchases."
-                                                        delegate:self
-                                               cancelButtonTitle:@"OK"
-                                               otherButtonTitles:nil];
-        [alert show];
-         //Essa parte só é chamada quando dá algum problema.
-     }
-}
--(void)restore{
-        //Trata do restore
-        connectingView.hidden = NO;
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-}
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
-        SKProduct *validProduct = nil;
-        int count = (int)[response.products count];
-        if(count > 0){
-                validProduct = [response.products objectAtIndex:0];
-                NSLog(@"Products Available!");
-                [self purchase:validProduct];
-                //Se o ID está correto, voila! Funcionou!
-        }else if(!validProduct){
-            NSLog(@"No products available");
-            connectingView.hidden = YES;
-            //id inválido?
-        }
-}
-
-- (void)purchase:(SKProduct *)product{
-        SKPayment *payment = [SKPayment paymentWithProduct:product];
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-        [[SKPaymentQueue defaultQueue] addPayment:payment];
-}
-
-- (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
-{
-    NSLog(@"received restored transactions: %i",(int) queue.transactions.count);
-    for (SKPaymentTransaction *transaction in queue.transactions)
-    {
-        if(SKPaymentTransactionStateRestored){
-            NSLog(@"Transaction state -> Restored");
-            //Se restaurou corretamente, chama o doRemoveAds
-            [self doRemoveAds];
-            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-            break;
-        }
-    }
-    connectingView.hidden = YES;
-}
--(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error{
-    NSLog(@"%@",error);
-    connectingView.hidden = YES;
-}
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
-    for(SKPaymentTransaction *transaction in transactions){
-        switch (transaction.transactionState){
-            case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
-                //Processo de compra
-                break;
-            case SKPaymentTransactionStatePurchased:
-                //(Cha-Ching!)
-                [self doRemoveAds]; //Chama o método de remover ads!
-                connectingView.hidden = YES;
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                NSLog(@"Transaction state -> Purchased");
-                break;
-            case SKPaymentTransactionStateRestored:
-                NSLog(@"Transaction state -> Restored");
-                //Mesmo código de purchase!
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                connectingView.hidden = YES;
-                break;
-            case SKPaymentTransactionStateFailed:
-                //Se falhou...
-                if(transaction.error.code != SKErrorPaymentCancelled){
-                    NSLog(@"Transaction state -> Cancelled");
-                    //Deu algo de errado na compra!
-                }
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                connectingView.hidden = YES;
-                break;
-        }
-    }
-    
-}
-- (void) failedTransaction: (SKPaymentTransaction *)transaction{
-    if (transaction.error.code != SKErrorPaymentCancelled){
-        // Mostra o erro aqui.
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Purchase Unsuccessful"
-                                                        message:@"Your purchase failed. Please try again."
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        
-    }
-    connectingView.hidden = YES;
-    //Tira a transação do queue.
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-}
--(void)request:(SKRequest *)request didFailWithError:(NSError *)error {
-    NSLog(@"%@",error);
-    connectingView.hidden = YES;
-    
-}
--(void)doRemoveAds{
-    //[[AppUserDefaults sharedAppUserDefaults]setNoAds:YES];
-    //[self hideAds];
-}
-
-//- (IBAction)buyButton:(UIButton *)sender {
-//    UIButton *buyButton = (UIButton *)sender;
-//    SKProduct *product = _products[buyButton.tag];
-//    
-//    NSLog(@"Buying %@...", product.productIdentifier);
-//    [[JIMCAPHelper sharedInstance] buyProduct:product];
-//}
-
-- (void)productPurchased:(NSNotification *)notification {
-    NSLog(@"TESTE");
-}
 
 -(void)adicionaMenuRapido
 {
