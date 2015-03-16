@@ -116,6 +116,27 @@
 -(void)startSpinning{};
 
 - (void)viewWillAppear:(BOOL)animated{
+    
+    if (![SettingsSingleton sharedInstance].music) {
+        //adicionar ícone de proibido
+        [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"no_music"] forState:UIControlStateNormal];
+        _ligaMusica.frame = CGRectMake(_ligaMusica.center.x - 19.5, _ligaMusica.center.y - 21.5, 39, 43);
+    }else{
+        //remove ícone de proibido
+        [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"icon_music"] forState:UIControlStateNormal];
+        _ligaMusica.frame = CGRectMake(65, 65, 24, 36);
+    }
+    
+    if (![SettingsSingleton sharedInstance].SFX) {
+        //adicionar ícone de proibido
+        [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"no_sfx"] forState:UIControlStateNormal];
+        _ligaSFX.frame = CGRectMake(_ligaSFX.center.x - 19.5, _ligaSFX.center.y - 21.5, 39, 43);
+    }else{
+        //remove ícone de proibido
+        [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"icon_som"] forState:UIControlStateNormal];
+        _ligaSFX.frame = CGRectMake(15, 40, 20, 32);
+    }
+    
     [super viewWillAppear:animated];
     [self getUserLives];
     
