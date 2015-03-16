@@ -91,6 +91,7 @@
 @property(nonatomic) UILabel *turnLabel;
 
 @property(nonatomic) JTSlideShadowAnimation *shadowAnimation;
+@property(nonatomic) BOOL opponentOver;
 
 @end
 
