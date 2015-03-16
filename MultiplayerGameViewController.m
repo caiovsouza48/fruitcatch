@@ -1090,7 +1090,7 @@
     NSError *error2;
     NSData *encryptedData = [RNEncryptor encryptData:dataToSave
                                         withSettings:kRNCryptorAES256Settings
-                                            password:USER_SECRET
+                                            password:MULTIPLAYER_SECRET
                                                error:&error2];
     
     BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
