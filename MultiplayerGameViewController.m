@@ -91,6 +91,8 @@
 
 @property(nonatomic) JTSlideShadowAnimation *shadowAnimation;
 
+@property(nonatomic) BOOL opponentOver;
+
 
 @end
 
@@ -102,6 +104,7 @@
     [super viewDidLoad];
     _shadowAnimation = [JTSlideShadowAnimation new];
     _opponentScore = 0;
+    _opponentOver = NO;
      _turnSound = [SKAction playSoundFileNamed:@"turn_sound.mp3" waitForCompletion:NO];
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
     _turnLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(mainScreenBounds)-60, CGRectGetMidY(mainScreenBounds)-180, 170, 30)];
@@ -794,8 +797,9 @@
 - (void)decrementMoves{
     self.movesLeft--;
     [self updateLabels];
-    if (self.movesLeft == 0) {
+    if (self.movesLeft <= 0) {
         [NextpeerHelper sendMessageOfType:NPFruitCatchMessageGameOver];
+         [self tryGameOver];
         //[Nextpeer reportControlledTournamentOverWithScore:self.score];
 //        [self.scene animateGameOver];
 //        self.movesLeft = self.level.maximumMoves;
@@ -1046,9 +1050,18 @@
         }
         case NPFruitCatchMessageGameOver:
         {
+            _opponentOver = YES;
+            [self tryGameOver];
+            
             
         }
         
+    }
+}
+
+- (void)tryGameOver{
+    if ((_opponentOver) && (self.movesLeft == 0)){
+      [Nextpeer reportControlledTournamentOverWithScore:(u_int32_t)self.score];
     }
 }
 
