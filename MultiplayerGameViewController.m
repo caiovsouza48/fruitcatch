@@ -131,6 +131,9 @@
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
     [self.scene addTiles];
+    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+    [surrenderButton setTitle:@"Surrender" forState:UIControlStateNormal];
+    [surrenderButton addTarget:self action:@selector(didSurrender:) forControlEvents:UIControlEventTouchUpInside];
     
     // This is the swipe handler. MyScene invokes this block whenever it
     // detects that the player performs a swipe.
@@ -285,6 +288,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveTournamentCustomMessage:) name:@"nextpeerDidReceiveTournamentCustomMessage" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveSynchronizedEvent:) name:@"nextpeerDidReceiveSynchronizedEvent" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerReportForfeitForCurrentTournament:) name:@"nextpeerreportForfeitForCurrentTournament" object:nil];
 }
 
 
@@ -1060,6 +1065,10 @@
     }
 }
 
+- (void)processNextpeerReportForfeitForCurrentTournament{
+    [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
+}
+
 - (void)tryGameOver{
     if ((_opponentOver) && (self.movesLeft == 0)){
       [Nextpeer reportControlledTournamentOverWithScore:(u_int32_t)self.score];
@@ -1100,6 +1109,11 @@
     else{
         NSLog(@"Falha ao Salvar Elo");
     }
+}
+
+- (void) didSurrender{
+    [Nextpeer reportForfeitForCurrentTournament];
+    [Nextpeer dismissDashboard];
 }
 
 - (NSMutableArray *)fruitStringRepresentationArrayToObjArray{

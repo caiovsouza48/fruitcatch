@@ -147,6 +147,7 @@
         if ((![playerResult isStillPlaying]) || ([playerResult didForfeit])){
             NSLog(@"Player Saiu");
             [Nextpeer reportForfeitForCurrentTournament];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"nextpeerreportForfeitForCurrentTournament" object:nil userInfo:@{@"userMessage" : tournamentStatus}];
         }
     }
 }
