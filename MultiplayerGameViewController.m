@@ -22,6 +22,7 @@
 #import "AppUtils.h"
 #import "JTSlideShadowAnimation.h"
 #import <AudioToolbox/AudioServices.h>
+#import "EloRating.h"
 
 #define playerIdKey @"PlayerId"
 #define randomNumberKey @"randomNumber"
@@ -127,6 +128,9 @@
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
     [self.scene addTiles];
+    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+    [surrenderButton setTitle:@"Surrender" forState:UIControlStateNormal];
+    [surrenderButton addTarget:self action:@selector(didSurrender:) forControlEvents:UIControlEventTouchUpInside];
     
     // This is the swipe handler. MyScene invokes this block whenever it
     // detects that the player performs a swipe.
@@ -281,6 +285,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveTournamentCustomMessage:) name:@"nextpeerDidReceiveTournamentCustomMessage" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveSynchronizedEvent:) name:@"nextpeerDidReceiveSynchronizedEvent" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerReportForfeitForCurrentTournament:) name:@"nextpeerreportForfeitForCurrentTournament" object:nil];
 }
 
 
@@ -925,8 +931,8 @@
     }
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
-    [_turnLabel setTextColor:[UIColor grayColor]];
-    _turnLabel.text = isMyTurn ? @"Agora é a sua Vez!" : @"Turno do Oponente";
+    [_turnLabel setTextColor:[UIColor whiteColor]];
+    _turnLabel.text = isMyTurn ? @"Now its your turn!" : @"Opponent Turn";
     [_turnLabel setHidden:NO];
   
     [UIView animateWithDuration:1.25 animations:^{
@@ -936,7 +942,7 @@
         [UIView animateWithDuration:1.25 animations:^{
              _turnLabel.transform = CGAffineTransformMakeScale(1.0,1.0);
             
-            
+            [_shadowAnimation setShadowBackgroundColor:[UIColor blackColor]];
             [_shadowAnimation setAnimatedView:_turnLabel];
             [_shadowAnimation start];
         }];
@@ -1056,10 +1062,55 @@
     }
 }
 
+- (void)processNextpeerReportForfeitForCurrentTournament{
+    [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
+}
+
 - (void)tryGameOver{
     if ((_opponentOver) && (self.movesLeft == 0)){
       [Nextpeer reportControlledTournamentOverWithScore:(u_int32_t)self.score];
+        EloRating *eloRatingSystem = [[EloRating alloc] init];
+        JIMCGameResult result;
+        NSInteger score1 = [self.player1Score.text integerValue];
+        NSInteger score2 = [self.player2Score.text integerValue];
+        if (score1 > score2){
+            result = WIN;
+        }
+        else if (score1 < score2){
+            result = LOSS;
+        }
+        else{
+            result = DRAW;
+        }
+        [eloRatingSystem getNewRating:(int)self.player1Elo OpponentRating:(int)[self player2Elo] GameResult:result];
+        
     }
+}
+
+- (void)saveElo{
+    NSDictionary *userDict = @{@"elo" : [NSNumber numberWithUnsignedInteger:self.player1Elo]
+                               };
+    
+    NSString *filePath = [AppUtils getAppMultiplayer];
+    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
+    NSError *error2;
+    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:MULTIPLAYER_SECRET
+                                               error:&error2];
+    
+    BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
+    if (sucess){
+        NSLog(@"Elo Saved Sucessfuly");
+    }
+    else{
+        NSLog(@"Falha ao Salvar Elo");
+    }
+}
+
+- (void) didSurrender{
+    [Nextpeer reportForfeitForCurrentTournament];
+    [Nextpeer dismissDashboard];
 }
 
 - (NSMutableArray *)fruitStringRepresentationArrayToObjArray{
