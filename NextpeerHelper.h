@@ -14,7 +14,8 @@ typedef NS_ENUM(NSInteger, NPFruitCatchMessage){
     NPFruitCatchMessageSendRandomNumber,
     NPFruitCatchMessageBeginGame,
     NPFruitCatchMessageEventOver,
-    NPFruitCatchMessageMove
+    NPFruitCatchMessageMove,
+    NPFruitCatchMessageGameOver
     
 };
 

@@ -112,6 +112,9 @@
 		43F720721AAE26BA003DD069 /* icon_som.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F720691AAE26BA003DD069 /* icon_som.png */; };
 		43F720731AAE26BA003DD069 /* icon_som@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F7206A1AAE26BA003DD069 /* icon_som@2x.png */; };
 		43F720741AAE26BA003DD069 /* icon_som@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F7206B1AAE26BA003DD069 /* icon_som@3x.png */; };
+		DE3140511AB3D3E9009335D1 /* turn_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DE3140501AB3D3E9009335D1 /* turn_sound.mp3 */; };
+		DE3140541AB3D7D7009335D1 /* JTSlideShadowAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = DE3140531AB3D7D7009335D1 /* JTSlideShadowAnimation.m */; };
+		DE3140571AB72037009335D1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3140561AB72037009335D1 /* AudioToolbox.framework */; };
 		DE342A031A815C7000E7630B /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DE342A021A815C7000E7630B /* AppUtils.m */; };
 		DE3DAC401A97A712002FE5FE /* NextpeerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DE3DAC3F1A97A712002FE5FE /* NextpeerHelper.m */; };
 		DE3DAC511A9B998E002FE5FE /* uva_pu_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC461A9B998E002FE5FE /* uva_pu_h@2x.png */; };
@@ -326,6 +329,10 @@
 		43F720691AAE26BA003DD069 /* icon_som.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_som.png; sourceTree = "<group>"; };
 		43F7206A1AAE26BA003DD069 /* icon_som@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_som@2x.png"; sourceTree = "<group>"; };
 		43F7206B1AAE26BA003DD069 /* icon_som@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_som@3x.png"; sourceTree = "<group>"; };
+		DE3140501AB3D3E9009335D1 /* turn_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = turn_sound.mp3; sourceTree = "<group>"; };
+		DE3140521AB3D7D7009335D1 /* JTSlideShadowAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSlideShadowAnimation.h; sourceTree = "<group>"; };
+		DE3140531AB3D7D7009335D1 /* JTSlideShadowAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSlideShadowAnimation.m; sourceTree = "<group>"; };
+		DE3140561AB72037009335D1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DE3429FF1A814ED000E7630B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK.framework; sourceTree = "<group>"; };
 		DE342A011A815C7000E7630B /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		DE342A021A815C7000E7630B /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
@@ -450,6 +457,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE3140571AB72037009335D1 /* AudioToolbox.framework in Frameworks */,
 				E3DA878B1A9661D3002E9499 /* libz.dylib in Frameworks */,
 				E3DA87891A9661C6002E9499 /* libsqlite3.dylib in Frameworks */,
 				E3DA87781A966050002E9499 /* CoreText.framework in Frameworks */,
@@ -751,6 +759,15 @@
 			name = MainMenu;
 			sourceTree = "<group>";
 		};
+		DE3140551AB3D7DD009335D1 /* JTSlideShadowAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				DE3140521AB3D7D7009335D1 /* JTSlideShadowAnimation.h */,
+				DE3140531AB3D7D7009335D1 /* JTSlideShadowAnimation.m */,
+			);
+			name = JTSlideShadowAnimation;
+			sourceTree = "<group>";
+		};
 		DE3DAC411A9B998E002FE5FE /* PowerUp_horizontal */ = {
 			isa = PBXGroup;
 			children = (
@@ -813,6 +830,7 @@
 		DEA2D2B91A39C83D0038B65A /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				DE3140551AB3D7DD009335D1 /* JTSlideShadowAnimation */,
 				DEA2D2BA1A39C84D0038B65A /* RNCryptor */,
 				DE342A011A815C7000E7630B /* AppUtils.h */,
 				DE342A021A815C7000E7630B /* AppUtils.m */,
@@ -840,6 +858,7 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
+				DE3140561AB72037009335D1 /* AudioToolbox.framework */,
 				E3DA878A1A9661D3002E9499 /* libz.dylib */,
 				E3DA87881A9661C6002E9499 /* libsqlite3.dylib */,
 				DEC905A41A239C6D003DD444 /* Fruit Catch */,
@@ -1049,6 +1068,7 @@
 		E3E3ECAE1A23B2FA00E7E18E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				DE3140501AB3D3E9009335D1 /* turn_sound.mp3 */,
 				0FAF24D71AAA326600682521 /* swap.mp3 */,
 				0FAF24D51AAA239500682521 /* popSound.mp3 */,
 				E3E3ECB01A23B31900E7E18E /* Drip.wav */,
@@ -1126,7 +1146,7 @@
 				TargetAttributes = {
 					DEC905A11A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 4MMC45MQ2J;
+						DevelopmentTeam = BLCXKG795L;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -1135,7 +1155,7 @@
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 4MMC45MQ2J;
+						DevelopmentTeam = BLCXKG795L;
 						TestTargetID = DEC905A11A239C6D003DD444;
 					};
 				};
@@ -1243,6 +1263,7 @@
 				0FAF24D61AAA239500682521 /* popSound.mp3 in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
 				43F7206F1AAE26BA003DD069 /* icon_music.png in Resources */,
+				DE3140511AB3D3E9009335D1 /* turn_sound.mp3 in Resources */,
 				E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */,
 				43F720701AAE26BA003DD069 /* icon_music@2x.png in Resources */,
 				43C998681AAF63DC001C32EA /* no_music@2x.png in Resources */,
@@ -1343,6 +1364,7 @@
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
 				0FF5BF5E1A3A13670090873A /* CustomSegueWorldMap.m in Sources */,
 				0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */,
+				DE3140541AB3D7D7009335D1 /* JTSlideShadowAnimation.m in Sources */,
 				DE3DAC401A97A712002FE5FE /* NextpeerHelper.m in Sources */,
 				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
@@ -1489,7 +1511,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "113fd5b6-6b9d-453d-b5cc-e51f8ae120d8";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1514,7 +1536,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "113fd5b6-6b9d-453d-b5cc-e51f8ae120d8";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

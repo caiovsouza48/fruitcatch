@@ -22,8 +22,11 @@
 @end
 
 @implementation AppDelegate
-//Metodo somente para tirar o warning
--(void)nextpeerDidTournamentEnd{}
+
+- (void)nextpeerDidTournamentEnd{
+
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -136,7 +139,16 @@
 -(void)nextpeerDidReceiveTournamentCustomMessage:(NPTournamentCustomMessageContainer*)message{
     NSLog(@"NextPeer Receive Custom Message");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"nextpeerDidReceiveTournamentCustomMessage" object:nil userInfo:@{@"userMessage" : message}];
-   
+}
+
+-(void)nextpeerDidReceiveTournamentStatus:(NPTournamentStatusInfo*)tournamentStatus {
+    NSArray *playersInfo = [tournamentStatus sortedResults];
+    for (NPTournamentPlayerResults *playerResult in playersInfo) {
+        if ((![playerResult isStillPlaying]) || ([playerResult didForfeit])){
+            NSLog(@"Player Saiu");
+            [Nextpeer reportForfeitForCurrentTournament];
+        }
+    }
 }
 
 @end
