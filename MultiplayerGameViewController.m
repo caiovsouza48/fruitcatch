@@ -945,7 +945,7 @@
         [UIView animateWithDuration:1.25 animations:^{
              _turnLabel.transform = CGAffineTransformMakeScale(1.0,1.0);
             
-            
+            [_shadowAnimation setShadowBackgroundColor:[UIColor blackColor]];
             [_shadowAnimation setAnimatedView:_turnLabel];
             [_shadowAnimation start];
         }];
