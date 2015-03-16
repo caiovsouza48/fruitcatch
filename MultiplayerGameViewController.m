@@ -1082,7 +1082,7 @@
 }
 
 - (void)saveElo{
-    NSDictionary *userDict = @{@"userElo" : [NSNumber numberWithUnsignedInteger:self.player1Elo]
+    NSDictionary *userDict = @{@"elo" : [NSNumber numberWithUnsignedInteger:self.player1Elo]
                                };
     
     NSString *filePath = [AppUtils getAppMultiplayer];
