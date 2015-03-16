@@ -89,7 +89,7 @@
 		437B8E8B1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 437B8E881A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png */; };
 		437B8E8C1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 437B8E891A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png */; };
 		43A643BA1AB0B52E009521DA /* mapa_2.0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A643B91AB0B52E009521DA /* mapa_2.0@2x.png */; };
-		43A643BC1AB0BE42009521DA /* mapa_2.0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A643BB1AB0BE42009521DA /* mapa_2.0@3x.png */; };
+		43A643BC1AB0BE42009521DA /* mapa_2.0Iphone6Plus@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A643BB1AB0BE42009521DA /* mapa_2.0Iphone6Plus@3x.png */; };
 		43C998681AAF63DC001C32EA /* no_music@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C998651AAF63DC001C32EA /* no_music@2x.png */; };
 		43C998691AAF63DC001C32EA /* no_music@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C998661AAF63DC001C32EA /* no_music@3x.png */; };
 		43C9986A1AAF63DC001C32EA /* no_music.png in Resources */ = {isa = PBXBuildFile; fileRef = 43C998671AAF63DC001C32EA /* no_music.png */; };
@@ -185,6 +185,7 @@
 		E3E019C11AB20B8900D06910 /* Camada-2.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019BE1AB20B8900D06910 /* Camada-2.png */; };
 		E3E019C21AB20B8900D06910 /* Camada-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019BF1AB20B8900D06910 /* Camada-2@2x.png */; };
 		E3E019C31AB20B8900D06910 /* Camada-2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019C01AB20B8900D06910 /* Camada-2@3x.png */; };
+		E3E019C51AB35AE200D06910 /* mapa_2.0Iphone6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019C41AB35AE200D06910 /* mapa_2.0Iphone6@2x.png */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
 		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
 		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
@@ -305,7 +306,7 @@
 		437B8E881A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro_feliz_pop_over@2x.png"; sourceTree = "<group>"; };
 		437B8E891A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro_feliz_pop_over@3x.png"; sourceTree = "<group>"; };
 		43A643B91AB0B52E009521DA /* mapa_2.0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa_2.0@2x.png"; sourceTree = "<group>"; };
-		43A643BB1AB0BE42009521DA /* mapa_2.0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa_2.0@3x.png"; sourceTree = "<group>"; };
+		43A643BB1AB0BE42009521DA /* mapa_2.0Iphone6Plus@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa_2.0Iphone6Plus@3x.png"; sourceTree = "<group>"; };
 		43C998651AAF63DC001C32EA /* no_music@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_music@2x.png"; sourceTree = "<group>"; };
 		43C998661AAF63DC001C32EA /* no_music@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_music@3x.png"; sourceTree = "<group>"; };
 		43C998671AAF63DC001C32EA /* no_music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_music.png; sourceTree = "<group>"; };
@@ -433,6 +434,7 @@
 		E3E019BE1AB20B8900D06910 /* Camada-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camada-2.png"; sourceTree = "<group>"; };
 		E3E019BF1AB20B8900D06910 /* Camada-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camada-2@2x.png"; sourceTree = "<group>"; };
 		E3E019C01AB20B8900D06910 /* Camada-2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camada-2@3x.png"; sourceTree = "<group>"; };
+		E3E019C41AB35AE200D06910 /* mapa_2.0Iphone6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa_2.0Iphone6@2x.png"; sourceTree = "<group>"; };
 		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCFruit.h; sourceTree = "<group>"; };
@@ -672,7 +674,8 @@
 		435D17FF1AA8F0D3007704C0 /* Novas imagens */ = {
 			isa = PBXGroup;
 			children = (
-				43A643BB1AB0BE42009521DA /* mapa_2.0@3x.png */,
+				E3E019C41AB35AE200D06910 /* mapa_2.0Iphone6@2x.png */,
+				43A643BB1AB0BE42009521DA /* mapa_2.0Iphone6Plus@3x.png */,
 				43A643B91AB0B52E009521DA /* mapa_2.0@2x.png */,
 				43C9986B1AAF679D001C32EA /* no_sfx.png */,
 				43C9986C1AAF679D001C32EA /* no_sfx@2x.png */,
@@ -1291,7 +1294,7 @@
 				435D18091AA8F604007704C0 /* fundo_main_menu.png in Resources */,
 				432C10161AADD0A10020CB26 /* fechar.png in Resources */,
 				432C10181AADD0A10020CB26 /* fechar@3x.png in Resources */,
-				43A643BC1AB0BE42009521DA /* mapa_2.0@3x.png in Resources */,
+				43A643BC1AB0BE42009521DA /* mapa_2.0Iphone6Plus@3x.png in Resources */,
 				E37BB4E11A40580500F8E679 /* configuracoes@2x.png in Resources */,
 				E37BB4E41A40580500F8E679 /* multiplayer@2x.png in Resources */,
 				0FF2358C1AA7A60500562511 /* Level_5.json in Resources */,
@@ -1299,6 +1302,7 @@
 				E3CFD4B91A8B86B900C6FF64 /* retangulo_generico@3x.png in Resources */,
 				433A0FFF1A8B90360096B0E5 /* botao_fechar@2x.png in Resources */,
 				E37BB4E31A40580500F8E679 /* logo@2x.png in Resources */,
+				E3E019C51AB35AE200D06910 /* mapa_2.0Iphone6@2x.png in Resources */,
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
 				43F720601AAE1EB9003DD069 /* icon_close.png in Resources */,
 				437840211A97B911009BE3FB /* estrela_outline@3x.png in Resources */,
