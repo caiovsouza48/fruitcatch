@@ -17,6 +17,12 @@
 #import <Nextpeer/Nextpeer.h>
 #import <Nextpeer/NPTournamentDelegate.h>
 #import "NextpeerHelper.h"
+#import "RNEncryptor.h"
+#import "RNDecryptor.h"
+#import "AppUtils.h"
+#import "JTSlideShadowAnimation.h"
+#import <AudioToolbox/AudioServices.h>
+#import "EloRating.h"
 
 #define playerIdKey @"PlayerId"
 #define randomNumberKey @"randomNumber"
@@ -33,6 +39,18 @@
 // The scene draws the tiles and fruit sprites, and handles swipes.
 @property (nonatomic) MyScene *scene;
 
+@property(nonatomic) UIView *player1View;
+
+@property(nonatomic) UIView *player2View;
+
+@property(nonatomic) UILabel *player1Score;
+
+@property(nonatomic) UILabel *player2Score;
+
+@property(nonatomic) UILabel *player1EloLabel;
+
+@property(nonatomic) UILabel *player2EloLabel;
+
 
 
 @property (assign, nonatomic) NSUInteger movesLeft;
@@ -43,8 +61,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
 @property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
-@property(nonatomic) BOOL isPlayer1;
-@property (retain) Match *match;
 
 @property (nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
@@ -60,33 +76,44 @@
 
 @property(nonatomic) BOOL isMyMove;
 
-@property(nonatomic) int fruitCounter;
-
 @property(nonatomic) BOOL isFirstRound;
 
-@property(nonatomic) int fruitCounter2;
-
 @property(nonatomic) NSMutableArray *parameter;
+
+@property(nonatomic) NSUInteger player1Elo;
+
+@property(nonatomic) NSUInteger player2Elo;
+
+@property(nonatomic) NSUInteger opponentScore;
+
+@property(nonatomic) SKAction *turnSound;
+
+@property(nonatomic) UILabel *turnLabel;
+
+@property(nonatomic) JTSlideShadowAnimation *shadowAnimation;
+
+@property(nonatomic) BOOL opponentOver;
 
 
 @end
 
 @implementation MultiplayerGameViewController
-//MEtodos somente para tirar o warning
--(void)setNotInMatch{}
--(void)matchStarted:(Match *)match{}
--(void)player:(unsigned char)playerIndex movedToPosX:(int)posX{}
--(void)gameOver:(unsigned char)winnerIndex{}
 
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    _shadowAnimation = [JTSlideShadowAnimation new];
+    _opponentScore = 0;
+    _opponentOver = NO;
+     _turnSound = [SKAction playSoundFileNamed:@"turn_sound.mp3" waitForCompletion:NO];
+    CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
+    _turnLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(mainScreenBounds)-60, CGRectGetMidY(mainScreenBounds)-180, 170, 30)];
     _parameter = [[NSMutableArray alloc]init];
+    _orderOfPlayers = [NSMutableArray array];
     _isMyMove = NO;
     _isFirstRound = YES;
     _arrayOfColumnArray = [NSMutableArray array];
-    _fruitCounter2 = 0;
     [self registerNotifications];
     //[self.networkEngine setDelegate:self];
     // Configure the view.
@@ -104,6 +131,9 @@
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
     [self.scene addTiles];
+    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+    [surrenderButton setTitle:@"Surrender" forState:UIControlStateNormal];
+    [surrenderButton addTarget:self action:@selector(didSurrender:) forControlEvents:UIControlEventTouchUpInside];
     
     // This is the swipe handler. MyScene invokes this block whenever it
     // detects that the player performs a swipe.
@@ -158,25 +188,74 @@
     [skView presentScene:self.scene];
     
     // Load and start background music.
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Mining by Moonlight" withExtension:@"mp3"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"FunnyBounceMusic" withExtension:@"mp3"];
     self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     self.backgroundMusic.numberOfLoops = -1;
     
     if([SettingsSingleton sharedInstance].music == ON){
         [self.backgroundMusic play];
     }
-    // Set ourselves as player 1 and the game to active
-    _isPlayer1 = YES;
+    
     //[self setGameState:kGameStateActive];
     [self.scene setUserInteractionEnabled:NO];
     [Nextpeer registerToSynchronizedEvent:START_GAME_SYNC_EVENT_NAME withTimetout:TIMEOUT];
-//    [NetworkController sharedInstance].delegate = self;
-//    [self stateChanged:[NetworkController sharedInstance].state];
-//    // Let's start the game!
-    //[self beginGame];
-    _fruitCounter = 0;
+    [self.view addSubview:_turnLabel];
     
     
+    
+}
+
+- (void)loadPlayersView{
+    _player1View =[[UIView alloc] initWithFrame:CGRectMake(10, 10, 100, 100)];
+    UILabel *player1Name = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 100)];
+    [player1Name setTextColor:[UIColor blackColor]];
+    [_player1View setBackgroundColor:[UIColor blueColor]];
+    [player1Name setText:_orderOfPlayers[0][playerIdKey]];
+    [_player1View addSubview:player1Name];
+    _player1Score = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 100, 50)];
+    [_player1Score setText:@"0"];
+    [_player1View addSubview:_player1Score];
+    _player1EloLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, 100, 50)];
+    [_player1EloLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)_player1Elo]];
+    [_player1View addSubview:_player1EloLabel];
+    [self.view addSubview:_player1View];
+    [Nextpeer enableRankingDisplay:NO];
+}
+
+- (void)loadPlayer2View{
+    CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
+    _player2View =[[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(mainScreenBounds) - 110, 10, 100, 100)];
+    UILabel *player2Name = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 200, 100)];
+    [player2Name setTextColor:[UIColor blackColor]];
+    [_player2View setBackgroundColor:[UIColor blueColor]];
+    [player2Name setText:_orderOfPlayers[1][playerIdKey]];
+    [_player2View addSubview:player2Name];
+    _player2Score = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 100, 50)];
+    [_player2Score setText:@"0"];
+    [_player2Score setTextColor:[UIColor blackColor]];
+    [_player2View addSubview:_player2Score];
+    _player2EloLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, 100, 50)];
+    
+    [_player2EloLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)_player2Elo]];
+    [_player2EloLabel setTextColor:[UIColor blackColor]];
+    [_player2View addSubview:_player2EloLabel];
+    [self.view addSubview:_player2View];
+    [Nextpeer enableRankingDisplay:NO];
+}
+
+- (NSUInteger) getUserElo{
+    NSString *userEloPath = [AppUtils getAppMultiplayer];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:userEloPath]) {
+        NSData *data = [NSData dataWithContentsOfFile:userEloPath];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:MULTIPLAYER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            _player1Elo = [obj[@"elo"] unsignedIntegerValue];
+        }
+    }
+
+    return 0;
 }
 
 - (NSArray *)fruitObjToFruitStringArray:(NSArray *)fruitObjArray{
@@ -209,6 +288,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveTournamentCustomMessage:) name:@"nextpeerDidReceiveTournamentCustomMessage" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerDidReceiveSynchronizedEvent:) name:@"nextpeerDidReceiveSynchronizedEvent" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(processNextpeerReportForfeitForCurrentTournament:) name:@"nextpeerreportForfeitForCurrentTournament" object:nil];
 }
 
 
@@ -219,7 +300,11 @@
     NSLog(@"Event Firing");
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
-        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInteger:_randomNumber]}];
+        [self getUserElo];
+        ;
+        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageSendRandomNumber DictionaryData:@{@"randomNumber" : [NSNumber numberWithInteger:_randomNumber],
+                             @"userElo" : [NSNumber numberWithUnsignedInteger:_player1Elo],
+                            }];
     }
 }
 
@@ -362,6 +447,7 @@
         [self.scene animateFallingFruits:columns completion:^{
             NSArray *columns;
             if (_isMyMove){
+                [_player1Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 columns = [self.level multiplayerTopUpFruits];
                 [_arrayOfColumnArray addObject:columns];
                 [_parameter addObjectsFromArray:self.level.parameter];
@@ -376,6 +462,7 @@
                 columns = [self.level topUpFruitsFor:_parameter];
                 _parameter = self.level.fruitTypeArray;
                 //columns = [self.level newTopUpFruitsFor:[_arrayOfColumnArray objectAtIndex:_fruitCounter]];
+                [_player2Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 [self.scene animateNewFruits:columns completion:^{
                     
                     // Keep repeating this cycle until there are no more matches.
@@ -398,11 +485,6 @@
     
     if ([chains count] == 0) {
         if ((_isMyMove) && (!_isFirstRound)){
-            NSMutableArray *sendingArray = [NSMutableArray array];
-            for (NSArray *array in _arrayOfColumnArray) {
-                [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
-            }
-            
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : _parameter,
                                                                                        @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
                                                                                        @"swipeRow" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.y]}];
@@ -439,9 +521,9 @@
         [self.scene animateFallingFruits:columns completion:^{
             NSArray *columns;
             if (_isMyMove){
+                [_player1Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 columns = [self.level multiplayerTopUpFruits];
                 [_parameter addObjectsFromArray:self.level.parameter];
-                [_arrayOfColumnArray addObject:columns];
                 [self.scene animateNewFruits:columns completion:^{
                     
                     // Keep repeating this cycle until there are no more matches.
@@ -533,7 +615,14 @@
         
         
         for (JIMCChain *chain in chains) {
-            self.score += chain.score;
+            if (_isMyMove){
+                self.score += chain.score;
+            }
+            else{
+                self.opponentScore += chain.score;
+            }
+            
+            
         }
         [self updateLabels];
         
@@ -542,6 +631,7 @@
         [self.scene animateFallingFruits:columns completion:^{
             NSArray *columns;
             if (_isMyMove){
+                [_player1Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 columns = [self.level multiplayerTopUpFruits];
                 [_parameter addObjectsFromArray:self.level.parameter];
                 [self.scene animateNewFruits:columns completion:^{
@@ -577,7 +667,33 @@
     NSSet *chains = [self.scene.level executePowerUp:powerUp];
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
-        //NSLog(@"Chains count is zero");
+        if ((_isMyMove) && (!_isFirstRound)){
+            //            NSMutableArray *sendingArray = [NSMutableArray array];
+            //            for (NSArray *array in _arrayOfColumnArray) {
+            //                [sendingArray addObject:[self fruitObjToFruitStringArray:array]];
+            //            }
+            
+            [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : _parameter,
+                                                                                       @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
+                                                                                       @"swipeRow" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.y]}];
+            //_isMyMove = NO;
+            _parameter = [NSMutableArray array];
+            self.scene.playerLastTouch = (CGPoint){-1,-1};
+            self.scene.lastTouchAssigned = NO;
+            _isMyMove = NO;
+            [self.view setUserInteractionEnabled:NO];
+            [self showTurnAlert:NO];
+        }
+        else{
+            if (!_isFirstRound){
+                _isMyMove = YES;
+                [self showTurnAlert:_isMyMove];
+                [self.scene setUserInteractionEnabled:_isMyMove];
+                //_arrayOfColumnArray = [NSMutableArray array];
+            }
+        }
+        
+        //_isMyMove = _isExecutingOpponentMove;
         [self beginNextTurn];
         return;
     }
@@ -600,6 +716,7 @@
             
             NSArray *columns;
             if (_isMyMove){
+                [_player1Score setText:[NSString stringWithFormat:@"%lu",(unsigned long)self.score]];
                 columns = [self.level multiplayerTopUpFruits];
                 [_parameter addObjectsFromArray:self.level.parameter];
                 [self.scene animateNewFruits:columns completion:^{
@@ -679,26 +796,25 @@
     self.targetLabel.text = [NSString stringWithFormat:@"%lu", (long)self.level.targetScore];
     self.movesLabel.text = [NSString stringWithFormat:@"%lu", (long)self.movesLeft];
     self.scoreLabel.text = [NSString stringWithFormat:@"%lu", (long)self.score];
+    self.player2Score.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.opponentScore];
     
 }
 
 - (void)decrementMoves{
     self.movesLeft--;
     [self updateLabels];
-    
-//    if (self.score >= self.level.targetScore) {
-//        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
-//        [self showGameOver];
-//    } else if (self.movesLeft == 0) {
-//        
+    if (self.movesLeft <= 0) {
+        [NextpeerHelper sendMessageOfType:NPFruitCatchMessageGameOver];
+         [self tryGameOver];
+        //[Nextpeer reportControlledTournamentOverWithScore:self.score];
 //        [self.scene animateGameOver];
 //        self.movesLeft = self.level.maximumMoves;
 //        self.score = 0;
 //        [self updateLabels];
-//        
-//    }
+        
+    }
     
-    [self.scene removeActionForKey:@"Hint"];
+    //[self.scene removeActionForKey:@"Hint"];
     
 }
 
@@ -812,8 +928,30 @@
 }
 
 - (void)showTurnAlert:(BOOL)isMyTurn{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Turno" message:[NSString stringWithFormat:@"%@",isMyTurn ? @"Agora é a sua Vez!" : @"Turno do Oponente"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alertView show];
+    
+    if (([SettingsSingleton sharedInstance].SFX == ON) && (_isMyMove)){
+        [self.scene runAction:self.turnSound];
+    }
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    
+    [_turnLabel setTextColor:[UIColor whiteColor]];
+    _turnLabel.text = isMyTurn ? @"Now its your turn!" : @"Opponent Turn";
+    [_turnLabel setHidden:NO];
+  
+    [UIView animateWithDuration:1.25 animations:^{
+          _turnLabel.transform = CGAffineTransformMakeScale(1.75,1.75);
+        
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:1.25 animations:^{
+             _turnLabel.transform = CGAffineTransformMakeScale(1.0,1.0);
+            
+            [_shadowAnimation setShadowBackgroundColor:[UIColor blackColor]];
+            [_shadowAnimation setAnimatedView:_turnLabel];
+            [_shadowAnimation start];
+        }];
+       
+    }];
+
 
 
 }
@@ -857,13 +995,21 @@
         {
             NSLog(@"Received Random Number");
             //NSDictionary *dict = [NSDictionary alloc]init
-            NSDictionary *parameterDict = @{playerIdKey : message.playerId,
+            NSDictionary *parameterDict = @{playerIdKey : message.playerName,
                                             randomNumberKey : [gameMessage objectForKey:@"randomNumber"]
                                             };
+            NSDictionary *myInfo = @{playerIdKey : [Nextpeer getCurrentPlayerDetails].playerName,
+                                     randomNumberKey : [NSNumber numberWithInt:self.randomNumber]};
+            [_orderOfPlayers addObject:myInfo];
            if (![_orderOfPlayers containsObject:parameterDict]){
                [_orderOfPlayers addObject:parameterDict];
+               
+               
+               _player2Elo = [[gameMessage objectForKey:@"userElo"] unsignedIntegerValue];
+               [self loadPlayersView];
+               [self loadPlayer2View];
             }
-            
+           
             if ([[gameMessage objectForKey:@"randomNumber"] intValue] == _randomNumber) {
                 //2
                 
@@ -898,23 +1044,76 @@
         {
             NSLog(@"Received Message Move");
             _isMyMove = NO;
+             [_shadowAnimation stop];
             [self.level setIsOpponentMove:YES];
             CGPoint oponentLocation = CGPointMake([[gameMessage objectForKey:@"moveColumn"] intValue], [[gameMessage objectForKey:@"moveRow"] intValue]);
             CGPoint opponentSwipe = CGPointMake([[gameMessage objectForKey:@"swipeColumn"] intValue], [[gameMessage objectForKey:@"swipeRow"] intValue]);
             _parameter = [gameMessage objectForKey:@"topUpFruits"];
-            //_arrayOfColumnArray = [gameMessage objectForKey:@"topUpFruits"];
-            //_arrayOfColumnArray = [self fruitStringRepresentationArrayToObjArray];
             [self.scene touchAtColumRowCGPoint:oponentLocation OpponentSwipe:opponentSwipe];
-            
-            _fruitCounter = 0;
             [self.view setUserInteractionEnabled:YES];
             [self.level setIsOpponentMove:NO];
-            //_parameter = [NSMutableArray array];
-            
             break;
+        }
+        case NPFruitCatchMessageGameOver:
+        {
+            _opponentOver = YES;
+            [self tryGameOver];
+            
+            
         }
         
     }
+}
+
+- (void)processNextpeerReportForfeitForCurrentTournament{
+    [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
+}
+
+- (void)tryGameOver{
+    if ((_opponentOver) && (self.movesLeft == 0)){
+      [Nextpeer reportControlledTournamentOverWithScore:(u_int32_t)self.score];
+        EloRating *eloRatingSystem = [[EloRating alloc] init];
+        JIMCGameResult result;
+        NSInteger score1 = [self.player1Score.text integerValue];
+        NSInteger score2 = [self.player2Score.text integerValue];
+        if (score1 > score2){
+            result = WIN;
+        }
+        else if (score1 < score2){
+            result = LOSS;
+        }
+        else{
+            result = DRAW;
+        }
+        [eloRatingSystem getNewRating:(int)self.player1Elo OpponentRating:(int)[self player2Elo] GameResult:result];
+        
+    }
+}
+
+- (void)saveElo{
+    NSDictionary *userDict = @{@"elo" : [NSNumber numberWithUnsignedInteger:self.player1Elo]
+                               };
+    
+    NSString *filePath = [AppUtils getAppMultiplayer];
+    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
+    NSError *error2;
+    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:MULTIPLAYER_SECRET
+                                               error:&error2];
+    
+    BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
+    if (sucess){
+        NSLog(@"Elo Saved Sucessfuly");
+    }
+    else{
+        NSLog(@"Falha ao Salvar Elo");
+    }
+}
+
+- (void) didSurrender:(id)sender{
+    [Nextpeer reportForfeitForCurrentTournament];
+    [Nextpeer dismissDashboard];
 }
 
 - (NSMutableArray *)fruitStringRepresentationArrayToObjArray{

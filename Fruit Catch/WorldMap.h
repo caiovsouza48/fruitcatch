@@ -34,7 +34,9 @@
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorViewShop;
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorViewFacebook;
 
-- (void)startSpinning;
-- (void)stopSpinning;
+@property (nonatomic) NSString* userId;
+@property (nonatomic) NSString* userName;
+
+@property (nonatomic) BOOL flagFacebook;
 
 @end

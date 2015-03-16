@@ -10,7 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "Nextpeer/Nextpeer.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,NextpeerDelegate,NPTournamentDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NextpeerDelegate,NPTournamentDelegate,NPNotificationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

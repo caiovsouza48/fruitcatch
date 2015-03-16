@@ -63,6 +63,8 @@ static NetworkController *sharedController = nil;
     return sharedController;
 }
 
+- (void)inviteReceived{}
+
 - (BOOL)isFacebookAvailable {
     NSLog(@"Facebook Session is %@", FBSession.activeSession.isOpen ? @"Open" : @"Closed");
     // check for presence of GKLocalPlayer API
@@ -203,7 +205,7 @@ static NetworkController *sharedController = nil;
         Match * match = [[Match alloc] initWithState:matchState players:players];
        [_delegate matchStarted:match];
     } else if (msgType == MessageJogada &&  _state == NetworkStateMatchActive){
-        unsigned char playerIndex = [reader readByte];
+        //unsigned char playerIndex = [reader readByte];
         //JIMCCoord coords = JIMCCoordMake([reader readInt], [reader readInt]);
         
 //    } else if (msgType == MessagePlayerMoved && _state == NetworkStateMatchActive) {

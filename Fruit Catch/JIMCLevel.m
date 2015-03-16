@@ -823,9 +823,9 @@
         return NO;
 }
 - (void)calculateScores:(NSSet *)chains {
-    if (_isOpponentMove){
-        return;
-    }
+//    if (_isOpponentMove){
+//        return;
+//    }
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
         if ([chain.fruits count] == 1) {
@@ -837,9 +837,9 @@
     }
 }
 - (void)calculateScoresAllType:(NSSet *)chains {
-    if (_isOpponentMove){
-        return;
-    }
+//    if (_isOpponentMove){
+//        return;
+//    }
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
         chain.score = 30 ;

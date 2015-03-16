@@ -96,7 +96,9 @@
     [self adicionaInformFase];
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
-    [self addPeopleOnScrollFacebook];
+    [self allocAnimationSpinning];
+    if (self.flagFacebook)
+        [self addPeopleOnScrollFacebook];
     [self adicionaVidas];
     [self adicionaMoedas];
     [self adicionaAjuda];
@@ -200,6 +202,7 @@
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
             NSLog(@"File dict = %@",obj);
+            
             return obj;
         }
     }
@@ -897,6 +900,33 @@
     
     NSArray* tempArrayName;
     
+    self.userId = [[self loadFacebookUserID] objectForKey:@"facebookID"];
+    self.userName = [[self loadFacebookUserID] objectForKey:@"alias"];
+    tempArrayName = [self.userName componentsSeparatedByString:@" "];
+    
+    // Aloca um botão do tamanho da metade da tela em que está
+    imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
+    nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 35, 60, 40)];
+    
+    nome.text = tempArrayName[0];
+    [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
+    nome.textColor = [UIColor whiteColor];
+    
+    NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", self.userId];
+    NSLog(@"user %@", userImageURL);
+    
+    NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
+    imagem.image = [UIImage imageWithData:imageData];
+    imagem.contentMode = UIViewContentModeScaleToFill;
+    [imagem clipsToBounds];
+    
+    // Encerra animação de loading
+    if (imageData!=nil) {
+        [_scroll1 addSubview:nome];
+        [_scroll1 addSubview:imagem];
+    }
+
+    
     for (NSDictionary* friends in [[self loadFacebookFriendsIDs] objectForKey:@"facebookFriends"]) {
         
         [arrayIds addObject:[friends objectForKey:@"id"]];
@@ -907,51 +937,6 @@
         // Adiciona o botão no Scroll
         [_scroll1 addSubview:imagem];
         [_scroll1 addSubview:nome];
-        
-        // Adiciona o usuário do facebook
-        if (i == 0) {
-            
-            // Inicia animação de loading
-            self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
-            [_scroll1 addSubview:self.activityIndicatorViewFacebook];
-            [self.activityIndicatorViewFacebook startAnimating];
-
-            NSString* userId;
-            NSString* userName;
-            
-            userId = [[self loadFacebookUserID] objectForKey:@"facebookID"];
-            userName = [[self loadFacebookUserID] objectForKey:@"alias"];
-            tempArrayName = [userName componentsSeparatedByString:@" "];
-            
-            // Aloca um botão do tamanho da metade da tela em que está
-            imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 5, 40, 40)];
-            nome = [[UILabel alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*i)+120)/3, 35, 60, 40)];
-            
-            nome.text = tempArrayName[0];
-            [nome setFont:[UIFont fontWithName:@"Chewy" size:14.0]];
-            nome.textColor = [UIColor whiteColor];
-            
-            NSString* userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", userId];
-            
-            NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:userImageURL]];
-            imagem.image = [UIImage imageWithData:imageData];
-            imagem.contentMode = UIViewContentModeScaleToFill;
-            [imagem clipsToBounds];
-            
-            // Adiciona a imagem no Scroll
-            [_scroll1 addSubview:imagem];
-            [_scroll1 addSubview:nome];
-            
-            // Encerra animação de loading
-            if (imageData!=nil) {
-                [self stopSpinningFacebook];
-            }
-        }
-        
-        // Inicia animação de loading
-        self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
-        [_scroll1 addSubview:self.activityIndicatorViewFacebook];
-        [self.activityIndicatorViewFacebook startAnimating];
         
         // Aloca uma imagem do tamanho da metade da tela em que está
         imagem = [[UIImageView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*(i+1))+120)/3, 5, 40, 40)];
@@ -972,9 +957,6 @@
         // Define a cor do botão
         [imagem setBackgroundColor:[UIColor clearColor]];
         // Adiciona a imagem no Scroll
-        [_scroll1 addSubview:imagem];
-        
-        [_scroll1 addSubview:nome];
         
         // Daqui em diante, adiciona os amigos do facebook
         i++;
@@ -982,8 +964,18 @@
         // Encerra animação de loading
         if (imageData!=nil) {
             [self stopSpinningFacebook];
+            
+            [_scroll1 addSubview:imagem];
+            [_scroll1 addSubview:nome];
         }
     }
+}
+
+- (void)allocAnimationSpinning{
+    // Inicia animação de loading
+    self.activityIndicatorViewFacebook = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(((self.view.frame.size.width*1)+120)/3, 5, 40, 40)];
+    [_scroll1 addSubview:self.activityIndicatorViewFacebook];
+    [self.activityIndicatorViewFacebook startAnimating];
 }
 
 - (void)startSpinningShop {

@@ -58,7 +58,6 @@
     _flag = false;
     
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
-    _loginView.delegate = self;
     
 //    [self addEngineLeft];
     
@@ -232,6 +231,7 @@
     //Botao facebook
     CGFloat buttonSize = 0.45 * self.view.frame.size.width;
     _loginView = [[FBLoginView alloc]initWithFrame:CGRectMake(30, creditos.frame.origin.y + 80, 250, buttonSize/4)];
+    _loginView.delegate = self;
     _loginView.layer.borderColor = [UIColor whiteColor].CGColor;
     _loginView.layer.borderWidth = 2.0;
     _loginView.layer.cornerRadius = 12.0;
@@ -405,7 +405,6 @@
             NSLog(@"IMAGEM = %@", self.userImageURL);
             NSLog(@"USERNAME = %@", self.userName);
         }
-      
     }];
     //__block NSArray *friends;
     [FBRequestConnection startWithGraphPath:@"me/friends" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -423,7 +422,6 @@
                                    @"facebookFriends" : [result objectForKey:@"data"]
                                    };
         
-        
         NSString *filePath = [AppUtils getAppDataDir];
         //NSLog(@"%@",self.lives);
         NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
@@ -434,18 +432,79 @@
                                                    error:&error2];
         
         BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
-        if (!sucess){
-            NSLog(@"Erro ao Salvar arquivo de Usuário");
+        if (sucess){
+            // Enviar para o servidor
+            if ([self sendDataToWebService:userDict]) {
+                NSLog(@"Envio Data com sucesso !");
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"flagFacebook"];
+            }
+            if ([self sendPerformanceToWebService:userDict]) {
+                NSLog(@"Envio Performance com sucesso !");
+            }
         }
         else{
-            
-            
+            NSLog(@"Erro ao Salvar arquivo de Usuário");
         }
+
         [self loadFromFile];
         
     }];
 }
 
+- (BOOL)sendDataToWebService:(NSDictionary*)object {
+    
+    NSError * erro = nil;
+    
+    NSString* name = [object[@"alias"] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
+    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", object[@"facebookID"], name, object[@"facebookID"]];
+    NSLog(@"%@", strUrl);
+    
+    NSURL *url = [NSURL URLWithString:strUrl];
+    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+    if (erro == nil && dados != nil) {
+        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+        if (erro) {
+            NSLog(@"%@", erro.localizedDescription);
+            return NO;
+        }
+        NSLog(@"%@", dadosWebService);
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
+    NSError * erro = nil;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+    int i = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCleared"];;
+    
+    NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
+    NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:i]];
+    
+    NSInteger score = [dic[@"HighScore"] integerValue];
+    NSInteger time = [dic[@"Time"] integerValue];
+    
+    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%d/0/%d",object[@"facebookID"], i, time, score];
+    NSLog(@"%@", strUrl);
+    
+    NSURL *url = [NSURL URLWithString:strUrl];
+    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+    if (erro == nil && dados != nil) {
+        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+        if (erro) {
+            NSLog(@"%@", erro.localizedDescription);
+            return NO;
+        }
+        NSLog(@"%@", dadosWebService);
+        return YES;
+    }
+    return  NO;
+}
 
 - (void)loadFromFile{
     NSString *appDataDir = [AppUtils getAppDataDir];
@@ -522,6 +581,7 @@
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      if([segue.identifier isEqualToString:@"Single"]){
          WorldMap *view = [segue destinationViewController];
+         view.flagFacebook = [[NSUserDefaults standardUserDefaults] boolForKey:@"flagFacebook"];
          view.nextStage = -1;
      }
  }
