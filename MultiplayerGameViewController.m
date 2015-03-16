@@ -129,7 +129,7 @@
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
     [self.scene addTiles];
-    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame), 0, 100, 50)];
     [surrenderButton setTitle:@"Surrender" forState:UIControlStateNormal];
     [surrenderButton addTarget:self action:@selector(didSurrender:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:surrenderButton];
@@ -1065,6 +1065,7 @@
 }
 
 - (void)processNextpeerReportForfeitForCurrentTournament:(NSNotification *)notification{
+    NSLog(@"Player Saiu, reportando score");
     [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
 }
 
@@ -1085,6 +1086,7 @@
             result = DRAW;
         }
         [eloRatingSystem getNewRating:(int)self.player1Elo OpponentRating:(int)[self player2Elo] GameResult:result];
+        [self saveElo];
         
     }
 }
