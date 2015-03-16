@@ -91,7 +91,6 @@
 
 @property(nonatomic) JTSlideShadowAnimation *shadowAnimation;
 
-
 @end
 
 @implementation MultiplayerGameViewController
