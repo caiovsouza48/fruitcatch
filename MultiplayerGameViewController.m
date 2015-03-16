@@ -1109,7 +1109,7 @@
     }
 }
 
-- (void) didSurrender{
+- (void) didSurrender:(id)sender{
     [Nextpeer reportForfeitForCurrentTournament];
     [Nextpeer dismissDashboard];
 }
