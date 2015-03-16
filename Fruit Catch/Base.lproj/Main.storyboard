@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -342,12 +342,12 @@
                                 <exclude reference="bT3-vk-fDx"/>
                                 <exclude reference="32r-Lj-KTT"/>
                                 <exclude reference="wwC-z3-Gnw"/>
+                                <exclude reference="ANI-X6-NbJ"/>
                                 <exclude reference="YqY-Px-A6W"/>
                                 <exclude reference="h4J-ch-nhV"/>
                                 <exclude reference="FE7-eu-cHl"/>
                                 <exclude reference="sqS-tg-duj"/>
                                 <exclude reference="y3x-zO-EtY"/>
-                                <exclude reference="ANI-X6-NbJ"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -376,12 +376,12 @@
                                 <include reference="bT3-vk-fDx"/>
                                 <include reference="32r-Lj-KTT"/>
                                 <include reference="wwC-z3-Gnw"/>
+                                <include reference="ANI-X6-NbJ"/>
                                 <include reference="YqY-Px-A6W"/>
                                 <include reference="h4J-ch-nhV"/>
                                 <include reference="FE7-eu-cHl"/>
                                 <include reference="sqS-tg-duj"/>
                                 <include reference="y3x-zO-EtY"/>
-                                <include reference="ANI-X6-NbJ"/>
                             </mask>
                         </variation>
                     </view>

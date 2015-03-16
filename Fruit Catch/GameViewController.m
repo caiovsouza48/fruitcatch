@@ -18,6 +18,14 @@
 #import "GameOverScene.h"
 #import "WorldMap.h"
 
+#define IPHONE6 ([[UIScreen mainScreen] bounds].size.width == 375)
+#define IPHONE6PLUS ([[UIScreen mainScreen] bounds].size.width == 414)
+
+#define IPHONE6_XSCALE 1.171875*0.93
+#define IPHONE6_YSCALE 1.174285774647887*0.93
+#define IPHONE6PLUS_XSCALE 1.171875
+#define IPHONE6PLUS_YSCALE 1.174285774647887
+
 @interface GameViewController (){
     NSNumberFormatter * _priceFormatter;
 }
@@ -675,9 +683,9 @@
         y = 36 * (swap.fruitA.row - 4);
     }
     
-    self.hintNode = [[SKSpriteNode alloc]initWithImageNamed:[swap.fruitA highlightedSpriteName]];
-    self.hintNode.position = CGPointMake(x, y);
-    [self.scene addChild:self.hintNode];
+//    self.hintNode = [[SKSpriteNode alloc]initWithImageNamed:[swap.fruitA highlightedSpriteName]];
+//    self.hintNode.position = CGPointMake(x, y);
+//    [self.scene addChild:self.hintNode];
 }
 
 - (void)updateLabels {

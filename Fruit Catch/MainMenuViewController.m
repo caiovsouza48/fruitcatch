@@ -61,9 +61,6 @@
     
 //    [self addEngineLeft];
     
-    [SettingsSingleton sharedInstance].music = 1;
-    [SettingsSingleton sharedInstance].SFX = 1;
-    
     [self adicionaMenuRapido];
     [self adicionaElementos];
     [self loadFromFile];
@@ -189,7 +186,9 @@
     
     //Botao restore purchase
     UIButton *restore = [[UIButton alloc] initWithFrame:CGRectMake(30, 80, 250, 50)];
-    restore.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+//    restore.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+    restore.backgroundColor = [UIColor grayColor]; // REMOVER
+    restore.enabled = NO; //REMOVER
     restore.layer.borderColor = [UIColor whiteColor].CGColor;
     restore.layer.borderWidth = 2.0;
     restore.layer.cornerRadius = 12.0;
@@ -202,7 +201,9 @@
     
     //Botao termos
     UIButton *termos = [[UIButton alloc]initWithFrame:CGRectMake(30, restore.frame.origin.y + 80, 250, 50)];
-    termos.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+//    termos.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+    termos.backgroundColor = [UIColor grayColor]; // REMOVER
+    termos.enabled = NO; //REMOVER
     termos.layer.borderColor = [UIColor whiteColor].CGColor;
     termos.layer.borderWidth = 2.0;
     termos.layer.cornerRadius = 12.0;
