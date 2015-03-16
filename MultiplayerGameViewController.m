@@ -131,7 +131,7 @@
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
     [self.scene addTiles];
-    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame), 0, 100, 50)];
+    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame)-40, 0, 100, 50)];
     [surrenderButton setTitle:@"Surrender" forState:UIControlStateNormal];
     [surrenderButton addTarget:self action:@selector(didSurrender:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:surrenderButton];
@@ -935,7 +935,7 @@
     }
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
-    [_turnLabel setTextColor:[UIColor whiteColor]];
+    [_turnLabel setTextColor:[UIColor grayColor]];
     _turnLabel.text = isMyTurn ? @"Now its your turn!" : @"Opponent Turn";
     [_turnLabel setHidden:NO];
   
@@ -946,7 +946,6 @@
         [UIView animateWithDuration:1.25 animations:^{
              _turnLabel.transform = CGAffineTransformMakeScale(1.0,1.0);
             
-            [_shadowAnimation setShadowBackgroundColor:[UIColor blackColor]];
             [_shadowAnimation setAnimatedView:_turnLabel];
             [_shadowAnimation start];
         }];
@@ -1068,6 +1067,12 @@
 
 - (void)processNextpeerReportForfeitForCurrentTournament:(NSNotification *)notification{
     NSLog(@"Player Saiu, reportando score");
+     [_turnLabel setText:@"The opponent surrendered"];
+    [UIView animateWithDuration:1.25 animations:^{
+        _turnLabel.transform = CGAffineTransformMakeScale(1.75,1.75);
+    }];
+    
+    
     [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
 }
 
@@ -1114,9 +1119,11 @@
     }
 }
 
+
 - (void) didSurrender:(id)sender{
+    
     [Nextpeer reportForfeitForCurrentTournament];
-    [Nextpeer dismissDashboard];
+    [Nextpeer reportControlledTournamentOverWithScore:0];
 }
 
 - (NSMutableArray *)fruitStringRepresentationArrayToObjArray{
