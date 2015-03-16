@@ -134,6 +134,7 @@
     UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
     [surrenderButton setTitle:@"Surrender" forState:UIControlStateNormal];
     [surrenderButton addTarget:self action:@selector(didSurrender:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:surrenderButton];
     
     // This is the swipe handler. MyScene invokes this block whenever it
     // detects that the player performs a swipe.
@@ -1065,7 +1066,7 @@
     }
 }
 
-- (void)processNextpeerReportForfeitForCurrentTournament{
+- (void)processNextpeerReportForfeitForCurrentTournament:(NSNotification *)notification{
     [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
 }
 
