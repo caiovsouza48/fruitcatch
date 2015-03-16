@@ -22,6 +22,7 @@
 #import "AppUtils.h"
 #import "JTSlideShadowAnimation.h"
 #import <AudioToolbox/AudioServices.h>
+#import "EloRating.h"
 
 #define playerIdKey @"PlayerId"
 #define randomNumberKey @"randomNumber"
@@ -928,8 +929,8 @@
     }
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
-    [_turnLabel setTextColor:[UIColor grayColor]];
-    _turnLabel.text = isMyTurn ? @"Agora é a sua Vez!" : @"Turno do Oponente";
+    [_turnLabel setTextColor:[UIColor whiteColor]];
+    _turnLabel.text = isMyTurn ? @"Now its your turn!" : @"Opponent Turn";
     [_turnLabel setHidden:NO];
   
     [UIView animateWithDuration:1.25 animations:^{
@@ -1062,6 +1063,42 @@
 - (void)tryGameOver{
     if ((_opponentOver) && (self.movesLeft == 0)){
       [Nextpeer reportControlledTournamentOverWithScore:(u_int32_t)self.score];
+        EloRating *eloRatingSystem = [[EloRating alloc] init];
+        JIMCGameResult result;
+        NSInteger score1 = [self.player1Score.text integerValue];
+        NSInteger score2 = [self.player2Score.text integerValue];
+        if (score1 > score2){
+            result = WIN;
+        }
+        else if (score1 < score2){
+            result = LOSS;
+        }
+        else{
+            result = DRAW;
+        }
+        [eloRatingSystem getNewRating:(int)self.player1Elo OpponentRating:(int)[self player2Elo] GameResult:result];
+        
+    }
+}
+
+- (void)saveElo{
+    NSDictionary *userDict = @{@"userElo" : [NSNumber numberWithUnsignedInteger:self.player1Elo]
+                               };
+    
+    NSString *filePath = [AppUtils getAppMultiplayer];
+    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:userDict];
+    NSError *error2;
+    NSData *encryptedData = [RNEncryptor encryptData:dataToSave
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:USER_SECRET
+                                               error:&error2];
+    
+    BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
+    if (sucess){
+        NSLog(@"Elo Saved Sucessfuly");
+    }
+    else{
+        NSLog(@"Falha ao Salvar Elo");
     }
 }
 
