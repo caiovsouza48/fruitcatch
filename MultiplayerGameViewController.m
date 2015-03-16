@@ -1121,9 +1121,10 @@
 
 
 - (void) didSurrender:(id)sender{
-    
-    [Nextpeer reportForfeitForCurrentTournament];
+    NSLog(@"Did surrender");
+   
     [Nextpeer reportControlledTournamentOverWithScore:0];
+     [Nextpeer reportForfeitForCurrentTournament];
 }
 
 - (NSMutableArray *)fruitStringRepresentationArrayToObjArray{
