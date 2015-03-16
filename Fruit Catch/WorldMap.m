@@ -17,6 +17,7 @@
 #import "AppUtils.h"
 #import "ClearedLevelsSingleton.h"
 #import "JIMCAPHelper.h"
+#import "SettingsSingleton.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define IPHONE6 (self.view.frame.size.width == 375)
@@ -53,6 +54,17 @@
 
 @property (nonatomic) UIView *blurView;
 
+//Menu rápido
+@property (nonatomic) IBOutlet UIImageView *fundoMenuRapido;
+@property (nonatomic) IBOutlet UIImageView *blockMusic;
+@property (nonatomic) IBOutlet UIImageView *blockSFX;
+@property (nonatomic) IBOutlet UIButton *menuRapido;
+@property (nonatomic) IBOutlet UIButton *ligaMusica;
+@property (nonatomic) IBOutlet UIButton *btnSair;
+@property (nonatomic) IBOutlet UIButton *ligaSFX;
+@property (nonatomic) IBOutlet UIButton *ajuda;
+@property (nonatomic) BOOL quickMenuOpen;
+
 @end
 
 @implementation WorldMap
@@ -64,6 +76,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
     _shopOpen = NO;
+    _quickMenuOpen = NO;
     
     if(IPHONE6){
         _offset = 80 * IPHONE6_YSCALE;
@@ -87,13 +100,14 @@
     [self adicionaVidas];
     [self adicionaMoedas];
     [self adicionaAjuda];
-    [self adicionaBotaoBack];
+//    [self adicionaBotaoBack];
     [self adicionaBotoesFases];
     [self adicionaBotaoSair];
     [self adicionaBotaoJogar];
     [self adicionaDetalhesDaFase];
-    //[self adicionaShop];
+//    [self adicionaShop];
     [self allocScrollViewFacebook];
+    [self adicionaMenuRapido];
 }
 //Metodos add apenas para tirar o warning
 -(void)stopSpinning{};
@@ -554,6 +568,9 @@
     _scrollView.showsVerticalScrollIndicator   = NO;
     _scrollView.delegate = self;
     
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
+    [_scrollView addGestureRecognizer:singleTap];
+    
     [self.view addSubview:_scrollView];
     
     [_scrollView addSubview:fundo];
@@ -983,6 +1000,141 @@
 
 - (void)stopSpinningFacebook {
     [self.activityIndicatorViewFacebook stopAnimating];
+}
+
+-(void)adicionaMenuRapido
+{
+    CGFloat buttonSize = 28.0;
+    _menuRapido = [[UIButton alloc] initWithFrame:CGRectMake(3, CGRectGetMaxY(self.view.frame) - buttonSize -3, buttonSize, buttonSize)];
+    _menuRapido.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_open"]];
+    [_menuRapido addTarget:self action:@selector(menuRapido:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view insertSubview:_menuRapido aboveSubview:_scrollView];
+    
+    CGFloat imageSize = 62.0;
+    _fundoMenuRapido = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Menu_Rapido_Pequeno"]];
+    _fundoMenuRapido.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - imageSize, imageSize, imageSize);
+    [self.view insertSubview:_fundoMenuRapido belowSubview:_menuRapido];
+    
+    _ligaSFX = [[UIButton alloc]initWithFrame:CGRectMake(15, 40, 20, 32)];
+    [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"icon_som"] forState:UIControlStateNormal];
+    [_ligaSFX addTarget:self action:@selector(soundON_OFF:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _ligaMusica = [[UIButton alloc] initWithFrame:CGRectMake(65, 65, 24, 36)];
+    [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"icon_music"] forState:UIControlStateNormal];
+    [_ligaMusica addTarget:self action:@selector(musicON_OFF:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _ajuda = [[UIButton alloc]initWithFrame:CGRectMake(110, 105, 25, 40)];
+    [_ajuda setBackgroundImage:[UIImage imageNamed:@"icon_help"] forState:UIControlStateNormal];
+    [_ajuda addTarget:self action:@selector(ajuda:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _btnSair = [[UIButton alloc]initWithFrame:CGRectMake(130, 155, 30, 33)];
+    [_btnSair setBackgroundImage:[UIImage imageNamed:@"icon_sair"] forState:UIControlStateNormal];
+    [_btnSair addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];    
+    _ligaMusica.alpha = 0;
+    _ligaSFX.alpha = 0;
+    _ajuda.alpha = 0;
+    _btnSair.alpha = 0;
+    
+    [self.fundoMenuRapido addSubview:_ligaMusica];
+    [self.fundoMenuRapido addSubview:_ligaSFX];
+    [self.fundoMenuRapido addSubview:_ajuda];
+    [self.fundoMenuRapido addSubview:_btnSair];
+    
+    self.fundoMenuRapido.userInteractionEnabled = YES;
+}
+
+-(IBAction)menuRapido:(id)sender
+{
+    if(!_quickMenuOpen){
+        //Abrindo o menu
+        _quickMenuOpen = YES;
+        //Altera o fundo da cesta
+        _fundoMenuRapido.image = [UIImage imageNamed:@"Menu_Rapido_Cesta"];
+        //Altera o botão
+        _menuRapido.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_close"]];
+        
+        //Anima a porra toda
+        [UIView animateWithDuration:0.5
+                              delay:0
+             usingSpringWithDamping:0.35
+              initialSpringVelocity:0
+                            options:0
+                         animations:^{
+                             CGFloat imageSize = 203.0;
+                             CGFloat buttonSize = 27.0;
+                             
+                             _menuRapido.frame = CGRectMake(3, CGRectGetMaxY(self.view.frame) - buttonSize - 3, buttonSize, buttonSize);
+                             _fundoMenuRapido.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - imageSize, imageSize, imageSize);
+                             _ligaMusica.alpha = 1;
+                             _ligaSFX.alpha = 1;
+                             _ajuda.alpha = 1;
+                             _btnSair.alpha = 1;
+                         }
+                         completion:nil];
+    }else{
+        //Fechando o menu
+        _quickMenuOpen = NO;
+        //Altera o fundo da cesta
+        _fundoMenuRapido.image = [UIImage imageNamed:@"Menu_Rapido_Pequeno"];
+        //Altera o botão
+        _menuRapido.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"icon_open"]];
+        //Anima a porra toda
+        [UIView animateWithDuration:0.5
+                              delay:0
+             usingSpringWithDamping:0.35
+              initialSpringVelocity:0
+                            options:0
+                         animations:^{
+                             CGFloat imageSize = 62.0;
+                             CGFloat buttonSize = 28.0;
+                             
+                             _menuRapido.frame = CGRectMake(3, CGRectGetMaxY(self.view.frame) - buttonSize - 3, buttonSize, buttonSize);
+                             _fundoMenuRapido.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - imageSize, imageSize, imageSize);
+                             _ligaMusica.alpha = 0;
+                             _ligaSFX.alpha = 0;
+                             _ajuda.alpha = 0;
+                             _btnSair.alpha = 0;
+                         }
+                         completion:nil];
+    }
+}
+
+-(IBAction)musicON_OFF:(id)sender
+{
+    [[SettingsSingleton sharedInstance] musicON_OFF];
+    if (![SettingsSingleton sharedInstance].music) {
+        //adicionar ícone de proibido
+        [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"no_music"] forState:UIControlStateNormal];
+        _ligaMusica.frame = CGRectMake(_ligaMusica.center.x - 19.5, _ligaMusica.center.y - 21.5, 39, 43);
+    }else{
+        //remove ícone de proibido
+        [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"icon_music"] forState:UIControlStateNormal];
+        _ligaMusica.frame = CGRectMake(65, 65, 24, 36);
+    }
+}
+
+-(IBAction)soundON_OFF:(id)sender
+{
+    [[SettingsSingleton sharedInstance] soundON_OFF];
+    if (![SettingsSingleton sharedInstance].SFX) {
+        //adicionar ícone de proibido
+        [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"no_sfx"] forState:UIControlStateNormal];
+        _ligaSFX.frame = CGRectMake(_ligaSFX.center.x - 19.5, _ligaSFX.center.y - 21.5, 39, 43);
+    }else{
+        //remove ícone de proibido
+        [_ligaSFX setBackgroundImage:[UIImage imageNamed:@"icon_som"] forState:UIControlStateNormal];
+        _ligaSFX.frame = CGRectMake(15, 40, 20, 32);
+    }
+}
+
+- (void)singleTapGestureCaptured:(UITapGestureRecognizer *)gesture
+{
+    CGPoint location = [gesture locationInView:_scrollView];
+    if(_quickMenuOpen){
+        if(!CGRectContainsPoint(_fundoMenuRapido.frame, location)){
+            [self menuRapido:self];
+        }
+    }
 }
 
 @end

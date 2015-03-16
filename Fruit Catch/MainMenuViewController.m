@@ -62,9 +62,6 @@
     
 //    [self addEngineLeft];
     
-    [SettingsSingleton sharedInstance].music = 1;
-    [SettingsSingleton sharedInstance].SFX = 1;
-    
     [self adicionaMenuRapido];
     [self adicionaElementos];
     [self loadFromFile];
