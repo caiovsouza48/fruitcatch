@@ -42,6 +42,7 @@ static const CGFloat TileHeight = 36.0;
 @property(nonatomic) CGPoint swipeFromLastPoint;
 @property(nonatomic) BOOL playerLastSwipeFromAssigned;
 @property (nonatomic) BOOL shouldPlay;
+@property(nonatomic) BOOL isMyMove;
 
 // The scene handles touches. If it recognizes that the user makes a swipe,
 // it will call this swipe handler. This is how it communicates back to the
