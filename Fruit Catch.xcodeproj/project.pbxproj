@@ -149,6 +149,7 @@
 		DE8092D51A7FDDE3008E2B37 /* MultiplayerGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092CD1A7FDDE3008E2B37 /* MultiplayerGameViewController.m */; };
 		DE8092D61A7FDDE3008E2B37 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092CF1A7FDDE3008E2B37 /* NetworkController.m */; };
 		DE8092D71A7FDDE3008E2B37 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = DE8092D11A7FDDE3008E2B37 /* Player.m */; };
+		DE9DA6F61AB8AAE2009E8185 /* small_decorative_bell_ring_version_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DE9DA6F51AB8AAE2009E8185 /* small_decorative_bell_ring_version_3.mp3 */; };
 		DEA2D2B31A39BBEE0038B65A /* Life.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2A91A39BBEE0038B65A /* Life.m */; };
 		DEA2D2B41A39BBEE0038B65A /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2AB1A39BBEE0038B65A /* RNCryptor.m */; };
 		DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2AE1A39BBEE0038B65A /* RNCryptorEngine.m */; };
@@ -392,6 +393,7 @@
 		DE8092CF1A7FDDE3008E2B37 /* NetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkController.m; sourceTree = "<group>"; };
 		DE8092D01A7FDDE3008E2B37 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		DE8092D11A7FDDE3008E2B37 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		DE9DA6F51AB8AAE2009E8185 /* small_decorative_bell_ring_version_3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = small_decorative_bell_ring_version_3.mp3; sourceTree = "<group>"; };
 		DEA2D2A81A39BBEE0038B65A /* Life.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Life.h; sourceTree = "<group>"; };
 		DEA2D2A91A39BBEE0038B65A /* Life.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Life.m; sourceTree = "<group>"; };
 		DEA2D2AA1A39BBEE0038B65A /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCryptor.h; path = "Fruit Catch/RNCryptor.h"; sourceTree = "<group>"; };
@@ -1109,6 +1111,7 @@
 		E3E3ECAE1A23B2FA00E7E18E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				DE9DA6F51AB8AAE2009E8185 /* small_decorative_bell_ring_version_3.mp3 */,
 				DE3140501AB3D3E9009335D1 /* turn_sound.mp3 */,
 				0FAF24D71AAA326600682521 /* swap.mp3 */,
 				0FAF24D51AAA239500682521 /* popSound.mp3 */,
@@ -1343,6 +1346,7 @@
 				430A31141AB75DCA003D840F /* icon_sair@3x.png in Resources */,
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
 				43F720601AAE1EB9003DD069 /* icon_close.png in Resources */,
+				DE9DA6F61AB8AAE2009E8185 /* small_decorative_bell_ring_version_3.mp3 in Resources */,
 				437840211A97B911009BE3FB /* estrela_outline@3x.png in Resources */,
 				436BAB261AAA1677003A3955 /* icon_config@2x.png in Resources */,
 				437B8E841A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia.png in Resources */,
