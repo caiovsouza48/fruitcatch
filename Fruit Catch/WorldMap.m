@@ -18,6 +18,7 @@
 #import "ClearedLevelsSingleton.h"
 #import "JIMCAPHelper.h"
 #import "SettingsSingleton.h"
+#import <AdColony/AdColony.h>
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define IPHONE6 (self.view.frame.size.width == 375)
@@ -90,6 +91,7 @@
     //[self getUserLives];
     [self registerLivesBackgroundNotification];
     [self registerAppEnterForegroundNotification];
+    [self registerAdNotification];
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
 
     [self adicionaFundo];
@@ -110,7 +112,53 @@
 //    [self adicionaShop];
     [self allocScrollViewFacebook];
     [self adicionaMenuRapido];
+    
 }
+
+- (void)registerAdNotification{
+    
+    [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(updateTimeByAd:) name:@"updateLiveByAd" object:nil];
+}
+
+- (void)updateTimeByAd:(NSNotification *)notification{
+    NSDictionary *userInfo = notification.userInfo;
+    int amount = [userInfo[@"amount"] intValue];
+    NSTimeInterval currentInterval = [self.lifeTimer timeInterval];
+    NSTimeInterval newTimeInterval = currentInterval - amount;
+    NSLog(@"New time Interval = %f",newTimeInterval);
+    int intervalInMinutes=0;
+    if (newTimeInterval < 0){
+        
+        switch ([Life sharedInstance].lifeCount) {
+            case 0:
+                intervalInMinutes = 10;
+                break;
+            case 1:
+                intervalInMinutes = 20;
+                break;
+            case 2:
+                intervalInMinutes = 25;
+                break;
+            case 3:
+                intervalInMinutes = 30;
+                break;
+            case 4:
+                intervalInMinutes = 35;
+                break;
+            case 5:
+            default:
+                return;
+        }
+
+        newTimeInterval = intervalInMinutes - abs(newTimeInterval);
+    }
+    [self.lifeTimer invalidate];
+    self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:newTimeInterval * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    
+    
+    
+}
+
 //Metodos add apenas para tirar o warning
 -(void)stopSpinning{};
 -(void)startSpinning{};
@@ -155,6 +203,7 @@
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+     [[NSNotificationCenter defaultCenter ] removeObserver:self name:@"updateLiveByAd" object:nil];
     [self.lifeTimer invalidate];
 }
 
@@ -348,7 +397,9 @@
 
 - (void) uploadLivesByTimer:(NSTimer *)timer{
     /* O Timer disparou este método após o tempo calculado, salva as vidas e recupera novamente */
+    NSLog(@"Life obj = %@",[Life sharedInstance]);
     [Life sharedInstance].lifeCount++;
+   
     [Life sharedInstance].lifeTime = [NSDate date];
     [self updateLivesView];
     [self saveLives];
@@ -364,7 +415,7 @@
     int intervalInMinutes;
     switch ([Life sharedInstance].lifeCount) {
         case 0:
-            intervalInMinutes = 1;
+            intervalInMinutes = 10;
             break;
         case 1:
             intervalInMinutes = 20;
@@ -382,6 +433,20 @@
         default:
             return;
     }
+    
+    
+    if ([Life sharedInstance].lifeCount == 0){
+        UILocalNotification *localLifeNotification = [[UILocalNotification alloc] init];
+        NSDate *now = [NSDate date];
+        [localLifeNotification setFireDate:[now dateByAddingTimeInterval:intervalInMinutes * 60]];
+        localLifeNotification.alertBody = @"You can play more levels now!";
+        // Set the action button
+        localLifeNotification.alertAction = @"Play";
+        localLifeNotification.alertTitle = @"Life Recharged";
+        localLifeNotification.soundName = UILocalNotificationDefaultSoundName;
+        [[UIApplication sharedApplication] scheduleLocalNotification:localLifeNotification];
+    }
+    
     self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
     NSLog(@"Timer Fired");
 }
@@ -470,6 +535,7 @@
 -(IBAction)shop:(id)sender
 {
     
+    
     //Tira as infos da fase
     self.scroll1.center      = CGPointMake(500, CGRectGetMaxY(self.view.frame)-35);
     _btnJogar.center         = CGPointMake(-400, _btnJogar.center.y);
@@ -499,12 +565,15 @@
                          }completion:nil];
         _shopOpen = YES;
     }
+    
 
 }
 
 -(IBAction)jogar:(id)sender
 {
-    [self performSegueWithIdentifier:@"Level" sender:self];
+    if ([self shouldPerformSegueWithIdentifier:@"Level" sender:sender]){
+        [self performSegueWithIdentifier:@"Level" sender:self];
+    }
 }
 -(IBAction)fexarTela:(id)sender
 {
@@ -529,7 +598,7 @@
 
 -(IBAction)ajuda:(id)sender
 {
-   
+   [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:nil withV4VCPrePopup:YES andV4VCPostPopup:YES];
     
 }
 
@@ -546,25 +615,28 @@
 #pragma mark - Navigation
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    NSLog(@"World Map Life: %@",[Life sharedInstance]);
     if ([identifier isEqualToString:@"Level"]){
         if ([Life sharedInstance].lifeCount >= 1){
             return YES;
         }
         else{
-            [self showAlertWithTitle:@"Aviso" andMessage:@"Vidas Insuficientes"];
+            [self showAlertWithTitle:@"Warning" andMessage:@"Insufficient lives"];
             return NO;
         }
-    }
+    };
     
     return YES;
     
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"Level"]){
-        GameViewController *view = [segue destinationViewController];
-        //Preparar a classe que carrega o nível para carregar o nível _i
-        view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
+    if ([self shouldPerformSegueWithIdentifier:segue.identifier sender:sender]){
+        if ([segue.identifier isEqualToString:@"Level"]){
+            GameViewController *view = [segue destinationViewController];
+            //Preparar a classe que carrega o nível para carregar o nível _i
+            view.levelString = [NSString stringWithFormat:@"Level_%d",(int)_i];
+        }
     }
 }
 

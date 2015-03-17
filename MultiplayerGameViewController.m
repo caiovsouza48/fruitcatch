@@ -30,7 +30,7 @@
 #define START_GAME_SYNC_EVENT_NAME @"com.sucodefrutasteam.fruitcatch.syncevent.startgame"
 #define TIMEOUT 5.0
 
-@interface MultiplayerGameViewController () <NPTournamentDelegate>
+@interface MultiplayerGameViewController () <NPTournamentDelegate,UIActionSheetDelegate>
 
 // The level contains the tiles, the fruits, and most of the gameplay logic.
 @property (nonatomic) JIMCLevel *level;
@@ -39,9 +39,9 @@
 // The scene draws the tiles and fruit sprites, and handles swipes.
 @property (nonatomic) MyScene *scene;
 
-@property(nonatomic) UIView *player1View;
+@property(nonatomic) UIImageView *player1View;
 
-@property(nonatomic) UIView *player2View;
+@property(nonatomic) UIImageView *player2View;
 
 @property(nonatomic) UILabel *player1Score;
 
@@ -53,11 +53,12 @@
 
 
 
+
 @property (assign, nonatomic) NSUInteger movesLeft;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *targetLabel;
-@property (weak, nonatomic) IBOutlet UILabel *movesLabel;
+@property (nonatomic) IBOutlet UILabel *movesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
 @property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
@@ -103,12 +104,15 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [Nextpeer enableRankingDisplay:NO];
     _shadowAnimation = [JTSlideShadowAnimation new];
     _opponentScore = 0;
     _opponentOver = NO;
+    _movesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    
      _turnSound = [SKAction playSoundFileNamed:@"turn_sound.mp3" waitForCompletion:NO];
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
-    _turnLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(mainScreenBounds)-60, CGRectGetMidY(mainScreenBounds)-180, 170, 30)];
+    _turnLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(mainScreenBounds)-60, CGRectGetMidY(mainScreenBounds)-160, 170, 30)];
     _parameter = [[NSMutableArray alloc]init];
     _orderOfPlayers = [NSMutableArray array];
     _isMyMove = NO;
@@ -202,46 +206,65 @@
     [Nextpeer registerToSynchronizedEvent:START_GAME_SYNC_EVENT_NAME withTimetout:TIMEOUT];
     [self.view addSubview:_turnLabel];
     
-    
-    
 }
 
 - (void)loadPlayersView{
-    _player1View =[[UIView alloc] initWithFrame:CGRectMake(10, 10, 100, 100)];
-    UILabel *player1Name = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 100)];
-    [player1Name setTextColor:[UIColor blackColor]];
-    [_player1View setBackgroundColor:[UIColor blueColor]];
+    _player1View = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Player2vez@2x"]];
+    [_player1View setFrame:CGRectMake(0, 0, _player1View.image.size.width, _player1View.image.size.height)];
+    UIFont *defaultFont = [UIFont systemFontOfSize:10];
+    UILabel *player1Name = [[UILabel alloc] initWithFrame:CGRectMake(25, 45, 100, 100)];
+    [player1Name setTextColor:[UIColor blueColor]];
+    [player1Name setFont:[UIFont systemFontOfSize:12]];
     [player1Name setText:_orderOfPlayers[0][playerIdKey]];
     [_player1View addSubview:player1Name];
-    _player1Score = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 100, 50)];
+    UILabel *auxiliaryScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 85, 100, 50)];
+    [auxiliaryScoreLabel setFont:defaultFont];
+    [auxiliaryScoreLabel setText:@"Score: "];
+    [_player1View addSubview:auxiliaryScoreLabel];
+    _player1Score = [[UILabel alloc] initWithFrame:CGRectMake(58, 85, 100, 50)];
     [_player1Score setText:@"0"];
+    [_player1Score setFont:defaultFont];
     [_player1View addSubview:_player1Score];
-    _player1EloLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, 100, 50)];
+    _player1EloLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 100, 100, 50)];
+    UILabel *auxiliaryEloLabel = [[UILabel alloc]initWithFrame:CGRectMake(25, 100, 100, 50)];
+    [auxiliaryEloLabel setText:@"Elo: "];
+    [auxiliaryEloLabel setFont:defaultFont];
+    [_player1View addSubview:auxiliaryEloLabel];
     [_player1EloLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)_player1Elo]];
+    [_player1EloLabel setFont:defaultFont];
     [_player1View addSubview:_player1EloLabel];
     [self.view addSubview:_player1View];
-    [Nextpeer enableRankingDisplay:NO];
+    
 }
 
 - (void)loadPlayer2View{
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
-    _player2View =[[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(mainScreenBounds) - 110, 10, 100, 100)];
-    UILabel *player2Name = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 200, 100)];
-    [player2Name setTextColor:[UIColor blackColor]];
-    [_player2View setBackgroundColor:[UIColor blueColor]];
+     UIFont *defaultFont = [UIFont systemFontOfSize:10];
+    _player2View = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Playe_vez@2x"]];
+    [_player2View setFrame:CGRectMake(CGRectGetMaxX(mainScreenBounds) - 110, 0, _player2View.image.size.width, _player2View.image.size.height)];
+
+    UILabel *player2Name = [[UILabel alloc] initWithFrame:CGRectMake(25, 45, 100, 100)];
+    [player2Name setTextColor:[UIColor purpleColor]];
+    [player2Name setFont:[UIFont systemFontOfSize:12]];
     [player2Name setText:_orderOfPlayers[1][playerIdKey]];
     [_player2View addSubview:player2Name];
-    _player2Score = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 100, 50)];
+    UILabel *auxiliaryScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 85, 100, 50)];
+    [auxiliaryScoreLabel setFont:defaultFont];
+    [auxiliaryScoreLabel setText:@"Score: "];
+    [_player2View addSubview:auxiliaryScoreLabel];
+    _player2Score = [[UILabel alloc] initWithFrame:CGRectMake(58, 85, 100, 50)];
     [_player2Score setText:@"0"];
-    [_player2Score setTextColor:[UIColor blackColor]];
+    [_player2Score setFont:defaultFont];
     [_player2View addSubview:_player2Score];
-    _player2EloLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, 100, 50)];
-    
+    _player2EloLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 100, 100, 50)];
+    UILabel *auxiliaryEloLabel = [[UILabel alloc]initWithFrame:CGRectMake(25, 100, 100, 50)];
+    [auxiliaryEloLabel setText:@"Elo: "];
+    [auxiliaryEloLabel setFont:defaultFont];
+    [_player2View addSubview:auxiliaryEloLabel];
     [_player2EloLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)_player2Elo]];
-    [_player2EloLabel setTextColor:[UIColor blackColor]];
+    [_player2EloLabel setFont:defaultFont];
     [_player2View addSubview:_player2EloLabel];
     [self.view addSubview:_player2View];
-    [Nextpeer enableRankingDisplay:NO];
 }
 
 - (NSUInteger) getUserElo{
@@ -563,8 +586,7 @@
     // This is the main loop that removes any matching fruits and fills up the
     // holes with new fruits. While this happens, the user cannot interact with
     // the app.
-    dispatch_queue_t messageQueue;
-    messageQueue = dispatch_queue_create("com.valheru.messageQueue", NULL);
+    
     
     [self.scene removeActionForKey:@"Hint"];
     // Detect if there are any matches left.
@@ -599,7 +621,7 @@
     }
     
     // First, remove any matches...
-    dispatch_sync(messageQueue, ^{
+    //dispatch_sync(messageQueue, ^{
     [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
@@ -653,7 +675,7 @@
         }];
     }];
     
-    });
+  //  });
 }
 
 
@@ -742,7 +764,6 @@
 
 
 - (void)beginNextTurn {
-    
     [self.level resetComboMultiplier];
     
     self.possibleMoves = [self.level detectPossibleSwaps];
@@ -765,7 +786,7 @@
     //[self.scene runAction: self.hintAction withKey:@"Hint"];
     //SKAction *showMove = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]]];
     
-    //self.view.userInteractionEnabled = YES;
+    self.view.userInteractionEnabled = YES;
     [self decrementMoves];
     
 }
@@ -935,8 +956,9 @@
     }
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
-    [_turnLabel setTextColor:[UIColor grayColor]];
+    [_turnLabel setTextColor:[UIColor whiteColor]];
     _turnLabel.text = isMyTurn ? @"Now its your turn!" : @"Opponent Turn";
+    _turnLabel.font = [UIFont systemFontOfSize:12];
     [_turnLabel setHidden:NO];
   
     [UIView animateWithDuration:1.25 animations:^{
@@ -945,7 +967,8 @@
     } completion:^(BOOL finished){
         [UIView animateWithDuration:1.25 animations:^{
              _turnLabel.transform = CGAffineTransformMakeScale(1.0,1.0);
-            
+            [_shadowAnimation setShadowForegroundColor:[UIColor whiteColor]];
+            [_shadowAnimation setShadowBackgroundColor:[UIColor blackColor]];
             [_shadowAnimation setAnimatedView:_turnLabel];
             [_shadowAnimation start];
         }];
@@ -1049,6 +1072,8 @@
             CGPoint oponentLocation = CGPointMake([[gameMessage objectForKey:@"moveColumn"] intValue], [[gameMessage objectForKey:@"moveRow"] intValue]);
             CGPoint opponentSwipe = CGPointMake([[gameMessage objectForKey:@"swipeColumn"] intValue], [[gameMessage objectForKey:@"swipeRow"] intValue]);
             _parameter = [gameMessage objectForKey:@"topUpFruits"];
+            //[self.scene animateOpponentTapAtPoint:opponentSwipe OpponentSwipeTo:opponentSwipe];
+            //[NSThread sleepForTimeInterval:2.2];
             [self.scene touchAtColumRowCGPoint:oponentLocation OpponentSwipe:opponentSwipe];
             [self.view setUserInteractionEnabled:YES];
             [self.level setIsOpponentMove:NO];
@@ -1068,32 +1093,40 @@
 - (void)processNextpeerReportForfeitForCurrentTournament:(NSNotification *)notification{
     NSLog(@"Player Saiu, reportando score");
      [_turnLabel setText:@"The opponent surrendered"];
-    [UIView animateWithDuration:1.25 animations:^{
-        _turnLabel.transform = CGAffineTransformMakeScale(1.75,1.75);
+    [UIView animateWithDuration:3.7 animations:^{
+        _turnLabel.transform = CGAffineTransformMakeScale(2.25,2.25);
+    }completion:^(BOOL finished){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
+        });
+       
     }];
-    
-    
-    [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
 }
 
 - (void)tryGameOver{
     if ((_opponentOver) && (self.movesLeft == 0)){
-      [Nextpeer reportControlledTournamentOverWithScore:(u_int32_t)self.score];
-        EloRating *eloRatingSystem = [[EloRating alloc] init];
-        JIMCGameResult result;
-        NSInteger score1 = [self.player1Score.text integerValue];
-        NSInteger score2 = [self.player2Score.text integerValue];
-        if (score1 > score2){
-            result = WIN;
-        }
-        else if (score1 < score2){
-            result = LOSS;
-        }
-        else{
-            result = DRAW;
-        }
-        [eloRatingSystem getNewRating:(int)self.player1Elo OpponentRating:(int)[self player2Elo] GameResult:result];
-        [self saveElo];
+        [_turnLabel setText:@"The opponent surrendered"];
+        [UIView animateWithDuration:3.7 animations:^{
+            _turnLabel.transform = CGAffineTransformMakeScale(1.75,1.75);
+        }completion:^(BOOL finished){
+            EloRating *eloRatingSystem = [[EloRating alloc] init];
+            JIMCGameResult result;
+            NSInteger score1 = [self.player1Score.text integerValue];
+            NSInteger score2 = [self.player2Score.text integerValue];
+            if (score1 > score2){
+                result = WIN;
+            }
+            else if (score1 < score2){
+                result = LOSS;
+            }
+            else{
+                result = DRAW;
+            }
+            [eloRatingSystem getNewRating:(int)self.player1Elo OpponentRating:(int)[self player2Elo] GameResult:result];
+            [self saveElo];
+
+            [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
+        }];
         
     }
 }
@@ -1119,12 +1152,24 @@
     }
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [Nextpeer reportControlledTournamentOverWithScore:0];
+            [Nextpeer reportForfeitForCurrentTournament];
+            break;
+        case 1:
+            
+        default:
+            break;
+    }
+}
+
 
 - (void) didSurrender:(id)sender{
-    NSLog(@"Did surrender");
-   
-    [Nextpeer reportControlledTournamentOverWithScore:0];
-     [Nextpeer reportForfeitForCurrentTournament];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Surrender" delegate:self cancelButtonTitle:@"No" destructiveButtonTitle:@"Yes" otherButtonTitles:nil];
+    [actionSheet showInView:self.view];
+    
 }
 
 - (NSMutableArray *)fruitStringRepresentationArrayToObjArray{
@@ -1149,6 +1194,14 @@
         
     }
     return ret;
+}
+
+- (UIImage *) getScreenView{
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 1);
+    [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return  viewImage;
 }
 
 - (NSSet *)fruitObjectSetByFruitArray:(NSArray *)fruitArray{
