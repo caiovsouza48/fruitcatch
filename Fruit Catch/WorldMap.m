@@ -100,13 +100,13 @@
         //[self addPeopleOnScrollFacebook];
     [self adicionaVidas];
     [self adicionaMoedas];
-    [self adicionaAjuda];
+//    [self adicionaAjuda];
 //    [self adicionaBotaoBack];
     [self adicionaBotoesFases];
     [self adicionaBotaoSair];
     [self adicionaBotaoJogar];
     [self adicionaDetalhesDaFase];
-//    [self adicionaShop];
+    [self adicionaShop];
     [self allocScrollViewFacebook];
     [self adicionaMenuRapido];
     
@@ -553,7 +553,7 @@
                               delay:0
              usingSpringWithDamping:0.65
               initialSpringVelocity:0
-                            options:0
+                            options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
                              _blurView.backgroundColor   = [UIColor colorWithWhite:0 alpha:0.5];
                              self.informFase.center     = CGPointMake(CGRectGetMidX(self.view.frame), self.informFase.center.y);
@@ -581,7 +581,7 @@
                           delay:0
          usingSpringWithDamping:0.65
           initialSpringVelocity:0
-                        options:0
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
                          _blurView.backgroundColor = [UIColor clearColor];
                          self.informFase.center = CGPointMake(CGRectGetMinX(self.view.frame)-300,self.informFase.center.y);
@@ -682,7 +682,7 @@
 {
     //Vidas
     UILabel *vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 60, 60)];
-    vidas.text = @"Lifes\n??";
+    vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
     vidas.backgroundColor = [UIColor redColor];
     vidas.numberOfLines = 3;
     vidas.lineBreakMode = NSLineBreakByWordWrapping;
@@ -890,9 +890,9 @@
 -(void)adicionaShop
 {
     //Shopi
-    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 50, 55,55)];
+    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 60, 60)];
     [_shopi setTitle:@"Shop" forState:UIControlStateNormal];
-    _shopi.backgroundColor = [UIColor yellowColor];
+    _shopi.backgroundColor = [UIColor blueColor];
     [_shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
     _shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.view insertSubview:_shopi belowSubview:_informFase];
@@ -1215,6 +1215,21 @@
     if(_quickMenuOpen){
         if(!CGRectContainsPoint(_fundoMenuRapido.frame, location)){
             [self menuRapido:self];
+        }
+    }
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+ 
+    if(_shopOpen){
+        
+        UITouch *touch = [touches anyObject];
+        CGPoint location = [touch locationInView:_blurView];
+        CGFloat originShop = self.view.frame.size.height/2 - _shopScrollView.frame.size.height/2;
+        
+        if(!CGRectContainsPoint(_shopScrollView.frame, location) || location.y < originShop){
+            [self fexarTela:self];
         }
     }
 }
