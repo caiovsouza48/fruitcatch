@@ -86,6 +86,7 @@
     }
     
     [super viewDidLoad];
+    
     //[self getUserLives];
     [self registerLivesBackgroundNotification];
     [self registerAppEnterForegroundNotification];
@@ -96,11 +97,11 @@
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
-    if (self.flagFacebook)
+//    if (self.flagFacebook)
         //[self addPeopleOnScrollFacebook];
     [self adicionaVidas];
     [self adicionaMoedas];
-//    [self adicionaAjuda];
+    [self adicionaAjuda];
 //    [self adicionaBotaoBack];
     [self adicionaBotoesFases];
     [self adicionaBotaoSair];
