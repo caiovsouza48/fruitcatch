@@ -65,11 +65,9 @@
 @property (nonatomic) IBOutlet UIButton *ligaSFX;
 @property (nonatomic) IBOutlet UIButton *ajuda;
 @property (nonatomic) BOOL quickMenuOpen;
-
 @end
 
 @implementation WorldMap
-
 
 - (void)viewDidLoad {
     
@@ -93,14 +91,13 @@
     [self registerAppEnterForegroundNotification];
     [self registerAdNotification];
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
-
     [self adicionaFundo];
     [self adicionaInformFase];
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
     if (self.flagFacebook)
-        [self addPeopleOnScrollFacebook];
+        //[self addPeopleOnScrollFacebook];
     [self adicionaVidas];
     [self adicionaMoedas];
     [self adicionaAjuda];

@@ -541,13 +541,14 @@
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
-                if (fruit.fruitPowerUp != 0) {
+                 if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) ||
+                     (fruit.fruitPowerUp == 2 && chain.fruits.count == 4) || (fruit.fruitPowerUp == 3 && chain.fruits.count == 4)){
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
                 }
              }
         }
-        
+        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
@@ -591,13 +592,11 @@
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
+        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
         [self updateLabels];
 
         // ...then shift down any fruits that have a hole below them...
         NSMutableArray *columns = [[NSMutableArray alloc]initWithArray:[self.level fillHoles]];
-       
-       
-        
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
@@ -782,9 +781,7 @@
 }
 
 - (void)hideGameOver {
-    
     [self removeDica];
-    
     [self.view removeGestureRecognizer:self.tapGestureRecognizer];
     self.tapGestureRecognizer = nil;
     
@@ -792,7 +789,6 @@
     self.scene.userInteractionEnabled = YES;
     
     [self beginGame];
-    
     self.shuffleButton.hidden = NO;
     
 }
@@ -828,7 +824,6 @@
                                                          userInfo:nil
                                                           repeats:YES];
         }
-        
     }else{
         self.scene.swipeHandler = nil;
     }
@@ -843,14 +838,22 @@
 -(IBAction)back:(id)sender
 {
     _backButton.enabled = NO;
+    
+    self.scene.swapSound = nil;
+    self.scene.invalidSwapSound = nil;
+    self.scene.matchSound = nil;
+    self.scene.fallingFruitSound = nil;
+    self.scene.addFruitSound = nil;
+    
+    
     if ([self shouldPerformSegueWithIdentifier:@"Back" sender:sender]){
         [self performSegueWithIdentifier:@"Back" sender:self];
     }
 }
 
--(void)back{
-    [self performSegueWithIdentifier:@"Back" sender:self];
-}
+//-(void)back{
+//    [self performSegueWithIdentifier:@"Back" sender:self];
+//}
 
 -(void)nextStage{
     _next = YES;

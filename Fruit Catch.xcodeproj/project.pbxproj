@@ -1238,7 +1238,7 @@
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = BLCXKG795L;
+						DevelopmentTeam = 4MMC45MQ2J;
 						TestTargetID = DEC905A11A239C6D003DD444;
 					};
 				};
@@ -1600,7 +1600,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-ObjC",
@@ -1625,7 +1625,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Fruit Catch/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-ObjC",

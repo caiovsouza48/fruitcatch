@@ -30,12 +30,6 @@
 // Sprite that is drawn on top of the fruit that the player is trying to swap.
 @property (strong, nonatomic) SKSpriteNode *selectionSprite;
 
-@property (strong, nonatomic) SKAction *swapSound;
-@property (strong, nonatomic) SKAction *invalidSwapSound;
-@property (strong, nonatomic) SKAction *matchSound;
-@property (strong, nonatomic) SKAction *fallingFruitSound;
-@property (strong, nonatomic) SKAction *addFruitSound;
-
 @property (strong, nonatomic) SKCropNode *cropLayer;
 @property (strong, nonatomic) SKNode *maskLayer;
 
