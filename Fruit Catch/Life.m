@@ -42,32 +42,33 @@ static Life *instance;
 
 
 - (instancetype)initFromFile{
-    self = [super init];
-    if (self){
-        NSString *appDataDir = [AppUtils getAppLifeDir];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
-            NSData *data = [NSData dataWithContentsOfFile:appDataDir];
-            NSError *error;
-            NSData *decryptedData = [RNDecryptor decryptData:data withPassword:SECRET error:&error];
-            if (!error){
-                self = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+    
+        self = [super init];
+        if (self){
+            NSString *appDataDir = [AppUtils getAppLifeDir];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
+                NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+                NSError *error;
+                NSData *decryptedData = [RNDecryptor decryptData:data withPassword:SECRET error:&error];
+                if (!error){
+                    self = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+                }
+                else{
+                    self = [[Life alloc]initFromZero];
+                }
             }
             else{
                 self = [[Life alloc]initFromZero];
             }
-        }
-        else{
-            self = [[Life alloc]initFromZero];
-        }
 
-    }
-    return self;
+        }
+        return self;
 }
 
 - (instancetype) initFromZero{
     self = [super init];
     if (self){
-        self.lifeCount = 1;
+        self.lifeCount = 5;
         self.lifeTime = [NSDate date];
     }
     return self;
