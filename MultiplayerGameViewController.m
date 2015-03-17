@@ -67,6 +67,8 @@
 
 @property (nonatomic) AVAudioPlayer *backgroundMusic;
 
+@property(nonatomic) SKAction *gameOverSound;
+
 @property (nonatomic) NSSet *possibleMoves;
 
 @property(nonatomic) int randomNumber;
@@ -111,8 +113,10 @@
     _movesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
     
      _turnSound = [SKAction playSoundFileNamed:@"turn_sound.mp3" waitForCompletion:NO];
+    _gameOverSound = [SKAction playSoundFileNamed:@"small_decorative_bell_ring_version_3.mp3" waitForCompletion:NO];
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
-    _turnLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(mainScreenBounds)-60, CGRectGetMidY(mainScreenBounds)-160, 170, 30)];
+    
+    _turnLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(mainScreenBounds)-40, CGRectGetMidY(mainScreenBounds)-160, 170, 30)];
     _parameter = [[NSMutableArray alloc]init];
     _orderOfPlayers = [NSMutableArray array];
     _isMyMove = NO;
@@ -135,8 +139,13 @@
     self.level = [[JIMCLevel alloc] initWithFile:self.levelString];
     self.scene.level = self.level;
     [self.scene addTiles];
-    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame)-40, 0, 100, 50)];
+    UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame)-40, 450, 100, 50)];
+    surrenderButton.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
+    surrenderButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    surrenderButton.layer.borderWidth = 2.0;
+    surrenderButton.layer.cornerRadius = 12.0;
     [surrenderButton setTitle:@"Surrender" forState:UIControlStateNormal];
+    [surrenderButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [surrenderButton addTarget:self action:@selector(didSurrender:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:surrenderButton];
     
@@ -358,7 +367,7 @@
 }
 
 - (void)beginGame {
-    self.movesLeft = self.level.maximumMoves;
+    self.movesLeft = 5;//self.level.maximumMoves;
     self.score = 0;
     [self updateLabels];
     
@@ -367,6 +376,7 @@
     [self shuffle];
     
     self.possibleMoves = [self.level detectPossibleSwaps];
+    [self.scene setIsMyMove:YES];
     //self.hintAction = [SKAction sequence:@[[SKAction waitForDuration:5 withRange:0], [SKAction performSelector:@selector(showMoves) onTarget:self]]];
     
     //[self.scene runAction: self.hintAction withKey:@"Hint"];
@@ -378,6 +388,7 @@
     [self updateLabels];
     [self.level resetComboMultiplier];
     [self.scene animateBeginGame];
+    [self.scene setIsMyMove:NO];
     //[self shuffle];
     // Delete the old fruit sprites, but not the tiles.
     [self.scene removeAllFruitSprites];
@@ -437,6 +448,7 @@
             [NextpeerHelper sendMessageOfType:NPFruitCatchMessageMove DictionaryData:@{@"moveColumn" : [NSNumber numberWithInt:self.scene.playerLastTouch.x],              @"moveRow" : [NSNumber numberWithInt:self.scene.playerLastTouch.y ],                 @"topUpFruits" : _parameter,
                                                                                        @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
                                                                                        @"swipeRow" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.y]}];
+            [self.scene setIsMyMove:NO];
             //_isMyMove = NO;
             _parameter = [NSMutableArray array];
             self.scene.playerLastTouch = (CGPoint){-1,-1};
@@ -513,6 +525,7 @@
                                                                                        @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
                                                                                        @"swipeRow" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.y]}];
             //_isMyMove = NO;
+            [self.scene setIsMyMove:NO];
             self.scene.playerLastTouch = (CGPoint){-1,-1};
             self.scene.lastTouchAssigned = NO;
             _isMyMove = NO;
@@ -600,6 +613,7 @@
                                                                                        @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
                                                                                        @"swipeRow" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.y]}];
             //_isMyMove = NO;
+                [self.scene setIsMyMove:NO];
                 self.scene.playerLastTouch = (CGPoint){-1,-1};
                 self.scene.lastTouchAssigned = NO;
                 _isMyMove = NO;
@@ -700,6 +714,7 @@
                                                                                        @"swipeColumn" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.x],
                                                                                        @"swipeRow" : [NSNumber numberWithInt:self.scene.swipeFromLastPoint.y]}];
             //_isMyMove = NO;
+            [self.scene setIsMyMove:NO];
             _parameter = [NSMutableArray array];
             self.scene.playerLastTouch = (CGPoint){-1,-1};
             self.scene.lastTouchAssigned = NO;
@@ -956,8 +971,15 @@
     }
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
-    [_turnLabel setTextColor:[UIColor whiteColor]];
-    _turnLabel.text = isMyTurn ? @"Now its your turn!" : @"Opponent Turn";
+    [_turnLabel setTextColor:[UIColor blackColor]];
+    _turnLabel.text = isMyTurn ? @"Your Turn Now!" : @"Opponent Turn";
+    if ([_turnLabel.text isEqualToString:@"Your Turn!"]){
+         CGRect oldFrame = _turnLabel.frame;
+        oldFrame.origin.x = oldFrame.origin.x+20;
+        [_turnLabel setFrame:oldFrame];
+    }
+   
+    
     _turnLabel.font = [UIFont systemFontOfSize:12];
     [_turnLabel setHidden:NO];
   
@@ -968,7 +990,6 @@
         [UIView animateWithDuration:1.25 animations:^{
              _turnLabel.transform = CGAffineTransformMakeScale(1.0,1.0);
             [_shadowAnimation setShadowForegroundColor:[UIColor whiteColor]];
-            [_shadowAnimation setShadowBackgroundColor:[UIColor blackColor]];
             [_shadowAnimation setAnimatedView:_turnLabel];
             [_shadowAnimation start];
         }];
@@ -1077,6 +1098,7 @@
             [self.scene touchAtColumRowCGPoint:oponentLocation OpponentSwipe:opponentSwipe];
             [self.view setUserInteractionEnabled:YES];
             [self.level setIsOpponentMove:NO];
+            [self.scene setIsMyMove:YES];
             break;
         }
         case NPFruitCatchMessageGameOver:
@@ -1092,7 +1114,10 @@
 
 - (void)processNextpeerReportForfeitForCurrentTournament:(NSNotification *)notification{
     NSLog(@"Player Saiu, reportando score");
-     [_turnLabel setText:@"The opponent surrendered"];
+    
+     [_turnLabel setText:@"Game Over!"];
+     [self.scene runAction:self.gameOverSound];
+
     [UIView animateWithDuration:3.7 animations:^{
         _turnLabel.transform = CGAffineTransformMakeScale(2.25,2.25);
     }completion:^(BOOL finished){
@@ -1105,7 +1130,7 @@
 
 - (void)tryGameOver{
     if ((_opponentOver) && (self.movesLeft == 0)){
-        [_turnLabel setText:@"The opponent surrendered"];
+        [_turnLabel setText:@"Game Over!"];
         [UIView animateWithDuration:3.7 animations:^{
             _turnLabel.transform = CGAffineTransformMakeScale(1.75,1.75);
         }completion:^(BOOL finished){
