@@ -110,10 +110,11 @@
     _shadowAnimation = [JTSlideShadowAnimation new];
     _opponentScore = 0;
     _opponentOver = NO;
-    _movesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    _movesLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame)-30, 110, 100, 20)];
     
      _turnSound = [SKAction playSoundFileNamed:@"turn_sound.mp3" waitForCompletion:NO];
     _gameOverSound = [SKAction playSoundFileNamed:@"small_decorative_bell_ring_version_3.mp3" waitForCompletion:NO];
+    
     CGRect mainScreenBounds = [[UIScreen mainScreen] bounds];
     
     _turnLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(mainScreenBounds)-40, CGRectGetMidY(mainScreenBounds)-160, 170, 30)];
@@ -211,6 +212,7 @@
     }
     
     //[self setGameState:kGameStateActive];
+    [self.view addSubview:_movesLabel];
     [self.scene setUserInteractionEnabled:NO];
     [Nextpeer registerToSynchronizedEvent:START_GAME_SYNC_EVENT_NAME withTimetout:TIMEOUT];
     [self.view addSubview:_turnLabel];
@@ -367,7 +369,7 @@
 }
 
 - (void)beginGame {
-    self.movesLeft = 5;//self.level.maximumMoves;
+    self.movesLeft = 10;//self.level.maximumMoves;
     self.score = 0;
     [self updateLabels];
     
@@ -383,7 +385,7 @@
 }
 
 - (void)beginGameForPlayer2 {
-    self.movesLeft = self.level.maximumMoves;
+    self.movesLeft = 10;
     self.score = 0;
     [self updateLabels];
     [self.level resetComboMultiplier];
@@ -831,7 +833,7 @@
 
 - (void)updateLabels {
     self.targetLabel.text = [NSString stringWithFormat:@"%lu", (long)self.level.targetScore];
-    self.movesLabel.text = [NSString stringWithFormat:@"%lu", (long)self.movesLeft];
+    self.movesLabel.text = [NSString stringWithFormat:@"Round: %lu", (long)self.movesLeft];
     self.scoreLabel.text = [NSString stringWithFormat:@"%lu", (long)self.score];
     self.player2Score.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.opponentScore];
     
@@ -1123,6 +1125,7 @@
     }completion:^(BOOL finished){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
              [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
+             [self dismissViewControllerAnimated:YES completion:nil];
         });
        
     }];
@@ -1151,6 +1154,7 @@
             [self saveElo];
 
             [Nextpeer reportControlledTournamentOverWithScore:(int)self.score];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }];
         
     }
