@@ -685,7 +685,7 @@
 {
     //Vidas
     UILabel *vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 60, 60)];
-    vidas.text = @"Lifes\n??";
+    vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
     vidas.backgroundColor = [UIColor redColor];
     vidas.numberOfLines = 3;
     vidas.lineBreakMode = NSLineBreakByWordWrapping;
