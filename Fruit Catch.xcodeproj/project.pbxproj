@@ -52,9 +52,6 @@
 		432C10221AADD8400020CB26 /* icon_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 432C101F1AADD8400020CB26 /* icon_open.png */; };
 		432C10231AADD8400020CB26 /* icon_open@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 432C10201AADD8400020CB26 /* icon_open@2x.png */; };
 		432C10241AADD8400020CB26 /* icon_open@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 432C10211AADD8400020CB26 /* icon_open@3x.png */; };
-		433A0FFF1A8B90360096B0E5 /* botao_fechar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A0FFD1A8B90360096B0E5 /* botao_fechar@2x.png */; };
-		433A10001A8B90360096B0E5 /* botao_fechar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A0FFE1A8B90360096B0E5 /* botao_fechar@3x.png */; };
-		433A10021A8B904F0096B0E5 /* botao_fechar.png in Resources */ = {isa = PBXBuildFile; fileRef = 433A10011A8B904F0096B0E5 /* botao_fechar.png */; };
 		433C4F321AA0ED43007329E7 /* estrela_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = 433C4F2F1AA0ED43007329E7 /* estrela_fill.png */; };
 		433C4F331AA0ED43007329E7 /* estrela_fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433C4F301AA0ED43007329E7 /* estrela_fill@2x.png */; };
 		433C4F341AA0ED43007329E7 /* estrela_fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433C4F311AA0ED43007329E7 /* estrela_fill@3x.png */; };
@@ -167,20 +164,10 @@
 		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
 		DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */; };
 		E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E30CD4D71A2CC817009BBC92 /* banana@2x.png */; };
-		E33DD8CD1A3B13BF001C2897 /* coracao.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8CC1A3B13BF001C2897 /* coracao.png */; };
-		E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */; };
-		E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */; };
-		E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E33DD8D41A3B5EBF001C2897 /* nome@2x.png */; };
 		E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */; };
-		E37BB4E11A40580500F8E679 /* configuracoes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4DB1A40580500F8E679 /* configuracoes@2x.png */; };
-		E37BB4E21A40580500F8E679 /* fazendeiro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4DC1A40580500F8E679 /* fazendeiro@2x.png */; };
 		E37BB4E31A40580500F8E679 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4DD1A40580500F8E679 /* logo@2x.png */; };
-		E37BB4E41A40580500F8E679 /* multiplayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4DE1A40580500F8E679 /* multiplayer@2x.png */; };
-		E37BB4E51A40580500F8E679 /* singleplayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4DF1A40580500F8E679 /* singleplayer@2x.png */; };
 		E37BB4E81A4061D000F8E679 /* fundo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4E71A4061D000F8E679 /* fundo@2x.png */; };
 		E37BB4EA1A40924B00F8E679 /* fazendeiro_fase@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4E91A40924B00F8E679 /* fazendeiro_fase@2x.png */; };
-		E3BBEE361A9E447800B27650 /* botao_ajuda@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3BBEE351A9E447800B27650 /* botao_ajuda@2x.png */; };
-		E3BBEE381A9E467500B27650 /* botao_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3BBEE371A9E467500B27650 /* botao_back@2x.png */; };
 		E3CFD4AC1A8B867000C6FF64 /* Chewy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4AB1A8B867000C6FF64 /* Chewy.ttf */; };
 		E3CFD4B71A8B86B900C6FF64 /* retangulo_generico.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4B11A8B86B900C6FF64 /* retangulo_generico.png */; };
 		E3CFD4B81A8B86B900C6FF64 /* retangulo_generico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3CFD4B21A8B86B900C6FF64 /* retangulo_generico@2x.png */; };
@@ -202,7 +189,6 @@
 		E3DA87871A966191002E9499 /* Nextpeer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DA87861A966191002E9499 /* Nextpeer.framework */; };
 		E3DA87891A9661C6002E9499 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DA87881A9661C6002E9499 /* libsqlite3.dylib */; };
 		E3DA878B1A9661D3002E9499 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DA878A1A9661D3002E9499 /* libz.dylib */; };
-		E3DFE2F71A40A0DB00CB4D0C /* Agrupar-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3DFE2F61A40A0DB00CB4D0C /* Agrupar-1@2x.png */; };
 		E3DFE2FA1A40A2B500CB4D0C /* JIMCMainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E3DFE2F91A40A2B500CB4D0C /* JIMCMainMenu.m */; };
 		E3E019C11AB20B8900D06910 /* Camada-2.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019BE1AB20B8900D06910 /* Camada-2.png */; };
 		E3E019C21AB20B8900D06910 /* Camada-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019BF1AB20B8900D06910 /* Camada-2@2x.png */; };
@@ -289,9 +275,6 @@
 		432C101F1AADD8400020CB26 /* icon_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_open.png; sourceTree = "<group>"; };
 		432C10201AADD8400020CB26 /* icon_open@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_open@2x.png"; sourceTree = "<group>"; };
 		432C10211AADD8400020CB26 /* icon_open@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_open@3x.png"; sourceTree = "<group>"; };
-		433A0FFD1A8B90360096B0E5 /* botao_fechar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_fechar@2x.png"; sourceTree = "<group>"; };
-		433A0FFE1A8B90360096B0E5 /* botao_fechar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_fechar@3x.png"; sourceTree = "<group>"; };
-		433A10011A8B904F0096B0E5 /* botao_fechar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = botao_fechar.png; sourceTree = "<group>"; };
 		433C4F2F1AA0ED43007329E7 /* estrela_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = estrela_fill.png; sourceTree = "<group>"; };
 		433C4F301AA0ED43007329E7 /* estrela_fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "estrela_fill@2x.png"; sourceTree = "<group>"; };
 		433C4F311AA0ED43007329E7 /* estrela_fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "estrela_fill@3x.png"; sourceTree = "<group>"; };
@@ -438,20 +421,10 @@
 		DEF7B4BB1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCSwapFruitSingleton.h; sourceTree = "<group>"; };
 		DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCSwapFruitSingleton.m; sourceTree = "<group>"; };
 		E30CD4D71A2CC817009BBC92 /* banana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "banana@2x.png"; path = "Sprites.atlas/banana@2x.png"; sourceTree = "<group>"; };
-		E33DD8CC1A3B13BF001C2897 /* coracao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coracao.png; sourceTree = "<group>"; };
-		E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundoprincipal@2x.png"; sourceTree = "<group>"; };
-		E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundo1@2x.png"; sourceTree = "<group>"; };
-		E33DD8D41A3B5EBF001C2897 /* nome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nome@2x.png"; sourceTree = "<group>"; };
 		E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui_pontos_movimentos@2x.png"; sourceTree = "<group>"; };
-		E37BB4DB1A40580500F8E679 /* configuracoes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "configuracoes@2x.png"; sourceTree = "<group>"; };
-		E37BB4DC1A40580500F8E679 /* fazendeiro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro@2x.png"; sourceTree = "<group>"; };
 		E37BB4DD1A40580500F8E679 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
-		E37BB4DE1A40580500F8E679 /* multiplayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "multiplayer@2x.png"; sourceTree = "<group>"; };
-		E37BB4DF1A40580500F8E679 /* singleplayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "singleplayer@2x.png"; sourceTree = "<group>"; };
 		E37BB4E71A4061D000F8E679 /* fundo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundo@2x.png"; sourceTree = "<group>"; };
 		E37BB4E91A40924B00F8E679 /* fazendeiro_fase@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fazendeiro_fase@2x.png"; sourceTree = "<group>"; };
-		E3BBEE351A9E447800B27650 /* botao_ajuda@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_ajuda@2x.png"; sourceTree = SOURCE_ROOT; };
-		E3BBEE371A9E467500B27650 /* botao_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botao_back@2x.png"; sourceTree = SOURCE_ROOT; };
 		E3CFD4AB1A8B867000C6FF64 /* Chewy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chewy.ttf; sourceTree = "<group>"; };
 		E3CFD4B11A8B86B900C6FF64 /* retangulo_generico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retangulo_generico.png; sourceTree = "<group>"; };
 		E3CFD4B21A8B86B900C6FF64 /* retangulo_generico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "retangulo_generico@2x.png"; sourceTree = "<group>"; };
@@ -472,7 +445,6 @@
 		E3DA87861A966191002E9499 /* Nextpeer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nextpeer.framework; sourceTree = "<group>"; };
 		E3DA87881A9661C6002E9499 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		E3DA878A1A9661D3002E9499 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		E3DFE2F61A40A0DB00CB4D0C /* Agrupar-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agrupar-1@2x.png"; sourceTree = "<group>"; };
 		E3DFE2F81A40A2B500CB4D0C /* JIMCMainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCMainMenu.h; sourceTree = "<group>"; };
 		E3DFE2F91A40A2B500CB4D0C /* JIMCMainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCMainMenu.m; sourceTree = "<group>"; };
 		E3E019BE1AB20B8900D06910 /* Camada-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camada-2.png"; sourceTree = "<group>"; };
@@ -1026,13 +998,10 @@
 				433C4F311AA0ED43007329E7 /* estrela_fill@3x.png */,
 				DE3DAC411A9B998E002FE5FE /* PowerUp_horizontal */,
 				DE3DAC471A9B998E002FE5FE /* PowerUp_vertical */,
-				E3BBEE371A9E467500B27650 /* botao_back@2x.png */,
-				E3BBEE351A9E447800B27650 /* botao_ajuda@2x.png */,
 				436128881A40612100A2B620 /* fase_aberta@2x.png */,
 				436D9BEB1A9E07D600EA5D4A /* fase_fechada@2x.png */,
 				436128891A40612100A2B620 /* mapa@2x.png */,
 				E3CFD4AD1A8B869600C6FF64 /* configuracoes */,
-				E33DD8CC1A3B13BF001C2897 /* coracao.png */,
 				DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */,
 				0F40CA9B1A9BA16600D0CB01 /* PowerUp_horizontal */,
 				0F40CAA11A9BA16600D0CB01 /* PowerUp_vertical */,
@@ -1050,10 +1019,7 @@
 				E30CD4D71A2CC817009BBC92 /* banana@2x.png */,
 				E37BB4E91A40924B00F8E679 /* fazendeiro_fase@2x.png */,
 				E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */,
-				E33DD8D01A3B5C85001C2897 /* fundoprincipal@2x.png */,
 				E37BB4E71A4061D000F8E679 /* fundo@2x.png */,
-				E33DD8D21A3B5E8A001C2897 /* fundo1@2x.png */,
-				E33DD8D41A3B5EBF001C2897 /* nome@2x.png */,
 			);
 			name = imagens;
 			sourceTree = "<group>";
@@ -1070,15 +1036,7 @@
 				4351CD7C1A8E76F500C026AA /* botao_proxima_fase.png */,
 				4351CD7D1A8E76F500C026AA /* botao_proxima_fase@2x.png */,
 				4351CD7E1A8E76F500C026AA /* botao_proxima_fase@3x.png */,
-				433A10011A8B904F0096B0E5 /* botao_fechar.png */,
-				433A0FFD1A8B90360096B0E5 /* botao_fechar@2x.png */,
-				433A0FFE1A8B90360096B0E5 /* botao_fechar@3x.png */,
-				E37BB4DB1A40580500F8E679 /* configuracoes@2x.png */,
-				E37BB4DC1A40580500F8E679 /* fazendeiro@2x.png */,
-				E3DFE2F61A40A0DB00CB4D0C /* Agrupar-1@2x.png */,
 				E37BB4DD1A40580500F8E679 /* logo@2x.png */,
-				E37BB4DE1A40580500F8E679 /* multiplayer@2x.png */,
-				E37BB4DF1A40580500F8E679 /* singleplayer@2x.png */,
 			);
 			name = "menu iniciar";
 			sourceTree = "<group>";
@@ -1306,7 +1264,6 @@
 				E3D229E41A9CC02A0039D2DD /* MyParticleSystem.scnp in Resources */,
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
 				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
-				E3DFE2F71A40A0DB00CB4D0C /* Agrupar-1@2x.png in Resources */,
 				43F720611AAE1EB9003DD069 /* icon_close@2x.png in Resources */,
 				43C9986F1AAF679D001C32EA /* no_sfx@2x.png in Resources */,
 				43C998691AAF63DC001C32EA /* no_music@3x.png in Resources */,
@@ -1315,19 +1272,15 @@
 				430A311A1AB75DE5003D840F /* icon_menu@3x.png in Resources */,
 				DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */,
 				435D180A1AA8F604007704C0 /* fundo_main_menu@2x.png in Resources */,
-				E3BBEE381A9E467500B27650 /* botao_back@2x.png in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
 				437B8E851A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png in Resources */,
 				0F40CAA91A9BA16600D0CB01 /* limao_pu_h@2x.png in Resources */,
 				436BAB271AAA1677003A3955 /* icon_config@3x.png in Resources */,
 				432C101C1AADD8270020CB26 /* Menu_Rapido_Pequeno.png in Resources */,
-				DE4048F31AB7D2E200A8D7EE /* Player2vez@2x.png in Resources */,
-				E33DD8D31A3B5E8A001C2897 /* fundo1@2x.png in Resources */,
 				0F22E09F1AA79E5A00C2BF51 /* Level_4.json in Resources */,
 				E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */,
 				DE3DAC531A9B998E002FE5FE /* laranja_pu_v@2x.png in Resources */,
 				4351CD881A8E772800C026AA /* botao_jogar_novamente.png in Resources */,
-				E37BB4E21A40580500F8E679 /* fazendeiro@2x.png in Resources */,
 				0F30FFFA1A97BF0300216088 /* MyParticle.sks in Resources */,
 				0F22E09B1AA79E5A00C2BF51 /* Level_0.json in Resources */,
 				437B8E861A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png in Resources */,
@@ -1359,19 +1312,16 @@
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
 				43F7206F1AAE26BA003DD069 /* icon_music.png in Resources */,
 				DE3140511AB3D3E9009335D1 /* turn_sound.mp3 in Resources */,
-				E33DD8D51A3B5EBF001C2897 /* nome@2x.png in Resources */,
 				43F720701AAE26BA003DD069 /* icon_music@2x.png in Resources */,
 				43C998681AAF63DC001C32EA /* no_music@2x.png in Resources */,
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
 				0F22E0931AA78D4400C2BF51 /* Level_10.json in Resources */,
 				435D180B1AA8F604007704C0 /* fundo_main_menu@3x.png in Resources */,
 				0F40CAB01A9BA16600D0CB01 /* uva_pu_v@2x.png in Resources */,
-				E33DD8D11A3B5C85001C2897 /* fundoprincipal@2x.png in Resources */,
 				0F025B241AAE219500467A38 /* FunnyBounceMusic.mp3 in Resources */,
 				0F22E09D1AA79E5A00C2BF51 /* Level_2.json in Resources */,
 				4351CD891A8E772800C026AA /* botao_jogar_novamente@2x.png in Resources */,
 				4378401F1A97B911009BE3FB /* estrela_outline.png in Resources */,
-				433A10001A8B90360096B0E5 /* botao_fechar@3x.png in Resources */,
 				430A31191AB75DE5003D840F /* icon_menu@2x.png in Resources */,
 				430A31131AB75DCA003D840F /* icon_sair@2x.png in Resources */,
 				4351CD8D1A8E772800C026AA /* botao_menu@3x.png in Resources */,
@@ -1379,7 +1329,6 @@
 				0F22E08F1AA78B4700C2BF51 /* Level_8.json in Resources */,
 				4351CD7F1A8E76F500C026AA /* botao_proxima_fase.png in Resources */,
 				0FF2358F1AA7A67500562511 /* Level_6.json in Resources */,
-				E3BBEE361A9E447800B27650 /* botao_ajuda@2x.png in Resources */,
 				437B8E8C1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png in Resources */,
 				436BAB2D1AAA23A7003A3955 /* retangulo_configuracoes@2x.png in Resources */,
 				435D18041AA8F0E2007704C0 /* Fazendeiro_Severino@2x.png in Resources */,
@@ -1389,12 +1338,9 @@
 				432C10161AADD0A10020CB26 /* fechar.png in Resources */,
 				432C10181AADD0A10020CB26 /* fechar@3x.png in Resources */,
 				43A643BC1AB0BE42009521DA /* mapa_2.0Iphone6Plus@3x.png in Resources */,
-				E37BB4E11A40580500F8E679 /* configuracoes@2x.png in Resources */,
-				E37BB4E41A40580500F8E679 /* multiplayer@2x.png in Resources */,
 				0FF2358C1AA7A60500562511 /* Level_5.json in Resources */,
 				437B8E8B1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png in Resources */,
 				E3CFD4B91A8B86B900C6FF64 /* retangulo_generico@3x.png in Resources */,
-				433A0FFF1A8B90360096B0E5 /* botao_fechar@2x.png in Resources */,
 				E37BB4E31A40580500F8E679 /* logo@2x.png in Resources */,
 				E3E019C51AB35AE200D06910 /* mapa_2.0Iphone6@2x.png in Resources */,
 				430A31141AB75DCA003D840F /* icon_sair@3x.png in Resources */,
@@ -1408,14 +1354,11 @@
 				4351CD801A8E76F500C026AA /* botao_proxima_fase@2x.png in Resources */,
 				433C4F321AA0ED43007329E7 /* estrela_fill.png in Resources */,
 				432C101E1AADD8270020CB26 /* Menu_Rapido_Pequeno@3x.png in Resources */,
-				E33DD8CD1A3B13BF001C2897 /* coracao.png in Resources */,
 				0F30FFFB1A97BF0300216088 /* spark.png in Resources */,
 				E3E019C11AB20B8900D06910 /* Camada-2.png in Resources */,
 				435D18051AA8F0E2007704C0 /* Fazendeiro_Severino@3x.png in Resources */,
-				E37BB4E51A40580500F8E679 /* singleplayer@2x.png in Resources */,
 				43F720711AAE26BA003DD069 /* icon_music@3x.png in Resources */,
 				E3CFD4AC1A8B867000C6FF64 /* Chewy.ttf in Resources */,
-				433A10021A8B904F0096B0E5 /* botao_fechar.png in Resources */,
 				433C4F341AA0ED43007329E7 /* estrela_fill@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
