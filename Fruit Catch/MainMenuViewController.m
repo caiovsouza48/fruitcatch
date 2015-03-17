@@ -643,7 +643,7 @@
                               delay:0
              usingSpringWithDamping:0.35
               initialSpringVelocity:0
-                            options:0
+                            options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
                              CGFloat imageSize = 203.0;
                              CGFloat buttonSize = 27.0;
@@ -668,7 +668,7 @@
                               delay:0
              usingSpringWithDamping:0.35
               initialSpringVelocity:0
-                            options:0
+                            options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
                              CGFloat imageSize = 62.0;
                              CGFloat buttonSize = 28.0;
