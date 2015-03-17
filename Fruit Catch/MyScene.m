@@ -41,6 +41,8 @@
 
 @property (nonatomic) BOOL win;
 
+@property(nonatomic) NSMutableArray *screenShots;
+
 @end
 
 @implementation MyScene
@@ -109,6 +111,7 @@
         // This layer holds the JIMCFruit sprites. The positions of these sprites
         // are relative to the fruitsLayer's bottom-left corner.
         self.fruitsLayer = [SKNode node];
+        self.fruitsLayer.name = @"fruitsLayer";
         self.fruitsLayer.position = layerPosition;
         [self.cropLayer addChild:self.fruitsLayer];
         
@@ -420,7 +423,7 @@
     // The touch must be on a fruit, not on an empty tile.
     JIMCFruit *fruit = [self.level fruitAtColumn:point.x row:point.y];
     if (fruit != nil) {
-        
+       
         // Remember in which column and row the swipe started, so we can compare
         // them later to find the direction of the swipe. This is also the first
         // fruit that will be swapped.
@@ -445,6 +448,32 @@
         } else if (row > self.swipeFromRow) {         // swipe up
             vertDelta = 1;
         }
+   
+        SKSpriteNode *tapIndicatorNode = [SKSpriteNode spriteNodeWithImageNamed:@"tap_multiplayerIndicator"];
+        tapIndicatorNode.position = self.fruitsLayer.frame.origin;
+        [self.fruitsLayer addChild:tapIndicatorNode];
+        SKAction *actionMoveTo = [SKAction moveTo:CGPointMake((column-horzDelta)*TileWidth + TileWidth/2, (row-vertDelta)*TileHeight + TileHeight/2) duration:0.5];
+        NSInteger toColumn = self.swipeFromColumn + horzDelta;
+        NSInteger toRow = self.swipeFromRow + vertDelta;
+        SKAction *actionMoveToOpponentSwipe = [SKAction moveTo:CGPointMake(toColumn*TileWidth + TileWidth/2, toRow*TileHeight + TileHeight/2) duration:0.85];
+//        SKAction *screenShotAction = [SKAction runBlock:^{
+//            UIImage *image = [self getScreenView];
+//            SKSpriteNode *screenShot = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:image]];
+//            ;
+//            
+//            [screenShot setSize:CGSizeMake(100, 50)];
+//            SKView *spriteNodeButtonView = [[SKView alloc] initWithFrame:CGRectMake(100, 50, screenShot.frame.size.width, screenShot.frame.size.height)];
+//            
+//            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(someMethod:)];
+//            [screenShot setPosition:CGPointMake(0, -200)];
+//            [self addChild:screenShot];
+//            
+//           
+//            [_screenShots addObject:screenShot];
+//            
+//        }];
+        SKAction *allActions = [SKAction sequence:@[actionMoveTo,actionMoveToOpponentSwipe,[SKAction removeFromParent]]];
+        [tapIndicatorNode runAction:allActions completion:^{
         // Only try swapping when the user swiped into a new square.
         if (horzDelta != 0 || vertDelta != 0) {
             
@@ -457,7 +486,50 @@
         }
 
     
+    }];
 }
+
+- (void)showScreenShot{
+    
+}
+
+- (UIImage *) getScreenView{
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 1);
+    [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:YES];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return  viewImage;
+}
+
+- (void)animateOpponentTapAtPoint:(CGPoint)opponentMove OpponentSwipeTo:(CGPoint)opponentSwipe{
+    NSInteger column = opponentMove.x;
+    NSInteger row = opponentMove.y;
+    NSInteger localSwipeFromColumn = opponentSwipe.x;
+     NSInteger localSwipeFromRow   = opponentSwipe.y;
+    
+    NSInteger horzDelta = 0, vertDelta = 0;
+    if (opponentMove.x < opponentSwipe.x) {          // swipe left
+        horzDelta = -1;
+    } else if (opponentMove.x > opponentSwipe.x) {   // swipe right
+        horzDelta = 1;
+    } else if (opponentMove.y < opponentSwipe.y) {         // swipe down
+        vertDelta = -1;
+    } else if (opponentMove.y > opponentSwipe.y) {         // swipe up
+        vertDelta = 1;
+    }
+    SKSpriteNode *tapIndicatorNode = [SKSpriteNode spriteNodeWithImageNamed:@"tap_multiplayerIndicator"];
+    tapIndicatorNode.position = self.fruitsLayer.frame.origin;
+    [self.fruitsLayer addChild:tapIndicatorNode];
+    SKAction *actionMoveTo = [SKAction moveTo:CGPointMake((column-horzDelta)*TileWidth + TileWidth/2, (row-vertDelta)*TileHeight + TileHeight/2) duration:0.5];
+    NSInteger toColumn = localSwipeFromColumn + horzDelta;
+    NSInteger toRow = localSwipeFromRow + vertDelta;
+    SKAction *actionMoveToOpponentSwipe = [SKAction moveTo:CGPointMake(toColumn*TileWidth + TileWidth/2, toRow*TileHeight + TileHeight/2) duration:0.85];
+    SKAction *allActions = [SKAction sequence:@[actionMoveTo,actionMoveToOpponentSwipe,[SKAction removeFromParent]]];
+    [tapIndicatorNode runAction:allActions completion:^{
+
+    }];
+}
+
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     
@@ -536,7 +608,7 @@
         }else if(vertDelta!= 0){
             swap.vertical = YES;
         }
-        NSLog(@"tryng SwapHandler");
+        
         
         self.swipeHandler(swap);
     }
@@ -802,7 +874,6 @@
     __block NSTimeInterval longestDuration = 0;
     
     for (NSArray *array in columns) {
-        NSLog(@"AnimateNewFruits Array = %@",array);
         // The new sprite should start out just above the first tile in this column.
         // An easy way to find this tile is to look at the row of the first fruit
         // in the array, which is always the top-most one for this column.

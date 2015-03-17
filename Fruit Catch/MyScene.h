@@ -63,5 +63,6 @@ static const CGFloat TileHeight = 36.0;
 - (void)winLose:(BOOL)win ;
 
 - (void)touchAtColumRowCGPoint:(CGPoint)point OpponentSwipe:(CGPoint)opponentSwipe;
+- (void)animateOpponentTapAtPoint:(CGPoint)opponentMove OpponentSwipeTo:(CGPoint)opponentSwipe;
 
 @end

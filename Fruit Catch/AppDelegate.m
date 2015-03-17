@@ -59,19 +59,19 @@
         
     }
     
-    //[[NetworkController sharedInstance] authenticateLocalUser];
     // Override point for customization after application launch.
     [FBLoginView class];
-    //EloRating *eloRating = [[EloRating alloc]init];
-//    int userRating = 1600;
-//    int opponentRating = 1650;
-//    int newUserRating = [eloRating getNewRating:userRating OpponentRating:opponentRating GameResult:WIN];
-//    int newOpponent = [eloRating getNewRating:opponentRating OpponentRating:userRating GameResult:LOSS];
-//    NSLog(@"New User Rating = %d",newUserRating);
-//    NSLog(@"New Opponent Rating = %d",newOpponent);
     [[UIApplication sharedApplication]setStatusBarHidden:YES ];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Launch"];
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self]];
+#warning Mudar o Logging para NO quando for lançar o App
+    [AdColony configureWithAppID:@"app57321b6f45b9433ebf" zoneIDs:@[@"vz260b8083dbf24e3fa1"] delegate:self logging:YES];
+    UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    
+    UIUserNotificationSettings *mySettings =
+    [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
     return YES;
 }
 
@@ -92,6 +92,15 @@
     
 
 }
+
+- ( void ) onAdColonyV4VCReward:(BOOL)success currencyName:(NSString*)currencyName currencyAmount:(int)amount inZone:(NSString*)zoneID {
+    
+    if (success) {
+        NSDictionary *userinfo = @{@"amount" : [NSNumber numberWithInt:amount]};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateLiveByAd"object:nil userInfo:userinfo];
+    }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -145,7 +154,6 @@
     NSArray *playersInfo = [tournamentStatus sortedResults];
     for (NPTournamentPlayerResults *playerResult in playersInfo) {
         if ((![playerResult isStillPlaying]) || ([playerResult didForfeit])){
-            NSLog(@"Player Saiu");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"nextpeerreportForfeitForCurrentTournament" object:nil userInfo:@{@"userMessage" : tournamentStatus}];
         }
     }

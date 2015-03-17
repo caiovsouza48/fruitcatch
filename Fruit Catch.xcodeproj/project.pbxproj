@@ -124,6 +124,21 @@
 		DE3DAC531A9B998E002FE5FE /* laranja_pu_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC491A9B998E002FE5FE /* laranja_pu_v@2x.png */; };
 		DE3DAC541A9B998E002FE5FE /* limao_pu_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC4A1A9B998E002FE5FE /* limao_pu_v@2x.png */; };
 		DE3DAC551A9B998E002FE5FE /* morango_pu_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3DAC4B1A9B998E002FE5FE /* morango_pu_v@2x.png */; };
+		DE4048D71AB7ABD100A8D7EE /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048D61AB7ABD100A8D7EE /* libz.1.2.5.dylib */; };
+		DE4048D91AB7ABE500A8D7EE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048D81AB7ABE500A8D7EE /* CoreMedia.framework */; };
+		DE4048DB1AB7ABF000A8D7EE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048DA1AB7ABF000A8D7EE /* MediaPlayer.framework */; };
+		DE4048DD1AB7ABFA00A8D7EE /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048DC1AB7ABFA00A8D7EE /* CoreTelephony.framework */; };
+		DE4048DF1AB7ACD100A8D7EE /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048DE1AB7ACD100A8D7EE /* AdColony.framework */; };
+		DE4048E11AB7B9E800A8D7EE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048E01AB7B9E800A8D7EE /* WebKit.framework */; };
+		DE4048E31AB7BA0000A8D7EE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048E21AB7BA0000A8D7EE /* Social.framework */; };
+		DE4048E51AB7BA1B00A8D7EE /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048E41AB7BA1B00A8D7EE /* EventKit.framework */; };
+		DE4048E71AB7BA2100A8D7EE /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048E61AB7BA2100A8D7EE /* EventKitUI.framework */; };
+		DE4048ED1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048EC1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png */; };
+		DE4048F21AB7D2E200A8D7EE /* Player2vez.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048EF1AB7D2E200A8D7EE /* Player2vez.png */; };
+		DE4048F31AB7D2E200A8D7EE /* Player2vez@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F01AB7D2E200A8D7EE /* Player2vez@2x.png */; };
+		DE4048F41AB7D2E200A8D7EE /* Player2vez@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F11AB7D2E200A8D7EE /* Player2vez@3x.png */; };
+		DE4048F91AB7D2FF00A8D7EE /* Playe_vez@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F61AB7D2FF00A8D7EE /* Playe_vez@2x.png */; };
+		DE4048FA1AB7D2FF00A8D7EE /* Playe_vez@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F71AB7D2FF00A8D7EE /* Playe_vez@3x.png */; };
 		DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */; };
 		DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DE6E98E31A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle */; };
 		DE805C611A852BAF009694C0 /* EloRating.m in Sources */ = {isa = PBXBuildFile; fileRef = DE805C601A852BAF009694C0 /* EloRating.m */; };
@@ -344,6 +359,21 @@
 		DE3DAC4A1A9B998E002FE5FE /* limao_pu_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "limao_pu_v@2x.png"; sourceTree = "<group>"; };
 		DE3DAC4B1A9B998E002FE5FE /* morango_pu_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "morango_pu_v@2x.png"; sourceTree = "<group>"; };
 		DE3DAC4C1A9B998E002FE5FE /* uva_pu_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uva_pu_v@2x.png"; sourceTree = "<group>"; };
+		DE4048D61AB7ABD100A8D7EE /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		DE4048D81AB7ABE500A8D7EE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		DE4048DA1AB7ABF000A8D7EE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		DE4048DC1AB7ABFA00A8D7EE /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		DE4048DE1AB7ACD100A8D7EE /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdColony.framework; sourceTree = "<group>"; };
+		DE4048E01AB7B9E800A8D7EE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		DE4048E21AB7BA0000A8D7EE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		DE4048E41AB7BA1B00A8D7EE /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		DE4048E61AB7BA2100A8D7EE /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		DE4048EC1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tap_multiplayerIndicator.png; sourceTree = "<group>"; };
+		DE4048EF1AB7D2E200A8D7EE /* Player2vez.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Player2vez.png; sourceTree = "<group>"; };
+		DE4048F01AB7D2E200A8D7EE /* Player2vez@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Player2vez@2x.png"; sourceTree = "<group>"; };
+		DE4048F11AB7D2E200A8D7EE /* Player2vez@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Player2vez@3x.png"; sourceTree = "<group>"; };
+		DE4048F61AB7D2FF00A8D7EE /* Playe_vez@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Playe_vez@2x.png"; sourceTree = "<group>"; };
+		DE4048F71AB7D2FF00A8D7EE /* Playe_vez@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Playe_vez@3x.png"; sourceTree = "<group>"; };
 		DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iconTest.jpeg; sourceTree = "<group>"; };
 		DE6E98E31A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NPResources_iPhone_Portrait.bundle; sourceTree = "<group>"; };
 		DE805C5F1A852BAF009694C0 /* EloRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EloRating.h; sourceTree = "<group>"; };
@@ -443,6 +473,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE4048E71AB7BA2100A8D7EE /* EventKitUI.framework in Frameworks */,
+				DE4048E51AB7BA1B00A8D7EE /* EventKit.framework in Frameworks */,
+				DE4048E31AB7BA0000A8D7EE /* Social.framework in Frameworks */,
+				DE4048E11AB7B9E800A8D7EE /* WebKit.framework in Frameworks */,
+				DE4048DD1AB7ABFA00A8D7EE /* CoreTelephony.framework in Frameworks */,
+				DE4048DF1AB7ACD100A8D7EE /* AdColony.framework in Frameworks */,
+				DE4048DB1AB7ABF000A8D7EE /* MediaPlayer.framework in Frameworks */,
+				DE4048D91AB7ABE500A8D7EE /* CoreMedia.framework in Frameworks */,
+				DE4048D71AB7ABD100A8D7EE /* libz.1.2.5.dylib in Frameworks */,
 				DE3140571AB72037009335D1 /* AudioToolbox.framework in Frameworks */,
 				E3DA878B1A9661D3002E9499 /* libz.dylib in Frameworks */,
 				E3DA87891A9661C6002E9499 /* libsqlite3.dylib in Frameworks */,
@@ -785,6 +824,18 @@
 			path = PowerUp_vertical;
 			sourceTree = "<group>";
 		};
+		DE4048EE1AB7D2D500A8D7EE /* multiplayer */ = {
+			isa = PBXGroup;
+			children = (
+				DE4048F61AB7D2FF00A8D7EE /* Playe_vez@2x.png */,
+				DE4048F71AB7D2FF00A8D7EE /* Playe_vez@3x.png */,
+				DE4048EF1AB7D2E200A8D7EE /* Player2vez.png */,
+				DE4048F01AB7D2E200A8D7EE /* Player2vez@2x.png */,
+				DE4048F11AB7D2E200A8D7EE /* Player2vez@3x.png */,
+			);
+			name = multiplayer;
+			sourceTree = "<group>";
+		};
 		DE8092D81A7FDDEF008E2B37 /* Multiplayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,6 +902,15 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
+				DE4048E61AB7BA2100A8D7EE /* EventKitUI.framework */,
+				DE4048E41AB7BA1B00A8D7EE /* EventKit.framework */,
+				DE4048E21AB7BA0000A8D7EE /* Social.framework */,
+				DE4048E01AB7B9E800A8D7EE /* WebKit.framework */,
+				DE4048DE1AB7ACD100A8D7EE /* AdColony.framework */,
+				DE4048DC1AB7ABFA00A8D7EE /* CoreTelephony.framework */,
+				DE4048DA1AB7ABF000A8D7EE /* MediaPlayer.framework */,
+				DE4048D81AB7ABE500A8D7EE /* CoreMedia.framework */,
+				DE4048D61AB7ABD100A8D7EE /* libz.1.2.5.dylib */,
 				DE3140561AB72037009335D1 /* AudioToolbox.framework */,
 				E3DA878A1A9661D3002E9499 /* libz.dylib */,
 				E3DA87881A9661C6002E9499 /* libsqlite3.dylib */,
@@ -929,6 +989,7 @@
 		E37BB4D61A40567E00F8E679 /* imagens */ = {
 			isa = PBXGroup;
 			children = (
+				DE4048EE1AB7D2D500A8D7EE /* multiplayer */,
 				E3E019BD1AB20B4900D06910 /* power UP */,
 				433C4F2F1AA0ED43007329E7 /* estrela_fill.png */,
 				433C4F301AA0ED43007329E7 /* estrela_fill@2x.png */,
@@ -946,6 +1007,7 @@
 				4378401D1A97B911009BE3FB /* estrela_outline@2x.png */,
 				4378401E1A97B911009BE3FB /* estrela_outline@3x.png */,
 				437B8E871A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png */,
+				DE4048EC1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png */,
 				437B8E881A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png */,
 				437B8E891A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png */,
 				437B8E811A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia.png */,
@@ -1166,8 +1228,10 @@
 				E37BB4EA1A40924B00F8E679 /* fazendeiro_fase@2x.png in Resources */,
 				0F22E09E1AA79E5A00C2BF51 /* Level_3.json in Resources */,
 				0F22E08D1AA78B3A00C2BF51 /* Level_7.json in Resources */,
+				DE4048F21AB7D2E200A8D7EE /* Player2vez.png in Resources */,
 				DE3DAC541A9B998E002FE5FE /* limao_pu_v@2x.png in Resources */,
 				4361288B1A40612100A2B620 /* mapa@2x.png in Resources */,
+				DE4048ED1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png in Resources */,
 				437840201A97B911009BE3FB /* estrela_outline@2x.png in Resources */,
 				4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */,
 				0F22E0911AA78B6700C2BF51 /* Level_9.json in Resources */,
@@ -1180,6 +1244,7 @@
 				43F720741AAE26BA003DD069 /* icon_som@3x.png in Resources */,
 				E3E019C31AB20B8900D06910 /* Camada-2@3x.png in Resources */,
 				DE3DAC551A9B998E002FE5FE /* morango_pu_v@2x.png in Resources */,
+				DE4048F41AB7D2E200A8D7EE /* Player2vez@3x.png in Resources */,
 				432C10221AADD8400020CB26 /* icon_open.png in Resources */,
 				430A31181AB75DE5003D840F /* icon_menu.png in Resources */,
 				43A643BA1AB0B52E009521DA /* mapa_2.0@2x.png in Resources */,
@@ -1216,6 +1281,7 @@
 				0F30FFFA1A97BF0300216088 /* MyParticle.sks in Resources */,
 				0F22E09B1AA79E5A00C2BF51 /* Level_0.json in Resources */,
 				437B8E861A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png in Resources */,
+				DE4048F91AB7D2FF00A8D7EE /* Playe_vez@2x.png in Resources */,
 				E3CFD4B81A8B86B900C6FF64 /* retangulo_generico@2x.png in Resources */,
 				0FAF24D81AAA326600682521 /* swap.mp3 in Resources */,
 				430A31121AB75DCA003D840F /* icon_sair.png in Resources */,
@@ -1237,6 +1303,7 @@
 				43F7206D1AAE26BA003DD069 /* icon_help@2x.png in Resources */,
 				432C10241AADD8400020CB26 /* icon_open@3x.png in Resources */,
 				43F720721AAE26BA003DD069 /* icon_som.png in Resources */,
+				DE4048FA1AB7D2FF00A8D7EE /* Playe_vez@3x.png in Resources */,
 				E3E3ECBA1A23B31900E7E18E /* Scrape.wav in Resources */,
 				0FAF24D61AAA239500682521 /* popSound.mp3 in Resources */,
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,

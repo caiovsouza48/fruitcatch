@@ -843,7 +843,9 @@
 -(IBAction)back:(id)sender
 {
     _backButton.enabled = NO;
-    [self performSegueWithIdentifier:@"Back" sender:self];
+    if ([self shouldPerformSegueWithIdentifier:@"Back" sender:sender]){
+        [self performSegueWithIdentifier:@"Back" sender:self];
+    }
 }
 
 -(void)back{
@@ -852,7 +854,9 @@
 
 -(void)nextStage{
     _next = YES;
-    [self performSegueWithIdentifier:@"Back" sender:self];
+    if ([self shouldPerformSegueWithIdentifier:@"Back" sender:nil]){
+        [self performSegueWithIdentifier:@"Back" sender:self];
+    }
 }
 
 - (void)registerRetryNotification{
@@ -865,43 +869,54 @@
     [self updateLabels];
 }
 
+
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+}
+
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"Back"]){
-        if(self.scene != nil)
-        {
-            WorldMap *viewWP = [segue destinationViewController];
-            Life *life = [Life sharedInstance];
-            life.lifeCount--;
-            NSDate *oldDate = life.lifeTime;
-            NSTimeInterval interval = [oldDate timeIntervalSinceNow];
-            NSDate *plusDate = [NSDate dateWithTimeIntervalSinceNow:interval];
-            life.lifeTime = plusDate;
-            [life saveToFile];
-            [self.scene setPaused:YES];
-            [self.scene removeAllActions];
-            [self.scene removeAllChildren];
-            [self.backgroundMusic stop];
-            [self.scene removeAllFruitSprites];
-    
-            self.scene = nil;
-            self.backgroundMusic = nil;
-            self.level = nil;
-            
-            [self.scene removeFromParent];
-            
-            SKView *view = (SKView *)self.view;
-            [view presentScene:nil];
-            
-            view = nil;
-            
-            if(_next){
-                NSArray *a = [self.levelString componentsSeparatedByString:@"Level_"];
-                NSInteger i = [[a objectAtIndex:1] integerValue];
-                viewWP.nextStage = i+1;
+    if ([self shouldPerformSegueWithIdentifier:segue.identifier sender:sender]){
+        if([segue.identifier isEqualToString:@"Back"]){
+            if(self.scene != nil)
+            {
+                WorldMap *viewWP = [segue destinationViewController];
+                Life *life = [Life sharedInstance];
+                if (life.lifeCount > 0){
+                    life.lifeCount--;
+                }
+                NSDate *oldDate = life.lifeTime;
+                NSTimeInterval interval = [oldDate timeIntervalSinceNow];
+                NSDate *plusDate = [NSDate dateWithTimeIntervalSinceNow:interval];
+                life.lifeTime = plusDate;
+                [life saveToFile];
+                [self.scene setPaused:YES];
+                [self.scene removeAllActions];
+                [self.scene removeAllChildren];
+                [self.backgroundMusic stop];
+                [self.scene removeAllFruitSprites];
+        
+                self.scene = nil;
+                self.backgroundMusic = nil;
+                self.level = nil;
                 
-            }else{
-                viewWP.nextStage = -1;
+                [self.scene removeFromParent];
+                
+                SKView *view = (SKView *)self.view;
+                [view presentScene:nil];
+                
+                view = nil;
+                
+                if(_next){
+                    NSArray *a = [self.levelString componentsSeparatedByString:@"Level_"];
+                    NSInteger i = [[a objectAtIndex:1] integerValue];
+                    viewWP.nextStage = i+1;
+                    
+                }else{
+                    viewWP.nextStage = -1;
+                }
             }
         }
     }
