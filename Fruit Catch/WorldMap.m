@@ -132,7 +132,7 @@
     [self adicionaBotaoSair];
     [self adicionaBotaoJogar];
     [self adicionaDetalhesDaFase];
-    [self adicionaShop];
+//    [self adicionaShop];
     [self allocScrollViewFacebook];
     [self adicionaMenuRapido];
     
@@ -234,8 +234,7 @@
     if([Life sharedInstance].lifeCount == 5){
         [_vidasCountdown setText:@"Max."];
     }
-    
-    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -788,18 +787,21 @@
 {
     //Vidas
     if (!_vidas){
-         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 92, 57)];
+         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 65, 5, 130, 57)];
     }
-    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 40, 20)];
-    [_vidasCountdown setText:@"00:00"];
+    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(60, 18, 80, 20)];
+    _vidasCountdown.font = [UIFont fontWithName:@"Chewy" size:22];
+    _vidasCountdown.textColor = [UIColor whiteColor];
+//    [_vidasCountdown setText:@"00:00"];
 //    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
 //    _vidas.backgroundColor = [UIColor redColor];
     _vidas.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"vidas"]];
     _vidas.numberOfLines = 3;
     _vidas.lineBreakMode = NSLineBreakByWordWrapping;
-    _vidas.font = [UIFont fontWithName:@"Chewy" size:20];
+    _vidas.font = [UIFont fontWithName:@"Chewy" size:22];
     _vidas.textColor = [UIColor whiteColor];
-    _vidas.textAlignment = NSTextAlignmentCenter;
+//    _vidas.textAlignment = NSTextAlignmentCenter;
+    _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
     [self.view insertSubview:_vidas belowSubview:_informFase];
     [self.vidas addSubview:_vidasCountdown];
 }

@@ -52,9 +52,9 @@
 		432C10221AADD8400020CB26 /* icon_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 432C101F1AADD8400020CB26 /* icon_open.png */; };
 		432C10231AADD8400020CB26 /* icon_open@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 432C10201AADD8400020CB26 /* icon_open@2x.png */; };
 		432C10241AADD8400020CB26 /* icon_open@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 432C10211AADD8400020CB26 /* icon_open@3x.png */; };
-		432F4EED1ABA150400D335CF /* vidas.png in Resources */ = {isa = PBXBuildFile; fileRef = 432F4EEA1ABA150400D335CF /* vidas.png */; };
 		432F4EEE1ABA150400D335CF /* vidas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 432F4EEB1ABA150400D335CF /* vidas@2x.png */; };
 		432F4EEF1ABA150400D335CF /* vidas@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 432F4EEC1ABA150400D335CF /* vidas@3x.png */; };
+		432F4EF11ABA180C00D335CF /* vidas.png in Resources */ = {isa = PBXBuildFile; fileRef = 432F4EF01ABA180C00D335CF /* vidas.png */; };
 		433C4F321AA0ED43007329E7 /* estrela_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = 433C4F2F1AA0ED43007329E7 /* estrela_fill.png */; };
 		433C4F331AA0ED43007329E7 /* estrela_fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433C4F301AA0ED43007329E7 /* estrela_fill@2x.png */; };
 		433C4F341AA0ED43007329E7 /* estrela_fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433C4F311AA0ED43007329E7 /* estrela_fill@3x.png */; };
@@ -290,9 +290,9 @@
 		432C101F1AADD8400020CB26 /* icon_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_open.png; sourceTree = "<group>"; };
 		432C10201AADD8400020CB26 /* icon_open@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_open@2x.png"; sourceTree = "<group>"; };
 		432C10211AADD8400020CB26 /* icon_open@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_open@3x.png"; sourceTree = "<group>"; };
-		432F4EEA1ABA150400D335CF /* vidas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vidas.png; sourceTree = "<group>"; };
 		432F4EEB1ABA150400D335CF /* vidas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vidas@2x.png"; sourceTree = "<group>"; };
 		432F4EEC1ABA150400D335CF /* vidas@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vidas@3x.png"; sourceTree = "<group>"; };
+		432F4EF01ABA180C00D335CF /* vidas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vidas.png; sourceTree = "<group>"; };
 		433C4F2F1AA0ED43007329E7 /* estrela_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = estrela_fill.png; sourceTree = "<group>"; };
 		433C4F301AA0ED43007329E7 /* estrela_fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "estrela_fill@2x.png"; sourceTree = "<group>"; };
 		433C4F311AA0ED43007329E7 /* estrela_fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "estrela_fill@3x.png"; sourceTree = "<group>"; };
@@ -730,7 +730,7 @@
 		435D17FF1AA8F0D3007704C0 /* Novas imagens */ = {
 			isa = PBXGroup;
 			children = (
-				432F4EEA1ABA150400D335CF /* vidas.png */,
+				432F4EF01ABA180C00D335CF /* vidas.png */,
 				432F4EEB1ABA150400D335CF /* vidas@2x.png */,
 				432F4EEC1ABA150400D335CF /* vidas@3x.png */,
 				4357D6AA1ABA1234003AD548 /* dinheiro.png */,
@@ -1310,6 +1310,7 @@
 				435D18031AA8F0E2007704C0 /* Fazendeiro_Severino.png in Resources */,
 				4367B1E71AB8C83F006E880A /* Carrinho_compras@2x.png in Resources */,
 				4351CD8B1A8E772800C026AA /* botao_menu.png in Resources */,
+				432F4EF11ABA180C00D335CF /* vidas.png in Resources */,
 				437B8E8A1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png in Resources */,
 				436D9BEC1A9E07D600EA5D4A /* fase_fechada@2x.png in Resources */,
 				0F40CAA71A9BA16600D0CB01 /* banana_pu_h@2x.png in Resources */,
@@ -1414,7 +1415,6 @@
 				436BAB2C1AAA23A7003A3955 /* retangulo_configuracoes.png in Resources */,
 				4357D6A51AB9C4EA003AD548 /* Next_Icon@2x.png in Resources */,
 				4351CD801A8E76F500C026AA /* botao_proxima_fase@2x.png in Resources */,
-				432F4EED1ABA150400D335CF /* vidas.png in Resources */,
 				433C4F321AA0ED43007329E7 /* estrela_fill.png in Resources */,
 				432C101E1AADD8270020CB26 /* Menu_Rapido_Pequeno@3x.png in Resources */,
 				0F30FFFB1A97BF0300216088 /* spark.png in Resources */,
