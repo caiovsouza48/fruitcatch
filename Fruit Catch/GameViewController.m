@@ -86,6 +86,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self.scene setIsMyMove:YES];
     if (![SettingsSingleton sharedInstance].music) {
         //adicionar ícone de proibido
         [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"no_music"] forState:UIControlStateNormal];
@@ -849,7 +850,9 @@
 }
 
 -(void)back{
-    [self performSegueWithIdentifier:@"Back" sender:self];
+    if ([self shouldPerformSegueWithIdentifier:@"Back" sender:nil]){
+        [self performSegueWithIdentifier:@"Back" sender:self];
+    }
 }
 
 -(void)nextStage{
@@ -878,6 +881,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    NSLog(@"Prepare For Segue");
     if ([self shouldPerformSegueWithIdentifier:segue.identifier sender:sender]){
         if([segue.identifier isEqualToString:@"Back"]){
             if(self.scene != nil)
@@ -886,6 +890,7 @@
                 Life *life = [Life sharedInstance];
                 if (life.lifeCount > 0){
                     life.lifeCount--;
+                    NSLog(@"Life=%@",life);
                 }
                 NSDate *oldDate = life.lifeTime;
                 NSTimeInterval interval = [oldDate timeIntervalSinceNow];
