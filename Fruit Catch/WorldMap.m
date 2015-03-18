@@ -441,8 +441,6 @@
     }
     _currentMinute = intervalInMinutes - timeInterval/60;
     
-     NSLog(@"timeInterval = %f",timeInterval);
-    NSLog(@"timeInterval = %d",_currentMinute);
     if((_currentMinute>0 || _currentSecond>=0) && _currentMinute>=0)
     {
         if(_currentSecond==0)
@@ -462,8 +460,6 @@
     {
         [timer invalidate];
     }
-    NSLog(@"timeInterval = %f",timeInterval);
-    //[_vidasCountdown setText:[NSString stringWithFormat:@"%02d:%02d", (int)(intervalInMinutes - timeInterval*60),(int)timeInterval]];
 }
 
 
