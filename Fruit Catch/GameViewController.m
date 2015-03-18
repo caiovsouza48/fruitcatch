@@ -844,16 +844,14 @@
     self.scene.matchSound = nil;
     self.scene.fallingFruitSound = nil;
     self.scene.addFruitSound = nil;
-    
-    
     if ([self shouldPerformSegueWithIdentifier:@"Back" sender:sender]){
         [self performSegueWithIdentifier:@"Back" sender:self];
     }
 }
 
-//-(void)back{
-//    [self performSegueWithIdentifier:@"Back" sender:self];
-//}
+-(void)back{
+    [self performSegueWithIdentifier:@"Back" sender:self];
+}
 
 -(void)nextStage{
     _next = YES;

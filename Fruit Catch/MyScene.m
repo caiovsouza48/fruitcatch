@@ -356,9 +356,11 @@
 #pragma mark - Detecting Swipes
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    /*
     if (!self.isMyMove){
         return;
     }
+     */
     // Convert the touch location to a point relative to the fruitsLayer.
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self.fruitsLayer];
