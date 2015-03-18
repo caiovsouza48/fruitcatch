@@ -72,6 +72,7 @@
 		435D180B1AA8F604007704C0 /* fundo_main_menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 435D18081AA8F604007704C0 /* fundo_main_menu@3x.png */; };
 		4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128881A40612100A2B620 /* fase_aberta@2x.png */; };
 		4361288B1A40612100A2B620 /* mapa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436128891A40612100A2B620 /* mapa@2x.png */; };
+		4367B1E21AB8BE32006E880A /* Agrupar-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4367B1E11AB8BE32006E880A /* Agrupar-1@2x.png */; };
 		436BAB251AAA1677003A3955 /* icon_config.png in Resources */ = {isa = PBXBuildFile; fileRef = 436BAB221AAA1677003A3955 /* icon_config.png */; };
 		436BAB261AAA1677003A3955 /* icon_config@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436BAB231AAA1677003A3955 /* icon_config@2x.png */; };
 		436BAB271AAA1677003A3955 /* icon_config@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436BAB241AAA1677003A3955 /* icon_config@3x.png */; };
@@ -135,7 +136,6 @@
 		DE4048E71AB7BA2100A8D7EE /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE4048E61AB7BA2100A8D7EE /* EventKitUI.framework */; };
 		DE4048ED1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048EC1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png */; };
 		DE4048F21AB7D2E200A8D7EE /* Player2vez.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048EF1AB7D2E200A8D7EE /* Player2vez.png */; };
-		DE4048F31AB7D2E200A8D7EE /* Player2vez@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F01AB7D2E200A8D7EE /* Player2vez@2x.png */; };
 		DE4048F41AB7D2E200A8D7EE /* Player2vez@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F11AB7D2E200A8D7EE /* Player2vez@3x.png */; };
 		DE4048F91AB7D2FF00A8D7EE /* Playe_vez@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F61AB7D2FF00A8D7EE /* Playe_vez@2x.png */; };
 		DE4048FA1AB7D2FF00A8D7EE /* Playe_vez@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F71AB7D2FF00A8D7EE /* Playe_vez@3x.png */; };
@@ -295,6 +295,7 @@
 		435D18081AA8F604007704C0 /* fundo_main_menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fundo_main_menu@3x.png"; sourceTree = "<group>"; };
 		436128881A40612100A2B620 /* fase_aberta@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fase_aberta@2x.png"; sourceTree = "<group>"; };
 		436128891A40612100A2B620 /* mapa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa@2x.png"; sourceTree = "<group>"; };
+		4367B1E11AB8BE32006E880A /* Agrupar-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agrupar-1@2x.png"; sourceTree = "<group>"; };
 		436BAB221AAA1677003A3955 /* icon_config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_config.png; sourceTree = "<group>"; };
 		436BAB231AAA1677003A3955 /* icon_config@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_config@2x.png"; sourceTree = "<group>"; };
 		436BAB241AAA1677003A3955 /* icon_config@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_config@3x.png"; sourceTree = "<group>"; };
@@ -991,6 +992,7 @@
 		E37BB4D61A40567E00F8E679 /* imagens */ = {
 			isa = PBXGroup;
 			children = (
+				4367B1E11AB8BE32006E880A /* Agrupar-1@2x.png */,
 				DE4048EE1AB7D2D500A8D7EE /* multiplayer */,
 				E3E019BD1AB20B4900D06910 /* power UP */,
 				433C4F2F1AA0ED43007329E7 /* estrela_fill.png */,
@@ -1285,6 +1287,7 @@
 				0F22E09B1AA79E5A00C2BF51 /* Level_0.json in Resources */,
 				437B8E861A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png in Resources */,
 				DE4048F91AB7D2FF00A8D7EE /* Playe_vez@2x.png in Resources */,
+				4367B1E21AB8BE32006E880A /* Agrupar-1@2x.png in Resources */,
 				E3CFD4B81A8B86B900C6FF64 /* retangulo_generico@2x.png in Resources */,
 				0FAF24D81AAA326600682521 /* swap.mp3 in Resources */,
 				430A31121AB75DCA003D840F /* icon_sair.png in Resources */,

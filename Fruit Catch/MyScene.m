@@ -362,9 +362,12 @@
 #pragma mark - Detecting Swipes
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (!self.isMyMove){
-        return;
-    }
+    
+    
+//    if (!self.isMyMove){
+//        return;
+//    }
+    
     // Convert the touch location to a point relative to the fruitsLayer.
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self.fruitsLayer];
@@ -1121,9 +1124,11 @@
     NSInteger level = [[a lastObject] integerValue];
     
     //Para checar se é o último liberado
-    if(level == [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
-        //Para enfim liberar mais um nível
-        [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
+    if(win){
+        if(level == [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+            //Para enfim liberar mais um nível
+            [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
+        }
     }
     
     [self animateGameOver];
