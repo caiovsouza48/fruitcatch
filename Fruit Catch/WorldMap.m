@@ -97,7 +97,7 @@
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
-//    if (self.flagFacebook)
+    //if (self.flagFacebook)
         //[self addPeopleOnScrollFacebook];
     [self adicionaVidas];
     [self adicionaMoedas];

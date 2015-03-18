@@ -62,5 +62,29 @@
 		<key>yPosition</key>
 		<integer>21</integer>
 	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>205</integer>
+		<key>yPosition</key>
+		<integer>-60</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>70</integer>
+		<key>yPosition</key>
+		<integer>-120</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>185</integer>
+		<key>yPosition</key>
+		<integer>-160</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>210</integer>
+		<key>yPosition</key>
+		<integer>-260</integer>
+	</dict>
 </array>
 </plist>
