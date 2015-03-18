@@ -115,8 +115,6 @@
         _offset = 80;
     }
     
-    
-    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
 
     [self adicionaFundo];
@@ -232,6 +230,11 @@
     
     // Começa o loading
     [self startSpinningShop];
+
+    if([Life sharedInstance].lifeCount == 5){
+        [_vidasCountdown setText:@"Max."];
+    }
+    
     _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
 }
 
@@ -785,19 +788,20 @@
 {
     //Vidas
     if (!_vidas){
-         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 60, 60)];
+         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 92, 57)];
     }
-    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 10, 60, 60)];
+    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 40, 20)];
     [_vidasCountdown setText:@"00:00"];
-    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
-    _vidas.backgroundColor = [UIColor redColor];
+//    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+//    _vidas.backgroundColor = [UIColor redColor];
+    _vidas.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"vidas"]];
     _vidas.numberOfLines = 3;
     _vidas.lineBreakMode = NSLineBreakByWordWrapping;
     _vidas.font = [UIFont fontWithName:@"Chewy" size:20];
     _vidas.textColor = [UIColor whiteColor];
     _vidas.textAlignment = NSTextAlignmentCenter;
     [self.view insertSubview:_vidas belowSubview:_informFase];
-    [self.view insertSubview:_vidasCountdown aboveSubview:_informFase];
+    [self.vidas addSubview:_vidasCountdown];
 }
 
 -(void)adicionaMoedas
