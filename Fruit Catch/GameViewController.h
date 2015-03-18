@@ -10,6 +10,9 @@
 #import <SpriteKit/SpriteKit.h>
 #import "JIMCLevel.h"
 #import <FacebookSDK/FacebookSDK.h>
+
+static const int numberOfLevels = 9; //Tem que ser a quantidade menos 1
+
 @interface GameViewController : UIViewController
 
 @property (assign, nonatomic) NSUInteger score;

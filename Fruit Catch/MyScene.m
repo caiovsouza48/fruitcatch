@@ -387,13 +387,10 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"zerarRetryNotification" object:nil];
         
     }else if ([no.name isEqualToString:@"next"]){
-        //Obtem o nível atual
         [self.viewController nextStage];
         
     }else if ([no.name isEqualToString:@"menu"]){
-        NSLog(@"Menu Button Clicked");
         [self.viewController back];
-        
     }
     
     
@@ -967,13 +964,20 @@
     //Kasco
     SKSpriteNode *kasco;
     
+    //Obtem o nível atual
+    NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
+    NSInteger i = [[a objectAtIndex:1] integerValue];
+    
     // Imagem dos botões
-    self.gameOverScreen.retry = [[SKSpriteNode alloc]initWithImageNamed:@"botao_jogar_novamente"];
-    self.gameOverScreen.menu  = [[SKSpriteNode alloc]initWithImageNamed:@"botao_menu"];
+    self.gameOverScreen.retry = [[SKSpriteNode alloc]initWithImageNamed:@"Replay_icon"];
+    self.gameOverScreen.menu  = [[SKSpriteNode alloc]initWithImageNamed:@"icon_menu"];
     
     if(_win){
         kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_pop_over"];
-        self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"botao_proxima_fase"];
+
+        if(i < numberOfLevels){
+            self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"Next_icon"];
+        }
     }else{
         kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_triste_cesta_vazia"];
     }
@@ -982,7 +986,7 @@
     CGFloat yPos = self.gameOverScreen.position.y - 60;
     kasco.position = CGPointMake(-90, -80);
     
-    if(_win){
+    if(_win && i < numberOfLevels){
         self.gameOverScreen.menu.position  = CGPointMake(-10, yPos);
         self.gameOverScreen.retry.position = CGPointMake(55, yPos);
         self.gameOverScreen.next.position  = CGPointMake(120, yPos);
@@ -1026,7 +1030,7 @@
     [self.gameOverScreen addChild:winLose];
     [self.gameOverScreen addChild:scoreLabel];
     
-    if(_win){
+    if(_win && i < numberOfLevels){
         [self.gameOverScreen addChild:self.gameOverScreen.next];
     }
 

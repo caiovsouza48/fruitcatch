@@ -103,7 +103,7 @@
         [self addPeopleOnScrollFacebook];
     [self adicionaVidas];
     [self adicionaMoedas];
-//    [self adicionaAjuda];
+    [self adicionaAjuda];
 //    [self adicionaBotaoBack];
     [self adicionaBotoesFases];
     [self adicionaBotaoSair];
@@ -596,7 +596,7 @@
                      }];
 }
 
--(IBAction)ajuda:(id)sender
+-(IBAction)showAd:(id)sender
 {
    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:nil withV4VCPrePopup:YES andV4VCPostPopup:YES];
     
@@ -714,7 +714,7 @@
     //Botao ajuda
     UIButton *ajuda = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [ajuda addTarget:self
-              action:@selector(ajuda:)
+              action:@selector(showAd:)
     forControlEvents:UIControlEventTouchUpInside];
     
     [ajuda setTitle:[NSString stringWithFormat:@"?"] forState:UIControlStateNormal];
@@ -893,9 +893,10 @@
 -(void)adicionaShop
 {
     //Shopi
-    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 60, 60)];
-    [_shopi setTitle:@"Shop" forState:UIControlStateNormal];
-    _shopi.backgroundColor = [UIColor blueColor];
+    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 50, 50)];
+//    [_shopi setTitle:@"Shop" forState:UIControlStateNormal];
+//    _shopi.backgroundColor = [UIColor blueColor];
+    [_shopi setBackgroundImage:[UIImage imageNamed:@"Carrinho_compras"] forState:UIControlStateNormal];
     [_shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
     _shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.view insertSubview:_shopi belowSubview:_informFase];
@@ -1235,6 +1236,11 @@
             [self fexarTela:self];
         }
     }
+}
+
+-(void)ajuda:(id)sender
+{
+    NSLog(@"ajuda");
 }
 
 @end

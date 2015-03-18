@@ -356,7 +356,7 @@
 
 -(IBAction)help:(id)sender
 {
-    
+    NSLog(@"ajuda");
 }
 
 -(IBAction)musicON_OFF:(id)sender
