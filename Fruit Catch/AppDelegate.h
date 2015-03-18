@@ -11,9 +11,11 @@
 #import "Nextpeer/Nextpeer.h"
 #import <AdColony/AdColony.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,NextpeerDelegate,NPTournamentDelegate,NPNotificationDelegate,AdColonyDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NextpeerDelegate,NPTournamentDelegate,NPNotificationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property(nonatomic) NSDictionary *rewardData;
 
 
 @end

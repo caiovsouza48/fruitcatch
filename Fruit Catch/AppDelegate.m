@@ -68,8 +68,7 @@
     [[UIApplication sharedApplication]setStatusBarHidden:YES ];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Launch"];
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self]];
-#warning Mudar o Logging para NO quando for lançar o App
-    [AdColony configureWithAppID:@"app57321b6f45b9433ebf" zoneIDs:@[@"vz260b8083dbf24e3fa1"] delegate:self logging:YES];
+    
     UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
     
     UIUserNotificationSettings *mySettings =
@@ -97,13 +96,6 @@
 
 }
 
-- ( void ) onAdColonyV4VCReward:(BOOL)success currencyName:(NSString*)currencyName currencyAmount:(int)amount inZone:(NSString*)zoneID {
-    
-    if (success) {
-        NSDictionary *userinfo = @{@"amount" : [NSNumber numberWithInt:amount]};
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateLiveByAd"object:nil userInfo:userinfo];
-    }
-}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
