@@ -14,6 +14,7 @@
 #import "JIMCAPHelper.h"
 #import "RNEncryptor.h"
 #import "AppUtils.h"
+#import "SettingsSingleton.h"
 
 #define NEXTPEER_KEY @"08d8f6a9b74c70e157add51c12c7d272"
 
@@ -39,6 +40,8 @@
     //Checa se é o primeiro uso, caso seja, libera apenas o primeiro nível
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayed"])
     {
+        [SettingsSingleton sharedInstance].music = 1;
+        [SettingsSingleton sharedInstance].SFX = 1;
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPlayed"];
         [[NSUserDefaults standardUserDefaults] setInteger:(-1) forKey:@"lastCleared"];
