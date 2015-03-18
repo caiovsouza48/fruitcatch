@@ -29,7 +29,7 @@
 #define IPHONE6PLUS_XSCALE 1.29375
 #define IPHONE6PLUS_YSCALE 1.295774647887324
 
-@interface WorldMap (){
+@interface WorldMap ()<AdColonyAdDelegate,AdColonyDelegate>{
     NSArray *_products;
 }
 
@@ -64,19 +64,25 @@
 @property (nonatomic) IBOutlet UIButton *btnSair;
 @property (nonatomic) IBOutlet UIButton *ligaSFX;
 @property (nonatomic) IBOutlet UIButton *ajuda;
+@property (nonatomic) UILabel *vidas;
 @property (nonatomic) BOOL quickMenuOpen;
 @end
 
 @implementation WorldMap
 
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
+    [self doLifeUpdate];
+    _currentMinute = 0;
+    _currentSecond = 0;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
     _shopOpen = NO;
     _quickMenuOpen = NO;
-    
+    _adExecuted = NO;
+    _alreadySetNotification = NO;
+    [AdColony configureWithAppID:@"app57321b6f45b9433ebf" zoneIDs:@[@"vz260b8083dbf24e3fa1"] delegate:self logging:YES];
     if(IPHONE6){
         _offset = 80 * IPHONE6_YSCALE;
     }else if(IPHONE6PLUS){
@@ -113,48 +119,55 @@
     
 }
 
-- (void)registerAdNotification{
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     
-    [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(updateTimeByAd:) name:@"updateLiveByAd" object:nil];
 }
 
-- (void)updateTimeByAd:(NSNotification *)notification{
-    NSDictionary *userInfo = notification.userInfo;
-    int amount = [userInfo[@"amount"] intValue];
-    NSTimeInterval currentInterval = [self.lifeTimer timeInterval];
-    NSTimeInterval newTimeInterval = currentInterval - amount;
-    NSLog(@"New time Interval = %f",newTimeInterval);
-    int intervalInMinutes=0;
-    if (newTimeInterval < 0){
-        
-        switch ([Life sharedInstance].lifeCount) {
-            case 0:
-                intervalInMinutes = 10;
-                break;
-            case 1:
-                intervalInMinutes = 20;
-                break;
-            case 2:
-                intervalInMinutes = 25;
-                break;
-            case 3:
-                intervalInMinutes = 30;
-                break;
-            case 4:
-                intervalInMinutes = 35;
-                break;
-            case 5:
-            default:
-                return;
-        }
+- (void)registerAdNotification{
+    NSLog(@"register Ad Notification");
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateLiveByAd" object:nil];
+        [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(updateTimeByAd:) name:@"updateLiveByAd" object:nil];
+}
 
-        newTimeInterval = intervalInMinutes - abs(newTimeInterval);
-    }
-    [self.lifeTimer invalidate];
-    self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:newTimeInterval * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
-    
-    
-    
+- (void)updateTimeByAd:(NSDictionary *)notification{
+        NSDictionary *userInfo = notification;
+        int amount = [userInfo[@"amount"] intValue];
+        NSTimeInterval currentInterval = [[NSDate date] timeIntervalSinceDate:[Life sharedInstance].lifeTime];
+        NSTimeInterval newTimeInterval = currentInterval - amount;
+        NSLog(@"New time Interval = %f",newTimeInterval);
+
+        int intervalInMinutes=0;
+        if (newTimeInterval < 0){
+            
+            switch ([Life sharedInstance].lifeCount) {
+                case 0:
+                    intervalInMinutes = 10;
+                    break;
+                case 1:
+                    intervalInMinutes = 20;
+                    break;
+                case 2:
+                    intervalInMinutes = 25;
+                    break;
+                case 3:
+                    intervalInMinutes = 30;
+                    break;
+                case 4:
+                    intervalInMinutes = 35;
+                    break;
+                case 5:
+                default:
+                    return;
+            }
+
+            newTimeInterval = intervalInMinutes - abs(newTimeInterval);
+            
+        }
+        [self.lifeTimer invalidate];
+        self.lifeTimer = nil;
+        self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:newTimeInterval * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 //Metodos add apenas para tirar o warning
@@ -162,6 +175,8 @@
 -(void)startSpinning{};
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //[self getUserLives];
     
     if (![SettingsSingleton sharedInstance].music) {
         //adicionar ícone de proibido
@@ -183,8 +198,8 @@
         _ligaSFX.frame = CGRectMake(15, 40, 20, 32);
     }
     
-    [super viewWillAppear:animated];
-    [self getUserLives];
+    
+    //[self getUserLives];
     
     //Move a scrollView para o fundo da imagem.
     CGRect mask = CGRectMake(0, _scrollView.contentSize.height - self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
@@ -196,6 +211,14 @@
     
     // Começa o loading
     [self startSpinningShop];
+    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+//    [[NSNotificationCenter defaultCenter ] removeObserver:self name:@"updateLiveByAd" object:nil];
 }
 
 - (void)dealloc{
@@ -203,6 +226,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
      [[NSNotificationCenter defaultCenter ] removeObserver:self name:@"updateLiveByAd" object:nil];
     [self.lifeTimer invalidate];
+    self.lifeTimer = nil;
 }
 
 #pragma mark - Documents
@@ -237,6 +261,7 @@
 
 - (void)doLifeUpdate{
     [self.lifeTimer invalidate];
+    self.lifeTimer = nil;
     [self updateLivesLoadedLifeObject];
     
 }
@@ -280,7 +305,6 @@
 - (void)getUserLives{
     //Carregando as Vidas do Arquivo, primeiro se desencripta e logo após seta na memória
     NSString *appDataDir = [self getAppDataDir];
-    NSLog(@"appDataDir = %@",appDataDir);
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir]) {
         [[Life sharedInstance] loadFromFile];
     }
@@ -327,7 +351,7 @@
             else if (minutesInterval >= 25){
                 [Life sharedInstance].lifeCount = 3;
             }
-            else if (minutesInterval >= 1){
+            else if (minutesInterval >= 10){
                 [Life sharedInstance].lifeCount = 2;
             }
             break;
@@ -360,9 +384,64 @@
         default:
             break;
     }
-    [self updateLivesView];
+     _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+    //[self updateLivesView];
+    [Life sharedInstance].lifeTime = [NSDate date];
+    //if ((!_minutesSecondsLifeTimer) && (![_minutesSecondsLifeTimer isValid])){
+    
+    //}
+   
     [self startLivesTimer];
+    _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLifeLabelTimer:) userInfo:nil repeats:YES];
 }
+
+- (void)updateLifeLabelTimer:(NSTimer *)timer{
+    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:_beginningDate];
+    int intervalInMinutes;
+    switch ([Life sharedInstance].lifeCount) {
+        case 0:
+            intervalInMinutes = 10;
+            break;
+        case 1:
+            intervalInMinutes = 20;
+            break;
+        case 2:
+            intervalInMinutes = 25;
+            break;
+        case 3:
+            intervalInMinutes = 30;
+            break;
+        case 4:
+            intervalInMinutes = 35;
+            break;
+        case 5:
+        default:
+            return;
+    }
+    _currentMinute = intervalInMinutes - timeInterval/60;
+    
+    if((_currentMinute>0 || _currentSecond>=0) && _currentMinute>=0)
+    {
+        if(_currentSecond==0)
+        {
+            _currentMinute-=1;
+            _currentSecond=59;
+        }
+        else if(_currentSecond>0)
+        {
+            _currentSecond-=1;
+        }
+        if(_currentMinute>-1){
+            [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",_currentMinute,@":",_currentSecond]];
+        }
+    }
+    else
+    {
+        [timer invalidate];
+    }
+}
+
+
 
 - (void)saveLives{
     [[Life sharedInstance] saveToFile];
@@ -399,10 +478,12 @@
     [Life sharedInstance].lifeCount++;
    
     [Life sharedInstance].lifeTime = [NSDate date];
-    [self updateLivesView];
+     _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+    //[self updateLivesView];
     [self saveLives];
     //[self getUserLives];
     if ([timer isValid]){
+        timer = nil;
         [timer invalidate];
     }
     [self startLivesTimer];
@@ -410,7 +491,7 @@
 
 //10,20,25,30,25
 - (void) startLivesTimer{
-    int intervalInMinutes;
+    int intervalInMinutes=0;
     switch ([Life sharedInstance].lifeCount) {
         case 0:
             intervalInMinutes = 10;
@@ -437,14 +518,14 @@
         UILocalNotification *localLifeNotification = [[UILocalNotification alloc] init];
         NSDate *now = [NSDate date];
         [localLifeNotification setFireDate:[now dateByAddingTimeInterval:intervalInMinutes * 60]];
-        localLifeNotification.alertBody = @"You can play more levels now!";
+        localLifeNotification.alertBody = @"Life Recharged, You can play more levels now!";
         // Set the action button
         localLifeNotification.alertAction = @"Play";
         localLifeNotification.alertTitle = @"Life Recharged";
         localLifeNotification.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] scheduleLocalNotification:localLifeNotification];
     }
-    
+    _beginningDate = [NSDate date];
     self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
     NSLog(@"Timer Fired");
 }
@@ -594,7 +675,7 @@
                      }];
 }
 
--(IBAction)ajuda:(id)sender
+-(IBAction)showAd:(id)sender
 {
    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:nil withV4VCPrePopup:YES andV4VCPostPopup:YES];
     
@@ -682,15 +763,20 @@
 -(void)adicionaVidas
 {
     //Vidas
-    UILabel *vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 60, 60)];
-    vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
-    vidas.backgroundColor = [UIColor redColor];
-    vidas.numberOfLines = 3;
-    vidas.lineBreakMode = NSLineBreakByWordWrapping;
-    vidas.font = [UIFont fontWithName:@"Chewy" size:20];
-    vidas.textColor = [UIColor whiteColor];
-    vidas.textAlignment = NSTextAlignmentCenter;
-    [self.view insertSubview:vidas belowSubview:_informFase];
+    if (!_vidas){
+         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 60, 60)];
+    }
+    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 10, 60, 60)];
+    [_vidasCountdown setText:@"00:00"];
+    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+    _vidas.backgroundColor = [UIColor redColor];
+    _vidas.numberOfLines = 3;
+    _vidas.lineBreakMode = NSLineBreakByWordWrapping;
+    _vidas.font = [UIFont fontWithName:@"Chewy" size:20];
+    _vidas.textColor = [UIColor whiteColor];
+    _vidas.textAlignment = NSTextAlignmentCenter;
+    [self.view insertSubview:_vidas belowSubview:_informFase];
+    [self.view insertSubview:_vidasCountdown aboveSubview:_informFase];
 }
 
 -(void)adicionaMoedas
@@ -712,7 +798,7 @@
     //Botao ajuda
     UIButton *ajuda = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [ajuda addTarget:self
-              action:@selector(ajuda:)
+              action:@selector(showAd:)
     forControlEvents:UIControlEventTouchUpInside];
     
     [ajuda setTitle:[NSString stringWithFormat:@"?"] forState:UIControlStateNormal];
@@ -891,9 +977,10 @@
 -(void)adicionaShop
 {
     //Shopi
-    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 60, 60)];
-    [_shopi setTitle:@"Shop" forState:UIControlStateNormal];
-    _shopi.backgroundColor = [UIColor blueColor];
+    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 50, 50)];
+//    [_shopi setTitle:@"Shop" forState:UIControlStateNormal];
+//    _shopi.backgroundColor = [UIColor blueColor];
+    [_shopi setBackgroundImage:[UIImage imageNamed:@"Carrinho_compras"] forState:UIControlStateNormal];
     [_shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
     _shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.view insertSubview:_shopi belowSubview:_informFase];
@@ -1234,5 +1321,36 @@
         }
     }
 }
+
+// Is called when AdColony has finished trying to show an ad, either successfully or unsuccessfully
+// If shown == YES, an ad was displayed and apps should implement app-specific code such as unpausing a game and restarting app music
+- ( void ) onAdColonyAdAttemptFinished:(BOOL)shown inZone:( NSString * )zoneID
+{
+    if (shown) {
+        NSLog(@"Called");
+        //[self updateTimeByAd];
+    } else {
+        NSLog(@"AdColony did not play an ad for zone %@", zoneID);
+    }
+}
+
+-(void)ajuda:(id)sender
+{
+    NSLog(@"ajuda");
+}
+
+- (void) onAdColonyV4VCReward:(BOOL)success currencyName:(NSString*)currencyName currencyAmount:(int)amount inZone:(NSString*)zoneID {
+    NSLog(@"AdColony zone %@ reward %i %i %@", zoneID, success, amount, currencyName);
+    if (success) {
+        NSDictionary *userinfo = @{@"amount" : [NSNumber numberWithInt:amount]};
+        [self updateTimeByAd:userinfo];
+    
+    }
+}
+
+- (void)onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneID{
+    
+}
+
 
 @end
