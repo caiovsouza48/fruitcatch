@@ -1343,9 +1343,35 @@
     }
 }
 
+// Is called when AdColony has finished trying to show an ad, either successfully or unsuccessfully
+// If shown == YES, an ad was displayed and apps should implement app-specific code such as unpausing a game and restarting app music
+- ( void ) onAdColonyAdAttemptFinished:(BOOL)shown inZone:( NSString * )zoneID
+{
+    if (shown) {
+        NSLog(@"Called");
+        //[self updateTimeByAd];
+    } else {
+        NSLog(@"AdColony did not play an ad for zone %@", zoneID);
+    }
+}
+
 -(void)ajuda:(id)sender
 {
     NSLog(@"ajuda");
 }
+
+- (void) onAdColonyV4VCReward:(BOOL)success currencyName:(NSString*)currencyName currencyAmount:(int)amount inZone:(NSString*)zoneID {
+    NSLog(@"AdColony zone %@ reward %i %i %@", zoneID, success, amount, currencyName);
+    if (success) {
+        NSDictionary *userinfo = @{@"amount" : [NSNumber numberWithInt:amount]};
+        [self updateTimeByAd:userinfo];
+    
+    }
+}
+
+- (void)onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneID{
+    
+}
+
 
 @end
