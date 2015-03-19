@@ -84,6 +84,7 @@
 		4367ACAA1ABB38F8000654DC /* Next_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4367ACA71ABB38F8000654DC /* Next_Icon.png */; };
 		4367ACAB1ABB38F8000654DC /* Next_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4367ACA81ABB38F8000654DC /* Next_Icon@2x.png */; };
 		4367ACAC1ABB38F8000654DC /* Next_Icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4367ACA91ABB38F8000654DC /* Next_Icon@3x.png */; };
+		4367ACAE1ABB5BFC000654DC /* fase_atual@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4367ACAD1ABB5BFC000654DC /* fase_atual@2x.png */; };
 		4367B1E21AB8BE32006E880A /* Agrupar-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4367B1E11AB8BE32006E880A /* Agrupar-1@2x.png */; };
 		4367B1E61AB8C83F006E880A /* Carrinho_compras.png in Resources */ = {isa = PBXBuildFile; fileRef = 4367B1E31AB8C83F006E880A /* Carrinho_compras.png */; };
 		4367B1E71AB8C83F006E880A /* Carrinho_compras@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4367B1E41AB8C83F006E880A /* Carrinho_compras@2x.png */; };
@@ -353,6 +354,7 @@
 		4367ACA71ABB38F8000654DC /* Next_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Next_Icon.png; sourceTree = "<group>"; };
 		4367ACA81ABB38F8000654DC /* Next_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Next_Icon@2x.png"; sourceTree = "<group>"; };
 		4367ACA91ABB38F8000654DC /* Next_Icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Next_Icon@3x.png"; sourceTree = "<group>"; };
+		4367ACAD1ABB5BFC000654DC /* fase_atual@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fase_atual@2x.png"; path = "PowerUp_vertical/fase_atual@2x.png"; sourceTree = "<group>"; };
 		4367B1E11AB8BE32006E880A /* Agrupar-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agrupar-1@2x.png"; sourceTree = "<group>"; };
 		4367B1E31AB8C83F006E880A /* Carrinho_compras.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Carrinho_compras.png; sourceTree = "<group>"; };
 		4367B1E41AB8C83F006E880A /* Carrinho_compras@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Carrinho_compras@2x.png"; sourceTree = "<group>"; };
@@ -1129,6 +1131,7 @@
 		E37BB4D61A40567E00F8E679 /* imagens */ = {
 			isa = PBXGroup;
 			children = (
+				4367ACAD1ABB5BFC000654DC /* fase_atual@2x.png */,
 				4367B1E11AB8BE32006E880A /* Agrupar-1@2x.png */,
 				DE4048EE1AB7D2D500A8D7EE /* multiplayer */,
 				E3E019BD1AB20B4900D06910 /* power UP */,
@@ -1404,6 +1407,7 @@
 				4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */,
 				0F22E0911AA78B6700C2BF51 /* Level_9.json in Resources */,
 				4367ACAB1ABB38F8000654DC /* Next_Icon@2x.png in Resources */,
+				4367ACAE1ABB5BFC000654DC /* fase_atual@2x.png in Resources */,
 				DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */,
 				43F720731AAE26BA003DD069 /* icon_som@2x.png in Resources */,
 				436BAB251AAA1677003A3955 /* icon_config.png in Resources */,
