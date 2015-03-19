@@ -166,15 +166,17 @@
         _offset = 80;
     }
     
+    [super viewDidLoad];
+    
+    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
-
     [self adicionaFundo];
     [self adicionaInformFase];
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
-    if (self.flagFacebook)
-        [self addPeopleOnScrollFacebook];
+    //if (self.flagFacebook)
+        //[self addPeopleOnScrollFacebook];
     [self adicionaVidas];
 //    [self adicionaMoedas];
     [self adicionaAjuda];
@@ -300,7 +302,7 @@
 
     
     
-    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+    _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
     if([Life sharedInstance].lifeCount == 5){
         [_vidasCountdown setText:@"Max."];
     }
@@ -482,7 +484,7 @@
         default:
             break;
     }
-     _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+     _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
     //[self updateLivesView];
     [Life sharedInstance].lifeTime = [NSDate date];
     //if ((!_minutesSecondsLifeTimer) && (![_minutesSecondsLifeTimer isValid])){
@@ -551,7 +553,7 @@
     [Life sharedInstance].lifeCount++;
    
     [Life sharedInstance].lifeTime = [NSDate date];
-     _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+     _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
     if([Life sharedInstance].lifeCount == 5){
         [_vidasCountdown setText:@"Max."];
     }
@@ -878,7 +880,7 @@
     if (!_vidas){
          _vidas = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 130, 57)]; //ou CGRectGetMidX(self.view.frame) - 65, 5, 130, 57
     }
-    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(60, 18, 80, 20)];
+    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(60, 18, 90, 20)];
     _vidasCountdown.font = [UIFont fontWithName:@"Chewy" size:22];
     _vidasCountdown.textColor = [UIColor whiteColor];
 //    [_vidasCountdown setText:@"00:00"];

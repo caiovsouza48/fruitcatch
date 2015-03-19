@@ -374,7 +374,6 @@
     return set;
 }
 #warning recursividade do capeta
-
 -(NSSet*)removeMatchesRecursive:(NSSet *)chains {
     NSMutableSet *chain = [[NSMutableSet alloc]init];
     [chain unionSet:chains];
@@ -414,7 +413,6 @@
     
     rowChains = [self chainedRow:horizontalChains];
     columnChains = [self chainedColumn:verticalChains];
-    
     [comboRecursivo unionSet:rowChains];
     [comboRecursivo unionSet:columnChains];
     NSSet *recursivo = [self removeMatchesRecursive:comboRecursivo];
@@ -431,13 +429,11 @@
         [mut unionSet:verticalChains];
         [mut unionSet:horizontalChains];
         [self powerUpSingleton:mut];
-        
     }else{
         [mut unionSet:horizontalChains];
         [mut unionSet:verticalChains];
         [self powerUpCombo:mut];
     }
-    
     
     [self calculateScoresAllType:recursivo];
     [self calculateScores:columnChains];
@@ -747,7 +743,8 @@
                 _fruits[fruit.column][fruit.row].fruitType = 6;
                 break;
             }else if (chain.fruits.count == 4){
-                if(chain.fruits.count %2== 0)
+                int a =arc4random()%2;
+                if(a == 1)
                     _fruits[fruit.column][fruit.row].fruitPowerUp = 2;
                 else
                     _fruits[fruit.column][fruit.row].fruitPowerUp = 3;
@@ -829,9 +826,9 @@
     // 3-chain is 60 pts, 4-chain is 120, 5-chain is 180, and so on
     for (JIMCChain *chain in chains) {
         if ([chain.fruits count] == 1) {
-            chain.score = 10 * ([chain.fruits count]) * self.comboMultiplier;
+            chain.score = 15 * ([chain.fruits count]) * self.comboMultiplier;
         }else{
-            chain.score = 10 * ([chain.fruits count] - 2) * self.comboMultiplier;
+            chain.score = 15 * ([chain.fruits count] - 2) * self.comboMultiplier;
         }
         self.comboMultiplier++;
     }
@@ -917,7 +914,6 @@
                 // "freebie" matches.
                 NSUInteger newFruitType;
                 do {
-                    
                     // [[NetworkController sharedInstance] sendMovedSelf:1];
                     newFruitType = arc4random_uniform(NumFruitTypes) + 1;
                 } while (newFruitType == fruitType);

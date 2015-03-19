@@ -33,8 +33,8 @@
     
     [JIMCAPHelper sharedInstance];
     
-    NSInteger numberOfLevels = 10;
-    
+    NSInteger numberOfLevels = 30;
+    [[NSUserDefaults standardUserDefaults]setInteger:numberOfLevels forKey:@"lastCleared"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:[AppUtils getAppMultiplayer]]){
         [self setUserElo];
     }
@@ -45,8 +45,8 @@
         [SettingsSingleton sharedInstance].SFX = 1;
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasPlayed"];
-        [[NSUserDefaults standardUserDefaults] setInteger:(-1) forKey:@"lastCleared"];
-        [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
+//        [[NSUserDefaults standardUserDefaults] setInteger:(-1) forKey:@"lastCleared"];
+//        [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
         
         NSMutableArray *array = [[NSMutableArray alloc]init];
         for(int i=0; i<numberOfLevels; i++){
