@@ -7,6 +7,7 @@
 //
 
 #import "AFDropdownNotification.h"
+#import <SpriteKit/SpriteKit.h>
 
 #define kDropdownImageSize 40
 #define kDropdownPadding 10
@@ -103,9 +104,11 @@
         
         _notificationView.frame = CGRectMake(0, -notificationHeight, [[UIScreen mainScreen] bounds].size.width, notificationHeight);
         _notificationView.backgroundColor = [UIColor clearColor];
-
-        [[[UIApplication sharedApplication] keyWindow] addSubview:_notificationView];
-        [[[UIApplication sharedApplication] keyWindow] bringSubviewToFront:_notificationView];
+        //[view insertSubview:_notificationView atIndex:5];
+        //[[[UIApplication sharedApplication] keyWindow] insertSubview:_notificationView atIndex:5];
+        [_presentingViewController.view addSubview:_notificationView ];
+        [_presentingViewController.view bringSubviewToFront:_notificationView];
+        //[[[UIApplication sharedApplication] keyWindow] bringSubviewToFront:_notificationView];
         
         UIVisualEffect *visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
         UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:visualEffect];
@@ -153,7 +156,7 @@
         
         if (animation) {
             
-            _animator = [[UIDynamicAnimator alloc] initWithReferenceView:[[UIApplication sharedApplication] keyWindow]];
+            _animator = [[UIDynamicAnimator alloc] initWithReferenceView:_presentingViewController.view];
             
             UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[_notificationView]];
             [_animator addBehavior:gravity];
@@ -177,6 +180,104 @@
         _isBeingShown = YES;
     }
 }
+
+-(void)presentInScene:(SKScene *)view withGravityAnimation:(BOOL)animation {
+    
+    if (!_isBeingShown) {
+        
+        _imageView.image = _image;
+        _titleLabel.text = _titleText;
+        _subtitleLabel.text = _subtitleText;
+        [_topButton setTitle:_topButtonText forState:UIControlStateNormal];
+        [_bottomButton setTitle:_bottomButtonText forState:UIControlStateNormal];
+        
+        NSInteger textWidth = ([[UIScreen mainScreen] bounds].size.width - kDropdownPadding - kDropdownImageSize - kDropdownPadding - kDropdownPadding - kDropdownButtonWidth - kDropdownPadding);
+        NSInteger titleHeight = [_titleLabel.text boundingRectWithSize:CGSizeMake(textWidth, 999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Medium" size:kDropdownTitleFontSize]} context:nil].size.height;
+        NSInteger subtitleHeight = [_subtitleLabel.text boundingRectWithSize:CGSizeMake(textWidth, 999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:kDropdownSubtitleFontSize]} context:nil].size.height;
+        NSInteger notificationHeight = (20 + kDropdownPadding + titleHeight + (kDropdownPadding / 2) + subtitleHeight + kDropdownPadding);
+        
+        if (notificationHeight < 100) {
+            
+            notificationHeight = 100;
+        }
+        
+        _notificationView.frame = CGRectMake(0, -notificationHeight, [[UIScreen mainScreen] bounds].size.width, notificationHeight);
+        _notificationView.backgroundColor = [UIColor clearColor];
+        
+        [_presentingViewController.view addSubview:_notificationView];
+        [_presentingViewController.view bringSubviewToFront:_notificationView];
+        
+        UIVisualEffect *visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:visualEffect];
+        blurView.frame = _notificationView.bounds;
+        [_notificationView addSubview:blurView];
+        
+        _imageView.frame = CGRectMake(kDropdownPadding, (notificationHeight / 2) - (kDropdownImageSize / 2) + (20 / 2), kDropdownImageSize, kDropdownImageSize);
+        
+        if (_image) {
+            [_notificationView addSubview:_imageView];
+        }
+        
+        _titleLabel.frame = CGRectMake(kDropdownPadding + kDropdownImageSize + kDropdownPadding, 20 + kDropdownPadding, textWidth, titleHeight);
+        
+        if (_titleText) {
+            [_notificationView addSubview:_titleLabel];
+        }
+        
+        _subtitleLabel.frame = CGRectMake(kDropdownPadding + kDropdownImageSize + kDropdownPadding, _titleLabel.frame.origin.y + _titleLabel.frame.size.height + 3, textWidth, subtitleHeight);
+        
+        if (_subtitleText) {
+            [_notificationView addSubview:_subtitleLabel];
+        }
+        
+        _topButton.frame = CGRectMake(_titleLabel.frame.origin.x + _titleLabel.frame.size.width + kDropdownPadding, 20 + (kDropdownPadding / 2), kDropdownButtonWidth, kDropdownButtonHeight);
+        [_topButton addTarget:self.notificationDelegate action:@selector(dropdownNotificationTopButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        
+        if (_topButtonText) {
+            [_notificationView addSubview:_topButton];
+        }
+        
+        _bottomButton.frame = CGRectMake(_titleLabel.frame.origin.x + _titleLabel.frame.size.width + kDropdownPadding, _topButton.frame.origin.y + _topButton.frame.size.height + 6, kDropdownButtonWidth, kDropdownButtonHeight);
+        [_bottomButton addTarget:self.notificationDelegate action:@selector(dropdownNotificationBottomButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        
+        if (_bottomButtonText) {
+            [_notificationView addSubview:_bottomButton];
+        }
+        
+        if (_dismissOnTap) {
+            
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissWithGravityAnimation:)];
+            tap.numberOfTapsRequired = 1;
+            [_notificationView addGestureRecognizer:tap];
+        }
+        
+        if (animation) {
+            
+            _animator = [[UIDynamicAnimator alloc] initWithReferenceView:_presentingViewController.view];
+            
+            UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[_notificationView]];
+            [_animator addBehavior:gravity];
+            
+            UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:@[_notificationView]];
+            collision.translatesReferenceBoundsIntoBoundary = NO;
+            [collision addBoundaryWithIdentifier:@"notificationEnd" fromPoint:CGPointMake(0, notificationHeight) toPoint:CGPointMake([[UIScreen mainScreen] bounds].size.width, notificationHeight)];
+            [_animator addBehavior:collision];
+            
+            UIDynamicItemBehavior *elasticityBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[_notificationView]];
+            elasticityBehavior.elasticity = 0.3f;
+            [_animator addBehavior:elasticityBehavior];
+        } else {
+            
+            [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                
+                _notificationView.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, notificationHeight);
+            } completion:nil];
+        }
+        
+        _isBeingShown = YES;
+    }
+}
+
 
 -(void)dismissWithGravityAnimation:(BOOL)animation {
     

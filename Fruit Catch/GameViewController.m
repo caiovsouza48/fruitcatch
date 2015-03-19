@@ -544,13 +544,14 @@
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
-                if (fruit.fruitPowerUp != 0) {
+                 if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) ||
+                     (fruit.fruitPowerUp == 2 && chain.fruits.count == 4) || (fruit.fruitPowerUp == 3 && chain.fruits.count == 4)){
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
                 }
              }
         }
-        
+        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
@@ -594,13 +595,11 @@
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
+        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
         [self updateLabels];
 
         // ...then shift down any fruits that have a hole below them...
         NSMutableArray *columns = [[NSMutableArray alloc]initWithArray:[self.level fillHoles]];
-       
-       
-        
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
@@ -785,9 +784,7 @@
 }
 
 - (void)hideGameOver {
-    
     [self removeDica];
-    
     [self.view removeGestureRecognizer:self.tapGestureRecognizer];
     self.tapGestureRecognizer = nil;
     
@@ -795,7 +792,6 @@
     self.scene.userInteractionEnabled = YES;
     
     [self beginGame];
-    
     self.shuffleButton.hidden = NO;
     
 }
@@ -831,7 +827,6 @@
                                                          userInfo:nil
                                                           repeats:YES];
         }
-        
     }else{
         self.scene.swipeHandler = nil;
     }
@@ -846,6 +841,12 @@
 -(IBAction)back:(id)sender
 {
     _backButton.enabled = NO;
+    
+    self.scene.swapSound = nil;
+    self.scene.invalidSwapSound = nil;
+    self.scene.matchSound = nil;
+    self.scene.fallingFruitSound = nil;
+    self.scene.addFruitSound = nil;
     if ([self shouldPerformSegueWithIdentifier:@"Back" sender:sender]){
         [self performSegueWithIdentifier:@"Back" sender:self];
     }
@@ -989,15 +990,38 @@
 -(void)firstTutorial
 {
     NSLog(@"First tutorial");
-    _notification = [[AFDropdownNotification alloc] init];
-    _notification.notificationDelegate = self;
-    _notification.titleText = @"Quick Tip!";
-    _notification.subtitleText = @"its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points";
-    _notification.image = [UIImage imageNamed:@"iconTest"];
-    _notification.topButtonText = @"Ok";
-    _notification.bottomButtonText = @"No more Tips";
-    _notification.dismissOnTap = YES;
-    [_notification presentInView:self.view withGravityAnimation:YES];
+    
+    __block UILabel *tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
+                                                             100,
+                                                             100,
+                                                             70)];
+    [tip setFont:[UIFont fontWithName:@"Chewy" size:14]];
+    [tip setTextColor:[UIColor whiteColor]];
+    [tip setBackgroundColor:[UIColor clearColor]];
+    [tip setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]]];
+    [tip setNumberOfLines:3];
+    
+    
+    [tip setText:@"  Quick Tip\n\n  Its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points"];
+    
+    [self.view addSubview:tip];
+    [UIView animateWithDuration:2.81 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            tip.alpha = 0.1;
+    } completion:^(BOOL finished){
+        tip.alpha = 0.1;
+        [tip removeFromSuperview];
+        tip = nil;
+    }];
+//    _notification = [[AFDropdownNotification alloc] init];
+//    _notification.presentingViewController = self;
+//    _notification.notificationDelegate = self;
+//    _notification.titleText = @"Quick Tip!";
+//    _notification.subtitleText = @"its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points";
+//    _notification.image = [UIImage imageNamed:@"iconTest"];
+//    _notification.topButtonText = @"Ok";
+//    _notification.bottomButtonText = @"No more Tips";
+//    _notification.dismissOnTap = YES;
+//    [_notification presentInView:self.view withGravityAnimation:YES];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstTutorial"];
     _showFirstTutorial  = NO;
 }

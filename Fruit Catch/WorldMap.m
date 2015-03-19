@@ -103,11 +103,11 @@
 }
 
 - (void)didEndPresentatation{
-    NSLog(@"Did ENd");
     _KascoImageView.image = nil;
     _KascoImageView = nil;
     [_KascoImageView removeFromSuperview];
     [self.view setUserInteractionEnabled:YES];
+    [self.informFase setUserInteractionEnabled:YES];
 }
 
 - (void)doTutorial{
@@ -131,7 +131,10 @@
     [self.tooltipManager addTooltipWithTargetView:self.vidas hostView:self.view tooltipText:@"Here you can see your life count. It takes only 10 minutes to recharge one Life, but the time increases for each life you got." arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
     
     [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"if you cant wait so much, you can tap on AD button to watch a video Ad and reduce 10 minutes of your life recharging!" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
-    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth showCompletionBlock:^{
+    } hideCompletionBlock:^{
+        
+    }];
     self.tooltipManager.showsBackdropView = YES;
     [self.tooltipManager showAllTooltips];
     //[KascoImageView removeFromSuperview];
@@ -163,15 +166,17 @@
         _offset = 80;
     }
     
+    [super viewDidLoad];
+    
+    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
-
     [self adicionaFundo];
     [self adicionaInformFase];
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
-    if (self.flagFacebook)
-        [self addPeopleOnScrollFacebook];
+    //if (self.flagFacebook)
+        //[self addPeopleOnScrollFacebook];
     [self adicionaVidas];
 //    [self adicionaMoedas];
     [self adicionaAjuda];
@@ -189,11 +194,11 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShowTutorial"]){
-//        [self doTutorial];
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShowTutorial"];
-//        
-//    }
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShowTutorial"]){
+        [self doTutorial];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShowTutorial"];
+        
+    }
     
 }
 
@@ -243,7 +248,7 @@
             _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
         }completion:^(BOOL finished){
             [UIView animateWithDuration:1.5 animations:^{
-                _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
+                _vidas.transform = CGAffineTransformMakeScale(1.00, 1.00);
                 [_vidas setTextColor:[UIColor whiteColor]];
             }];
         }];
@@ -852,7 +857,7 @@
     _scrollView.delegate = self;
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
-    singleTap.cancelsTouchesInView = NO;
+    //singleTap.cancelsTouchesInView = NO;
     [_scrollView addGestureRecognizer:singleTap];
     
     [self.view addSubview:_scrollView];

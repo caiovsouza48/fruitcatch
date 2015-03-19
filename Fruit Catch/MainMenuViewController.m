@@ -434,20 +434,18 @@
         BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
         if (sucess){
             // Enviar para o servidor
-            if ([self sendDataToWebService:userDict]) {
-                NSLog(@"Envio Data com sucesso !");
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"flagFacebook"];
-            }
-            if ([self sendPerformanceToWebService:userDict]) {
-                NSLog(@"Envio Performance com sucesso !");
-            }
+//            if ([self sendDataToWebService:userDict]) {
+//                NSLog(@"Envio Data com sucesso !");
+//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"flagFacebook"];
+//            }
+//            if ([self sendPerformanceToWebService:userDict]) {
+//                NSLog(@"Envio Performance com sucesso !");
+//            }
         }
         else{
             NSLog(@"Erro ao Salvar arquivo de Usuário");
         }
-
         [self loadFromFile];
-        
     }];
 }
 
