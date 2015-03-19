@@ -221,6 +221,15 @@
     
 }
 
+- (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if ([self.backgroundMusic isPlaying]){
+         [self.backgroundMusic stop];
+    }
+   
+
+}
+
 - (void)loadPlayersView{
     _player1View = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Player2vez"]];
     [_player1View setFrame:CGRectMake(0, 0, _player1View.image.size.width, _player1View.image.size.height)];
@@ -1129,7 +1138,11 @@
 
 - (void)processNextpeerReportForfeitForCurrentTournament:(NSNotification *)notification{
     NSLog(@"Player Saiu, reportando score");
+    if ([self.backgroundMusic isPlaying]){
+        [self.backgroundMusic stop];
+    }
     
+
      [_turnLabel setText:@"Game Over!"];
      [self.scene runAction:self.gameOverSound];
 
@@ -1146,6 +1159,11 @@
 
 - (void)tryGameOver{
     if ((_opponentOver) && (self.movesLeft == 0)){
+        if ([self.backgroundMusic isPlaying]){
+            [self.backgroundMusic stop];
+        }
+        
+
         [_turnLabel setText:@"Game Over!"];
         [UIView animateWithDuration:3.7 animations:^{
             _turnLabel.transform = CGAffineTransformMakeScale(1.75,1.75);

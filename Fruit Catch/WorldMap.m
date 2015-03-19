@@ -103,7 +103,6 @@
 }
 
 - (void)didEndPresentatation{
-    NSLog(@"Did ENd");
     _KascoImageView.image = nil;
     _KascoImageView = nil;
     [_KascoImageView removeFromSuperview];
@@ -131,7 +130,12 @@
     [self.tooltipManager addTooltipWithTargetView:self.vidas hostView:self.view tooltipText:@"Here you can see your life count. It takes only 10 minutes to recharge one Life, but the time increases for each life you got." arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
     
     [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"if you cant wait so much, you can tap on AD button to watch a video Ad and reduce 10 minutes of your life recharging!" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
-    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth showCompletionBlock:^{
+        NSLog(@"teste");
+    } hideCompletionBlock:^{
+        [self.view setUserInteractionEnabled:YES];
+        [self.informFase setUserInteractionEnabled:YES];
+    }];
     self.tooltipManager.showsBackdropView = YES;
     [self.tooltipManager showAllTooltips];
     //[KascoImageView removeFromSuperview];
@@ -190,7 +194,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 //    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShowTutorial"]){
-//        [self doTutorial];
+        [self doTutorial];
 //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShowTutorial"];
 //        
 //    }
@@ -852,7 +856,7 @@
     _scrollView.delegate = self;
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
-    singleTap.cancelsTouchesInView = NO;
+    //singleTap.cancelsTouchesInView = NO;
     [_scrollView addGestureRecognizer:singleTap];
     
     [self.view addSubview:_scrollView];
