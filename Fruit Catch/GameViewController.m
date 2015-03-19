@@ -989,15 +989,38 @@
 -(void)firstTutorial
 {
     NSLog(@"First tutorial");
-    _notification = [[AFDropdownNotification alloc] init];
-    _notification.notificationDelegate = self;
-    _notification.titleText = @"Quick Tip!";
-    _notification.subtitleText = @"its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points";
-    _notification.image = [UIImage imageNamed:@"iconTest"];
-    _notification.topButtonText = @"Ok";
-    _notification.bottomButtonText = @"No more Tips";
-    _notification.dismissOnTap = YES;
-    [_notification presentInView:self.view withGravityAnimation:YES];
+    
+    UILabel *tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
+                                                             100,
+                                                             100,
+                                                             70)];
+    [tip setFont:[UIFont fontWithName:@"Chewy" size:14]];
+    [tip setTextColor:[UIColor whiteColor]];
+    [tip setBackgroundColor:[UIColor clearColor]];
+    [tip setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]]];
+    [tip setNumberOfLines:3];
+    
+    
+    [tip setText:@"  Quick Tip\n\n  Its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points"];
+    
+    [self.view addSubview:tip];
+    [UIView animateWithDuration:2.81 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            tip.alpha = 0.1;
+    } completion:^{
+        tip.alpha = 0.0
+        [tip removeFromSuperview];
+        tip = nil;
+    }];
+//    _notification = [[AFDropdownNotification alloc] init];
+//    _notification.presentingViewController = self;
+//    _notification.notificationDelegate = self;
+//    _notification.titleText = @"Quick Tip!";
+//    _notification.subtitleText = @"its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points";
+//    _notification.image = [UIImage imageNamed:@"iconTest"];
+//    _notification.topButtonText = @"Ok";
+//    _notification.bottomButtonText = @"No more Tips";
+//    _notification.dismissOnTap = YES;
+//    [_notification presentInView:self.view withGravityAnimation:YES];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstTutorial"];
     _showFirstTutorial  = NO;
 }

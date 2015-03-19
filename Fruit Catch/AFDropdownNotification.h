@@ -31,6 +31,8 @@ typedef void (^block)();
 @property (nonatomic, strong) NSString *topButtonText;
 @property (nonatomic, strong) NSString *bottomButtonText;
 
+@property(nonatomic) UIViewController *presentingViewController;
+
 -(void)presentInView:(UIView *)view withGravityAnimation:(BOOL)animation;
 -(void)dismissWithGravityAnimation:(BOOL)animation;
 
