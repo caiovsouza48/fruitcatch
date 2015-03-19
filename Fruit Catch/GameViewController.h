@@ -11,7 +11,7 @@
 #import "JIMCLevel.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-static const int numberOfLevels = 9; //Tem que ser a quantidade menos 1
+static const int numberOfLevels = 29; //Tem que ser a quantidade menos 1
 
 @interface GameViewController : UIViewController
 
