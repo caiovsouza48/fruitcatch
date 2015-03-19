@@ -107,6 +107,7 @@
     _KascoImageView = nil;
     [_KascoImageView removeFromSuperview];
     [self.view setUserInteractionEnabled:YES];
+    [self.informFase setUserInteractionEnabled:YES];
 }
 
 - (void)doTutorial{
@@ -132,8 +133,7 @@
     [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"if you cant wait so much, you can tap on AD button to watch a video Ad and reduce 10 minutes of your life recharging!" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
     [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth showCompletionBlock:^{
     } hideCompletionBlock:^{
-        [self.view setUserInteractionEnabled:YES];
-        [self.informFase setUserInteractionEnabled:YES];
+        
     }];
     self.tooltipManager.showsBackdropView = YES;
     [self.tooltipManager showAllTooltips];
