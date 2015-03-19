@@ -33,7 +33,7 @@
     
     [JIMCAPHelper sharedInstance];
     
-    NSInteger numberOfLevels = 14;
+    NSInteger numberOfLevels = 30;
     [[NSUserDefaults standardUserDefaults]setInteger:numberOfLevels forKey:@"lastCleared"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:[AppUtils getAppMultiplayer]]){
         [self setUserElo];

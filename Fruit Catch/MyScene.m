@@ -167,7 +167,6 @@
         _maskLayer.yScale = IPHONE6_YSCALE;
         _maskLayer.position = layerPosition;
     }
-    
     return self;
 }
 
