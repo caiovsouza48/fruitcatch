@@ -29,6 +29,8 @@
 
 #define START_GAME_SYNC_EVENT_NAME @"com.sucodefrutasteam.fruitcatch.syncevent.startgame"
 #define TIMEOUT 5.0
+#define IPHONE6 ([[UIScreen mainScreen] bounds].size.width == 375)
+#define IPHONE6PLUS ([[UIScreen mainScreen] bounds].size.width == 414)
 
 @interface MultiplayerGameViewController () <NPTournamentDelegate,UIActionSheetDelegate>
 
@@ -110,7 +112,7 @@
     _shadowAnimation = [JTSlideShadowAnimation new];
     _opponentScore = 0;
     _opponentOver = NO;
-    _movesLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame)-30, 110, 100, 20)];
+    _movesLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame)-40, 110, 100, 20)];
     
      _turnSound = [SKAction playSoundFileNamed:@"turn_sound.mp3" waitForCompletion:NO];
     _gameOverSound = [SKAction playSoundFileNamed:@"small_decorative_bell_ring_version_3.mp3" waitForCompletion:NO];
@@ -220,7 +222,7 @@
 }
 
 - (void)loadPlayersView{
-    _player1View = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Player2vez@2x"]];
+    _player1View = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Player2vez"]];
     [_player1View setFrame:CGRectMake(0, 0, _player1View.image.size.width, _player1View.image.size.height)];
     UIFont *defaultFont = [UIFont systemFontOfSize:10];
     UILabel *player1Name = [[UILabel alloc] initWithFrame:CGRectMake(25, 45, 100, 100)];
@@ -369,7 +371,7 @@
 }
 
 - (void)beginGame {
-    self.movesLeft = 10;//self.level.maximumMoves;
+    self.movesLeft = 20;//self.level.maximumMoves;
     self.score = 0;
     [self updateLabels];
     
@@ -385,7 +387,7 @@
 }
 
 - (void)beginGameForPlayer2 {
-    self.movesLeft = 10;
+    self.movesLeft = 20;
     self.score = 0;
     [self updateLabels];
     [self.level resetComboMultiplier];
@@ -980,13 +982,24 @@
         oldFrame.origin.x = oldFrame.origin.x+20;
         [_turnLabel setFrame:oldFrame];
     }
+    if (IPHONE6){
+      CGRect oldFrame = _turnLabel.frame;
+        oldFrame.origin.y -= 40;
+        [_turnLabel setFrame:oldFrame];
+    }
+    if (IPHONE6PLUS){
+            CGRect oldFrame = _turnLabel.frame;
+            oldFrame.origin.y -= 63;
+            [_turnLabel setFrame:oldFrame];
+    
+    }
    
     
-    _turnLabel.font = [UIFont systemFontOfSize:12];
+    _turnLabel.font = [UIFont systemFontOfSize:11];
     [_turnLabel setHidden:NO];
   
     [UIView animateWithDuration:1.25 animations:^{
-          _turnLabel.transform = CGAffineTransformMakeScale(1.75,1.75);
+          _turnLabel.transform = CGAffineTransformMakeScale(1.5,1.5);
         
     } completion:^(BOOL finished){
         [UIView animateWithDuration:1.25 animations:^{

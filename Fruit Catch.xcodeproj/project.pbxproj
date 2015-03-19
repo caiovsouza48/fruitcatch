@@ -170,6 +170,12 @@
 		DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2AE1A39BBEE0038B65A /* RNCryptorEngine.m */; };
 		DEA2D2B61A39BBEE0038B65A /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2B01A39BBEE0038B65A /* RNDecryptor.m */; };
 		DEA2D2B71A39BBEE0038B65A /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2B21A39BBEE0038B65A /* RNEncryptor.m */; };
+		DEAEC8021ABA642A00636247 /* WorldMapTimerSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC8011ABA642A00636247 /* WorldMapTimerSingleton.m */; };
+		DEAEC80E1ABA7C7000636247 /* JDFSequentialTooltipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC8041ABA7C6F00636247 /* JDFSequentialTooltipManager.m */; };
+		DEAEC80F1ABA7C7000636247 /* JDFTooltipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC8061ABA7C6F00636247 /* JDFTooltipManager.m */; };
+		DEAEC8101ABA7C7000636247 /* JDFTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC8091ABA7C7000636247 /* JDFTooltipView.m */; };
+		DEAEC8111ABA7C7000636247 /* UILabel+JDFTooltips.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC80B1ABA7C7000636247 /* UILabel+JDFTooltips.m */; };
+		DEAEC8121ABA7C7000636247 /* UIView+JDFTooltips.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC80D1ABA7C7000636247 /* UIView+JDFTooltips.m */; };
 		DEC905A81A239C6D003DD444 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905A71A239C6D003DD444 /* main.m */; };
 		DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AA1A239C6D003DD444 /* AppDelegate.m */; };
 		DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905B21A239C6D003DD444 /* GameViewController.m */; };
@@ -177,6 +183,7 @@
 		DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B71A239C6D003DD444 /* Images.xcassets */; };
 		DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B91A239C6D003DD444 /* LaunchScreen.xib */; };
 		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
+		DEED3D5D1ABA92FA0069BB6C /* AFDropdownNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = DEED3D5C1ABA92FA0069BB6C /* AFDropdownNotification.m */; };
 		DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */; };
 		E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E30CD4D71A2CC817009BBC92 /* banana@2x.png */; };
 		E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */; };
@@ -436,6 +443,19 @@
 		DEA2D2B01A39BBEE0038B65A /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNDecryptor.m; path = "Fruit Catch/RNDecryptor.m"; sourceTree = "<group>"; };
 		DEA2D2B11A39BBEE0038B65A /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNEncryptor.h; path = "Fruit Catch/RNEncryptor.h"; sourceTree = "<group>"; };
 		DEA2D2B21A39BBEE0038B65A /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNEncryptor.m; path = "Fruit Catch/RNEncryptor.m"; sourceTree = "<group>"; };
+		DEAEC8001ABA642A00636247 /* WorldMapTimerSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMapTimerSingleton.h; sourceTree = "<group>"; };
+		DEAEC8011ABA642A00636247 /* WorldMapTimerSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMapTimerSingleton.m; sourceTree = "<group>"; };
+		DEAEC8031ABA7C6F00636247 /* JDFSequentialTooltipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDFSequentialTooltipManager.h; sourceTree = "<group>"; };
+		DEAEC8041ABA7C6F00636247 /* JDFSequentialTooltipManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDFSequentialTooltipManager.m; sourceTree = "<group>"; };
+		DEAEC8051ABA7C6F00636247 /* JDFTooltipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDFTooltipManager.h; sourceTree = "<group>"; };
+		DEAEC8061ABA7C6F00636247 /* JDFTooltipManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDFTooltipManager.m; sourceTree = "<group>"; };
+		DEAEC8071ABA7C6F00636247 /* JDFTooltips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDFTooltips.h; sourceTree = "<group>"; };
+		DEAEC8081ABA7C6F00636247 /* JDFTooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDFTooltipView.h; sourceTree = "<group>"; };
+		DEAEC8091ABA7C7000636247 /* JDFTooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDFTooltipView.m; sourceTree = "<group>"; };
+		DEAEC80A1ABA7C7000636247 /* UILabel+JDFTooltips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+JDFTooltips.h"; sourceTree = "<group>"; };
+		DEAEC80B1ABA7C7000636247 /* UILabel+JDFTooltips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+JDFTooltips.m"; sourceTree = "<group>"; };
+		DEAEC80C1ABA7C7000636247 /* UIView+JDFTooltips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JDFTooltips.h"; sourceTree = "<group>"; };
+		DEAEC80D1ABA7C7000636247 /* UIView+JDFTooltips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JDFTooltips.m"; sourceTree = "<group>"; };
 		DEC905A21A239C6D003DD444 /* Fruit Catch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fruit Catch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905A61A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905A71A239C6D003DD444 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -449,6 +469,8 @@
 		DEC905C01A239C6D003DD444 /* Fruit CatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fruit CatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905C51A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fruit_CatchTests.m; sourceTree = "<group>"; };
+		DEED3D5B1ABA92FA0069BB6C /* AFDropdownNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFDropdownNotification.h; sourceTree = "<group>"; };
+		DEED3D5C1ABA92FA0069BB6C /* AFDropdownNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFDropdownNotification.m; sourceTree = "<group>"; };
 		DEF7B4BB1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCSwapFruitSingleton.h; sourceTree = "<group>"; };
 		DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCSwapFruitSingleton.m; sourceTree = "<group>"; };
 		E30CD4D71A2CC817009BBC92 /* banana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "banana@2x.png"; path = "Sprites.atlas/banana@2x.png"; sourceTree = "<group>"; };
@@ -628,6 +650,8 @@
 		0FD2EDB71A23BA4D000EB99F /* GameViewController */ = {
 			isa = PBXGroup;
 			children = (
+				DEED3D5B1ABA92FA0069BB6C /* AFDropdownNotification.h */,
+				DEED3D5C1ABA92FA0069BB6C /* AFDropdownNotification.m */,
 				DEC905B11A239C6D003DD444 /* GameViewController.h */,
 				DEC905B21A239C6D003DD444 /* GameViewController.m */,
 			);
@@ -805,6 +829,8 @@
 			children = (
 				0FF235891AA7A57000562511 /* WorldMap.h */,
 				0FF235871AA7A56800562511 /* WorldMap.m */,
+				DEAEC8001ABA642A00636247 /* WorldMapTimerSingleton.h */,
+				DEAEC8011ABA642A00636247 /* WorldMapTimerSingleton.m */,
 				436CBD0B1A2F739400862EDE /* MapButtons.plist */,
 			);
 			name = WorldMap;
@@ -947,6 +973,24 @@
 			name = RNCryptor;
 			sourceTree = "<group>";
 		};
+		DEAEC8131ABA7C8100636247 /* JDFTooltip */ = {
+			isa = PBXGroup;
+			children = (
+				DEAEC8081ABA7C6F00636247 /* JDFTooltipView.h */,
+				DEAEC8091ABA7C7000636247 /* JDFTooltipView.m */,
+				DEAEC80A1ABA7C7000636247 /* UILabel+JDFTooltips.h */,
+				DEAEC80B1ABA7C7000636247 /* UILabel+JDFTooltips.m */,
+				DEAEC80C1ABA7C7000636247 /* UIView+JDFTooltips.h */,
+				DEAEC80D1ABA7C7000636247 /* UIView+JDFTooltips.m */,
+				DEAEC8031ABA7C6F00636247 /* JDFSequentialTooltipManager.h */,
+				DEAEC8041ABA7C6F00636247 /* JDFSequentialTooltipManager.m */,
+				DEAEC8051ABA7C6F00636247 /* JDFTooltipManager.h */,
+				DEAEC8061ABA7C6F00636247 /* JDFTooltipManager.m */,
+				DEAEC8071ABA7C6F00636247 /* JDFTooltips.h */,
+			);
+			name = JDFTooltip;
+			sourceTree = "<group>";
+		};
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
@@ -1052,6 +1096,7 @@
 				DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */,
 				0F40CA9B1A9BA16600D0CB01 /* PowerUp_horizontal */,
 				0F40CAA11A9BA16600D0CB01 /* PowerUp_vertical */,
+				DEAEC8131ABA7C8100636247 /* JDFTooltip */,
 				4378401C1A97B911009BE3FB /* estrela_outline.png */,
 				4378401D1A97B911009BE3FB /* estrela_outline@2x.png */,
 				4378401E1A97B911009BE3FB /* estrela_outline@3x.png */,
@@ -1441,8 +1486,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				436D9BEA1A9E05FE00EA5D4A /* ClearedLevelsSingleton.m in Sources */,
+				DEAEC8101ABA7C7000636247 /* JDFTooltipView.m in Sources */,
 				DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */,
+				DEAEC80F1ABA7C7000636247 /* JDFTooltipManager.m in Sources */,
 				DEA2D2B31A39BBEE0038B65A /* Life.m in Sources */,
+				DEAEC8121ABA7C7000636247 /* UIView+JDFTooltips.m in Sources */,
 				DE805C641A852D40009694C0 /* kFactor.m in Sources */,
 				E3DFE2FA1A40A2B500CB4D0C /* JIMCMainMenu.m in Sources */,
 				DE8092D21A7FDDE3008E2B37 /* Match.m in Sources */,
@@ -1451,6 +1499,7 @@
 				DE8092D61A7FDDE3008E2B37 /* NetworkController.m in Sources */,
 				DE342A031A815C7000E7630B /* AppUtils.m in Sources */,
 				0FA8DFB51A362C2E005B994C /* JIMCPowerUp.m in Sources */,
+				DEAEC8111ABA7C7000636247 /* UILabel+JDFTooltips.m in Sources */,
 				DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */,
 				DE8092D51A7FDDE3008E2B37 /* MultiplayerGameViewController.m in Sources */,
 				DE805C611A852BAF009694C0 /* EloRating.m in Sources */,
@@ -1469,10 +1518,13 @@
 				DEC905A81A239C6D003DD444 /* main.m in Sources */,
 				E3E3ECA01A23ADDA00E7E18E /* JIMCTile.m in Sources */,
 				0FF5BF5E1A3A13670090873A /* CustomSegueWorldMap.m in Sources */,
+				DEAEC80E1ABA7C7000636247 /* JDFSequentialTooltipManager.m in Sources */,
+				DEED3D5D1ABA92FA0069BB6C /* AFDropdownNotification.m in Sources */,
 				0FA8DFB41A362C2E005B994C /* JIMCBombaMaisPowerUp.m in Sources */,
 				DE3140541AB3D7D7009335D1 /* JTSlideShadowAnimation.m in Sources */,
 				DE3DAC401A97A712002FE5FE /* NextpeerHelper.m in Sources */,
 				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
+				DEAEC8021ABA642A00636247 /* WorldMapTimerSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 				0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */,
 				0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */,
