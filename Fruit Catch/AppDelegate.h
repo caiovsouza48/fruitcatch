@@ -16,7 +16,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property(nonatomic) NSDictionary *rewardData;
-
+@property (nonatomic) NSString* plistPath;
 
 @end
 

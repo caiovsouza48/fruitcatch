@@ -122,8 +122,6 @@
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
-    if (self.flagFacebook)
-        [self addPeopleOnScrollFacebook];
     [self adicionaVidas];
     [self adicionaMoedas];
     [self adicionaAjuda];
@@ -140,7 +138,8 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
+    if (self.flagFacebook)
+        [self addPeopleOnScrollFacebook];
 }
 
 - (void)registerAdNotification{
@@ -188,10 +187,6 @@
         self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:newTimeInterval * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-//Metodos add apenas para tirar o warning
--(void)stopSpinning{};
--(void)startSpinning{};
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -545,7 +540,7 @@
         localLifeNotification.alertBody = @"Life Recharged, You can play more levels now!";
         // Set the action button
         localLifeNotification.alertAction = @"Play";
-        localLifeNotification.alertTitle = @"Life Recharged";
+//        localLifeNotification.alertTitle = @"Life Recharged";
         localLifeNotification.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] scheduleLocalNotification:localLifeNotification];
     }

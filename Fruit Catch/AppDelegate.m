@@ -13,6 +13,7 @@
 #import "ClearedLevelsSingleton.h"
 #import "JIMCAPHelper.h"
 #import "RNEncryptor.h"
+#import "RNDecryptor.h"
 #import "AppUtils.h"
 #import "SettingsSingleton.h"
 
@@ -25,7 +26,7 @@
 @implementation AppDelegate
 
 - (void)nextpeerDidTournamentEnd{
-
+    
 }
 
 
@@ -38,6 +39,10 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:[AppUtils getAppMultiplayer]]){
         [self setUserElo];
     }
+    
+    [self loadFromWebService];
+    [self sendFiletoWebService];
+    
     //Checa se é o primeiro uso, caso seja, libera apenas o primeiro nível
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayed"])
     {
@@ -50,17 +55,19 @@
         
         NSMutableArray *array = [[NSMutableArray alloc]init];
         for(int i=0; i<numberOfLevels; i++){
-            NSDictionary *dic = [[NSDictionary alloc] initWithObjects:@[@0,@0] forKeys:@[@"Time",@"HighScore"]];
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjects:@[@0,@0,@0] forKeys:@[@"Time",@"HighScore",@"Stars"]];
             
             [array addObject:dic];
         }
         
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-        
-        [array writeToFile:plistPath atomically:YES];
-        
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        NSString *documentsDirectory = [paths objectAtIndex:0];
+//        NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+//        
+//        [array writeToFile:plistPath atomically:YES];
+//        if ([self loadFromWebService]) {
+//            NSLog(@"Dados carregados com sucesso !");
+//        }
     }
     
     // Override point for customization after application launch.
@@ -78,6 +85,25 @@
     return YES;
 }
 
+- (BOOL)loadFromWebService{
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir] && [[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj[@"facebookID"]);
+            [self loadPerformanceFromWebService:obj];
+        }
+        return YES;
+    }
+    return NO;
+}
+
 - (void)setUserElo{
     NSString *userEloPath = [AppUtils getAppMultiplayer];
     NSDictionary *userEloData = @{@"elo" : @1200};
@@ -93,10 +119,123 @@
         NSLog(@"Erro ao Salvar arquivo de Vidas");
     }
     
+    
+}
 
+- (void)sendFiletoWebService{
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir] && [[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
+        NSData *data = [NSData dataWithContentsOfFile:appDataDir];
+        NSError *error;
+        NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
+        if (!error){
+            NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            NSLog(@"File dict = %@",obj[@"facebookID"]);
+//            [self sendDataToWebService:obj];
+//            [self sendPerformanceToWebService:obj];
+            if ([self sendDataToWebService:obj]) {
+                NSLog(@"Envio Data com sucesso !");
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"flagFacebook"];
+            }
+            if ([self sendPerformanceToWebService:obj]) {
+                NSLog(@"Envio Performance com sucesso !");
+            }
+        }
+    }
+    else{
+    }
 }
 
 
+- (BOOL)sendDataToWebService:(NSDictionary*)object {
+
+    NSError * erro = nil;
+
+    NSString* name = [object[@"alias"] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+
+    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", object[@"facebookID"], name, object[@"facebookID"]];
+    NSLog(@"%@", strUrl);
+
+    NSURL *url = [NSURL URLWithString:strUrl];
+    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+    if (erro == nil && dados != nil) {
+        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+        if (erro) {
+            NSLog(@"%@", erro.localizedDescription);
+            return NO;
+        }
+        NSLog(@"%@", dadosWebService);
+        return YES;
+    }else{
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"flagFacebook"];
+    }
+
+    return NO;
+}
+
+- (void)loadPerformanceFromWebService:(NSDictionary*)object{
+    NSString *appDataDir = [AppUtils getAppDataDir];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSError *erro = nil;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir] && [[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
+        NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/desempenho/%@",object[@"facebookID"]];
+        NSLog(@"%@", strUrl);
+        
+        NSURL *url = [NSURL URLWithString:strUrl];
+        NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+        
+        NSMutableArray *array = [[NSMutableArray alloc]init];
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+
+        for (NSDictionary* dic in dadosWebService[@"desempenho"]) {
+            NSLog(@"%@",dic);
+            [array addObject:dic];
+        }
+        [array writeToFile:plistPath atomically:YES];
+    }
+}
+
+- (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
+    NSError * erro = nil;
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    long i = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCleared"];
+
+    for (int aux = 0; aux <= i; aux++) {
+        _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+
+        NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
+        NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:aux]];
+
+        NSInteger score = [dic[@"HighScore"] integerValue];
+        NSInteger time = [dic[@"Time"] integerValue];
+        
+        NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%ld/0/%ld",object[@"facebookID"], aux, time, score];
+        NSLog(@"%@", strUrl);
+
+        NSURL *url = [NSURL URLWithString:strUrl];
+        NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+        if (erro == nil && dados != nil) {
+            NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+            if (erro) {
+                NSLog(@"%@", erro.localizedDescription);
+                return NO;
+            }
+            NSLog(@"%@", dadosWebService);
+            if (aux == i)
+                return YES;
+        }
+    }
+    return  NO;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
