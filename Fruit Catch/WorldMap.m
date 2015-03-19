@@ -248,7 +248,7 @@
             _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
         }completion:^(BOOL finished){
             [UIView animateWithDuration:1.5 animations:^{
-                _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
+                _vidas.transform = CGAffineTransformMakeScale(1.00, 1.00);
                 [_vidas setTextColor:[UIColor whiteColor]];
             }];
         }];
