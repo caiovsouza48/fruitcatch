@@ -47,7 +47,6 @@ static bool isFirstAccess = YES;
 }
 
 - (void)updateLifeLabelTimer:(NSTimer *)timer{
-    NSLog(@"Update no singleton chamado");
     int minute = [Life sharedInstance].timerMinutes;
     int second = [Life sharedInstance].timerSeconds;
     if((minute || second>=0) && minute>=0)
@@ -84,6 +83,10 @@ static bool isFirstAccess = YES;
     [self.vidasCountDownTimer invalidate];
     self.vidasCountDownTimer = nil;
     self.vidasCountDownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLifeLabelTimer:) userInfo:nil repeats:YES];
+}
+
+- (void)resetUploadLives{
+
 }
 
 

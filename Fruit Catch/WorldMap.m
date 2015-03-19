@@ -20,6 +20,7 @@
 #import "SettingsSingleton.h"
 #import "WorldMapTimerSingleton.h"
 #import <AdColony/AdColony.h>
+#import "JDFTooltips.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define IPHONE6 (self.view.frame.size.width == 375)
@@ -30,7 +31,7 @@
 #define IPHONE6PLUS_XSCALE 1.29375
 #define IPHONE6PLUS_YSCALE 1.295774647887324
 
-@interface WorldMap ()<AdColonyAdDelegate,AdColonyDelegate>{
+@interface WorldMap ()<AdColonyAdDelegate,AdColonyDelegate,JDFSequentialTooltipManagerDelegate>{
     NSArray *_products;
 }
 
@@ -80,6 +81,12 @@
 
 @property(nonatomic) NSDictionary *timerParameterUserInfo;
 
+@property(nonatomic) UIImageView *KascoImageView;
+
+// Tooltips
+@property (nonatomic, strong) JDFSequentialTooltipManager *tooltipManager;
+
+
 @end
 
 @implementation WorldMap
@@ -93,6 +100,42 @@
 //        [self registerAdNotification];
     }
     return self;
+}
+
+- (void)didEndPresentatation{
+    NSLog(@"Did ENd");
+    _KascoImageView.image = nil;
+    _KascoImageView = nil;
+    [_KascoImageView removeFromSuperview];
+    [self.view setUserInteractionEnabled:YES];
+}
+
+- (void)doTutorial{
+    
+    CGFloat tooltipWidth = 260.0f;
+    
+
+    UIView *auxiliaryViewFase = [[UIView alloc]initWithFrame:CGRectMake(10, 350, 200, 100)];
+    [self.view addSubview:auxiliaryViewFase];
+    
+    _KascoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fazendeiro_fase@2x"]];
+    [_KascoImageView setFrame:CGRectMake(CGRectGetMidX(self.view.frame), CGRectGetMidY(self.view.frame), _KascoImageView.image.size.width, _KascoImageView.image.size.height)];
+    [self.view addSubview:_KascoImageView];
+    self.tooltipManager = [[JDFSequentialTooltipManager alloc] initWithHostView:self.view];
+    self.tooltipManager.delegate = self;
+    self.tooltipManager.kascoTutorialIM = _KascoImageView;
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Welcome to Fruit Catch, Im Kasco and i need your help to collect some fruits to my starving village.(tap to continue)" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    
+    [self.tooltipManager addTooltipWithTargetView:auxiliaryViewFase hostView:self.view tooltipText:@"You can Tap on this circles to play a Stage, each win or loss consume a life." arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    
+    [self.tooltipManager addTooltipWithTargetView:self.vidas hostView:self.view tooltipText:@"Here you can see your life count. It takes only 10 minutes to recharge one Life, but the time increases for each life you got." arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"if you cant wait so much, you can tap on AD button to watch a video Ad and reduce 10 minutes of your life recharging!" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    self.tooltipManager.showsBackdropView = YES;
+    [self.tooltipManager showAllTooltips];
+    //[KascoImageView removeFromSuperview];
+    
 }
 
 
@@ -146,6 +189,11 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+//    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShowTutorial"]){
+//        [self doTutorial];
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShowTutorial"];
+//        
+//    }
     
 }
 
@@ -190,6 +238,16 @@
         self.lifeTimer = nil;
         [self.minutesSecondsLifeTimer invalidate];
         self.minutesSecondsLifeTimer = nil;
+        [_vidas setTextColor:[UIColor greenColor]];
+        [UIView animateWithDuration:1.5 animations:^{
+            _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
+        }completion:^(BOOL finished){
+            [UIView animateWithDuration:1.5 animations:^{
+                _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
+                [_vidas setTextColor:[UIColor whiteColor]];
+            }];
+        }];
+    
         _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
     
         self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:newTimeInterval * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
@@ -237,11 +295,12 @@
     // Começa o loading
     [self startSpinningShop];
 
+    
+    
+    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
     if([Life sharedInstance].lifeCount == 5){
         [_vidasCountdown setText:@"Max."];
     }
-    
-    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -443,46 +502,12 @@
 
 
 - (void)updateLabelTimer:(NSTimer *)timer{
-    NSLog(@"Label Updating");
     if([Life sharedInstance].timerMinutes >-1){
                 [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",[Life sharedInstance].timerMinutes ,@":",[Life sharedInstance].timerSeconds]];
     }
-//    if([Life sharedInstance].timerMinutes >-1){
-//        [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",[Life sharedInstance].timerMinutes ,@":",[Life sharedInstance].timerSeconds]];
-//    }
-//    NSLog(@"Method Fired");
-//    NSLog(@"life obj in updateLifeLabelTimer = %@",[Life sharedInstance]);
-//    
-//    int minute = [Life sharedInstance].timerMinutes;
-//    int second = [Life sharedInstance].timerSeconds;
-//    if((minute || second>=0) && minute>=0)
-//    {
-//        if(second==0)
-//        {
-//            minute-=1;
-//            [Life sharedInstance].minutesPassed += 1;
-//            second=59;
-//             [Life sharedInstance].secondsPassed = 0;
-//        }
-//        else if(minute>0)
-//        {
-//            
-//            second-=1;
-//            [Life sharedInstance].secondsPassed += 1;
-//        }
-//        if(minute >-1){
-//            [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",minute ,@":",second]];
-//        }
-//        //[self updateUserInfoWithMinute:minute  andSecond:second];
-//        
-//        [Life sharedInstance].timerMinutes = minute;
-//        [Life sharedInstance].timerSeconds = second;
-//        
-//    }
-//    else
-//    {
-//        [timer invalidate];
-//    }
+    if([Life sharedInstance].lifeCount == 5){
+        [_vidasCountdown setText:@"Max."];
+    }
     
 }
 
@@ -519,11 +544,13 @@
 
 - (void) uploadLivesByTimer:(NSTimer *)timer{
     /* O Timer disparou este método após o tempo calculado, salva as vidas e recupera novamente */
-    NSLog(@"Life obj = %@",[Life sharedInstance]);
     [Life sharedInstance].lifeCount++;
    
     [Life sharedInstance].lifeTime = [NSDate date];
      _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+    if([Life sharedInstance].lifeCount == 5){
+        [_vidasCountdown setText:@"Max."];
+    }
     //[self updateLivesView];
     [self saveLives];
     //[self getUserLives];
@@ -824,6 +851,7 @@
     _scrollView.delegate = self;
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
+    singleTap.cancelsTouchesInView = NO;
     [_scrollView addGestureRecognizer:singleTap];
     
     [self.view addSubview:_scrollView];
@@ -846,6 +874,11 @@
     if (!_vidas){
          _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 92, 57)];
     }
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(watchAd:)];
+    [tap setNumberOfTapsRequired:1];
+    tap.cancelsTouchesInView = NO;
+    [_vidas addGestureRecognizer:tap];
+    
     _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 40, 20)];
     [_vidasCountdown setText:@"00:00"];
 //    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
@@ -859,6 +892,7 @@
     [self.view insertSubview:_vidas belowSubview:_informFase];
     [self.vidas addSubview:_vidasCountdown];
 }
+
 
 -(void)adicionaMoedas
 {
@@ -1427,6 +1461,11 @@
         [self updateTimeByAd:userinfo];
     
     }
+}
+
+- (void)watchAd:(UIGestureRecognizer *)gestureRecognizer{
+    
+    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:nil withV4VCPrePopup:YES andV4VCPostPopup:YES];
 }
 
 - (void)onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneID{
