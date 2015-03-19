@@ -125,7 +125,7 @@
     if (self.flagFacebook)
         [self addPeopleOnScrollFacebook];
     [self adicionaVidas];
-    [self adicionaMoedas];
+//    [self adicionaMoedas];
     [self adicionaAjuda];
 //    [self adicionaBotaoBack];
     [self adicionaBotoesFases];
@@ -787,7 +787,7 @@
 {
     //Vidas
     if (!_vidas){
-         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 65, 5, 130, 57)];
+         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 130, 57)]; //ou CGRectGetMidX(self.view.frame) - 65, 5, 130, 57
     }
     _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(60, 18, 80, 20)];
     _vidasCountdown.font = [UIFont fontWithName:@"Chewy" size:22];

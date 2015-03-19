@@ -112,7 +112,7 @@
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>180</integer>
+		<integer>176</integer>
 		<key>yPosition</key>
 		<integer>-80</integer>
 	</dict>
@@ -154,33 +154,33 @@
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>190</integer>
+		<integer>30</integer>
 		<key>yPosition</key>
-		<integer>-270</integer>
+		<integer>-355</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>190</integer>
+		<integer>250</integer>
 		<key>yPosition</key>
-		<integer>-270</integer>
+		<integer>-380</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>190</integer>
+		<integer>73</integer>
 		<key>yPosition</key>
-		<integer>-270</integer>
+		<integer>-405</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>190</integer>
+		<integer>252</integer>
 		<key>yPosition</key>
-		<integer>-270</integer>
+		<integer>-450</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>190</integer>
+		<integer>137</integer>
 		<key>yPosition</key>
-		<integer>-270</integer>
+		<integer>-460</integer>
 	</dict>
 </array>
 </plist>
