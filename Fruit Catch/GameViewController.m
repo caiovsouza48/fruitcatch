@@ -917,8 +917,11 @@
                 if(_next){
                     NSArray *a = [self.levelString componentsSeparatedByString:@"Level_"];
                     NSInteger i = [[a objectAtIndex:1] integerValue];
-                    viewWP.nextStage = i+1;
-                    
+                    if(i <= numberOfLevels){
+                        viewWP.nextStage = i+1;
+                    }else{
+                        viewWP.nextStage = -1;
+                    }
                 }else{
                     viewWP.nextStage = -1;
                 }
@@ -1129,8 +1132,7 @@
 
 -(IBAction)ajuda:(id)sender
 {
-    
-    
+    NSLog(@"ajuda");
 }
 
 @end

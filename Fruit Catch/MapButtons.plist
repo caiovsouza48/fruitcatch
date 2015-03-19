@@ -4,63 +4,183 @@
 <array>
 	<dict>
 		<key>xPosition</key>
-		<integer>38</integer>
+		<integer>3</integer>
 		<key>yPosition</key>
-		<integer>500</integer>
+		<integer>547</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>165</integer>
+		<integer>60</integer>
+		<key>yPosition</key>
+		<integer>490</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>150</integer>
 		<key>yPosition</key>
 		<integer>475</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>200</integer>
+		<integer>240</integer>
+		<key>yPosition</key>
+		<integer>455</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>215</integer>
 		<key>yPosition</key>
 		<integer>395</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>55</integer>
+		<integer>120</integer>
 		<key>yPosition</key>
-		<integer>385</integer>
+		<integer>390</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>105</integer>
+		<integer>30</integer>
 		<key>yPosition</key>
-		<integer>303</integer>
+		<integer>377</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>235</integer>
+		<integer>40</integer>
 		<key>yPosition</key>
-		<integer>270</integer>
+		<integer>310</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
 		<integer>130</integer>
 		<key>yPosition</key>
-		<integer>225</integer>
+		<integer>300</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>45</integer>
+		<integer>220</integer>
 		<key>yPosition</key>
-		<integer>155</integer>
+		<integer>285</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>210</integer>
+		<key>yPosition</key>
+		<integer>220</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>110</integer>
+		<key>yPosition</key>
+		<integer>220</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>20</integer>
+		<key>yPosition</key>
+		<integer>210</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>60</integer>
+		<key>yPosition</key>
+		<integer>150</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>150</integer>
+		<key>yPosition</key>
+		<integer>140</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>240</integer>
+		<key>yPosition</key>
+		<integer>115</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>265</integer>
+		<key>yPosition</key>
+		<integer>40</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>200</integer>
+		<key>yPosition</key>
+		<integer>-10</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>180</integer>
+		<key>yPosition</key>
+		<integer>-80</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>90</integer>
+		<key>yPosition</key>
+		<integer>-110</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>165</integer>
+		<key>yPosition</key>
+		<integer>-150</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>220</integer>
+		<key>yPosition</key>
+		<integer>-210</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>200</integer>
+		<key>yPosition</key>
+		<integer>-270</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>80</integer>
+		<key>yPosition</key>
+		<integer>-295</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
 		<integer>190</integer>
 		<key>yPosition</key>
-		<integer>130</integer>
+		<integer>-330</integer>
 	</dict>
 	<dict>
 		<key>xPosition</key>
-		<integer>250</integer>
+		<integer>190</integer>
 		<key>yPosition</key>
-		<integer>21</integer>
+		<integer>-270</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>190</integer>
+		<key>yPosition</key>
+		<integer>-270</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>190</integer>
+		<key>yPosition</key>
+		<integer>-270</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>190</integer>
+		<key>yPosition</key>
+		<integer>-270</integer>
+	</dict>
+	<dict>
+		<key>xPosition</key>
+		<integer>190</integer>
+		<key>yPosition</key>
+		<integer>-270</integer>
 	</dict>
 </array>
 </plist>

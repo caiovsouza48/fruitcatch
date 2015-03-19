@@ -120,8 +120,6 @@
         _offset = 80;
     }
     
-    
-    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
 
     [self adicionaFundo];
@@ -238,6 +236,11 @@
     
     // Começa o loading
     [self startSpinningShop];
+
+    if([Life sharedInstance].lifeCount == 5){
+        [_vidasCountdown setText:@"Max."];
+    }
+    
     _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
 }
 
@@ -752,7 +755,7 @@
                      }];
 }
 
--(IBAction)ajuda:(id)sender
+-(IBAction)showAd:(id)sender
 {
    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:nil withV4VCPrePopup:YES andV4VCPostPopup:YES];
     
@@ -841,19 +844,20 @@
 {
     //Vidas
     if (!_vidas){
-         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 60, 60)];
+         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 92, 57)];
     }
-    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 10, 60, 60)];
+    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 40, 20)];
     [_vidasCountdown setText:@"00:00"];
-    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
-    _vidas.backgroundColor = [UIColor redColor];
+//    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+//    _vidas.backgroundColor = [UIColor redColor];
+    _vidas.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"vidas"]];
     _vidas.numberOfLines = 3;
     _vidas.lineBreakMode = NSLineBreakByWordWrapping;
     _vidas.font = [UIFont fontWithName:@"Chewy" size:20];
     _vidas.textColor = [UIColor whiteColor];
     _vidas.textAlignment = NSTextAlignmentCenter;
     [self.view insertSubview:_vidas belowSubview:_informFase];
-    [self.view insertSubview:_vidasCountdown aboveSubview:_informFase];
+    [self.vidas addSubview:_vidasCountdown];
 }
 
 -(void)adicionaMoedas
@@ -875,7 +879,7 @@
     //Botao ajuda
     UIButton *ajuda = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [ajuda addTarget:self
-              action:@selector(ajuda:)
+              action:@selector(showAd:)
     forControlEvents:UIControlEventTouchUpInside];
     
     [ajuda setTitle:[NSString stringWithFormat:@"?"] forState:UIControlStateNormal];
@@ -1054,9 +1058,10 @@
 -(void)adicionaShop
 {
     //Shopi
-    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 60, 60)];
-    [_shopi setTitle:@"Shop" forState:UIControlStateNormal];
-    _shopi.backgroundColor = [UIColor blueColor];
+    _shopi = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, 50, 50)];
+//    [_shopi setTitle:@"Shop" forState:UIControlStateNormal];
+//    _shopi.backgroundColor = [UIColor blueColor];
+    [_shopi setBackgroundImage:[UIImage imageNamed:@"Carrinho_compras"] forState:UIControlStateNormal];
     [_shopi addTarget:self action:@selector(shop:)forControlEvents:UIControlEventTouchUpInside];
     _shopi.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.view insertSubview:_shopi belowSubview:_informFase];
@@ -1400,13 +1405,19 @@
 
 // Is called when AdColony has finished trying to show an ad, either successfully or unsuccessfully
 // If shown == YES, an ad was displayed and apps should implement app-specific code such as unpausing a game and restarting app music
-- ( void ) onAdColonyAdAttemptFinished:(BOOL)shown inZone:( NSString * )zoneID {
+- ( void ) onAdColonyAdAttemptFinished:(BOOL)shown inZone:( NSString * )zoneID
+{
     if (shown) {
         NSLog(@"Called");
         //[self updateTimeByAd];
     } else {
         NSLog(@"AdColony did not play an ad for zone %@", zoneID);
     }
+}
+
+-(void)ajuda:(id)sender
+{
+    NSLog(@"ajuda");
 }
 
 - (void) onAdColonyV4VCReward:(BOOL)success currencyName:(NSString*)currencyName currencyAmount:(int)amount inZone:(NSString*)zoneID {
