@@ -203,6 +203,29 @@
 		E3E019C21AB20B8900D06910 /* Camada-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019BF1AB20B8900D06910 /* Camada-2@2x.png */; };
 		E3E019C31AB20B8900D06910 /* Camada-2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019C01AB20B8900D06910 /* Camada-2@3x.png */; };
 		E3E019C51AB35AE200D06910 /* mapa_2.0Iphone6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3E019C41AB35AE200D06910 /* mapa_2.0Iphone6@2x.png */; };
+		E3E019CC1AB9FB9700D06910 /* Level_11.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019CA1AB9FB9700D06910 /* Level_11.json */; };
+		E3E019CD1AB9FB9700D06910 /* Level_12.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019CB1AB9FB9700D06910 /* Level_12.json */; };
+		E3E019CF1AB9FDFC00D06910 /* Level_13.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019CE1AB9FDFC00D06910 /* Level_13.json */; };
+		E3E019D11ABA04E100D06910 /* Level_14.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D01ABA04E100D06910 /* Level_14.json */; };
+		E3E019E51ABB365100D06910 /* Level_15.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D21ABB365100D06910 /* Level_15.json */; };
+		E3E019E61ABB365100D06910 /* Level_16.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D31ABB365100D06910 /* Level_16.json */; };
+		E3E019E71ABB365100D06910 /* Level_17.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D41ABB365100D06910 /* Level_17.json */; };
+		E3E019E81ABB365100D06910 /* Level_18.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D51ABB365100D06910 /* Level_18.json */; };
+		E3E019E91ABB365100D06910 /* Level_19.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D61ABB365100D06910 /* Level_19.json */; };
+		E3E019EA1ABB365100D06910 /* Level_20.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D71ABB365100D06910 /* Level_20.json */; };
+		E3E019EB1ABB365100D06910 /* Level_21.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D81ABB365100D06910 /* Level_21.json */; };
+		E3E019EC1ABB365100D06910 /* Level_22.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019D91ABB365100D06910 /* Level_22.json */; };
+		E3E019ED1ABB365100D06910 /* Level_23.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019DA1ABB365100D06910 /* Level_23.json */; };
+		E3E019EE1ABB365100D06910 /* Level_24.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019DB1ABB365100D06910 /* Level_24.json */; };
+		E3E019EF1ABB365100D06910 /* Level_25.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019DC1ABB365100D06910 /* Level_25.json */; };
+		E3E019F01ABB365100D06910 /* Level_26.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019DD1ABB365100D06910 /* Level_26.json */; };
+		E3E019F11ABB365100D06910 /* Level_27.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019DE1ABB365100D06910 /* Level_27.json */; };
+		E3E019F21ABB365100D06910 /* Level_29.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019DF1ABB365100D06910 /* Level_29.json */; };
+		E3E019F31ABB365100D06910 /* Level_30.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019E01ABB365100D06910 /* Level_30.json */; };
+		E3E019F41ABB365100D06910 /* Level_31.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019E11ABB365100D06910 /* Level_31.json */; };
+		E3E019F51ABB365100D06910 /* Level_32.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019E21ABB365100D06910 /* Level_32.json */; };
+		E3E019F61ABB365100D06910 /* Level_33.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019E31ABB365100D06910 /* Level_33.json */; };
+		E3E019F71ABB365100D06910 /* Level_34.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019E41ABB365100D06910 /* Level_34.json */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
 		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
 		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
@@ -470,6 +493,29 @@
 		E3E019BF1AB20B8900D06910 /* Camada-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camada-2@2x.png"; sourceTree = "<group>"; };
 		E3E019C01AB20B8900D06910 /* Camada-2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camada-2@3x.png"; sourceTree = "<group>"; };
 		E3E019C41AB35AE200D06910 /* mapa_2.0Iphone6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mapa_2.0Iphone6@2x.png"; sourceTree = "<group>"; };
+		E3E019CA1AB9FB9700D06910 /* Level_11.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_11.json; sourceTree = "<group>"; };
+		E3E019CB1AB9FB9700D06910 /* Level_12.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_12.json; sourceTree = "<group>"; };
+		E3E019CE1AB9FDFC00D06910 /* Level_13.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_13.json; sourceTree = "<group>"; };
+		E3E019D01ABA04E100D06910 /* Level_14.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_14.json; sourceTree = "<group>"; };
+		E3E019D21ABB365100D06910 /* Level_15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_15.json; sourceTree = "<group>"; };
+		E3E019D31ABB365100D06910 /* Level_16.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_16.json; sourceTree = "<group>"; };
+		E3E019D41ABB365100D06910 /* Level_17.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_17.json; sourceTree = "<group>"; };
+		E3E019D51ABB365100D06910 /* Level_18.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_18.json; sourceTree = "<group>"; };
+		E3E019D61ABB365100D06910 /* Level_19.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_19.json; sourceTree = "<group>"; };
+		E3E019D71ABB365100D06910 /* Level_20.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_20.json; sourceTree = "<group>"; };
+		E3E019D81ABB365100D06910 /* Level_21.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_21.json; sourceTree = "<group>"; };
+		E3E019D91ABB365100D06910 /* Level_22.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_22.json; sourceTree = "<group>"; };
+		E3E019DA1ABB365100D06910 /* Level_23.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_23.json; sourceTree = "<group>"; };
+		E3E019DB1ABB365100D06910 /* Level_24.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_24.json; sourceTree = "<group>"; };
+		E3E019DC1ABB365100D06910 /* Level_25.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_25.json; sourceTree = "<group>"; };
+		E3E019DD1ABB365100D06910 /* Level_26.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_26.json; sourceTree = "<group>"; };
+		E3E019DE1ABB365100D06910 /* Level_27.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_27.json; sourceTree = "<group>"; };
+		E3E019DF1ABB365100D06910 /* Level_29.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_29.json; sourceTree = "<group>"; };
+		E3E019E01ABB365100D06910 /* Level_30.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_30.json; sourceTree = "<group>"; };
+		E3E019E11ABB365100D06910 /* Level_31.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_31.json; sourceTree = "<group>"; };
+		E3E019E21ABB365100D06910 /* Level_32.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_32.json; sourceTree = "<group>"; };
+		E3E019E31ABB365100D06910 /* Level_33.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_33.json; sourceTree = "<group>"; };
+		E3E019E41ABB365100D06910 /* Level_34.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_34.json; sourceTree = "<group>"; };
 		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCFruit.h; sourceTree = "<group>"; };
@@ -1166,6 +1212,29 @@
 				0F22E08E1AA78B4700C2BF51 /* Level_8.json */,
 				0F22E0901AA78B6700C2BF51 /* Level_9.json */,
 				0F22E0921AA78D4400C2BF51 /* Level_10.json */,
+				E3E019CA1AB9FB9700D06910 /* Level_11.json */,
+				E3E019CB1AB9FB9700D06910 /* Level_12.json */,
+				E3E019CE1AB9FDFC00D06910 /* Level_13.json */,
+				E3E019D01ABA04E100D06910 /* Level_14.json */,
+				E3E019D21ABB365100D06910 /* Level_15.json */,
+				E3E019D31ABB365100D06910 /* Level_16.json */,
+				E3E019D41ABB365100D06910 /* Level_17.json */,
+				E3E019D51ABB365100D06910 /* Level_18.json */,
+				E3E019D61ABB365100D06910 /* Level_19.json */,
+				E3E019D71ABB365100D06910 /* Level_20.json */,
+				E3E019D81ABB365100D06910 /* Level_21.json */,
+				E3E019D91ABB365100D06910 /* Level_22.json */,
+				E3E019DA1ABB365100D06910 /* Level_23.json */,
+				E3E019DB1ABB365100D06910 /* Level_24.json */,
+				E3E019DC1ABB365100D06910 /* Level_25.json */,
+				E3E019DD1ABB365100D06910 /* Level_26.json */,
+				E3E019DE1ABB365100D06910 /* Level_27.json */,
+				E3E019DF1ABB365100D06910 /* Level_29.json */,
+				E3E019E01ABB365100D06910 /* Level_30.json */,
+				E3E019E11ABB365100D06910 /* Level_31.json */,
+				E3E019E21ABB365100D06910 /* Level_32.json */,
+				E3E019E31ABB365100D06910 /* Level_33.json */,
+				E3E019E41ABB365100D06910 /* Level_34.json */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -1283,6 +1352,7 @@
 				430A31181AB75DE5003D840F /* icon_menu.png in Resources */,
 				43A643BA1AB0B52E009521DA /* mapa_2.0@2x.png in Resources */,
 				DE3DAC511A9B998E002FE5FE /* uva_pu_h@2x.png in Resources */,
+				E3E019F01ABB365100D06910 /* Level_26.json in Resources */,
 				43F7206E1AAE26BA003DD069 /* icon_help@3x.png in Resources */,
 				43F7205A1AAE1D20003DD069 /* Menu_Rapido_Cesta.png in Resources */,
 				43C998701AAF679D001C32EA /* no_sfx@3x.png in Resources */,
@@ -1298,6 +1368,7 @@
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
 				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
 				43F720611AAE1EB9003DD069 /* icon_close@2x.png in Resources */,
+				E3E019E91ABB365100D06910 /* Level_19.json in Resources */,
 				43C9986F1AAF679D001C32EA /* no_sfx@2x.png in Resources */,
 				43C998691AAF63DC001C32EA /* no_music@3x.png in Resources */,
 				436BAB2B1AAA23A7003A3955 /* retangulo_configuracoes@3x.png in Resources */,
@@ -1306,6 +1377,7 @@
 				DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */,
 				435D180A1AA8F604007704C0 /* fundo_main_menu@2x.png in Resources */,
 				DEC905B81A239C6D003DD444 /* Images.xcassets in Resources */,
+				E3E019EE1ABB365100D06910 /* Level_24.json in Resources */,
 				437B8E851A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png in Resources */,
 				0F40CAA91A9BA16600D0CB01 /* limao_pu_h@2x.png in Resources */,
 				436BAB271AAA1677003A3955 /* icon_config@3x.png in Resources */,
@@ -1314,7 +1386,9 @@
 				E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */,
 				DE3DAC531A9B998E002FE5FE /* laranja_pu_v@2x.png in Resources */,
 				4351CD881A8E772800C026AA /* botao_jogar_novamente.png in Resources */,
+				E3E019F31ABB365100D06910 /* Level_30.json in Resources */,
 				0F30FFFA1A97BF0300216088 /* MyParticle.sks in Resources */,
+				E3E019F71ABB365100D06910 /* Level_34.json in Resources */,
 				0F22E09B1AA79E5A00C2BF51 /* Level_0.json in Resources */,
 				437B8E861A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@3x.png in Resources */,
 				DE4048F91AB7D2FF00A8D7EE /* Playe_vez@2x.png in Resources */,
@@ -1326,6 +1400,7 @@
 				0F40CAA81A9BA16600D0CB01 /* laranja_pu_h@2x.png in Resources */,
 				0F40CAAA1A9BA16600D0CB01 /* morango_pu_h@2x.png in Resources */,
 				43F7205C1AAE1D20003DD069 /* Menu_Rapido_Cesta@3x.png in Resources */,
+				E3E019EA1ABB365100D06910 /* Level_20.json in Resources */,
 				432C10171AADD0A10020CB26 /* fechar@2x.png in Resources */,
 				433C4F331AA0ED43007329E7 /* estrela_fill@2x.png in Resources */,
 				E3E019C21AB20B8900D06910 /* Camada-2@2x.png in Resources */,
@@ -1335,10 +1410,12 @@
 				E3E3ECB71A23B31900E7E18E /* Error.wav in Resources */,
 				43C9986A1AAF63DC001C32EA /* no_music.png in Resources */,
 				43F7205B1AAE1D20003DD069 /* Menu_Rapido_Cesta@2x.png in Resources */,
+				E3E019EC1ABB365100D06910 /* Level_22.json in Resources */,
 				0F22E09C1AA79E5A00C2BF51 /* Level_1.json in Resources */,
 				E3E3ECB61A23B31900E7E18E /* Drip.wav in Resources */,
 				E37BB4E81A4061D000F8E679 /* fundo@2x.png in Resources */,
 				43F7206D1AAE26BA003DD069 /* icon_help@2x.png in Resources */,
+				E3E019F21ABB365100D06910 /* Level_29.json in Resources */,
 				432C10241AADD8400020CB26 /* icon_open@3x.png in Resources */,
 				43F720721AAE26BA003DD069 /* icon_som.png in Resources */,
 				DE4048FA1AB7D2FF00A8D7EE /* Playe_vez@3x.png in Resources */,
@@ -1348,10 +1425,13 @@
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
 				43F7206F1AAE26BA003DD069 /* icon_music.png in Resources */,
 				DE3140511AB3D3E9009335D1 /* turn_sound.mp3 in Resources */,
+				E3E019E71ABB365100D06910 /* Level_17.json in Resources */,
 				4357D6A61AB9C4EA003AD548 /* Next_Icon@3x.png in Resources */,
 				43F720701AAE26BA003DD069 /* icon_music@2x.png in Resources */,
 				43C998681AAF63DC001C32EA /* no_music@2x.png in Resources */,
+				E3E019EF1ABB365100D06910 /* Level_25.json in Resources */,
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
+				E3E019CD1AB9FB9700D06910 /* Level_12.json in Resources */,
 				0F22E0931AA78D4400C2BF51 /* Level_10.json in Resources */,
 				435D180B1AA8F604007704C0 /* fundo_main_menu@3x.png in Resources */,
 				0F40CAB01A9BA16600D0CB01 /* uva_pu_v@2x.png in Resources */,
@@ -1362,12 +1442,17 @@
 				430A31191AB75DE5003D840F /* icon_menu@2x.png in Resources */,
 				430A31131AB75DCA003D840F /* icon_sair@2x.png in Resources */,
 				4351CD8D1A8E772800C026AA /* botao_menu@3x.png in Resources */,
+				E3E019E81ABB365100D06910 /* Level_18.json in Resources */,
 				4351CD8C1A8E772800C026AA /* botao_menu@2x.png in Resources */,
 				0F22E08F1AA78B4700C2BF51 /* Level_8.json in Resources */,
 				4351CD7F1A8E76F500C026AA /* botao_proxima_fase.png in Resources */,
+				E3E019EB1ABB365100D06910 /* Level_21.json in Resources */,
 				0FF2358F1AA7A67500562511 /* Level_6.json in Resources */,
 				437B8E8C1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png in Resources */,
+				E3E019F41ABB365100D06910 /* Level_31.json in Resources */,
+				E3E019D11ABA04E100D06910 /* Level_14.json in Resources */,
 				436BAB2D1AAA23A7003A3955 /* retangulo_configuracoes@2x.png in Resources */,
+				E3E019F11ABB365100D06910 /* Level_27.json in Resources */,
 				435D18041AA8F0E2007704C0 /* Fazendeiro_Severino@2x.png in Resources */,
 				432C101D1AADD8270020CB26 /* Menu_Rapido_Pequeno@2x.png in Resources */,
 				E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */,
@@ -1384,19 +1469,26 @@
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
 				43F720601AAE1EB9003DD069 /* icon_close.png in Resources */,
 				DE9DA6F61AB8AAE2009E8185 /* small_decorative_bell_ring_version_3.mp3 in Resources */,
+				E3E019F51ABB365100D06910 /* Level_32.json in Resources */,
 				437840211A97B911009BE3FB /* estrela_outline@3x.png in Resources */,
+				E3E019CC1AB9FB9700D06910 /* Level_11.json in Resources */,
 				436BAB261AAA1677003A3955 /* icon_config@2x.png in Resources */,
 				4357D6A41AB9C4EA003AD548 /* Next_Icon.png in Resources */,
 				437B8E841A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia.png in Resources */,
 				436BAB2C1AAA23A7003A3955 /* retangulo_configuracoes.png in Resources */,
 				4357D6A51AB9C4EA003AD548 /* Next_Icon@2x.png in Resources */,
+				E3E019F61ABB365100D06910 /* Level_33.json in Resources */,
+				E3E019ED1ABB365100D06910 /* Level_23.json in Resources */,
 				4351CD801A8E76F500C026AA /* botao_proxima_fase@2x.png in Resources */,
 				433C4F321AA0ED43007329E7 /* estrela_fill.png in Resources */,
 				432C101E1AADD8270020CB26 /* Menu_Rapido_Pequeno@3x.png in Resources */,
 				0F30FFFB1A97BF0300216088 /* spark.png in Resources */,
+				E3E019E51ABB365100D06910 /* Level_15.json in Resources */,
 				E3E019C11AB20B8900D06910 /* Camada-2.png in Resources */,
 				435D18051AA8F0E2007704C0 /* Fazendeiro_Severino@3x.png in Resources */,
+				E3E019E61ABB365100D06910 /* Level_16.json in Resources */,
 				43F720711AAE26BA003DD069 /* icon_music@3x.png in Resources */,
+				E3E019CF1AB9FDFC00D06910 /* Level_13.json in Resources */,
 				E3CFD4AC1A8B867000C6FF64 /* Chewy.ttf in Resources */,
 				433C4F341AA0ED43007329E7 /* estrela_fill@3x.png in Resources */,
 			);

@@ -66,9 +66,33 @@
 @property (nonatomic) IBOutlet UIButton *ajuda;
 @property (nonatomic) UILabel *vidas;
 @property (nonatomic) BOOL quickMenuOpen;
+@property(nonatomic) BOOL adExecuted;
+@property(nonatomic) BOOL alreadySetNotification;
+@property(nonatomic) NSTimer *minutesSecondsLifeTimer;
+@property(nonatomic) UILabel *vidasCountdown;
+
+@property(nonatomic) int currentMinute;
+
+@property(nonatomic) int currentSecond;
+
+@property(nonatomic) NSDate *beginningDate;
+
 @end
 
 @implementation WorldMap
+
+- (instancetype) init{
+    self = [super init];
+    if (self){
+        NSLog(@"Initing World Map");
+//        [self registerLivesBackgroundNotification];
+//        [self registerAppEnterForegroundNotification];
+//        [self registerAdNotification];
+    }
+    return self;
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,10 +117,7 @@
     
     [super viewDidLoad];
     
-    //[self getUserLives];
-    [self registerLivesBackgroundNotification];
-    [self registerAppEnterForegroundNotification];
-    [self registerAdNotification];
+    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
     [self adicionaFundo];
     [self adicionaInformFase];
