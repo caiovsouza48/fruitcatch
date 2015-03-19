@@ -47,9 +47,9 @@ static bool isFirstAccess = YES;
 }
 
 - (void)updateLifeLabelTimer:(NSTimer *)timer{
-    if ([Life sharedInstance].lifeTime == 5){
+    if ([Life sharedInstance].lifeCount == 5){
         [timer invalidate];
-        Life sharedInstance].timerMinutes = 0;
+        [Life sharedInstance].timerMinutes = 0;
         [Life sharedInstance].timerSeconds = 0;
         
     }

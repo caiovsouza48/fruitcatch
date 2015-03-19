@@ -991,7 +991,7 @@
 {
     NSLog(@"First tutorial");
     
-    UILabel *tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
+    __block UILabel *tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
                                                              100,
                                                              100,
                                                              70)];
@@ -1007,8 +1007,8 @@
     [self.view addSubview:tip];
     [UIView animateWithDuration:2.81 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
             tip.alpha = 0.1;
-    } completion:^{
-        tip.alpha = 0.0
+    } completion:^(BOOL finished){
+        tip.alpha = 0.1;
         [tip removeFromSuperview];
         tip = nil;
     }];
