@@ -16,6 +16,7 @@
 #import "RNDecryptor.h"
 #import "AppUtils.h"
 #import "SettingsSingleton.h"
+#import "GameViewController.h"
 
 #define NEXTPEER_KEY @"08d8f6a9b74c70e157add51c12c7d272"
 
@@ -193,13 +194,31 @@
         NSMutableArray *array = [[NSMutableArray alloc]init];
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-
+        
         for (NSDictionary* dic in dadosWebService[@"desempenho"]) {
             NSLog(@"%@",dic);
             [array addObject:dic];
         }
         [array writeToFile:plistPath atomically:YES];
+        
+        [self saveScore];
     }
+}
+
+-(void)saveScore
+{
+    //Carrega o score do plist
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+    
+    NSMutableArray *array  = [NSMutableArray arrayWithContentsOfFile:plistPath];
+    
+    NSInteger level = [ClearedLevelsSingleton sharedInstance].lastLevelCleared;
+    
+    NSMutableDictionary *levelHighScore = [[NSMutableDictionary alloc] initWithDictionary:[array objectAtIndex:level]];
+    NSNumber *highScore = levelHighScore[@"HighScore"];
+    NSNumber *tempo = levelHighScore[@"Time"];
 }
 
 - (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
@@ -218,7 +237,7 @@
         NSInteger score = [dic[@"HighScore"] integerValue];
         NSInteger time = [dic[@"Time"] integerValue];
         
-        NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%ld/0/%ld",object[@"facebookID"], aux, time, score];
+        NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%ld/0/%ld",object[@"facebookID"], aux, (long)time, score];
         NSLog(@"%@", strUrl);
 
         NSURL *url = [NSURL URLWithString:strUrl];
