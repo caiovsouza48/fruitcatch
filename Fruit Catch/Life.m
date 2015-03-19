@@ -23,6 +23,10 @@ static Life *instance;
     if (self){
         self.lifeCount = [aDecoder decodeIntegerForKey:@"lifeCount"];
         self.lifeTime = [aDecoder decodeObjectForKey:@"lifeTime"];
+        self.timerMinutes = [aDecoder decodeIntForKey:@"timerMinutes"];
+        self.timerSeconds = [aDecoder decodeIntForKey:@"timerSeconds"];
+        self.minutesPassed = [aDecoder decodeIntForKey:@"minutesPassed"];
+        self.secondsPassed = [aDecoder decodeIntForKey:@"secondsPassed"];
     }
     return self;
 }
@@ -30,6 +34,10 @@ static Life *instance;
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeInteger:self.lifeCount forKey:@"lifeCount"];
     [aCoder encodeObject:self.lifeTime forKey:@"lifeTime"];
+    [aCoder encodeInt:self.timerMinutes forKey:@"timerMinutes"];
+    [aCoder encodeInt:self.timerSeconds forKey:@"timerSeconds"];
+    [aCoder encodeInt:self.minutesPassed forKey:@"minutesPassed"];
+    [aCoder encodeInt:self.secondsPassed forKey:@"secondsPassed"];
 }
 
 + (Life *)sharedInstance{
@@ -69,13 +77,17 @@ static Life *instance;
     self = [super init];
     if (self){
         self.lifeCount = 5;
+        self.timerSeconds = 0;
+        self.timerMinutes = 0;
+        self.minutesPassed = 0;
+        self.secondsPassed = 0;
         self.lifeTime = [NSDate date];
     }
     return self;
 }
 
 - (NSString *)description{
-    return [NSString stringWithFormat:@"Life Object:\n Life Count = %ld - Life Time = %@",(long)self.lifeCount,self.lifeTime];
+    return [NSString stringWithFormat:@"Life Object:\n Life Count = %ld - Life Time = %@,\n Timer Minute = %d  - Timer Seconds = %d/nMinutes Passed = %d   - Seconds Passed = %d",(long)self.lifeCount,self.lifeTime,self.timerMinutes,self.timerSeconds,self.minutesPassed,self.secondsPassed];
 }
 
 - (void)loadFromFile{
@@ -86,8 +98,13 @@ static Life *instance;
         NSData *decryptedData = [RNDecryptor decryptData:data withPassword:SECRET error:&error];
         if (!error){
             Life *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
+            
             self.lifeCount = obj.lifeCount;
             self.lifeTime = obj.lifeTime;
+            self.timerMinutes = 0;
+            self.timerSeconds = 0;
+            self.minutesPassed = obj.minutesPassed;
+            self.secondsPassed = obj.secondsPassed;
         }
     }
     

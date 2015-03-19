@@ -155,6 +155,7 @@
 		DEA2D2B51A39BBEE0038B65A /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2AE1A39BBEE0038B65A /* RNCryptorEngine.m */; };
 		DEA2D2B61A39BBEE0038B65A /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2B01A39BBEE0038B65A /* RNDecryptor.m */; };
 		DEA2D2B71A39BBEE0038B65A /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA2D2B21A39BBEE0038B65A /* RNEncryptor.m */; };
+		DEAEC8021ABA642A00636247 /* WorldMapTimerSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC8011ABA642A00636247 /* WorldMapTimerSingleton.m */; };
 		DEC905A81A239C6D003DD444 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905A71A239C6D003DD444 /* main.m */; };
 		DEC905AB1A239C6D003DD444 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905AA1A239C6D003DD444 /* AppDelegate.m */; };
 		DEC905B31A239C6D003DD444 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905B21A239C6D003DD444 /* GameViewController.m */; };
@@ -406,6 +407,8 @@
 		DEA2D2B01A39BBEE0038B65A /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNDecryptor.m; path = "Fruit Catch/RNDecryptor.m"; sourceTree = "<group>"; };
 		DEA2D2B11A39BBEE0038B65A /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNEncryptor.h; path = "Fruit Catch/RNEncryptor.h"; sourceTree = "<group>"; };
 		DEA2D2B21A39BBEE0038B65A /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNEncryptor.m; path = "Fruit Catch/RNEncryptor.m"; sourceTree = "<group>"; };
+		DEAEC8001ABA642A00636247 /* WorldMapTimerSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMapTimerSingleton.h; sourceTree = "<group>"; };
+		DEAEC8011ABA642A00636247 /* WorldMapTimerSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldMapTimerSingleton.m; sourceTree = "<group>"; };
 		DEC905A21A239C6D003DD444 /* Fruit Catch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fruit Catch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEC905A61A239C6D003DD444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC905A71A239C6D003DD444 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -760,6 +763,8 @@
 			children = (
 				0FF235891AA7A57000562511 /* WorldMap.h */,
 				0FF235871AA7A56800562511 /* WorldMap.m */,
+				DEAEC8001ABA642A00636247 /* WorldMapTimerSingleton.h */,
+				DEAEC8011ABA642A00636247 /* WorldMapTimerSingleton.m */,
 				436CBD0B1A2F739400862EDE /* MapButtons.plist */,
 			);
 			name = WorldMap;
@@ -1413,6 +1418,7 @@
 				DE3140541AB3D7D7009335D1 /* JTSlideShadowAnimation.m in Sources */,
 				DE3DAC401A97A712002FE5FE /* NextpeerHelper.m in Sources */,
 				DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */,
+				DEAEC8021ABA642A00636247 /* WorldMapTimerSingleton.m in Sources */,
 				E3E3ECA31A23AE0600E7E18E /* JIMCSwap.m in Sources */,
 				0F05E8081A41F6A900D11622 /* GameOverScene.m in Sources */,
 				0F78081A1A3F501B00883622 /* CustomSegueSinglePlayer.m in Sources */,

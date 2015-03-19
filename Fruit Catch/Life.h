@@ -14,6 +14,14 @@
 
 @property(nonatomic) NSDate *lifeTime;
 
+@property(nonatomic) int timerMinutes;
+
+@property(nonatomic) int timerSeconds;
+
+@property(nonatomic) int minutesPassed;
+
+@property(nonatomic) int secondsPassed;
+
 + (Life *)sharedInstance;
 
 - (void)loadFromFile;

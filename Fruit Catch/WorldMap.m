@@ -18,6 +18,7 @@
 #import "ClearedLevelsSingleton.h"
 #import "JIMCAPHelper.h"
 #import "SettingsSingleton.h"
+#import "WorldMapTimerSingleton.h"
 #import <AdColony/AdColony.h>
 
 #define USER_SECRET @"0x444F@c3b0ok"
@@ -77,6 +78,8 @@
 
 @property(nonatomic) NSDate *beginningDate;
 
+@property(nonatomic) NSDictionary *timerParameterUserInfo;
+
 @end
 
 @implementation WorldMap
@@ -96,9 +99,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self doLifeUpdate];
+     [self doLifeUpdate];
     _currentMinute = 0;
     _currentSecond = 0;
+    [self registerLivesBackgroundNotification];
+    [self registerAppEnterForegroundNotification];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
@@ -140,6 +145,7 @@
     
 }
 
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
@@ -154,41 +160,41 @@
 - (void)updateTimeByAd:(NSDictionary *)notification{
         NSDictionary *userInfo = notification;
         int amount = [userInfo[@"amount"] intValue];
-        NSTimeInterval currentInterval = [[NSDate date] timeIntervalSinceDate:[Life sharedInstance].lifeTime];
-        NSTimeInterval newTimeInterval = currentInterval - amount;
-        NSLog(@"New time Interval = %f",newTimeInterval);
+        NSTimeInterval currentInterval = [[NSDate date] timeIntervalSinceDate:_beginningDate];
+        NSTimeInterval newTimeInterval = currentInterval - amount - [Life sharedInstance].minutesPassed;
 
         int intervalInMinutes=0;
-        if (newTimeInterval < 0){
             
             switch ([Life sharedInstance].lifeCount) {
                 case 0:
-                    intervalInMinutes = 10;
+                    intervalInMinutes = 0;
                     break;
                 case 1:
-                    intervalInMinutes = 20;
+                    intervalInMinutes = 10;
                     break;
                 case 2:
-                    intervalInMinutes = 25;
+                    intervalInMinutes = 15;
                     break;
                 case 3:
-                    intervalInMinutes = 30;
+                    intervalInMinutes = 20;
                     break;
                 case 4:
-                    intervalInMinutes = 35;
+                    intervalInMinutes = 25;
                     break;
                 case 5:
                 default:
                     return;
             }
-
-            newTimeInterval = intervalInMinutes - abs(newTimeInterval);
-            
-        }
+            intervalInMinutes -= [Life sharedInstance].minutesPassed;
+                [Life sharedInstance].timerMinutes -= 10;
+    
         [self.lifeTimer invalidate];
         self.lifeTimer = nil;
+        [self.minutesSecondsLifeTimer invalidate];
+        self.minutesSecondsLifeTimer = nil;
+        _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
+    
         self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:newTimeInterval * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 //Metodos add apenas para tirar o warning
@@ -198,7 +204,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //[self getUserLives];
-    
+   
     if (![SettingsSingleton sharedInstance].music) {
         //adicionar ícone de proibido
         [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"no_music"] forState:UIControlStateNormal];
@@ -237,6 +243,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [Life sharedInstance].lifeTime = [NSDate date];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 //    [[NSNotificationCenter defaultCenter ] removeObserver:self name:@"updateLiveByAd" object:nil];
@@ -342,7 +349,7 @@
     //Quanto tempo se passou desde o ultimo tempo registrado no appData
     NSTimeInterval interval = [actualDate timeIntervalSinceDate:[Life sharedInstance].lifeTime];
     //Segundos para Minutos
-    int minutesInterval = interval / 60;
+    int minutesInterval = ((int)interval / 60) % 60;
     //Setando na Memoria a quantidade de vidas dependendo de quantos minutos se passou e quantas vidas estava registrada no arquivo
     switch ([Life sharedInstance].lifeCount) {
         case 0:
@@ -402,6 +409,10 @@
             break;
         case 5:
             [Life sharedInstance].lifeCount = 5;
+            [Life sharedInstance].minutesPassed = 0;
+            [Life sharedInstance].secondsPassed = 0;
+            [Life sharedInstance].timerMinutes = 0;
+            [Life sharedInstance].timerSeconds = 0;
         default:
             break;
     }
@@ -413,53 +424,63 @@
     //}
    
     [self startLivesTimer];
-    _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLifeLabelTimer:) userInfo:nil repeats:YES];
+    if ((_minutesSecondsLifeTimer) && ([_minutesSecondsLifeTimer isValid])){
+        [_minutesSecondsLifeTimer invalidate];
+        _minutesSecondsLifeTimer = nil;
+    }
+    _beginningDate = [NSDate date];
+    
+    [Life sharedInstance].timerMinutes = [self getLifeCountIntervalInMinutes] - [Life sharedInstance].minutesPassed -  minutesInterval ;
+    [Life sharedInstance].timerSeconds = 60 - ((int)interval % 60) -  [Life sharedInstance].secondsPassed;
+    [[WorldMapTimerSingleton sharedInstance] reset];
+    _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
+    
+    
 }
 
-- (void)updateLifeLabelTimer:(NSTimer *)timer{
-    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:_beginningDate];
-    int intervalInMinutes;
-    switch ([Life sharedInstance].lifeCount) {
-        case 0:
-            intervalInMinutes = 10;
-            break;
-        case 1:
-            intervalInMinutes = 20;
-            break;
-        case 2:
-            intervalInMinutes = 25;
-            break;
-        case 3:
-            intervalInMinutes = 30;
-            break;
-        case 4:
-            intervalInMinutes = 35;
-            break;
-        case 5:
-        default:
-            return;
+
+- (void)updateLabelTimer:(NSTimer *)timer{
+    NSLog(@"Label Updating");
+    if([Life sharedInstance].timerMinutes >-1){
+                [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",[Life sharedInstance].timerMinutes ,@":",[Life sharedInstance].timerSeconds]];
     }
-    _currentMinute = intervalInMinutes - timeInterval/60;
+//    if([Life sharedInstance].timerMinutes >-1){
+//        [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",[Life sharedInstance].timerMinutes ,@":",[Life sharedInstance].timerSeconds]];
+//    }
+//    NSLog(@"Method Fired");
+//    NSLog(@"life obj in updateLifeLabelTimer = %@",[Life sharedInstance]);
+//    
+//    int minute = [Life sharedInstance].timerMinutes;
+//    int second = [Life sharedInstance].timerSeconds;
+//    if((minute || second>=0) && minute>=0)
+//    {
+//        if(second==0)
+//        {
+//            minute-=1;
+//            [Life sharedInstance].minutesPassed += 1;
+//            second=59;
+//             [Life sharedInstance].secondsPassed = 0;
+//        }
+//        else if(minute>0)
+//        {
+//            
+//            second-=1;
+//            [Life sharedInstance].secondsPassed += 1;
+//        }
+//        if(minute >-1){
+//            [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",minute ,@":",second]];
+//        }
+//        //[self updateUserInfoWithMinute:minute  andSecond:second];
+//        
+//        [Life sharedInstance].timerMinutes = minute;
+//        [Life sharedInstance].timerSeconds = second;
+//        
+//    }
+//    else
+//    {
+//        [timer invalidate];
+//    }
     
-    if((_currentMinute>0 || _currentSecond>=0) && _currentMinute>=0)
-    {
-        if(_currentSecond==0)
-        {
-            _currentMinute-=1;
-            _currentSecond=59;
-        }
-        else if(_currentSecond>0)
-        {
-            _currentSecond-=1;
-        }
-        if(_currentMinute>-1){
-            [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",_currentMinute,@":",_currentSecond]];
-        }
-    }
-    else
-    {
-        [timer invalidate];
-    }
 }
 
 
@@ -510,6 +531,33 @@
     [self startLivesTimer];
 }
 
+- (int)getLifeCountIntervalInMinutes{
+    int intervalInMinutes=0;
+    switch ([Life sharedInstance].lifeCount) {
+        case 0:
+            intervalInMinutes = 10;
+            break;
+        case 1:
+            intervalInMinutes = 20;
+            break;
+        case 2:
+            intervalInMinutes = 25;
+            break;
+        case 3:
+            intervalInMinutes = 30;
+            break;
+        case 4:
+            intervalInMinutes = 35;
+            break;
+        case 5:
+        default:
+            
+            return 0;
+    }
+    return intervalInMinutes;
+
+}
+
 //10,20,25,30,25
 - (void) startLivesTimer{
     int intervalInMinutes=0;
@@ -531,9 +579,14 @@
             break;
         case 5:
         default:
+            [Life sharedInstance].lifeCount = 5;
+            [Life sharedInstance].minutesPassed = 0;
+            [Life sharedInstance].secondsPassed = 0;
+            [Life sharedInstance].timerMinutes = 0;
+            [Life sharedInstance].timerSeconds = 0;
             return;
     }
-    
+    intervalInMinutes -= [[Life sharedInstance].lifeTime timeIntervalSinceNow]/60;
     
     if ([Life sharedInstance].lifeCount == 0){
         UILocalNotification *localLifeNotification = [[UILocalNotification alloc] init];
@@ -547,7 +600,10 @@
         [[UIApplication sharedApplication] scheduleLocalNotification:localLifeNotification];
     }
     _beginningDate = [NSDate date];
-    self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    if ((!self.lifeTimer) || (![self.lifeTimer isValid])){
+        self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    }
+    
     NSLog(@"Timer Fired");
 }
 
