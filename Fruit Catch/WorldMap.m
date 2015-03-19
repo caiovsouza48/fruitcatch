@@ -18,7 +18,9 @@
 #import "ClearedLevelsSingleton.h"
 #import "JIMCAPHelper.h"
 #import "SettingsSingleton.h"
+#import "WorldMapTimerSingleton.h"
 #import <AdColony/AdColony.h>
+#import "JDFTooltips.h"
 
 #define USER_SECRET @"0x444F@c3b0ok"
 #define IPHONE6 (self.view.frame.size.width == 375)
@@ -29,7 +31,7 @@
 #define IPHONE6PLUS_XSCALE 1.29375
 #define IPHONE6PLUS_YSCALE 1.295774647887324
 
-@interface WorldMap ()<AdColonyAdDelegate,AdColonyDelegate>{
+@interface WorldMap ()<AdColonyAdDelegate,AdColonyDelegate,JDFSequentialTooltipManagerDelegate>{
     NSArray *_products;
 }
 
@@ -50,6 +52,7 @@
 @property int offset;
 @property (nonatomic) UIScrollView *shopScrollView;
 @property BOOL shopOpen;
+@property BOOL stageSelected;
 @property (nonatomic) IBOutlet UIButton *shopi;
 @property (nonatomic) NSString *plistPath;
 
@@ -77,6 +80,14 @@
 
 @property(nonatomic) NSDate *beginningDate;
 
+@property(nonatomic) NSDictionary *timerParameterUserInfo;
+
+@property(nonatomic) UIImageView *KascoImageView;
+
+// Tooltips
+@property (nonatomic, strong) JDFSequentialTooltipManager *tooltipManager;
+
+
 @end
 
 @implementation WorldMap
@@ -92,18 +103,60 @@
     return self;
 }
 
+- (void)didEndPresentatation{
+    _KascoImageView.image = nil;
+    _KascoImageView = nil;
+    [_KascoImageView removeFromSuperview];
+    [self.view setUserInteractionEnabled:YES];
+    [self.informFase setUserInteractionEnabled:YES];
+}
+
+- (void)doTutorial{
+    
+    CGFloat tooltipWidth = 260.0f;
+    
+
+    UIView *auxiliaryViewFase = [[UIView alloc]initWithFrame:CGRectMake(10, 350, 200, 100)];
+    [self.view addSubview:auxiliaryViewFase];
+    
+    _KascoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fazendeiro_fase@2x"]];
+    [_KascoImageView setFrame:CGRectMake(CGRectGetMidX(self.view.frame), CGRectGetMidY(self.view.frame), _KascoImageView.image.size.width, _KascoImageView.image.size.height)];
+    [self.view addSubview:_KascoImageView];
+    self.tooltipManager = [[JDFSequentialTooltipManager alloc] initWithHostView:self.view];
+    self.tooltipManager.delegate = self;
+    self.tooltipManager.kascoTutorialIM = _KascoImageView;
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Welcome to Fruit Catch, Im Kasco and i need your help to collect some fruits to my starving village.(tap to continue)" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    
+    [self.tooltipManager addTooltipWithTargetView:auxiliaryViewFase hostView:self.view tooltipText:@"You can Tap on this circles to play a Stage, each win or loss consume a life." arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    
+    [self.tooltipManager addTooltipWithTargetView:self.vidas hostView:self.view tooltipText:@"Here you can see your life count. It takes only 10 minutes to recharge one Life, but the time increases for each life you got." arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"if you cant wait so much, you can tap on AD button to watch a video Ad and reduce 10 minutes of your life recharging!" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth showCompletionBlock:^{
+    } hideCompletionBlock:^{
+        
+    }];
+    self.tooltipManager.showsBackdropView = YES;
+    [self.tooltipManager showAllTooltips];
+    //[KascoImageView removeFromSuperview];
+    
+}
+
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self doLifeUpdate];
+     [self doLifeUpdate];
     _currentMinute = 0;
     _currentSecond = 0;
+    [self registerLivesBackgroundNotification];
+    [self registerAppEnterForegroundNotification];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
     _shopOpen = NO;
     _quickMenuOpen = NO;
+    _stageSelected = NO;
     _adExecuted = NO;
     _alreadySetNotification = NO;
     [AdColony configureWithAppID:@"app57321b6f45b9433ebf" zoneIDs:@[@"vz260b8083dbf24e3fa1"] delegate:self logging:YES];
@@ -115,26 +168,29 @@
         _offset = 80;
     }
     
+    [super viewDidLoad];
+    
+    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
-
     [self adicionaFundo];
     [self adicionaInformFase];
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
     [self adicionaVidas];
-    [self adicionaMoedas];
+//    [self adicionaMoedas];
     [self adicionaAjuda];
 //    [self adicionaBotaoBack];
     [self adicionaBotoesFases];
     [self adicionaBotaoSair];
     [self adicionaBotaoJogar];
     [self adicionaDetalhesDaFase];
-    [self adicionaShop];
+//    [self adicionaShop];
     [self allocScrollViewFacebook];
     [self adicionaMenuRapido];
     
 }
+
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -151,47 +207,57 @@
 - (void)updateTimeByAd:(NSDictionary *)notification{
         NSDictionary *userInfo = notification;
         int amount = [userInfo[@"amount"] intValue];
-        NSTimeInterval currentInterval = [[NSDate date] timeIntervalSinceDate:[Life sharedInstance].lifeTime];
-        NSTimeInterval newTimeInterval = currentInterval - amount;
-        NSLog(@"New time Interval = %f",newTimeInterval);
+        NSTimeInterval currentInterval = [[NSDate date] timeIntervalSinceDate:_beginningDate];
+        NSTimeInterval newTimeInterval = currentInterval - amount - [Life sharedInstance].minutesPassed;
 
         int intervalInMinutes=0;
-        if (newTimeInterval < 0){
             
             switch ([Life sharedInstance].lifeCount) {
                 case 0:
-                    intervalInMinutes = 10;
+                    intervalInMinutes = 0;
                     break;
                 case 1:
-                    intervalInMinutes = 20;
+                    intervalInMinutes = 10;
                     break;
                 case 2:
-                    intervalInMinutes = 25;
+                    intervalInMinutes = 15;
                     break;
                 case 3:
-                    intervalInMinutes = 30;
+                    intervalInMinutes = 20;
                     break;
                 case 4:
-                    intervalInMinutes = 35;
+                    intervalInMinutes = 25;
                     break;
                 case 5:
                 default:
                     return;
             }
-
-            newTimeInterval = intervalInMinutes - abs(newTimeInterval);
-            
-        }
+            intervalInMinutes -= [Life sharedInstance].minutesPassed;
+                [Life sharedInstance].timerMinutes -= 10;
+    
         [self.lifeTimer invalidate];
         self.lifeTimer = nil;
+        [self.minutesSecondsLifeTimer invalidate];
+        self.minutesSecondsLifeTimer = nil;
+        [_vidas setTextColor:[UIColor greenColor]];
+        [UIView animateWithDuration:1.5 animations:^{
+            _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
+        }completion:^(BOOL finished){
+            [UIView animateWithDuration:1.5 animations:^{
+                _vidas.transform = CGAffineTransformMakeScale(1.00, 1.00);
+                [_vidas setTextColor:[UIColor whiteColor]];
+            }];
+        }];
+    
+        _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
+    
         self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:newTimeInterval * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //[self getUserLives];
-    
+   
     if (![SettingsSingleton sharedInstance].music) {
         //adicionar ícone de proibido
         [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"no_music"] forState:UIControlStateNormal];
@@ -226,15 +292,18 @@
     // Começa o loading
     [self startSpinningShop];
 
+    
+    
+    _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
     if([Life sharedInstance].lifeCount == 5){
         [_vidasCountdown setText:@"Max."];
     }
-    
-    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [Life sharedInstance].lifeTime = [NSDate date];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 //    [[NSNotificationCenter defaultCenter ] removeObserver:self name:@"updateLiveByAd" object:nil];
@@ -340,7 +409,7 @@
     //Quanto tempo se passou desde o ultimo tempo registrado no appData
     NSTimeInterval interval = [actualDate timeIntervalSinceDate:[Life sharedInstance].lifeTime];
     //Segundos para Minutos
-    int minutesInterval = interval / 60;
+    int minutesInterval = ((int)interval / 60) % 60;
     //Setando na Memoria a quantidade de vidas dependendo de quantos minutos se passou e quantas vidas estava registrada no arquivo
     switch ([Life sharedInstance].lifeCount) {
         case 0:
@@ -400,10 +469,14 @@
             break;
         case 5:
             [Life sharedInstance].lifeCount = 5;
+            [Life sharedInstance].minutesPassed = 0;
+            [Life sharedInstance].secondsPassed = 0;
+            [Life sharedInstance].timerMinutes = 0;
+            [Life sharedInstance].timerSeconds = 0;
         default:
             break;
     }
-     _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+     _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
     //[self updateLivesView];
     [Life sharedInstance].lifeTime = [NSDate date];
     //if ((!_minutesSecondsLifeTimer) && (![_minutesSecondsLifeTimer isValid])){
@@ -411,53 +484,29 @@
     //}
    
     [self startLivesTimer];
-    _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLifeLabelTimer:) userInfo:nil repeats:YES];
+    if ((_minutesSecondsLifeTimer) && ([_minutesSecondsLifeTimer isValid])){
+        [_minutesSecondsLifeTimer invalidate];
+        _minutesSecondsLifeTimer = nil;
+    }
+    _beginningDate = [NSDate date];
+    
+    [Life sharedInstance].timerMinutes = [self getLifeCountIntervalInMinutes] - [Life sharedInstance].minutesPassed -  minutesInterval ;
+    [Life sharedInstance].timerSeconds = 60 - ((int)interval % 60) -  [Life sharedInstance].secondsPassed;
+    [[WorldMapTimerSingleton sharedInstance] reset];
+    _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
+    
+    
 }
 
-- (void)updateLifeLabelTimer:(NSTimer *)timer{
-    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:_beginningDate];
-    int intervalInMinutes;
-    switch ([Life sharedInstance].lifeCount) {
-        case 0:
-            intervalInMinutes = 10;
-            break;
-        case 1:
-            intervalInMinutes = 20;
-            break;
-        case 2:
-            intervalInMinutes = 25;
-            break;
-        case 3:
-            intervalInMinutes = 30;
-            break;
-        case 4:
-            intervalInMinutes = 35;
-            break;
-        case 5:
-        default:
-            return;
+
+- (void)updateLabelTimer:(NSTimer *)timer{
+    if([Life sharedInstance].timerMinutes >-1){
+                [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",[Life sharedInstance].timerMinutes ,@":",[Life sharedInstance].timerSeconds]];
     }
-    _currentMinute = intervalInMinutes - timeInterval/60;
+    if([Life sharedInstance].lifeCount == 5){
+        [_vidasCountdown setText:@"Max."];
+    }
     
-    if((_currentMinute>0 || _currentSecond>=0) && _currentMinute>=0)
-    {
-        if(_currentSecond==0)
-        {
-            _currentMinute-=1;
-            _currentSecond=59;
-        }
-        else if(_currentSecond>0)
-        {
-            _currentSecond-=1;
-        }
-        if(_currentMinute>-1){
-            [_vidasCountdown setText:[NSString stringWithFormat:@"%d%@%02d",_currentMinute,@":",_currentSecond]];
-        }
-    }
-    else
-    {
-        [timer invalidate];
-    }
 }
 
 
@@ -493,11 +542,13 @@
 
 - (void) uploadLivesByTimer:(NSTimer *)timer{
     /* O Timer disparou este método após o tempo calculado, salva as vidas e recupera novamente */
-    NSLog(@"Life obj = %@",[Life sharedInstance]);
     [Life sharedInstance].lifeCount++;
    
     [Life sharedInstance].lifeTime = [NSDate date];
-     _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
+     _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
+    if([Life sharedInstance].lifeCount == 5){
+        [_vidasCountdown setText:@"Max."];
+    }
     //[self updateLivesView];
     [self saveLives];
     //[self getUserLives];
@@ -506,6 +557,33 @@
         [timer invalidate];
     }
     [self startLivesTimer];
+}
+
+- (int)getLifeCountIntervalInMinutes{
+    int intervalInMinutes=0;
+    switch ([Life sharedInstance].lifeCount) {
+        case 0:
+            intervalInMinutes = 10;
+            break;
+        case 1:
+            intervalInMinutes = 20;
+            break;
+        case 2:
+            intervalInMinutes = 25;
+            break;
+        case 3:
+            intervalInMinutes = 30;
+            break;
+        case 4:
+            intervalInMinutes = 35;
+            break;
+        case 5:
+        default:
+            
+            return 0;
+    }
+    return intervalInMinutes;
+
 }
 
 //10,20,25,30,25
@@ -529,9 +607,14 @@
             break;
         case 5:
         default:
+            [Life sharedInstance].lifeCount = 5;
+            [Life sharedInstance].minutesPassed = 0;
+            [Life sharedInstance].secondsPassed = 0;
+            [Life sharedInstance].timerMinutes = 0;
+            [Life sharedInstance].timerSeconds = 0;
             return;
     }
-    
+    intervalInMinutes -= [[Life sharedInstance].lifeTime timeIntervalSinceNow]/60;
     
     if ([Life sharedInstance].lifeCount == 0){
         UILocalNotification *localLifeNotification = [[UILocalNotification alloc] init];
@@ -545,7 +628,10 @@
         [[UIApplication sharedApplication] scheduleLocalNotification:localLifeNotification];
     }
     _beginningDate = [NSDate date];
-    self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    if ((!self.lifeTimer) || (![self.lifeTimer isValid])){
+        self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:intervalInMinutes * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
+    }
+    
     NSLog(@"Timer Fired");
 }
 
@@ -570,6 +656,9 @@
     }
     
     if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+        
+        _stageSelected = YES;
+        
         //Obtem o target score
         JIMCLevel *lvl = [[JIMCLevel alloc]initWithFile:[NSString stringWithFormat:@"Level_%d",(int)_i]];
         
@@ -676,6 +765,7 @@
 -(IBAction)fexarTela:(id)sender
 {
     _shopOpen = NO;
+    _stageSelected = NO;
     _shopi.enabled = YES;
 
     [UIView animateWithDuration:1.5
@@ -763,6 +853,7 @@
     _scrollView.delegate = self;
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
+    //singleTap.cancelsTouchesInView = NO;
     [_scrollView addGestureRecognizer:singleTap];
     
     [self.view addSubview:_scrollView];
@@ -783,21 +874,25 @@
 {
     //Vidas
     if (!_vidas){
-         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, 5, 92, 57)];
+         _vidas = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 130, 57)]; //ou CGRectGetMidX(self.view.frame) - 65, 5, 130, 57
     }
-    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 40, 20)];
-    [_vidasCountdown setText:@"00:00"];
+    _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(60, 18, 90, 20)];
+    _vidasCountdown.font = [UIFont fontWithName:@"Chewy" size:22];
+    _vidasCountdown.textColor = [UIColor whiteColor];
+//    [_vidasCountdown setText:@"00:00"];
 //    _vidas.text = [NSString stringWithFormat:@"Lifes\n%ld",(long)[Life sharedInstance].lifeCount];
 //    _vidas.backgroundColor = [UIColor redColor];
     _vidas.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"vidas"]];
     _vidas.numberOfLines = 3;
     _vidas.lineBreakMode = NSLineBreakByWordWrapping;
-    _vidas.font = [UIFont fontWithName:@"Chewy" size:20];
+    _vidas.font = [UIFont fontWithName:@"Chewy" size:22];
     _vidas.textColor = [UIColor whiteColor];
-    _vidas.textAlignment = NSTextAlignmentCenter;
+//    _vidas.textAlignment = NSTextAlignmentCenter;
+    _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
     [self.view insertSubview:_vidas belowSubview:_informFase];
     [self.vidas addSubview:_vidasCountdown];
 }
+
 
 -(void)adicionaMoedas
 {
@@ -899,8 +994,10 @@
         }
         [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
         
-        if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+        if(_i < [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
             [button setBackgroundImage:[UIImage imageNamed:@"fase_aberta"] forState:UIControlStateNormal];
+        }else if(_i == [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+            [button setBackgroundImage:[UIImage imageNamed:@"fase_atual"] forState:UIControlStateNormal];
         }else{
             [button setBackgroundImage:[UIImage imageNamed:@"fase_fechada"] forState:UIControlStateNormal];
         }
@@ -1340,6 +1437,15 @@
             [self fexarTela:self];
         }
     }
+    
+    if(_stageSelected){
+        UITouch *touch = [touches anyObject];
+        CGPoint location = [touch locationInView:_blurView];
+
+        if(!CGRectContainsPoint(_informFase.frame, location)){
+            [self fexarTela:self];
+        }
+    }
 }
 
 // Is called when AdColony has finished trying to show an ad, either successfully or unsuccessfully
@@ -1366,6 +1472,11 @@
         [self updateTimeByAd:userinfo];
     
     }
+}
+
+- (void)watchAd:(UIGestureRecognizer *)gestureRecognizer{
+    
+    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:nil withV4VCPrePopup:YES andV4VCPostPopup:YES];
 }
 
 - (void)onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneID{

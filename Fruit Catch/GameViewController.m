@@ -17,6 +17,7 @@
 #import "Life.h"
 #import "GameOverScene.h"
 #import "WorldMap.h"
+#import "AFDropdownNotification.h"
 
 #define IPHONE6 ([[UIScreen mainScreen] bounds].size.width == 375)
 #define IPHONE6PLUS ([[UIScreen mainScreen] bounds].size.width == 414)
@@ -26,7 +27,7 @@
 #define IPHONE6PLUS_XSCALE 1.171875
 #define IPHONE6PLUS_YSCALE 1.174285774647887
 
-@interface GameViewController (){
+@interface GameViewController () <AFDropdownNotificationDelegate>{
     NSNumberFormatter * _priceFormatter;
 }
 
@@ -79,6 +80,7 @@
 @property (nonatomic) IBOutlet UIButton *ligaSFX;
 @property (nonatomic) IBOutlet UIButton *ajuda;
 @property (nonatomic) BOOL quickMenuOpen;
+@property(nonatomic) AFDropdownNotification *notification;
 
 @end
 
@@ -117,9 +119,9 @@
     _show4FruitTutorial = NO;
     _show5FruitTutorial = NO;
     
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTutorial"]){
+   // if(![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTutorial"]){
         _showFirstTutorial = YES;
-    }
+    //}
     
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"4FruitTutorial"]){
         _show4FruitTutorial = YES;
@@ -307,7 +309,7 @@
         CGFloat animationDuration = (ABS(velocityX)*.0002)+.2;
     
         NSLog(@"the duration is: %f", animationDuration);
-        CGPoint finalPoint = {finalX,finalY};
+        //CGPoint finalPoint = {finalX,finalY};
       
         //CGPoint location = [touch locationInNode:self.level.fruitsLayer];
         //[self.power setPosition:location];
@@ -542,13 +544,14 @@
         // Add the new scores to the total.
         for (JIMCChain *chain in chains) {
              for (JIMCFruit *fruit in chain.fruits) {
-                if (fruit.fruitPowerUp != 0) {
+                 if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) ||
+                     (fruit.fruitPowerUp == 2 && chain.fruits.count == 4) || (fruit.fruitPowerUp == 3 && chain.fruits.count == 4)){
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
                 }
              }
         }
-        
+        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
@@ -592,13 +595,11 @@
         for (JIMCChain *chain in chains) {
             self.score += chain.score;
         }
+        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
         [self updateLabels];
 
         // ...then shift down any fruits that have a hole below them...
         NSMutableArray *columns = [[NSMutableArray alloc]initWithArray:[self.level fillHoles]];
-       
-       
-        
         [self.scene animateFallingFruits:columns completion:^{
             
             // ...and finally, add new fruits at the top.
@@ -783,9 +784,7 @@
 }
 
 - (void)hideGameOver {
-    
     [self removeDica];
-    
     [self.view removeGestureRecognizer:self.tapGestureRecognizer];
     self.tapGestureRecognizer = nil;
     
@@ -793,7 +792,6 @@
     self.scene.userInteractionEnabled = YES;
     
     [self beginGame];
-    
     self.shuffleButton.hidden = NO;
     
 }
@@ -829,7 +827,6 @@
                                                          userInfo:nil
                                                           repeats:YES];
         }
-        
     }else{
         self.scene.swipeHandler = nil;
     }
@@ -844,6 +841,12 @@
 -(IBAction)back:(id)sender
 {
     _backButton.enabled = NO;
+    
+    self.scene.swapSound = nil;
+    self.scene.invalidSwapSound = nil;
+    self.scene.matchSound = nil;
+    self.scene.fallingFruitSound = nil;
+    self.scene.addFruitSound = nil;
     if ([self shouldPerformSegueWithIdentifier:@"Back" sender:sender]){
         [self performSegueWithIdentifier:@"Back" sender:self];
     }
@@ -987,21 +990,85 @@
 -(void)firstTutorial
 {
     NSLog(@"First tutorial");
+    
+    __block UILabel *tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
+                                                             100,
+                                                             100,
+                                                             70)];
+    [tip setFont:[UIFont fontWithName:@"Chewy" size:14]];
+    [tip setTextColor:[UIColor whiteColor]];
+    [tip setBackgroundColor:[UIColor clearColor]];
+    [tip setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]]];
+    [tip setNumberOfLines:3];
+    
+    
+    [tip setText:@"  Quick Tip\n\n  Its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points"];
+    
+    [self.view addSubview:tip];
+    [UIView animateWithDuration:2.81 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            tip.alpha = 0.1;
+    } completion:^(BOOL finished){
+        tip.alpha = 0.1;
+        [tip removeFromSuperview];
+        tip = nil;
+    }];
+//    _notification = [[AFDropdownNotification alloc] init];
+//    _notification.presentingViewController = self;
+//    _notification.notificationDelegate = self;
+//    _notification.titleText = @"Quick Tip!";
+//    _notification.subtitleText = @"its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points";
+//    _notification.image = [UIImage imageNamed:@"iconTest"];
+//    _notification.topButtonText = @"Ok";
+//    _notification.bottomButtonText = @"No more Tips";
+//    _notification.dismissOnTap = YES;
+//    [_notification presentInView:self.view withGravityAnimation:YES];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstTutorial"];
     _showFirstTutorial  = NO;
 }
 
 -(void)tutorial4Fruits
 {
-    NSLog(@"4 fruit tutorial");
+    _notification = [[AFDropdownNotification alloc] init];
+    _notification.notificationDelegate = self;
+    _notification.titleText = @"Quick Tip!";
+    _notification.subtitleText = @"WoW! you made a power Up, try tap him with the same fruit type to earn a LOT of points!";
+    //_notification.image = [UIImage imageNamed:@"update"];
+    _notification.topButtonText = @"Ok";
+    _notification.bottomButtonText = @"No more Tips";
+    _notification.dismissOnTap = YES;
+    [_notification presentInView:self.view withGravityAnimation:YES];
     _show4FruitTutorial = NO;
 }
 
 -(void)tutorial5Fruits
 {
+    
+    _notification = [[AFDropdownNotification alloc] init];
+    _notification.notificationDelegate = nil;
+    _notification.titleText = @"Quick Tip!";
+    _notification.subtitleText = @"Fantastic! You made a five match power Up. You can swap him to destroy ALL the fruits of the swiped type!";
+    _notification.image = [UIImage imageNamed:@"Camada-2"];
+    _notification.topButtonText = @"Ok";
+    _notification.bottomButtonText = @"No more Tips";
+    _notification.dismissOnTap = YES;
+    [_notification presentInView:self.view withGravityAnimation:YES];
     NSLog(@"5 fruit tutorial");
     _show5FruitTutorial = NO;
 }
+
+-(void)dropdownNotificationTopButtonTapped {
+    
+    [_notification dismissWithGravityAnimation:YES];
+}
+
+-(void)dropdownNotificationBottomButtonTapped {
+    
+    NSLog(@"Bottom button tapped");
+    _show4FruitTutorial = NO;
+    _show5FruitTutorial = NO;
+    [_notification dismissWithGravityAnimation:YES];
+}
+
 
 -(void)adicionaMenuRapido
 {

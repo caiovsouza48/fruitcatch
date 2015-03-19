@@ -445,9 +445,7 @@
         else{
             NSLog(@"Erro ao Salvar arquivo de Usuário");
         }
-
         [self loadFromFile];
-        
     }];
 }
 

@@ -27,6 +27,11 @@ static const CGFloat TileHeight = 36.0;
 
 @property (strong, nonatomic) JIMCLevel *level;
 
+@property ( nonatomic) SKAction *swapSound;
+@property ( nonatomic) SKAction *invalidSwapSound;
+@property ( nonatomic) SKAction *matchSound;
+@property ( nonatomic) SKAction *fallingFruitSound;
+@property ( nonatomic) SKAction *addFruitSound;
 
 @property (strong, nonatomic) SKNode *gameLayer;
 @property (strong, nonatomic) SKNode *fruitsLayer;

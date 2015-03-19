@@ -30,12 +30,6 @@
 // Sprite that is drawn on top of the fruit that the player is trying to swap.
 @property (strong, nonatomic) SKSpriteNode *selectionSprite;
 
-@property (strong, nonatomic) SKAction *swapSound;
-@property (strong, nonatomic) SKAction *invalidSwapSound;
-@property (strong, nonatomic) SKAction *matchSound;
-@property (strong, nonatomic) SKAction *fallingFruitSound;
-@property (strong, nonatomic) SKAction *addFruitSound;
-
 @property (strong, nonatomic) SKCropNode *cropLayer;
 @property (strong, nonatomic) SKNode *maskLayer;
 
@@ -173,7 +167,6 @@
         _maskLayer.yScale = IPHONE6_YSCALE;
         _maskLayer.position = layerPosition;
     }
-    
     return self;
 }
 
@@ -458,22 +451,6 @@
         NSInteger toColumn = self.swipeFromColumn + horzDelta;
         NSInteger toRow = self.swipeFromRow + vertDelta;
         SKAction *actionMoveToOpponentSwipe = [SKAction moveTo:CGPointMake(toColumn*TileWidth + TileWidth/2, toRow*TileHeight + TileHeight/2) duration:0.85];
-//        SKAction *screenShotAction = [SKAction runBlock:^{
-//            UIImage *image = [self getScreenView];
-//            SKSpriteNode *screenShot = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:image]];
-//            ;
-//            
-//            [screenShot setSize:CGSizeMake(100, 50)];
-//            SKView *spriteNodeButtonView = [[SKView alloc] initWithFrame:CGRectMake(100, 50, screenShot.frame.size.width, screenShot.frame.size.height)];
-//            
-//            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(someMethod:)];
-//            [screenShot setPosition:CGPointMake(0, -200)];
-//            [self addChild:screenShot];
-//            
-//           
-//            [_screenShots addObject:screenShot];
-//            
-//        }];
         SKAction *allActions = [SKAction sequence:@[actionMoveTo,actionMoveToOpponentSwipe,[SKAction removeFromParent]]];
         [tapIndicatorNode runAction:allActions completion:^{
         // Only try swapping when the user swiped into a new square.
@@ -974,10 +951,7 @@
     
     if(_win){
         kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_pop_over"];
-
-        if(i < numberOfLevels){
-            self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"Next_icon"];
-        }
+        self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"Next_Icon"];
     }else{
         kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_triste_cesta_vazia"];
     }
