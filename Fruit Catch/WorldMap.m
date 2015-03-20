@@ -240,20 +240,21 @@
             }
             intervalInMinutes -= [Life sharedInstance].minutesPassed;
                 [Life sharedInstance].timerMinutes -= 10;
+                [Life sharedInstance].minutesPassed += 10;
     
         [self.lifeTimer invalidate];
         self.lifeTimer = nil;
         [self.minutesSecondsLifeTimer invalidate];
         self.minutesSecondsLifeTimer = nil;
         [_vidas setTextColor:[UIColor greenColor]];
-        [UIView animateWithDuration:1.5 animations:^{
-            _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
-        }completion:^(BOOL finished){
-            [UIView animateWithDuration:1.5 animations:^{
-                _vidas.transform = CGAffineTransformMakeScale(1.00, 1.00);
-                [_vidas setTextColor:[UIColor whiteColor]];
-            }];
-        }];
+//        [UIView animateWithDuration:1.5 animations:^{
+//            _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
+//        }completion:^(BOOL finished){
+//            [UIView animateWithDuration:1.5 animations:^{
+//                _vidas.transform = CGAffineTransformMakeScale(1.00, 1.00);
+//                [_vidas setTextColor:[UIColor whiteColor]];
+//            }];
+//        }];
     
         _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
     
@@ -501,6 +502,7 @@
     _beginningDate = [NSDate date];
     
     [Life sharedInstance].timerMinutes = [self getLifeCountIntervalInMinutes] - [Life sharedInstance].minutesPassed -  minutesInterval ;
+    NSLog(@"Life minutes passed:%d",[Life sharedInstance].minutesPassed);
     [Life sharedInstance].timerSeconds = 60 - ((int)interval % 60) -  [Life sharedInstance].secondsPassed;
     [[WorldMapTimerSingleton sharedInstance] reset];
     _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
@@ -618,8 +620,7 @@
         case 5:
         default:
             [Life sharedInstance].lifeCount = 5;
-            [Life sharedInstance].minutesPassed = 0;
-            [Life sharedInstance].secondsPassed = 0;
+            
             [Life sharedInstance].timerMinutes = 0;
             [Life sharedInstance].timerSeconds = 0;
             return;
@@ -1494,7 +1495,7 @@
 
 - (void)watchAd:(UIGestureRecognizer *)gestureRecognizer{
     
-    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:nil withV4VCPrePopup:YES andV4VCPostPopup:YES];
+    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:self withV4VCPrePopup:YES andV4VCPostPopup:YES];
 }
 
 - (void)onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneID{
