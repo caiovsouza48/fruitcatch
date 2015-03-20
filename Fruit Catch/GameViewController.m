@@ -785,14 +785,15 @@
         if(self.score >= self.scene.level.targetScore){
             
             if(self.movesLeft > 0){
+                if ((self.level.maximumMoves - self.movesLeft) <= 2){
+                    _easterEggKasco = YES;
+                }
+
                 self.score += (self.movesLeft * 100);
                 self.movesLeft = 0;
                 [self updateLabels];
             }
-            if ((self.level.maximumMoves - self.movesLeft) <= 2){
-                _easterEggKasco = YES;
-            }
-            [self.scene winLose:YES];
+        [self.scene winLose:YES];
         }else{
             [self.scene winLose:NO];
         }
@@ -892,6 +893,12 @@
 - (void)zerarRetryNotification:(NSNotification *)notification{
     self.movesLeft = self.level.maximumMoves;
     self.score = 0;
+    [Life sharedInstance].lifeCount--;
+    NSDate *oldDate =  [Life sharedInstance].lifeTime;
+    NSTimeInterval interval = [oldDate timeIntervalSinceNow];
+    NSDate *plusDate = [NSDate dateWithTimeIntervalSinceNow:interval];
+    [Life sharedInstance].lifeTime = plusDate;
+    [[Life sharedInstance] saveToFile];
     [self updateLabels];
 }
 
@@ -1146,7 +1153,8 @@
             [_tip setUserInteractionEnabled:NO];
             [_tip removeFromSuperview];
             [_kascoImageView removeFromSuperview];
-            
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"4FruitTutorial"];
+            _show4FruitTutorial = NO;
             if (finished)
                 _tip = nil;
             
