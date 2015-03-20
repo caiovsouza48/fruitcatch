@@ -976,7 +976,7 @@
             kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_pop_over"];
         }
         
-        self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"Next_icon"];
+        self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"Next_Icon"];
     }else{
         kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_triste_cesta_vazia"];
     }
