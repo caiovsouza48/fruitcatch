@@ -94,7 +94,7 @@
 - (instancetype) init{
     self = [super init];
     if (self){
-        NSLog(@"Initing World Map");
+        //NSLog(@"Initing World Map");
 //        [self registerLivesBackgroundNotification];
 //        [self registerAppEnterForegroundNotification];
 //        [self registerAdNotification];
@@ -167,18 +167,15 @@
     }else{
         _offset = 80;
     }
-    
     [super viewDidLoad];
-    
-    
     //NSNotification *notification = [NSNotificationCenter defaultCenter]
     [self adicionaFundo];
     [self adicionaInformFase];
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
-    //if (self.flagFacebook)
-        //[self addPeopleOnScrollFacebook];
+    if (self.flagFacebook)
+        [self addPeopleOnScrollFacebook];
     [self adicionaVidas];
 //    [self adicionaMoedas];
     [self adicionaAjuda];

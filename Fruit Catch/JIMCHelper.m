@@ -34,9 +34,9 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
             BOOL productPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
             if (productPurchased) {
                 [_purchasedProductIdentifiers addObject:productIdentifier];
-                NSLog(@"Previously purchased: %@", productIdentifier);
+                //NSLog(@"Previously purchased: %@", productIdentifier);
             } else {
-                NSLog(@"Not purchased: %@", productIdentifier);
+                //NSLog(@"Not purchased: %@", productIdentifier);
             }
         }
         
@@ -58,7 +58,7 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
     
-    NSLog(@"Loaded list of products...");
+    //NSLog(@"Loaded list of products...");
     _productsRequest = nil;
     
     NSArray * skProducts = response.products;
@@ -78,7 +78,7 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
     
-    NSLog(@"Failed to load list of products.");
+    //NSLog(@"Failed to load list of products.");
     _productsRequest = nil;
     
     if (_completionHandler) {
@@ -94,7 +94,7 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
 
 - (void)buyProduct:(SKProduct *)product {
     
-    NSLog(@"Buying %@...", product.productIdentifier);
+   // NSLog(@"Buying %@...", product.productIdentifier);
     
     SKPayment * payment = [SKPayment paymentWithProduct:product];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
@@ -121,14 +121,14 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
-    NSLog(@"completeTransaction...");
+    //NSLog(@"completeTransaction...");
     
     [self provideContentForProductIdentifier:transaction.payment.productIdentifier];
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction {
-    NSLog(@"restoreTransaction...");
+    //NSLog(@"restoreTransaction...");
     
     [self provideContentForProductIdentifier:transaction.originalTransaction.payment.productIdentifier];
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -136,10 +136,10 @@ NSString *const JIMCHelperProductPurchasedNotification = @"JIMCHelperProductPurc
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction {
     
-    NSLog(@"failedTransaction...");
+    //NSLog(@"failedTransaction...");
     if (transaction.error.code != SKErrorPaymentCancelled)
     {
-        NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
+        //NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
     }
     
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];

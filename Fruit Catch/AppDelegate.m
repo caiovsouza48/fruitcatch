@@ -88,7 +88,7 @@
     
     BOOL sucess = [encryptedData writeToFile:userEloPath atomically:YES];
     if (!sucess){
-        NSLog(@"Erro ao Salvar arquivo de Vidas");
+        //NSLog(@"Erro ao Salvar arquivo de Vidas");
     }
     
 
@@ -145,7 +145,7 @@
 }
 
 -(void)nextpeerDidReceiveTournamentCustomMessage:(NPTournamentCustomMessageContainer*)message{
-    NSLog(@"NextPeer Receive Custom Message");
+    //NSLog(@"NextPeer Receive Custom Message");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"nextpeerDidReceiveTournamentCustomMessage" object:nil userInfo:@{@"userMessage" : message}];
 }
 

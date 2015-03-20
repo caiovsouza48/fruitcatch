@@ -236,7 +236,7 @@
     [powerUpPanGesture setMinimumNumberOfTouches:1];
     [powerUpPanGesture setMaximumNumberOfTouches:1];
     [powerUpImageView setUserInteractionEnabled:YES];
-    NSLog(@"self.powerUpImage1.image = %@",self.powerUpImage1.image);
+   
     //[self.powerUpImage1 addGestureRecognizer:powerUpPanGesture];
     [powerUpImageView addGestureRecognizer:powerUpPanGesture];
     
@@ -312,7 +312,6 @@
         
         CGFloat animationDuration = (ABS(velocityX)*.0002)+.2;
     
-        NSLog(@"the duration is: %f", animationDuration);
         //CGPoint finalPoint = {finalX,finalY};
       
         //CGPoint location = [touch locationInNode:self.level.fruitsLayer];
@@ -322,13 +321,11 @@
  
            [self convertPoint:translatedPoint toColumn:&column row:&row];
         
-            NSLog(@"coluna linha %@",NSStringFromCGPoint([self pointForColumn:column row:row]));
-            NSLog(@"column = %ld",(long)column);
-            NSLog(@"Row = %ld",(long)row);
+        
         
         
             if ((column != NSNotFound) && (row != NSNotFound)){
-                NSLog(@"Column and row found");
+                
                 //_powerUpEmitter.position = (CGPoint){column,row};
                 JIMCPowerUp *powerUp = [[JIMCPowerUp alloc]init];
                 powerUp.position = (CGPoint){column,row};
@@ -340,7 +337,7 @@
                 frame.origin = self.initialImagePoint;
                 [[gesture view] setFrame:frame];
                 
-                NSLog(@"SetFrame = %@",NSStringFromCGRect(frame));
+            
                 return;
             }
             [UIView beginAnimations:nil context:NULL];
@@ -479,7 +476,11 @@
     // First, remove any matches...
     [self.scene animateMatchedFruits:chains completion:^{
         // Add the new scores to the total.
-       
+        [JIMCSwapFruitSingleton sharedInstance].swap = nil;
+        for (JIMCChain *chain in chains) {
+            self.score += chain.score;
+        }
+        
         [self updateLabels];
         
         // ...then shift down any fruits that have a hole below them...
@@ -599,7 +600,7 @@
     NSSet *chains = [self.scene.level executePowerUp:powerUp];
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
-        //NSLog(@"Chains count is zero");
+        
         [self beginNextTurn];
         return;
     }
@@ -639,7 +640,7 @@
     NSSet *chains = [self.scene.level executePowerUp:powerUp];
     // If there are no more matches, then the player gets to move again.
     if ([chains count] == 0) {
-        //NSLog(@"Chains count is zero");
+     
         //[_powerUpEmitter removeFromParent];
         //_powerUpEmitter = nil;
         [self beginNextTurn];
@@ -684,16 +685,16 @@
     NSInteger i = self.possibleMoves.count;
     
     if(i == 0){
-        //NSLog(@"Não há movimentos restantes.\nEmbaralhando.");
+       
         [self shuffle];
         self.possibleMoves = [self.level detectPossibleSwaps];
         i = self.possibleMoves.count;
-     //   NSLog(@"Jogadas possiveis = %ld",i);
+     
     }else{
-     //   NSLog(@"Jogadas possiveis = %ld",i);
+   
     }
     
-    //NSLog(@"Jogadas possiveis = %d",(int)i);
+   
     
     //DICA RODANDO AQUI V
 //    [self.scene runAction: self.hintAction withKey:@"Hint"];
@@ -902,7 +903,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"Prepare For Segue");
+   
     if ([self shouldPerformSegueWithIdentifier:segue.identifier sender:sender]){
         if([segue.identifier isEqualToString:@"Back"]){
             if(self.scene != nil)
@@ -911,7 +912,7 @@
                 Life *life = [Life sharedInstance];
                 if (life.lifeCount > 0){
                     life.lifeCount--;
-                    NSLog(@"Life=%@",life);
+                   
                 }
                 NSDate *oldDate = life.lifeTime;
                 NSTimeInterval interval = [oldDate timeIntervalSinceNow];
@@ -1007,7 +1008,7 @@
 
 -(void)firstTutorial
 {
-    NSLog(@"First tutorial");
+
     //fazendeiro_fase@2x
    
     _tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
@@ -1074,7 +1075,7 @@
 }
 
 - (void)dismissTip:(UIGestureRecognizer *)recognizer{
-    NSLog(@"Dismiss Tip called");
+
     [self.view sendSubviewToBack:_tip];
     [_tip setUserInteractionEnabled:NO];
     [_tip removeFromSuperview];
@@ -1357,7 +1358,7 @@
 
 -(IBAction)ajuda:(id)sender
 {
-    NSLog(@"ajuda");
+
 }
 
 @end

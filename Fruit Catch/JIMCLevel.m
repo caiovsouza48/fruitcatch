@@ -75,20 +75,20 @@
     
     NSString *path = [[NSBundle mainBundle] pathForResource:filename ofType:@"json"];
     if (path == nil) {
-        //NSLog(@"Could not find level file: %@", filename);
+       
         return nil;
     }
     
     NSError *error;
     NSData *data = [NSData dataWithContentsOfFile:path options:0 error:&error];
     if (data == nil) {
-        //NSLog(@"Could not load level file: %@, error: %@", filename, error);
+        
         return nil;
     }
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     if (dictionary == nil || ![dictionary isKindOfClass:[NSDictionary class]]) {
-        //NSLog(@"Level file '%@' is not valid JSON: %@", filename, error);
+      
         return nil;
     }
     
@@ -111,7 +111,7 @@
         // to automatically reshuffle.
         [self detectPossibleSwaps];
         
-        //NSLog(@"possible swaps: %@", self.possibleSwaps);
+      
         
         // If there are no possible moves, then keep trying again until there are.
     }
@@ -459,7 +459,7 @@
     NSSet *set = [self detectVerticalMatches];
     JIMCChain *chain = [set anyObject];
     
-    //NSLog(@"Vertical Matches = %d",(int)chain.fruits.count);
+  
     return (int) chain.fruits.count;
 }
 
@@ -500,8 +500,7 @@
     NSMutableSet *horizontalChains = [[NSMutableSet alloc]initWithSet:[self checkHorizontalFruitsToRemoveForPowerUp:powerUp andLimit:0]];
     
     NSSet *verticalChains = [self checkVerticalFruitsToRemoveForPowerUp:powerUp andLimit:0];
-    //NSLog(@"horizontalChains = %lu",(unsigned long)horizontalChains.count);
-    //NSLog(@"VerticalChains = %lu",(unsigned long)verticalChains.count);
+
     // Note: to detect more advanced patterns such as an L shape, you can see
     // whether a fruit is in both the horizontal & vertical chains sets and
     // whether it is the first or last in the array (at a corner). Then you
@@ -711,7 +710,7 @@
     int column = (int)powerUp.position.x;
     int row = (int)powerUp.position.y;
     
-    // NSLog(@"linha e coluna %d %f ",column,powerUp.position.y);
+
     if (_fruits[column][row] != nil) {
         // ...then add all the fruits from this chain into the set.
         JIMCChain *chain = [[JIMCChain alloc] init];
@@ -936,7 +935,7 @@
             }
         }
     }
-    NSLog(@"Columns = %@",columns);
+
     return columns;
 }
 

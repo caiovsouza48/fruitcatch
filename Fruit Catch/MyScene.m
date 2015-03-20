@@ -284,7 +284,6 @@
 - (void)addSpritesForFruit:(JIMCFruit *)fruit {
     SKSpriteNode *sprite;
      NSString *namePU = nil;
-//    NSLog(@"power UP = %d",(int)fruit.fruitPowerUp);
     if (fruit.fruitPowerUp == 1){
         sprite = [SKSpriteNode spriteNodeWithImageNamed:[fruit spriteName]];
     }else if (fruit.fruitPowerUp == 2) {

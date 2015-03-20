@@ -360,7 +360,7 @@
 
 -(IBAction)help:(id)sender
 {
-    NSLog(@"ajuda");
+   // NSLog(@"ajuda");
 }
 
 -(IBAction)musicON_OFF:(id)sender
@@ -394,8 +394,8 @@
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
     
-    NSLog(@"USER = %@", user);
-    NSLog(@"%@",[user objectForKey:@"email"]);
+    //NSLog(@"USER = %@", user);
+  //  NSLog(@"%@",[user objectForKey:@"email"]);
     
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
         if (!error) {
@@ -406,8 +406,8 @@
             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.userImageURL]];
             self.imageFacebook = [UIImage imageWithData:imageData];
             
-            NSLog(@"IMAGEM = %@", self.userImageURL);
-            NSLog(@"USERNAME = %@", self.userName);
+            //NSLog(@"IMAGEM = %@", self.userImageURL);
+            //NSLog(@"USERNAME = %@", self.userName);
         }
     }];
     //__block NSArray *friends;
@@ -420,7 +420,7 @@
         //        }
         self.profilePictureView.profileID = user.objectID;
         self.nameLabel.text = user.name;
-        NSLog(@"User ID = %@",user.objectID);
+       // NSLog(@"User ID = %@",user.objectID);
         NSDictionary *userDict = @{@"facebookID" : user.objectID,
                                    @"alias" : user.name,
                                    @"facebookFriends" : [result objectForKey:@"data"]
@@ -447,7 +447,7 @@
 //            }
         }
         else{
-            NSLog(@"Erro ao Salvar arquivo de Usuário");
+            //NSLog(@"Erro ao Salvar arquivo de Usuário");
         }
         [self loadFromFile];
     }];
@@ -460,17 +460,16 @@
     NSString* name = [object[@"alias"] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
     NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", object[@"facebookID"], name, object[@"facebookID"]];
-    NSLog(@"%@", strUrl);
+    //NSLog(@"%@", strUrl);
     
     NSURL *url = [NSURL URLWithString:strUrl];
     NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
     if (erro == nil && dados != nil) {
         NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
         if (erro) {
-            NSLog(@"%@", erro.localizedDescription);
+         
             return NO;
         }
-        NSLog(@"%@", dadosWebService);
         return YES;
     }
     return NO;
@@ -491,17 +490,17 @@
     NSInteger time = [dic[@"Time"] integerValue];
     
     NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%d/0/%d",object[@"facebookID"], i, time, score];
-    NSLog(@"%@", strUrl);
+    //NSLog(@"%@", strUrl);
     
     NSURL *url = [NSURL URLWithString:strUrl];
     NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
     if (erro == nil && dados != nil) {
         NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
         if (erro) {
-            NSLog(@"%@", erro.localizedDescription);
+            //NSLog(@"%@", erro.localizedDescription);
             return NO;
         }
-        NSLog(@"%@", dadosWebService);
+        //NSLog(@"%@", dadosWebService);
         return YES;
     }
     return  NO;
@@ -515,7 +514,7 @@
         NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
-            NSLog(@"File dict = %@",obj);
+            //NSLog(@"File dict = %@",obj);
         }
     }
     else{
@@ -555,7 +554,7 @@
         // the user not being able to complete a task they had initiated in your app
         // (like accessing FB-stored information or posting to Facebook)
     } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
-        NSLog(@"user cancelled login");
+       // NSLog(@"user cancelled login");
         
         // For simplicity, this sample handles other errors with a generic message
         // You can checkout our error handling guide for more detailed information
@@ -563,7 +562,7 @@
     } else {
         alertTitle  = @"Something went wrong";
         alertMessage = @"Please try again later.";
-        NSLog(@"Unexpected error:%@", error);
+        //NSLog(@"Unexpected error:%@", error);
     }
     
     if (alertMessage) {
