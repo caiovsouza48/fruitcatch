@@ -892,11 +892,11 @@
     self.movesLeft = self.level.maximumMoves;
     self.score = 0;
     [Life sharedInstance].lifeCount--;
-    NSDate *oldDate = life.lifeTime;
+    NSDate *oldDate =  [Life sharedInstance].lifeTime;
     NSTimeInterval interval = [oldDate timeIntervalSinceNow];
     NSDate *plusDate = [NSDate dateWithTimeIntervalSinceNow:interval];
-    life.lifeTime = plusDate;
-    [life saveToFile];
+    [Life sharedInstance].lifeTime = plusDate;
+    [[Life sharedInstance] saveToFile];
     [self updateLabels];
 }
 
