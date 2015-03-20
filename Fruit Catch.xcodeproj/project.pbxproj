@@ -245,6 +245,22 @@
 		E3E019F61ABB365100D06910 /* Level_33.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019E31ABB365100D06910 /* Level_33.json */; };
 		E3E019F71ABB365100D06910 /* Level_34.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019E41ABB365100D06910 /* Level_34.json */; };
 		E3E019F91ABB465300D06910 /* Level_28.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019F81ABB465300D06910 /* Level_28.json */; };
+		E3E01A0A1ABCB7D600D06910 /* Level_35.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019FA1ABCB7D600D06910 /* Level_35.json */; };
+		E3E01A0B1ABCB7D600D06910 /* Level_36.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019FB1ABCB7D600D06910 /* Level_36.json */; };
+		E3E01A0C1ABCB7D600D06910 /* Level_37.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019FC1ABCB7D600D06910 /* Level_37.json */; };
+		E3E01A0D1ABCB7D600D06910 /* Level_38.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019FD1ABCB7D600D06910 /* Level_38.json */; };
+		E3E01A0E1ABCB7D600D06910 /* Level_39.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019FE1ABCB7D600D06910 /* Level_39.json */; };
+		E3E01A0F1ABCB7D600D06910 /* Level_40.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E019FF1ABCB7D600D06910 /* Level_40.json */; };
+		E3E01A101ABCB7D600D06910 /* Level_41.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A001ABCB7D600D06910 /* Level_41.json */; };
+		E3E01A111ABCB7D600D06910 /* Level_42.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A011ABCB7D600D06910 /* Level_42.json */; };
+		E3E01A121ABCB7D600D06910 /* Level_43.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A021ABCB7D600D06910 /* Level_43.json */; };
+		E3E01A131ABCB7D600D06910 /* Level_44.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A031ABCB7D600D06910 /* Level_44.json */; };
+		E3E01A141ABCB7D600D06910 /* Level_45.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A041ABCB7D600D06910 /* Level_45.json */; };
+		E3E01A151ABCB7D600D06910 /* Level_46.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A051ABCB7D600D06910 /* Level_46.json */; };
+		E3E01A161ABCB7D600D06910 /* Level_47.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A061ABCB7D600D06910 /* Level_47.json */; };
+		E3E01A171ABCB7D600D06910 /* Level_48.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A071ABCB7D600D06910 /* Level_48.json */; };
+		E3E01A181ABCB7D600D06910 /* Level_49.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A081ABCB7D600D06910 /* Level_49.json */; };
+		E3E01A191ABCB7D600D06910 /* Level_50.json in Resources */ = {isa = PBXBuildFile; fileRef = E3E01A091ABCB7D600D06910 /* Level_50.json */; };
 		E3E3EC961A23ACF400E7E18E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC951A23ACF400E7E18E /* MyScene.m */; };
 		E3E3EC9A1A23AD6400E7E18E /* JIMCFruit.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC991A23AD6400E7E18E /* JIMCFruit.m */; };
 		E3E3EC9D1A23ADA200E7E18E /* JIMCLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E3EC9C1A23ADA200E7E18E /* JIMCLevel.m */; };
@@ -562,6 +578,22 @@
 		E3E019E31ABB365100D06910 /* Level_33.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_33.json; sourceTree = "<group>"; };
 		E3E019E41ABB365100D06910 /* Level_34.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_34.json; sourceTree = "<group>"; };
 		E3E019F81ABB465300D06910 /* Level_28.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_28.json; sourceTree = "<group>"; };
+		E3E019FA1ABCB7D600D06910 /* Level_35.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_35.json; sourceTree = "<group>"; };
+		E3E019FB1ABCB7D600D06910 /* Level_36.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_36.json; sourceTree = "<group>"; };
+		E3E019FC1ABCB7D600D06910 /* Level_37.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_37.json; sourceTree = "<group>"; };
+		E3E019FD1ABCB7D600D06910 /* Level_38.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_38.json; sourceTree = "<group>"; };
+		E3E019FE1ABCB7D600D06910 /* Level_39.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_39.json; sourceTree = "<group>"; };
+		E3E019FF1ABCB7D600D06910 /* Level_40.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_40.json; sourceTree = "<group>"; };
+		E3E01A001ABCB7D600D06910 /* Level_41.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_41.json; sourceTree = "<group>"; };
+		E3E01A011ABCB7D600D06910 /* Level_42.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_42.json; sourceTree = "<group>"; };
+		E3E01A021ABCB7D600D06910 /* Level_43.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_43.json; sourceTree = "<group>"; };
+		E3E01A031ABCB7D600D06910 /* Level_44.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_44.json; sourceTree = "<group>"; };
+		E3E01A041ABCB7D600D06910 /* Level_45.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_45.json; sourceTree = "<group>"; };
+		E3E01A051ABCB7D600D06910 /* Level_46.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_46.json; sourceTree = "<group>"; };
+		E3E01A061ABCB7D600D06910 /* Level_47.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_47.json; sourceTree = "<group>"; };
+		E3E01A071ABCB7D600D06910 /* Level_48.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_48.json; sourceTree = "<group>"; };
+		E3E01A081ABCB7D600D06910 /* Level_49.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_49.json; sourceTree = "<group>"; };
+		E3E01A091ABCB7D600D06910 /* Level_50.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Level_50.json; sourceTree = "<group>"; };
 		E3E3EC941A23ACF400E7E18E /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		E3E3EC951A23ACF400E7E18E /* MyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		E3E3EC981A23AD6400E7E18E /* JIMCFruit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCFruit.h; sourceTree = "<group>"; };
@@ -1316,6 +1348,22 @@
 				E3E019E21ABB365100D06910 /* Level_32.json */,
 				E3E019E31ABB365100D06910 /* Level_33.json */,
 				E3E019E41ABB365100D06910 /* Level_34.json */,
+				E3E019FA1ABCB7D600D06910 /* Level_35.json */,
+				E3E019FB1ABCB7D600D06910 /* Level_36.json */,
+				E3E019FC1ABCB7D600D06910 /* Level_37.json */,
+				E3E019FD1ABCB7D600D06910 /* Level_38.json */,
+				E3E019FE1ABCB7D600D06910 /* Level_39.json */,
+				E3E019FF1ABCB7D600D06910 /* Level_40.json */,
+				E3E01A001ABCB7D600D06910 /* Level_41.json */,
+				E3E01A011ABCB7D600D06910 /* Level_42.json */,
+				E3E01A021ABCB7D600D06910 /* Level_43.json */,
+				E3E01A031ABCB7D600D06910 /* Level_44.json */,
+				E3E01A041ABCB7D600D06910 /* Level_45.json */,
+				E3E01A051ABCB7D600D06910 /* Level_46.json */,
+				E3E01A061ABCB7D600D06910 /* Level_47.json */,
+				E3E01A071ABCB7D600D06910 /* Level_48.json */,
+				E3E01A081ABCB7D600D06910 /* Level_49.json */,
+				E3E01A091ABCB7D600D06910 /* Level_50.json */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -1411,16 +1459,19 @@
 				0F22E09E1AA79E5A00C2BF51 /* Level_3.json in Resources */,
 				4357D6B21ABA1234003AD548 /* dinheiro@3x.png in Resources */,
 				0F22E08D1AA78B3A00C2BF51 /* Level_7.json in Resources */,
+				E3E01A0A1ABCB7D600D06910 /* Level_35.json in Resources */,
 				DE4048F21AB7D2E200A8D7EE /* Player2vez.png in Resources */,
 				DE3DAC541A9B998E002FE5FE /* limao_pu_v@2x.png in Resources */,
 				4361288B1A40612100A2B620 /* mapa@2x.png in Resources */,
 				DE4048ED1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png in Resources */,
 				437840201A97B911009BE3FB /* estrela_outline@2x.png in Resources */,
+				E3E01A0D1ABCB7D600D06910 /* Level_38.json in Resources */,
 				4361288A1A40612100A2B620 /* fase_aberta@2x.png in Resources */,
 				0F22E0911AA78B6700C2BF51 /* Level_9.json in Resources */,
 				4367ACAE1ABB5BFC000654DC /* fase_atual@2x.png in Resources */,
 				DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */,
 				43F720731AAE26BA003DD069 /* icon_som@2x.png in Resources */,
+				E3E01A0B1ABCB7D600D06910 /* Level_36.json in Resources */,
 				436BAB251AAA1677003A3955 /* icon_config.png in Resources */,
 				4357D6A91AB9C4EA003AD548 /* Replay_icon@3x.png in Resources */,
 				432C10231AADD8400020CB26 /* icon_open@2x.png in Resources */,
@@ -1432,6 +1483,7 @@
 				DE3DAC551A9B998E002FE5FE /* morango_pu_v@2x.png in Resources */,
 				DE4048F41AB7D2E200A8D7EE /* Player2vez@3x.png in Resources */,
 				432C10221AADD8400020CB26 /* icon_open.png in Resources */,
+				E3E01A0E1ABCB7D600D06910 /* Level_39.json in Resources */,
 				430A31181AB75DE5003D840F /* icon_menu.png in Resources */,
 				43A643BA1AB0B52E009521DA /* mapa_2.0@2x.png in Resources */,
 				DE3DAC511A9B998E002FE5FE /* uva_pu_h@2x.png in Resources */,
@@ -1442,6 +1494,7 @@
 				4367B1E61AB8C83F006E880A /* Carrinho_compras.png in Resources */,
 				E3CFD4B71A8B86B900C6FF64 /* retangulo_generico.png in Resources */,
 				435D18031AA8F0E2007704C0 /* Fazendeiro_Severino.png in Resources */,
+				E3E01A131ABCB7D600D06910 /* Level_44.json in Resources */,
 				4367B1E71AB8C83F006E880A /* Carrinho_compras@2x.png in Resources */,
 				4340BD6A1ABC9156006EA0C1 /* Next_Icon@2x.png in Resources */,
 				4351CD8B1A8E772800C026AA /* botao_menu.png in Resources */,
@@ -1450,6 +1503,7 @@
 				436D9BEC1A9E07D600EA5D4A /* fase_fechada@2x.png in Resources */,
 				0F40CAA71A9BA16600D0CB01 /* banana_pu_h@2x.png in Resources */,
 				E3D229E41A9CC02A0039D2DD /* MyParticleSystem.scnp in Resources */,
+				E3E01A0F1ABCB7D600D06910 /* Level_40.json in Resources */,
 				DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */,
 				E3E3ECAD1A23B1A900E7E18E /* Grid.atlas in Resources */,
 				43F720611AAE1EB9003DD069 /* icon_close@2x.png in Resources */,
@@ -1459,6 +1513,7 @@
 				436BAB2B1AAA23A7003A3955 /* retangulo_configuracoes@3x.png in Resources */,
 				0F40CAAC1A9BA16600D0CB01 /* banana_pu_v@2x.png in Resources */,
 				430A311A1AB75DE5003D840F /* icon_menu@3x.png in Resources */,
+				E3E01A101ABCB7D600D06910 /* Level_41.json in Resources */,
 				DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */,
 				4340BD6B1ABC9156006EA0C1 /* Next_Icon@3x.png in Resources */,
 				435D180A1AA8F604007704C0 /* fundo_main_menu@2x.png in Resources */,
@@ -1466,6 +1521,8 @@
 				E3E019EE1ABB365100D06910 /* Level_24.json in Resources */,
 				437B8E851A9649D200A8E9C8 /* fazendeiro_triste_cesta_vazia@2x.png in Resources */,
 				0F40CAA91A9BA16600D0CB01 /* limao_pu_h@2x.png in Resources */,
+				E3E01A191ABCB7D600D06910 /* Level_50.json in Resources */,
+				E3E01A121ABCB7D600D06910 /* Level_43.json in Resources */,
 				436BAB271AAA1677003A3955 /* icon_config@3x.png in Resources */,
 				432C101C1AADD8270020CB26 /* Menu_Rapido_Pequeno.png in Resources */,
 				0F22E09F1AA79E5A00C2BF51 /* Level_4.json in Resources */,
@@ -1521,12 +1578,15 @@
 				E3E019E71ABB365100D06910 /* Level_17.json in Resources */,
 				43F720701AAE26BA003DD069 /* icon_music@2x.png in Resources */,
 				43C998681AAF63DC001C32EA /* no_music@2x.png in Resources */,
+				E3E01A151ABCB7D600D06910 /* Level_46.json in Resources */,
 				E3E019EF1ABB365100D06910 /* Level_25.json in Resources */,
 				436CBD0C1A2F739400862EDE /* MapButtons.plist in Resources */,
 				E3E019CD1AB9FB9700D06910 /* Level_12.json in Resources */,
 				0F22E0931AA78D4400C2BF51 /* Level_10.json in Resources */,
+				E3E01A161ABCB7D600D06910 /* Level_47.json in Resources */,
 				435D180B1AA8F604007704C0 /* fundo_main_menu@3x.png in Resources */,
 				0F40CAB01A9BA16600D0CB01 /* uva_pu_v@2x.png in Resources */,
+				E3E01A0C1ABCB7D600D06910 /* Level_37.json in Resources */,
 				0F025B241AAE219500467A38 /* FunnyBounceMusic.mp3 in Resources */,
 				0F22E09D1AA79E5A00C2BF51 /* Level_2.json in Resources */,
 				4351CD891A8E772800C026AA /* botao_jogar_novamente@2x.png in Resources */,
@@ -1537,12 +1597,14 @@
 				4351CD8D1A8E772800C026AA /* botao_menu@3x.png in Resources */,
 				E3E019E81ABB365100D06910 /* Level_18.json in Resources */,
 				4351CD8C1A8E772800C026AA /* botao_menu@2x.png in Resources */,
+				E3E01A111ABCB7D600D06910 /* Level_42.json in Resources */,
 				0F22E08F1AA78B4700C2BF51 /* Level_8.json in Resources */,
 				4351CD7F1A8E76F500C026AA /* botao_proxima_fase.png in Resources */,
 				E3E019EB1ABB365100D06910 /* Level_21.json in Resources */,
 				0FF2358F1AA7A67500562511 /* Level_6.json in Resources */,
 				437B8E8C1A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png in Resources */,
 				E3E019F41ABB365100D06910 /* Level_31.json in Resources */,
+				E3E01A171ABCB7D600D06910 /* Level_48.json in Resources */,
 				E3E019D11ABA04E100D06910 /* Level_14.json in Resources */,
 				436BAB2D1AAA23A7003A3955 /* retangulo_configuracoes@2x.png in Resources */,
 				E3E019F11ABB365100D06910 /* Level_27.json in Resources */,
@@ -1578,6 +1640,8 @@
 				0F30FFFB1A97BF0300216088 /* spark.png in Resources */,
 				E3E019E51ABB365100D06910 /* Level_15.json in Resources */,
 				E3E019C11AB20B8900D06910 /* Camada-2.png in Resources */,
+				E3E01A141ABCB7D600D06910 /* Level_45.json in Resources */,
+				E3E01A181ABCB7D600D06910 /* Level_49.json in Resources */,
 				435D18051AA8F0E2007704C0 /* Fazendeiro_Severino@3x.png in Resources */,
 				E3E019E61ABB365100D06910 /* Level_16.json in Resources */,
 				43F720711AAE26BA003DD069 /* icon_music@3x.png in Resources */,
