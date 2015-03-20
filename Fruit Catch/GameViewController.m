@@ -1086,7 +1086,9 @@
 }
 
 - (void)dismissTip:(UIGestureRecognizer *)recognizer{
-
+    NSLog(@"Dismiss Tip called");
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"4FruitTutorial"];
+    _show4FruitTutorial = NO;
     [self.view sendSubviewToBack:_tip];
     [_tip setUserInteractionEnabled:NO];
     [_tip removeFromSuperview];

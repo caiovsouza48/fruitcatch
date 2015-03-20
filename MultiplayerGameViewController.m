@@ -341,7 +341,7 @@
 - (void)processNextpeerDidReceiveSynchronizedEvent:(NSNotification *)notification{
     NSString *eventName = [notification.userInfo objectForKey:@"eventName"];
    // NPSynchronizedEventFireReason eventFireReason = [[notification.userInfo objectForKey:@"fireReason"] intValue];
-    NSLog(@"Event Firing");
+    //NSLog(@"Event Firing");
     if ([START_GAME_SYNC_EVENT_NAME isEqualToString:eventName]) {
         [self generateRandomNumber];
         [self getUserElo];
@@ -1025,7 +1025,7 @@
 -(void)processNextpeerDidReceiveTournamentCustomMessage:(NSNotification *)notification{
     
     NPTournamentCustomMessageContainer* message = (NPTournamentCustomMessageContainer*)[notification.userInfo objectForKey:@"userMessage"];
-    NSLog(@"Received game message from %@", message.playerName);
+    //NSLog(@"Received game message from %@", message.playerName);
     
     NSDictionary* gameMessage = [NSPropertyListSerialization propertyListWithData:message.message options:0 format:NULL error:NULL];
     int type = [[gameMessage objectForKey:@"type"] intValue];
@@ -1038,7 +1038,7 @@
         }
         case NPFruitCatchMessageSendLevel:
         {
-            NSLog(@"Received Message Level");
+            //NSLog(@"Received Message Level");
             //NSData *fruitData = [gameMessage objectForKey:@"gameLevel"];
             NSArray *wrapperArray = [gameMessage objectForKey:@"gameLevel"];
            
@@ -1059,7 +1059,7 @@
         }
         case NPFruitCatchMessageSendRandomNumber:
         {
-            NSLog(@"Received Random Number");
+            //NSLog(@"Received Random Number");
             //NSDictionary *dict = [NSDictionary alloc]init
             NSDictionary *parameterDict = @{playerIdKey : message.playerName,
                                             randomNumberKey : [gameMessage objectForKey:@"randomNumber"]
@@ -1079,7 +1079,7 @@
             if ([[gameMessage objectForKey:@"randomNumber"] intValue] == _randomNumber) {
                 //2
                 
-                NSLog(@"Tie");
+                //NSLog(@"Tie");
                 _randomNumber = arc4random();
                 [self generateRandomNumber];
                 
@@ -1108,7 +1108,7 @@
         }
         case NPFruitCatchMessageMove:
         {
-            NSLog(@"Received Message Move");
+            //NSLog(@"Received Message Move");
             _isMyMove = NO;
              [_shadowAnimation stop];
             [self.level setIsOpponentMove:YES];
@@ -1135,7 +1135,7 @@
 }
 
 - (void)processNextpeerReportForfeitForCurrentTournament:(NSNotification *)notification{
-    NSLog(@"Player Saiu, reportando score");
+    //NSLog(@"Player Saiu, reportando score");
     if ([self.backgroundMusic isPlaying]){
         [self.backgroundMusic stop];
     }
@@ -1203,10 +1203,10 @@
     
     BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
     if (sucess){
-        NSLog(@"Elo Saved Sucessfuly");
+       // NSLog(@"Elo Saved Sucessfuly");
     }
     else{
-        NSLog(@"Falha ao Salvar Elo");
+        //NSLog(@"Falha ao Salvar Elo");
     }
 }
 
