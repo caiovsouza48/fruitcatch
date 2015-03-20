@@ -133,7 +133,6 @@
     }
     
     
-    [super viewDidLoad];
     [self registerRetryNotification];
     _powerUpEmitter = nil;
     // Configure the view.
@@ -784,14 +783,15 @@
         if(self.score >= self.scene.level.targetScore){
             
             if(self.movesLeft > 0){
+                if ((self.level.maximumMoves - self.movesLeft) <= 2){
+                    _easterEggKasco = YES;
+                }
+
                 self.score += (self.movesLeft * 100);
                 self.movesLeft = 0;
                 [self updateLabels];
             }
-            if ((self.level.maximumMoves - self.movesLeft) <= 2){
-                _easterEggKasco = YES;
-            }
-            [self.scene winLose:YES];
+        [self.scene winLose:YES];
         }else{
             [self.scene winLose:NO];
         }
@@ -1079,6 +1079,8 @@
 
 - (void)dismissTip:(UIGestureRecognizer *)recognizer{
     NSLog(@"Dismiss Tip called");
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"4FruitTutorial"];
+    _show4FruitTutorial = NO;
     [self.view sendSubviewToBack:_tip];
     [_tip setUserInteractionEnabled:NO];
     [_tip removeFromSuperview];
@@ -1145,7 +1147,8 @@
             [_tip setUserInteractionEnabled:NO];
             [_tip removeFromSuperview];
             [_kascoImageView removeFromSuperview];
-            
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"4FruitTutorial"];
+            _show4FruitTutorial = NO;
             if (finished)
                 _tip = nil;
             
