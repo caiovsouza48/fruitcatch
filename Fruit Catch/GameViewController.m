@@ -386,9 +386,15 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"zerarRetryNotification" object:nil];
+    
+}
+
 
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"zerarRetryNotification" object:nil];
 }
 
 - (BOOL)shouldAutorotate

@@ -125,7 +125,7 @@
     self.tooltipManager = [[JDFSequentialTooltipManager alloc] initWithHostView:self.view];
     self.tooltipManager.delegate = self;
     self.tooltipManager.kascoTutorialIM = _KascoImageView;
-    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Welcome to Fruit Catch, Im Kasco and i need your help to collect some fruits to my starving village.(tap to continue)" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Welcome to Fruit Catch, Im Kasco and I need your help to collect some fruits to my starving village.(tap to continue)" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
     
     [self.tooltipManager addTooltipWithTargetView:auxiliaryViewFase hostView:self.view tooltipText:@"You can Tap on this circles to play a Stage, each win or loss consume a life." arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
     
@@ -134,6 +134,7 @@
     [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"if you cant wait so much, you can tap on AD button to watch a video Ad and reduce 10 minutes of your life recharging!" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
     [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth showCompletionBlock:^{
     } hideCompletionBlock:^{
+        [auxiliaryViewFase removeFromSuperview];
         
     }];
     self.tooltipManager.showsBackdropView = YES;
