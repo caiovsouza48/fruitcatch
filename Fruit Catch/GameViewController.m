@@ -133,7 +133,7 @@
     }
     
     
-    [super viewDidLoad];
+    
     [self registerRetryNotification];
     _powerUpEmitter = nil;
     // Configure the view.
@@ -912,8 +912,11 @@
                 WorldMap *viewWP = [segue destinationViewController];
                 Life *life = [Life sharedInstance];
                 if (life.lifeCount > 0){
-                    life.lifeCount--;
-                   
+                    if (!_next){
+                        life.lifeCount--;
+                    }
+                    
+                    NSLog(@"Life=%@",life);
                 }
                 NSDate *oldDate = life.lifeTime;
                 NSTimeInterval interval = [oldDate timeIntervalSinceNow];
