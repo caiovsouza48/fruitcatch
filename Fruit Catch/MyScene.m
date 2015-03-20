@@ -377,7 +377,9 @@
         [self removeAllFruitSprites];
         NSSet *newFruits = [self.level shuffle];
         [self addSpritesForFruits:newFruits];
+        [Life sharedInstance].lifeCount--;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"zerarRetryNotification" object:nil];
+        
         
     }else if ([no.name isEqualToString:@"next"]){
         [self.viewController nextStage];

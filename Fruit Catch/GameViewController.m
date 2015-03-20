@@ -891,6 +891,12 @@
 - (void)zerarRetryNotification:(NSNotification *)notification{
     self.movesLeft = self.level.maximumMoves;
     self.score = 0;
+    [Life sharedInstance].lifeCount--;
+    NSDate *oldDate = life.lifeTime;
+    NSTimeInterval interval = [oldDate timeIntervalSinceNow];
+    NSDate *plusDate = [NSDate dateWithTimeIntervalSinceNow:interval];
+    life.lifeTime = plusDate;
+    [life saveToFile];
     [self updateLabels];
 }
 
