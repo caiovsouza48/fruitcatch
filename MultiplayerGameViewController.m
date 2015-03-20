@@ -801,7 +801,7 @@
         [self shuffle];
         
         self.possibleMoves = [self.level detectPossibleSwaps];
-        i = self.possibleMoves.count;
+        //i = self.possibleMoves.count;
         //   NSLog(@"Jogadas possiveis = %ld",i);
     }else{
         //   NSLog(@"Jogadas possiveis = %ld",i);
@@ -820,20 +820,20 @@
 -(void)showMoves
 {
     //Obtem um movimento possivel entre todos
-    JIMCSwap *swap = [self.possibleMoves anyObject];
-    
-    NSInteger x,y;
-    
-    if(swap.fruitA.column == 4){
-        x = 0;
-    }else{
-        x = 34 * (swap.fruitA.column - 4);
-    }
-    if(swap.fruitA.row == 4){
-        y = 0;
-    }else{
-        y = 36 * (swap.fruitA.row - 4);
-    }
+//    JIMCSwap *swap = [self.possibleMoves anyObject];
+//    
+//    NSInteger x,y;
+//    
+//    if(swap.fruitA.column == 4){
+//        x = 0;
+//    }else{
+//        x = 34 * (swap.fruitA.column - 4);
+//    }
+//    if(swap.fruitA.row == 4){
+//        y = 0;
+//    }else{
+//        y = 36 * (swap.fruitA.row - 4);
+//    }
     
 //    self.hintNode = [[SKSpriteNode alloc]initWithImageNamed:[swap.fruitA highlightedSpriteName]];
 //    self.hintNode.position = CGPointMake(x, y);
