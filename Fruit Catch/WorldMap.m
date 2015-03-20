@@ -87,7 +87,6 @@
 // Tooltips
 @property (nonatomic, strong) JDFSequentialTooltipManager *tooltipManager;
 
-
 @end
 
 @implementation WorldMap
