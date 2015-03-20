@@ -118,13 +118,13 @@
     UIView *auxiliaryViewFase = [[UIView alloc]initWithFrame:CGRectMake(10, 350, 200, 100)];
     [self.view addSubview:auxiliaryViewFase];
     
-    _KascoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fazendeiro_fase@2x"]];
-    [_KascoImageView setFrame:CGRectMake(CGRectGetMidX(self.view.frame), CGRectGetMidY(self.view.frame), _KascoImageView.image.size.width, _KascoImageView.image.size.height)];
+    _KascoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Fazendeiro_Severino"]];
+    [_KascoImageView setFrame:CGRectMake(CGRectGetMidX(self.view.frame)-70, CGRectGetMidY(self.view.frame)-50, _KascoImageView.image.size.width-50, _KascoImageView.image.size.height-50)];
     [self.view addSubview:_KascoImageView];
     self.tooltipManager = [[JDFSequentialTooltipManager alloc] initWithHostView:self.view];
     self.tooltipManager.delegate = self;
     self.tooltipManager.kascoTutorialIM = _KascoImageView;
-    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Welcome to Fruit Catch, Im Kasco and i need your help to collect some fruits to my starving village.(tap to continue)" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
+    [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Welcome to Fruit Catch, Im Kasco and I need your help to collect some fruits to my starving village.(tap to continue)" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
     
     [self.tooltipManager addTooltipWithTargetView:auxiliaryViewFase hostView:self.view tooltipText:@"You can Tap on this circles to play a Stage, each win or loss consume a life." arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth];
     
@@ -133,6 +133,7 @@
     [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"if you cant wait so much, you can tap on AD button to watch a video Ad and reduce 10 minutes of your life recharging!" arrowDirection:JDFTooltipViewArrowDirectionDown width:tooltipWidth];
     [self.tooltipManager addTooltipWithTargetView:_KascoImageView hostView:self.view tooltipText:@"Enough of talking, lets play!" arrowDirection:JDFTooltipViewArrowDirectionUp width:tooltipWidth showCompletionBlock:^{
     } hideCompletionBlock:^{
+        [auxiliaryViewFase removeFromSuperview];
         
     }];
     self.tooltipManager.showsBackdropView = YES;
@@ -239,20 +240,21 @@
             }
             intervalInMinutes -= [Life sharedInstance].minutesPassed;
                 [Life sharedInstance].timerMinutes -= 10;
+                [Life sharedInstance].minutesPassed += 10;
     
         [self.lifeTimer invalidate];
         self.lifeTimer = nil;
         [self.minutesSecondsLifeTimer invalidate];
         self.minutesSecondsLifeTimer = nil;
         [_vidas setTextColor:[UIColor greenColor]];
-        [UIView animateWithDuration:1.5 animations:^{
-            _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
-        }completion:^(BOOL finished){
-            [UIView animateWithDuration:1.5 animations:^{
-                _vidas.transform = CGAffineTransformMakeScale(1.00, 1.00);
-                [_vidas setTextColor:[UIColor whiteColor]];
-            }];
-        }];
+//        [UIView animateWithDuration:1.5 animations:^{
+//            _vidas.transform = CGAffineTransformMakeScale(1.75, 1.75);
+//        }completion:^(BOOL finished){
+//            [UIView animateWithDuration:1.5 animations:^{
+//                _vidas.transform = CGAffineTransformMakeScale(1.00, 1.00);
+//                [_vidas setTextColor:[UIColor whiteColor]];
+//            }];
+//        }];
     
         _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
     
@@ -500,6 +502,7 @@
     _beginningDate = [NSDate date];
     
     [Life sharedInstance].timerMinutes = [self getLifeCountIntervalInMinutes] - [Life sharedInstance].minutesPassed -  minutesInterval ;
+    NSLog(@"Life minutes passed:%d",[Life sharedInstance].minutesPassed);
     [Life sharedInstance].timerSeconds = 60 - ((int)interval % 60) -  [Life sharedInstance].secondsPassed;
     [[WorldMapTimerSingleton sharedInstance] reset];
     _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
@@ -617,8 +620,7 @@
         case 5:
         default:
             [Life sharedInstance].lifeCount = 5;
-            [Life sharedInstance].minutesPassed = 0;
-            [Life sharedInstance].secondsPassed = 0;
+            
             [Life sharedInstance].timerMinutes = 0;
             [Life sharedInstance].timerSeconds = 0;
             return;
@@ -885,6 +887,10 @@
     if (!_vidas){
          _vidas = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 130, 57)]; //ou CGRectGetMidX(self.view.frame) - 65, 5, 130, 57
     }
+    UITapGestureRecognizer *easterEggTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(easterEggLifes:)];
+    [easterEggTap setNumberOfTapsRequired:7];
+    [_vidas addGestureRecognizer:easterEggTap];
+    [_vidas setUserInteractionEnabled:YES];
     _vidasCountdown = [[UILabel alloc] initWithFrame:CGRectMake(60, 18, 90, 20)];
     _vidasCountdown.font = [UIFont fontWithName:@"Chewy" size:22];
     _vidasCountdown.textColor = [UIColor whiteColor];
@@ -900,6 +906,10 @@
     _vidas.text = [NSString stringWithFormat:@"    %ld",(long)[Life sharedInstance].lifeCount];
     [self.view insertSubview:_vidas belowSubview:_informFase];
     [self.vidas addSubview:_vidasCountdown];
+}
+
+- (void)easterEggLifes:(UITapGestureRecognizer *)tap{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://www.youtube.com/watch?v=9jK-NcRmVcw&spfreload=10"]];
 }
 
 
@@ -1485,7 +1495,7 @@
 
 - (void)watchAd:(UIGestureRecognizer *)gestureRecognizer{
     
-    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:nil withV4VCPrePopup:YES andV4VCPostPopup:YES];
+    [AdColony playVideoAdForZone:@"vz260b8083dbf24e3fa1" withDelegate:self withV4VCPrePopup:YES andV4VCPostPopup:YES];
 }
 
 - (void)onAdColonyAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneID{

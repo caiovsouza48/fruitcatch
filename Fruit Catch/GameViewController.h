@@ -23,6 +23,10 @@ static const int numberOfLevels = 29; //Tem que ser a quantidade menos 1
 @property (weak, nonatomic) IBOutlet UIImageView *powerUpUmage3;
 @property (nonatomic) NSString *levelString;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property(nonatomic) BOOL easterEggKasco;
+@property BOOL showFirstTutorial;
+@property BOOL show4FruitTutorial;
+@property BOOL show5FruitTutorial;
 
 - (void)beginNextTurn ;
 - (void)updateLabels ;

@@ -1213,8 +1213,10 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch (buttonIndex) {
         case 0:
+            
             [Nextpeer reportControlledTournamentOverWithScore:0];
             [Nextpeer reportForfeitForCurrentTournament];
+            [self dismissViewControllerAnimated:YES completion:nil];
             break;
         case 1:
             
