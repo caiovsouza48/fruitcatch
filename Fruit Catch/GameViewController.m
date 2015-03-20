@@ -28,7 +28,7 @@
 #define IPHONE6PLUS_XSCALE 1.171875
 #define IPHONE6PLUS_YSCALE 1.174285774647887
 
-@interface GameViewController () <AFDropdownNotificationDelegate>{
+@interface GameViewController (){
     NSNumberFormatter * _priceFormatter;
 }
 
@@ -67,9 +67,7 @@
 @property (nonatomic) NSTimer *cronometro;
 
 @property BOOL next;
-@property BOOL showFirstTutorial;
-@property BOOL show4FruitTutorial;
-@property BOOL show5FruitTutorial;
+
 
 //Menu rápido
 @property (nonatomic) IBOutlet UIImageView *fundoMenuRapido;
@@ -81,7 +79,9 @@
 @property (nonatomic) IBOutlet UIButton *ligaSFX;
 @property (nonatomic) IBOutlet UIButton *ajuda;
 @property (nonatomic) BOOL quickMenuOpen;
-@property(nonatomic) AFDropdownNotification *notification;
+@property(nonatomic) UILabel *tip;
+@property(nonatomic) UIImageView *kascoImageView;
+
 
 @end
 
@@ -89,6 +89,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.scene setIsMyMove:YES];
     if (![SettingsSingleton sharedInstance].music) {
         //adicionar ícone de proibido
@@ -120,15 +121,15 @@
     _show4FruitTutorial = NO;
     _show5FruitTutorial = NO;
     
-   // if(![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTutorial"]){
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTutorial"]){
         _showFirstTutorial = YES;
-    //}
+    }
     
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"4FruitTutorial"]){
         _show4FruitTutorial = YES;
     }
     
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstTutorial"]){
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"5FruitTutorial"]){
         _show5FruitTutorial = YES;
     }
     
@@ -214,6 +215,9 @@
     
     [self adicionaMenuRapido];
 }
+
+
+
 
 - (void) loadPowerUpsView{
     UIView *newView = [[UIView alloc]initWithFrame:CGRectMake(10, 430, 100, 100)];
@@ -383,9 +387,15 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"zerarRetryNotification" object:nil];
+    
+}
+
 
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"zerarRetryNotification" object:nil];
 }
 
 - (BOOL)shouldAutorotate
@@ -547,6 +557,12 @@
              for (JIMCFruit *fruit in chain.fruits) {
                  if ((fruit.fruitPowerUp == 1 && chain.fruits.count == 5) ||
                      (fruit.fruitPowerUp == 2 && chain.fruits.count == 4) || (fruit.fruitPowerUp == 3 && chain.fruits.count == 4)){
+                     if ((chain.fruits.count == 5) && (_show5FruitTutorial)){
+                         [self tutorial5FruitsForPowerUpObject:fruit];
+                     }
+                     if ((chain.fruits.count == 4) && (_show4FruitTutorial)){
+                         [self tutorial4Fruits];
+                     }
                     [self.scene addSpritesForFruit:fruit];
                     [JIMCSwapFruitSingleton sharedInstance].swap = nil;
                 }
@@ -768,12 +784,15 @@
         if(self.score >= self.scene.level.targetScore){
             
             if(self.movesLeft > 0){
+                if ((self.level.maximumMoves - self.movesLeft) <= 2){
+                    _easterEggKasco = YES;
+                }
+
                 self.score += (self.movesLeft * 100);
                 self.movesLeft = 0;
                 [self updateLabels];
             }
-            
-            [self.scene winLose:YES];
+        [self.scene winLose:YES];
         }else{
             [self.scene winLose:NO];
         }
@@ -873,6 +892,12 @@
 - (void)zerarRetryNotification:(NSNotification *)notification{
     self.movesLeft = self.level.maximumMoves;
     self.score = 0;
+    [Life sharedInstance].lifeCount--;
+    NSDate *oldDate =  [Life sharedInstance].lifeTime;
+    NSTimeInterval interval = [oldDate timeIntervalSinceNow];
+    NSDate *plusDate = [NSDate dateWithTimeIntervalSinceNow:interval];
+    [Life sharedInstance].lifeTime = plusDate;
+    [[Life sharedInstance] saveToFile];
     [self updateLabels];
 }
 
@@ -893,7 +918,10 @@
                 WorldMap *viewWP = [segue destinationViewController];
                 Life *life = [Life sharedInstance];
                 if (life.lifeCount > 0){
-                    life.lifeCount--;
+                    if (!_next){
+                        life.lifeCount--;
+                    }
+                    
                     NSLog(@"Life=%@",life);
                 }
                 NSDate *oldDate = life.lifeTime;
@@ -992,84 +1020,227 @@
 -(void)firstTutorial
 {
     NSLog(@"First tutorial");
+    //fazendeiro_fase@2x
+   
+    _tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
+                                                             150,
+                                                             230,
+                                                             140)];
     
-    __block UILabel *tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
-                                                             100,
-                                                             100,
-                                                             70)];
-    [tip setFont:[UIFont fontWithName:@"Chewy" size:14]];
-    [tip setTextColor:[UIColor whiteColor]];
-    [tip setBackgroundColor:[UIColor clearColor]];
-    [tip setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"retangulo_generico"]]];
-    [tip setNumberOfLines:3];
+    [_tip setFont:[UIFont fontWithName:@"Chewy" size:12]];
+    [_tip setTextColor:[UIColor whiteColor]];
+    [_tip setBackgroundColor:[UIColor clearColor]];
+    _tip.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
+    _tip.layer.borderColor = [UIColor whiteColor].CGColor;
+    _tip.layer.borderWidth = 2.0;
+    _tip.layer.cornerRadius = 12.0;
+    [_tip setNumberOfLines:5];
+    UISwitch *noMoreTips = [[UISwitch alloc]initWithFrame:CGRectMake(140, 105, 36, 10)];
+    [noMoreTips addTarget:self action:@selector(noMoreTips:) forControlEvents:UIControlEventValueChanged];
+    UILabel *noreMoreTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(25,115,120,10)];
+    [noreMoreTipsLabel setText:@"         Dont Show me Tips:"];
+    [noreMoreTipsLabel setFont:[UIFont fontWithName:@"Chewy" size:12]];
+    [noreMoreTipsLabel setTextColor:[UIColor whiteColor]];
+    [_tip addSubview:noreMoreTipsLabel];
+    [_tip addSubview:noMoreTips];
+    
+    [_tip setText:@"                                Quick Tip\n\n                Its a Match-three game,no secrets.\n      Tap three or more fruits in a column or row"];
+   
     
     
-    [tip setText:@"  Quick Tip\n\n  Its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points"];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTip:)];
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTip:)];
     
-    [self.view addSubview:tip];
-    [UIView animateWithDuration:2.81 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            tip.alpha = 0.1;
-    } completion:^(BOOL finished){
-        tip.alpha = 0.1;
-        [tip removeFromSuperview];
-        tip = nil;
-    }];
-//    _notification = [[AFDropdownNotification alloc] init];
-//    _notification.presentingViewController = self;
-//    _notification.notificationDelegate = self;
-//    _notification.titleText = @"Quick Tip!";
-//    _notification.subtitleText = @"its a Match-three game, no secrets. Tap three or more fruits in a column or row to earn points";
-//    _notification.image = [UIImage imageNamed:@"iconTest"];
-//    _notification.topButtonText = @"Ok";
-//    _notification.bottomButtonText = @"No more Tips";
-//    _notification.dismissOnTap = YES;
-//    [_notification presentInView:self.view withGravityAnimation:YES];
+    [swipeGesture setDirection:(UISwipeGestureRecognizerDirectionLeft |
+                               UISwipeGestureRecognizerDirectionRight |
+                               UISwipeGestureRecognizerDirectionDown |
+                                UISwipeGestureRecognizerDirectionUp)];
+    [_tip addGestureRecognizer:swipeGesture];
+    [_tip addGestureRecognizer:tap];
+    //[self.scene.fruitsLayer setUserInteractionEnabled:NO];
+    [_tip setUserInteractionEnabled:YES];
+    [self.view addSubview:_tip];
+    
+    _kascoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fazendeiro_fase"]];
+    [_kascoImageView setFrame:CGRectMake(50, 75, 230, 120)];
+    [self.view insertSubview:_kascoImageView belowSubview:_tip];
+    [_tip setAlpha:1.0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:10.0 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            
+                _tip.alpha = 0.1;
+                _kascoImageView.alpha = 0.1;
+        } completion:^(BOOL finished){
+            [_tip setUserInteractionEnabled:NO];
+            [_tip removeFromSuperview];
+            [_kascoImageView removeFromSuperview];
+            
+            if (finished)
+                _tip = nil;
+            
+        }];
+    });
+    
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstTutorial"];
     _showFirstTutorial  = NO;
 }
 
+- (void)dismissTip:(UIGestureRecognizer *)recognizer{
+    NSLog(@"Dismiss Tip called");
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"4FruitTutorial"];
+    _show4FruitTutorial = NO;
+    [self.view sendSubviewToBack:_tip];
+    [_tip setUserInteractionEnabled:NO];
+    [_tip removeFromSuperview];
+    [_kascoImageView removeFromSuperview];
+    
+    
+    
+}
+
 -(void)tutorial4Fruits
 {
-    _notification = [[AFDropdownNotification alloc] init];
-    _notification.notificationDelegate = self;
-    _notification.titleText = @"Quick Tip!";
-    _notification.subtitleText = @"WoW! you made a power Up, try tap him with the same fruit type to earn a LOT of points!";
-    //_notification.image = [UIImage imageNamed:@"update"];
-    _notification.topButtonText = @"Ok";
-    _notification.bottomButtonText = @"No more Tips";
-    _notification.dismissOnTap = YES;
-    [_notification presentInView:self.view withGravityAnimation:YES];
+    _tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
+                                                     150,
+                                                     230,
+                                                     160)];
+    
+    [_tip setFont:[UIFont fontWithName:@"Chewy" size:12]];
+    [_tip setTextColor:[UIColor whiteColor]];
+    [_tip setBackgroundColor:[UIColor clearColor]];
+    _tip.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
+    _tip.layer.borderColor = [UIColor whiteColor].CGColor;
+    _tip.layer.borderWidth = 2.0;
+    _tip.layer.cornerRadius = 12.0;
+    [_tip setNumberOfLines:5];
+    UISwitch *noMoreTips = [[UISwitch alloc]initWithFrame:CGRectMake(140, 125, 36, 10)];
+    [noMoreTips addTarget:self action:@selector(noMoreTips:) forControlEvents:UIControlEventValueChanged];
+    UILabel *noreMoreTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(25,135,120,10)];
+    [noreMoreTipsLabel setText:@"         Dont Show me Tips:"];
+    [noreMoreTipsLabel setFont:[UIFont fontWithName:@"Chewy" size:12]];
+    [noreMoreTipsLabel setTextColor:[UIColor whiteColor]];
+
+    [_tip addSubview:noreMoreTipsLabel];
+
+    [_tip addSubview:noMoreTips];
+    
+    
+    [_tip setText:@"                                Quick Tip\n\n                You make a 4 Fruit Power Up!.\n                Swipe then to destroy all fruits\n                       in a column or Row"];
+    
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTip:)];
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTip:)];
+    
+    [swipeGesture setDirection:(UISwipeGestureRecognizerDirectionLeft |
+                                UISwipeGestureRecognizerDirectionRight |
+                                UISwipeGestureRecognizerDirectionDown |
+                                UISwipeGestureRecognizerDirectionUp)];
+    [_tip addGestureRecognizer:swipeGesture];
+    [_tip addGestureRecognizer:tap];
+    //[self.scene.fruitsLayer setUserInteractionEnabled:NO];
+    [_tip setUserInteractionEnabled:YES];
+    [self.view addSubview:_tip];
+    
+    _kascoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fazendeiro_fase"]];
+    [_kascoImageView setFrame:CGRectMake(50, 75, 230, 120)];
+    [self.view insertSubview:_kascoImageView belowSubview:_tip];
+    [_tip setAlpha:1.0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:10.0 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            
+            _tip.alpha = 0.1;
+            _kascoImageView.alpha = 0.1;
+        } completion:^(BOOL finished){
+            [_tip setUserInteractionEnabled:NO];
+            [_tip removeFromSuperview];
+            [_kascoImageView removeFromSuperview];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"4FruitTutorial"];
+            _show4FruitTutorial = NO;
+            if (finished)
+                _tip = nil;
+            
+        }];
+    });
+
+     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"4FruitTutorial"];
     _show4FruitTutorial = NO;
 }
 
--(void)tutorial5Fruits
+-(void)tutorial5FruitsForPowerUpObject:(JIMCFruit *)powerUp
 {
+
+    _tip = [[UILabel alloc] initWithFrame:CGRectMake(50,
+                                                     150,
+                                                     230,
+                                                     160)];
     
-    _notification = [[AFDropdownNotification alloc] init];
-    _notification.notificationDelegate = nil;
-    _notification.titleText = @"Quick Tip!";
-    _notification.subtitleText = @"Fantastic! You made a five match power Up. You can swap him to destroy ALL the fruits of the swiped type!";
-    _notification.image = [UIImage imageNamed:@"Camada-2"];
-    _notification.topButtonText = @"Ok";
-    _notification.bottomButtonText = @"No more Tips";
-    _notification.dismissOnTap = YES;
-    [_notification presentInView:self.view withGravityAnimation:YES];
-    NSLog(@"5 fruit tutorial");
+    [_tip setFont:[UIFont fontWithName:@"Chewy" size:12]];
+    [_tip setTextColor:[UIColor whiteColor]];
+    [_tip setBackgroundColor:[UIColor clearColor]];
+    _tip.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
+    _tip.layer.borderColor = [UIColor whiteColor].CGColor;
+    _tip.layer.borderWidth = 2.0;
+    _tip.layer.cornerRadius = 12.0;
+    [_tip setNumberOfLines:5];
+    UISwitch *noMoreTips = [[UISwitch alloc]initWithFrame:CGRectMake(140, 125, 36, 10)];
+    [noMoreTips addTarget:self action:@selector(noMoreTips:) forControlEvents:UIControlEventValueChanged];
+    UILabel *noreMoreTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(25,135,120,10)];
+    [noreMoreTipsLabel setText:@"         Dont Show me Tips:"];
+    [noreMoreTipsLabel setFont:[UIFont fontWithName:@"Chewy" size:12]];
+    [noreMoreTipsLabel setTextColor:[UIColor whiteColor]];
+    [_tip addSubview:noreMoreTipsLabel];
+
+    [_tip addSubview:noMoreTips];
+    
+    [_tip setText:@"                                Quick Tip\n\n                You make a 5 Fruit Power Up!.\n                Swipe then to destroy all fruits\n                       of the swiped type"];
+    
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTip:)];
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTip:)];
+    
+    [swipeGesture setDirection:(UISwipeGestureRecognizerDirectionLeft |
+                                UISwipeGestureRecognizerDirectionRight |
+                                UISwipeGestureRecognizerDirectionDown |
+                                UISwipeGestureRecognizerDirectionUp)];
+    [_tip addGestureRecognizer:swipeGesture];
+    [_tip addGestureRecognizer:tap];
+    //[self.scene.fruitsLayer setUserInteractionEnabled:NO];
+    [_tip setUserInteractionEnabled:YES];
+    [self.view addSubview:_tip];
+    
+    _kascoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fazendeiro_fase"]];
+    [_kascoImageView setFrame:CGRectMake(50, 75, 230, 120)];
+    [self.view insertSubview:_kascoImageView belowSubview:_tip];
+    [_tip setAlpha:1.0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:10.0 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            
+            _tip.alpha = 0.1;
+            _kascoImageView.alpha = 0.1;
+        } completion:^(BOOL finished){
+            [_tip setUserInteractionEnabled:NO];
+            [_tip removeFromSuperview];
+            [_kascoImageView removeFromSuperview];
+            
+            if (finished)
+                _tip = nil;
+            
+        }];
+    });
+
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"5FruitTutorial"];
     _show5FruitTutorial = NO;
 }
 
--(void)dropdownNotificationTopButtonTapped {
-    
-    [_notification dismissWithGravityAnimation:YES];
+- (void)noMoreTips:(UISwitch *)sender{
+    _show5FruitTutorial = _show4FruitTutorial = ![sender isOn];
+    [[NSUserDefaults standardUserDefaults] setBool:![sender isOn] forKey:@"5FruitTutorial"];
+    [[NSUserDefaults standardUserDefaults] setBool:![sender isOn] forKey:@"4FruitTutorial"];
+    [self dismissTip:nil];
 }
 
--(void)dropdownNotificationBottomButtonTapped {
-    
-    NSLog(@"Bottom button tapped");
-    _show4FruitTutorial = NO;
-    _show5FruitTutorial = NO;
-    [_notification dismissWithGravityAnimation:YES];
-}
 
 
 -(void)adicionaMenuRapido

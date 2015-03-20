@@ -833,6 +833,8 @@
         self.comboMultiplier++;
     }
 }
+
+
 - (void)calculateScoresAllType:(NSSet *)chains {
 //    if (_isOpponentMove){
 //        return;
@@ -1050,6 +1052,10 @@
 - (NSSet *) executePowerUp:(JIMCPowerUp *)powerUp{
     
     return [self removeMatchesForPowerUp:powerUp];
+}
+
+- (int)getLevelComboMultiplier{
+    return _comboMultiplier;
 }
 
 @end

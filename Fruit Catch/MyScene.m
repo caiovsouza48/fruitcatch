@@ -125,47 +125,47 @@
         CGFloat scale = 0.93;
         CGPoint layerPosition = CGPointMake(-TileWidth*NumColumns * IPHONE6_XSCALE * scale/2, -TileHeight*NumRows * IPHONE6_YSCALE * scale/2);
         
-        _fruitsLayer.xScale = IPHONE6_XSCALE * scale;
-        _fruitsLayer.yScale = IPHONE6_YSCALE * scale;
-        _fruitsLayer.position = layerPosition;
+        self.fruitsLayer.xScale = IPHONE6_XSCALE * scale;
+        self.fruitsLayer.yScale = IPHONE6_YSCALE * scale;
+        self.fruitsLayer.position = layerPosition;
         
-        _gameLayer.xScale = IPHONE6_XSCALE * scale;
-        _gameLayer.yScale = IPHONE6_YSCALE * scale;
-        _gameLayer.position = layerPosition;
+        self.gameLayer.xScale = IPHONE6_XSCALE * scale;
+        self.gameLayer.yScale = IPHONE6_YSCALE * scale;
+        self.gameLayer.position = layerPosition;
         
-        _tilesLayer.xScale = IPHONE6_XSCALE * scale;
-        _tilesLayer.yScale = IPHONE6_YSCALE * scale;
-        _tilesLayer.position = layerPosition;
+        self.tilesLayer.xScale = IPHONE6_XSCALE * scale;
+        self.tilesLayer.yScale = IPHONE6_YSCALE * scale;
+        self.tilesLayer.position = layerPosition;
         
-        _power.xScale = IPHONE6_XSCALE * scale;
-        _power.yScale = IPHONE6_YSCALE * scale;
-        _power.position = layerPosition;
+        self.power.xScale = IPHONE6_XSCALE * scale;
+        self.power.yScale = IPHONE6_YSCALE * scale;
+        self.power.position = layerPosition;
         
-        _maskLayer.xScale = IPHONE6_XSCALE * scale;
-        _maskLayer.yScale = IPHONE6_YSCALE * scale;
-        _maskLayer.position = layerPosition;
+        self.maskLayer.xScale = IPHONE6_XSCALE * scale;
+        self.maskLayer.yScale = IPHONE6_YSCALE * scale;
+        self.maskLayer.position = layerPosition;
     }else if(IPHONE6PLUS){
         CGPoint layerPosition = CGPointMake(-TileWidth*NumColumns * IPHONE6_XSCALE/2, -TileHeight*NumRows * IPHONE6_YSCALE/2);
         
-        _fruitsLayer.xScale = IPHONE6_XSCALE;
-        _fruitsLayer.yScale = IPHONE6_YSCALE;
-        _fruitsLayer.position = layerPosition;
+        self.fruitsLayer.xScale = IPHONE6_XSCALE;
+        self.fruitsLayer.yScale = IPHONE6_YSCALE;
+        self.fruitsLayer.position = layerPosition;
         
-        _gameLayer.xScale = IPHONE6_XSCALE;
-        _gameLayer.yScale = IPHONE6_YSCALE;
-        _gameLayer.position = layerPosition;
+        self.gameLayer.xScale = IPHONE6_XSCALE;
+        self.gameLayer.yScale = IPHONE6_YSCALE;
+        self.gameLayer.position = layerPosition;
         
-        _tilesLayer.xScale = IPHONE6_XSCALE;
-        _tilesLayer.yScale = IPHONE6_YSCALE;
-        _tilesLayer.position = layerPosition;
+        self.tilesLayer.xScale = IPHONE6_XSCALE;
+        self.tilesLayer.yScale = IPHONE6_YSCALE;
+        self.tilesLayer.position = layerPosition;
         
-        _power.xScale = IPHONE6_XSCALE;
-        _power.yScale = IPHONE6_YSCALE;
-        _power.position = layerPosition;
+        self.power.xScale = IPHONE6_XSCALE;
+        self.power.yScale = IPHONE6_YSCALE;
+        self.power.position = layerPosition;
         
-        _maskLayer.xScale = IPHONE6_XSCALE;
-        _maskLayer.yScale = IPHONE6_YSCALE;
-        _maskLayer.position = layerPosition;
+        self.maskLayer.xScale = IPHONE6_XSCALE;
+        self.maskLayer.yScale = IPHONE6_YSCALE;
+        self.maskLayer.position = layerPosition;
     }
     return self;
 }
@@ -377,7 +377,9 @@
         [self removeAllFruitSprites];
         NSSet *newFruits = [self.level shuffle];
         [self addSpritesForFruits:newFruits];
+        [Life sharedInstance].lifeCount--;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"zerarRetryNotification" object:nil];
+        
         
     }else if ([no.name isEqualToString:@"next"]){
         [self.viewController nextStage];
@@ -712,6 +714,8 @@
     }
     
     if([SettingsSingleton sharedInstance].SFX == ON){
+        self.matchSound = [SKAction playSoundFileNamed:[self getMatchSoundByComboMultiplier] waitForCompletion:NO];
+
         [self runAction:self.matchSound];
     }
     
@@ -725,6 +729,22 @@
                                          ]]];
 
 }
+
+- (NSString *)getMatchSoundByComboMultiplier{
+    int aux=0;
+    if (self.level.getLevelComboMultiplier-1 <= 1){
+        return @"popSound.mp3";
+    }
+    
+    aux = self.level.getLevelComboMultiplier-1;
+    if (aux > 4){
+        aux = 4;
+    }
+    
+    return [NSString stringWithFormat:@"popSound_plus%d.mp3",aux];
+}
+
+
 - (void)animateMatchedFruitsType:(NSSet *)chains completion:(dispatch_block_t)completion {
     
     for (JIMCChain *chain in chains) {
@@ -746,6 +766,7 @@
     }
     
     if([SettingsSingleton sharedInstance].SFX == ON){
+        self.matchSound = [SKAction playSoundFileNamed:[self getMatchSoundByComboMultiplier] waitForCompletion:NO];
         [self runAction:self.matchSound];
     }
     
@@ -950,7 +971,13 @@
     self.gameOverScreen.menu  = [[SKSpriteNode alloc]initWithImageNamed:@"icon_menu"];
     
     if(_win){
-        kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_pop_over"];
+        if (self.viewController.easterEggKasco){
+            kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_easter_egg"];
+        }
+        else{
+            kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_pop_over"];
+        }
+        
         self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"Next_Icon"];
     }else{
         kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_triste_cesta_vazia"];
