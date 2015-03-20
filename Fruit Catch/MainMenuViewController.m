@@ -286,7 +286,11 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JIMCHelperProductPurchasedNotification object:nil];
+}
+
+- (void)dealloc{
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:JIMCHelperProductPurchasedNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

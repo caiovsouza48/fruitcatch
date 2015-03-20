@@ -71,6 +71,7 @@ static const NSInteger NumRows = 9;
 
 - (NSSet *)removeMatchesForPowerUp:(JIMCPowerUp *)powerUp;
 
+- (int) getLevelComboMultiplier;
 
 - (void)fruitsBySet:(NSSet *)set;
 
