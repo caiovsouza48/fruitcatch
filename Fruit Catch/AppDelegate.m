@@ -68,7 +68,6 @@
     [[UIApplication sharedApplication]setStatusBarHidden:YES ];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Launch"];
     [Nextpeer initializeWithProductKey:NEXTPEER_KEY andDelegates:[NPDelegatesContainer containerWithNextpeerDelegate:self]];
-    
     UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
     
     UIUserNotificationSettings *mySettings =
@@ -121,6 +120,9 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([Nextpeer handleOpenURL:url]) {
+        return YES;
+    }
     
     // Call FBAppCall's handleOpenURL:sourceApplication to handle Facebook app responses
     BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
@@ -129,6 +131,8 @@
     
     return wasHandled;
 }
+
+
 -(void)nextpeerDidTournamentStartWithDetails:(NPTournamentStartDataContainer *)tournamentContainer{
     MultiplayerGameViewController *multiGVC = [[MultiplayerGameViewController alloc]init];
     [self.window.rootViewController presentViewController:multiGVC animated:YES completion:nil];

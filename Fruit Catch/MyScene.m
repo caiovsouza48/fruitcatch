@@ -712,6 +712,8 @@
     }
     
     if([SettingsSingleton sharedInstance].SFX == ON){
+        self.matchSound = [SKAction playSoundFileNamed:[self getMatchSoundByComboMultiplier] waitForCompletion:NO];
+
         [self runAction:self.matchSound];
     }
     
@@ -725,6 +727,22 @@
                                          ]]];
 
 }
+
+- (NSString *)getMatchSoundByComboMultiplier{
+    int aux=0;
+    if (self.level.getLevelComboMultiplier-1 <= 1){
+        return @"popSound.mp3";
+    }
+    
+    aux = self.level.getLevelComboMultiplier-1;
+    if (aux > 4){
+        aux = 4;
+    }
+    
+    return [NSString stringWithFormat:@"popSound_plus%d.mp3",aux];
+}
+
+
 - (void)animateMatchedFruitsType:(NSSet *)chains completion:(dispatch_block_t)completion {
     
     for (JIMCChain *chain in chains) {
@@ -746,6 +764,7 @@
     }
     
     if([SettingsSingleton sharedInstance].SFX == ON){
+        self.matchSound = [SKAction playSoundFileNamed:[self getMatchSoundByComboMultiplier] waitForCompletion:NO];
         [self runAction:self.matchSound];
     }
     
@@ -950,7 +969,13 @@
     self.gameOverScreen.menu  = [[SKSpriteNode alloc]initWithImageNamed:@"icon_menu"];
     
     if(_win){
-        kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_pop_over"];
+        if (self.viewController.easterEggKasco){
+            kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_easter_egg"];
+        }
+        else{
+            kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_feliz_pop_over"];
+        }
+        
         self.gameOverScreen.next = [[SKSpriteNode alloc]initWithImageNamed:@"Next_icon"];
     }else{
         kasco = [[SKSpriteNode alloc]initWithImageNamed:@"fazendeiro_triste_cesta_vazia"];

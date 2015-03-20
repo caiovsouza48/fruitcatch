@@ -184,6 +184,10 @@
 		DEC905BB1A239C6D003DD444 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEC905B91A239C6D003DD444 /* LaunchScreen.xib */; };
 		DEC905C71A239C6D003DD444 /* Fruit_CatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */; };
 		DEED3D5D1ABA92FA0069BB6C /* AFDropdownNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = DEED3D5C1ABA92FA0069BB6C /* AFDropdownNotification.m */; };
+		DEED3D5F1ABB92250069BB6C /* fazendeiro_feliz_easter_egg.png in Resources */ = {isa = PBXBuildFile; fileRef = DEED3D5E1ABB92250069BB6C /* fazendeiro_feliz_easter_egg.png */; };
+		DEED3D691ABB9C740069BB6C /* popSound_plus3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DEED3D661ABB9C740069BB6C /* popSound_plus3.mp3 */; };
+		DEED3D6A1ABB9C740069BB6C /* popSound_plus4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DEED3D671ABB9C740069BB6C /* popSound_plus4.mp3 */; };
+		DEED3D6B1ABB9C740069BB6C /* popSound_plus2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DEED3D681ABB9C740069BB6C /* popSound_plus2.mp3 */; };
 		DEF7B4BD1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */; };
 		E30CD4D81A2CC817009BBC92 /* banana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E30CD4D71A2CC817009BBC92 /* banana@2x.png */; };
 		E37BB4D51A40522A00F8E679 /* ui_pontos_movimentos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E37BB4D41A40522A00F8E679 /* ui_pontos_movimentos@2x.png */; };
@@ -495,6 +499,10 @@
 		DEC905C61A239C6D003DD444 /* Fruit_CatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fruit_CatchTests.m; sourceTree = "<group>"; };
 		DEED3D5B1ABA92FA0069BB6C /* AFDropdownNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFDropdownNotification.h; sourceTree = "<group>"; };
 		DEED3D5C1ABA92FA0069BB6C /* AFDropdownNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFDropdownNotification.m; sourceTree = "<group>"; };
+		DEED3D5E1ABB92250069BB6C /* fazendeiro_feliz_easter_egg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fazendeiro_feliz_easter_egg.png; sourceTree = "<group>"; };
+		DEED3D661ABB9C740069BB6C /* popSound_plus3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = popSound_plus3.mp3; sourceTree = "<group>"; };
+		DEED3D671ABB9C740069BB6C /* popSound_plus4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = popSound_plus4.mp3; sourceTree = "<group>"; };
+		DEED3D681ABB9C740069BB6C /* popSound_plus2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = popSound_plus2.mp3; sourceTree = "<group>"; };
 		DEF7B4BB1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JIMCSwapFruitSingleton.h; sourceTree = "<group>"; };
 		DEF7B4BC1A30800B00D7F7B3 /* JIMCSwapFruitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JIMCSwapFruitSingleton.m; sourceTree = "<group>"; };
 		E30CD4D71A2CC817009BBC92 /* banana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "banana@2x.png"; path = "Sprites.atlas/banana@2x.png"; sourceTree = "<group>"; };
@@ -1149,6 +1157,7 @@
 				4378401D1A97B911009BE3FB /* estrela_outline@2x.png */,
 				4378401E1A97B911009BE3FB /* estrela_outline@3x.png */,
 				437B8E871A964A9200A8E9C8 /* fazendeiro_feliz_pop_over.png */,
+				DEED3D5E1ABB92250069BB6C /* fazendeiro_feliz_easter_egg.png */,
 				DE4048EC1AB7CB3200A8D7EE /* tap_multiplayerIndicator.png */,
 				437B8E881A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@2x.png */,
 				437B8E891A964A9200A8E9C8 /* fazendeiro_feliz_pop_over@3x.png */,
@@ -1251,6 +1260,9 @@
 		E3E3ECAE1A23B2FA00E7E18E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				DEED3D661ABB9C740069BB6C /* popSound_plus3.mp3 */,
+				DEED3D671ABB9C740069BB6C /* popSound_plus4.mp3 */,
+				DEED3D681ABB9C740069BB6C /* popSound_plus2.mp3 */,
 				DE9DA6F51AB8AAE2009E8185 /* small_decorative_bell_ring_version_3.mp3 */,
 				DE3140501AB3D3E9009335D1 /* turn_sound.mp3 */,
 				0FAF24D71AAA326600682521 /* swap.mp3 */,
@@ -1354,7 +1366,7 @@
 				TargetAttributes = {
 					DEC905A11A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 4MMC45MQ2J;
+						DevelopmentTeam = BLCXKG795L;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -1363,7 +1375,7 @@
 					};
 					DEC905BF1A239C6D003DD444 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 4MMC45MQ2J;
+						DevelopmentTeam = BLCXKG795L;
 						TestTargetID = DEC905A11A239C6D003DD444;
 					};
 				};
@@ -1501,6 +1513,7 @@
 				DEC905B61A239C6D003DD444 /* Main.storyboard in Resources */,
 				43F7206F1AAE26BA003DD069 /* icon_music.png in Resources */,
 				DE3140511AB3D3E9009335D1 /* turn_sound.mp3 in Resources */,
+				DEED3D6B1ABB9C740069BB6C /* popSound_plus2.mp3 in Resources */,
 				E3E019E71ABB365100D06910 /* Level_17.json in Resources */,
 				43F720701AAE26BA003DD069 /* icon_music@2x.png in Resources */,
 				43C998681AAF63DC001C32EA /* no_music@2x.png in Resources */,
@@ -1515,6 +1528,7 @@
 				4351CD891A8E772800C026AA /* botao_jogar_novamente@2x.png in Resources */,
 				4378401F1A97B911009BE3FB /* estrela_outline.png in Resources */,
 				430A31191AB75DE5003D840F /* icon_menu@2x.png in Resources */,
+				DEED3D6A1ABB9C740069BB6C /* popSound_plus4.mp3 in Resources */,
 				430A31131AB75DCA003D840F /* icon_sair@2x.png in Resources */,
 				4351CD8D1A8E772800C026AA /* botao_menu@3x.png in Resources */,
 				E3E019E81ABB365100D06910 /* Level_18.json in Resources */,
@@ -1543,6 +1557,7 @@
 				430A31141AB75DCA003D840F /* icon_sair@3x.png in Resources */,
 				E3E3ECAC1A23B1A900E7E18E /* Sprites.atlas in Resources */,
 				43F720601AAE1EB9003DD069 /* icon_close.png in Resources */,
+				DEED3D5F1ABB92250069BB6C /* fazendeiro_feliz_easter_egg.png in Resources */,
 				DE9DA6F61AB8AAE2009E8185 /* small_decorative_bell_ring_version_3.mp3 in Resources */,
 				E3E019F51ABB365100D06910 /* Level_32.json in Resources */,
 				437840211A97B911009BE3FB /* estrela_outline@3x.png in Resources */,
@@ -1555,6 +1570,7 @@
 				4351CD801A8E76F500C026AA /* botao_proxima_fase@2x.png in Resources */,
 				433C4F321AA0ED43007329E7 /* estrela_fill.png in Resources */,
 				432C101E1AADD8270020CB26 /* Menu_Rapido_Pequeno@3x.png in Resources */,
+				DEED3D691ABB9C740069BB6C /* popSound_plus3.mp3 in Resources */,
 				0F30FFFB1A97BF0300216088 /* spark.png in Resources */,
 				E3E019E51ABB365100D06910 /* Level_15.json in Resources */,
 				E3E019C11AB20B8900D06910 /* Camada-2.png in Resources */,
@@ -1765,7 +1781,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "113fd5b6-6b9d-453d-b5cc-e51f8ae120d8";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1790,7 +1806,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "113fd5b6-6b9d-453d-b5cc-e51f8ae120d8";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
