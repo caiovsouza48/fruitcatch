@@ -88,6 +88,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.scene setIsMyMove:YES];
     if (![SettingsSingleton sharedInstance].music) {
         //adicionar ícone de proibido
@@ -111,7 +112,7 @@
 }
 
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
     _next = NO;
     _timerStarted = NO;
     

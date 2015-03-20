@@ -247,6 +247,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     if (![SettingsSingleton sharedInstance].music) {
         //adicionar ícone de proibido
         [_ligaMusica setBackgroundImage:[UIImage imageNamed:@"no_music"] forState:UIControlStateNormal];
@@ -286,6 +287,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:JIMCHelperProductPurchasedNotification object:nil];
 }
 
