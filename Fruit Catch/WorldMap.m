@@ -52,6 +52,7 @@
 @property int offset;
 @property (nonatomic) UIScrollView *shopScrollView;
 @property BOOL shopOpen;
+@property BOOL stageSelected;
 @property (nonatomic) IBOutlet UIButton *shopi;
 @property (nonatomic) NSString *plistPath;
 
@@ -155,6 +156,7 @@
     _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
     _shopOpen = NO;
     _quickMenuOpen = NO;
+    _stageSelected = NO;
     _adExecuted = NO;
     _alreadySetNotification = NO;
     [AdColony configureWithAppID:@"app57321b6f45b9433ebf" zoneIDs:@[@"vz260b8083dbf24e3fa1"] delegate:self logging:YES];
@@ -664,6 +666,9 @@
     }
     
     if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+        
+        _stageSelected = YES;
+        
         //Obtem o target score
         JIMCLevel *lvl = [[JIMCLevel alloc]initWithFile:[NSString stringWithFormat:@"Level_%d",(int)_i]];
         
@@ -770,6 +775,7 @@
 -(IBAction)fexarTela:(id)sender
 {
     _shopOpen = NO;
+    _stageSelected = NO;
     _shopi.enabled = YES;
 
     [UIView animateWithDuration:1.5
@@ -1006,8 +1012,10 @@
         }
         [button setTitle:[NSString stringWithFormat:@"%d\n",(int)_i + 1] forState:UIControlStateNormal];
         
-        if(_i <= [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+        if(_i < [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
             [button setBackgroundImage:[UIImage imageNamed:@"fase_aberta"] forState:UIControlStateNormal];
+        }else if(_i == [ClearedLevelsSingleton sharedInstance].lastLevelCleared){
+            [button setBackgroundImage:[UIImage imageNamed:@"fase_atual"] forState:UIControlStateNormal];
         }else{
             [button setBackgroundImage:[UIImage imageNamed:@"fase_fechada"] forState:UIControlStateNormal];
         }
@@ -1444,6 +1452,15 @@
         CGFloat originShop = self.view.frame.size.height/2 - _shopScrollView.frame.size.height/2;
         
         if(!CGRectContainsPoint(_shopScrollView.frame, location) || location.y < originShop){
+            [self fexarTela:self];
+        }
+    }
+    
+    if(_stageSelected){
+        UITouch *touch = [touches anyObject];
+        CGPoint location = [touch locationInView:_blurView];
+
+        if(!CGRectContainsPoint(_informFase.frame, location)){
             [self fexarTela:self];
         }
     }
