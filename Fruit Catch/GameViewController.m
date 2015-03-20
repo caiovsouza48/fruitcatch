@@ -132,8 +132,6 @@
         _show5FruitTutorial = YES;
     }
     
-    
-    [super viewDidLoad];
     [self registerRetryNotification];
     _powerUpEmitter = nil;
     // Configure the view.

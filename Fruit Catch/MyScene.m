@@ -65,8 +65,17 @@
         
         // Put an image on the background. Because the scene's anchorPoint is
         // (0.5, 0.5), the background image will always be centered on the screen.
-        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"fundo.png"];
+        NSArray *a = [self.viewController.levelString componentsSeparatedByString:@"Level_"];
+        NSInteger i = [[a objectAtIndex:1] integerValue];
         
+        SKSpriteNode *background;
+        
+        if(i >= 23){
+            background = [SKSpriteNode spriteNodeWithImageNamed:@"fundo.png"]; //A partir da 24
+        }else{
+            background = [SKSpriteNode spriteNodeWithImageNamed:@"fundo.png"];
+        }
+    
         if(IPHONE6){
             background.xScale = IPHONE6_XSCALE;
             background.yScale = IPHONE6_YSCALE;
