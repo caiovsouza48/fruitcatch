@@ -18,5 +18,9 @@
 @property(nonatomic) NSDictionary *rewardData;
 @property (nonatomic) NSString* plistPath;
 
++ (void)sendFiletoWebService;
++ (BOOL)sendDataToWebService:(NSDictionary*)object;
++ (BOOL)sendPerformanceToWebService:(NSDictionary*)object;
+
 @end
 

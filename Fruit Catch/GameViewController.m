@@ -18,6 +18,7 @@
 #import "GameOverScene.h"
 #import "WorldMap.h"
 #import "AFDropdownNotification.h"
+#import "AppDelegate.h"
 
 #define IPHONE6 ([[UIScreen mainScreen] bounds].size.width == 375)
 #define IPHONE6PLUS ([[UIScreen mainScreen] bounds].size.width == 414)
@@ -111,7 +112,7 @@
 }
 
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
     _next = NO;
     _timerStarted = NO;
     
@@ -131,7 +132,7 @@
         _show5FruitTutorial = YES;
     }
     
-    [super viewDidLoad];
+    
     [self registerRetryNotification];
     _powerUpEmitter = nil;
     // Configure the view.
@@ -953,18 +954,19 @@
     NSNumber *tempo = [NSNumber numberWithInteger:_segundos];
     
     //Mesmo score, tempo menor
-    if(([levelHighScore[@"HighScore"] integerValue] == highScore.integerValue) && ((int)levelHighScore[@"Time"] > tempo.integerValue)){
-        [levelHighScore setObject:tempo forKey:@"Time"];
+    if(([levelHighScore[@"highScore"] integerValue] == highScore.integerValue) && ((int)levelHighScore[@"time"] > tempo.integerValue)){
+        [levelHighScore setObject:tempo forKey:@"time"];
     }
     
     //Se não tem score gravado ou se o score é maior
-    if([levelHighScore[@"HighScore"] integerValue] == 0 || [levelHighScore[@"HighScore"]integerValue] < highScore.integerValue){
-        [levelHighScore setObject:highScore forKey:@"HighScore"];
-        [levelHighScore setObject:tempo forKey:@"Time"];
+    if([levelHighScore[@"highScore"] integerValue] == 0 || [levelHighScore[@"highScore"]integerValue] < highScore.integerValue){
+        [levelHighScore setObject:highScore forKey:@"highScore"];
+        [levelHighScore setObject:tempo forKey:@"time"];
     }
     
     [array replaceObjectAtIndex:level withObject:levelHighScore];
     [array writeToFile:plistPath atomically:YES];
+    [AppDelegate sendFiletoWebService];
 }
 
 -(void)removeDica

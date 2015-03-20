@@ -40,9 +40,9 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:[AppUtils getAppMultiplayer]]){
         [self setUserElo];
     }
-    
+
     [self loadFromWebService];
-    [self sendFiletoWebService];
+    [AppDelegate sendFiletoWebService];
     
     //Checa se é o primeiro uso, caso seja, libera apenas o primeiro nível
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayed"])
@@ -56,16 +56,16 @@
         
         NSMutableArray *array = [[NSMutableArray alloc]init];
         for(int i=0; i<numberOfLevels; i++){
-            NSDictionary *dic = [[NSDictionary alloc] initWithObjects:@[@0,@0,@0] forKeys:@[@"Time",@"HighScore",@"Stars"]];
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjects:@[@0,@0,@0] forKeys:@[@"time",@"highScore",@"stars"]];
             
             [array addObject:dic];
         }
         
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//        NSString *documentsDirectory = [paths objectAtIndex:0];
-//        NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-//        
-//        [array writeToFile:plistPath atomically:YES];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+        
+        [array writeToFile:plistPath atomically:YES];
 //        if ([self loadFromWebService]) {
 //            NSLog(@"Dados carregados com sucesso !");
 //        }
@@ -123,7 +123,7 @@
     
 }
 
-- (void)sendFiletoWebService{
++ (void)sendFiletoWebService{
     NSString *appDataDir = [AppUtils getAppDataDir];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -135,8 +135,7 @@
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
             NSLog(@"File dict = %@",obj[@"facebookID"]);
-//            [self sendDataToWebService:obj];
-//            [self sendPerformanceToWebService:obj];
+
             if ([self sendDataToWebService:obj]) {
                 NSLog(@"Envio Data com sucesso !");
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"flagFacebook"];
@@ -151,13 +150,13 @@
 }
 
 
-- (BOOL)sendDataToWebService:(NSDictionary*)object {
++ (BOOL)sendDataToWebService:(NSDictionary*)object {
 
     NSError * erro = nil;
 
     NSString* name = [object[@"alias"] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
 
-    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", object[@"facebookID"], name, object[@"facebookID"]];
+    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/0/5/0/%@", object[@"facebookID"], name, object[@"facebookID"]];
     NSLog(@"%@", strUrl);
 
     NSURL *url = [NSURL URLWithString:strUrl];
@@ -182,6 +181,8 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSError *erro = nil;
+    NSDictionary *dadosWebService = nil;
+    int i = 0;
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:appDataDir] && [[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
         NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/desempenho/%@",object[@"facebookID"]];
@@ -189,55 +190,74 @@
         
         NSURL *url = [NSURL URLWithString:strUrl];
         NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastCleared"];
+        if (dados != nil) {
+            dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
         
-        NSMutableArray *array = [[NSMutableArray alloc]init];
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-        
-        for (NSDictionary* dic in dadosWebService[@"desempenho"]) {
-            NSLog(@"%@",dic);
-            [array addObject:dic];
+            if (erro == nil && dadosWebService != nil) {
+                NSString *documentsDirectory = [paths objectAtIndex:0];
+                NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+                NSMutableArray *array = [[NSMutableArray alloc]initWithContentsOfFile:plistPath];
+                
+                for (NSDictionary* dic in dadosWebService[@"desempenho"]) {
+                    NSLog(@"%@",dic);
+
+//                    [array addObject:dic];
+                    if([dic[@"highScore"] integerValue] == 0){
+                        break;
+                    }
+                    
+                    [array replaceObjectAtIndex:i withObject:dic];
+                    i++;
+                    [[ClearedLevelsSingleton sharedInstance] updateLastLevel];
+                }
+                [array writeToFile:plistPath atomically:YES];
+//                [[NSUserDefaults standardUserDefaults] setInteger:array.count-1 forKey:@"lastCleared"];
+
+    //            [self saveScore];
+            }
         }
-        [array writeToFile:plistPath atomically:YES];
-        
-        [self saveScore];
+       
     }
 }
 
--(void)saveScore
-{
-    //Carrega o score do plist
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-    
-    NSMutableArray *array  = [NSMutableArray arrayWithContentsOfFile:plistPath];
-    
-    NSInteger level = [ClearedLevelsSingleton sharedInstance].lastLevelCleared;
-    
-    NSMutableDictionary *levelHighScore = [[NSMutableDictionary alloc] initWithDictionary:[array objectAtIndex:level]];
-    NSNumber *highScore = levelHighScore[@"HighScore"];
-    NSNumber *tempo = levelHighScore[@"Time"];
-}
+//-(void)saveScore
+//{
+//    //Carrega o score do plist
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+//    
+//    NSMutableArray *array  = [NSMutableArray arrayWithContentsOfFile:plistPath];
+//    
+//    NSInteger level = [ClearedLevelsSingleton sharedInstance].lastLevelCleared;
+//
+//  //  NSMutableDictionary *levelHighScore = [[NSMutableDictionary alloc] initWithDictionary:[array objectAtIndex:level]];
+//   // NSNumber *highScore = levelHighScore[@"HighScore"];
+//    //NSNumber *tempo = levelHighScore[@"Time"];
+//}
 
-- (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
++ (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
     NSError * erro = nil;
 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
     long i = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCleared"];
+    NSDictionary *dic = nil;
 
-    for (int aux = 0; aux <= i; aux++) {
-        _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+    for (int aux = 0; aux < i; aux++) {
+        plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
 
-        NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
-        NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:aux]];
-
-        NSInteger score = [dic[@"HighScore"] integerValue];
-        NSInteger time = [dic[@"Time"] integerValue];
+        NSArray *array = [[NSArray alloc]initWithContentsOfFile:plistPath];
         
-        NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%ld/0/%ld",object[@"facebookID"], aux, (long)time, score];
+        dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:aux]];
+
+        NSInteger score = [dic[@"highScore"] integerValue];
+        NSInteger time = [dic[@"time"] integerValue];
+        NSInteger stars = [dic[@"stars"] integerValue];
+        
+        NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%ld/%d/%ld",object[@"facebookID"], aux, (long)time, stars, (long)score];
         NSLog(@"%@", strUrl);
 
         NSURL *url = [NSURL URLWithString:strUrl];

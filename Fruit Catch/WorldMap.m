@@ -674,7 +674,7 @@
         NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
         NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:_i]];
         
-        NSInteger score = [dic[@"HighScore"] integerValue];
+        NSInteger score = [dic[@"highScore"] integerValue];
         
         if(score >= lvl.targetScore * 1.5){
             _star1.image = [UIImage imageNamed:@"estrela_fill"];
