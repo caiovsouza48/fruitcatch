@@ -134,8 +134,12 @@
 
 
 -(void)nextpeerDidTournamentStartWithDetails:(NPTournamentStartDataContainer *)tournamentContainer{
-    MultiplayerGameViewController *multiGVC = [[MultiplayerGameViewController alloc]init];
-    [self.window.rootViewController presentViewController:multiGVC animated:YES completion:nil];
+    
+    MultiplayerGameViewController *multiGVC = [[MultiplayerGameViewController alloc]initWithNibName:nil bundle:nil];
+    self.window.rootViewController = multiGVC;
+    //[self.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+    [[self.window.rootViewController presentingViewController] presentViewController:multiGVC animated:YES completion:nil];
+     //[self.window makeKeyAndVisible];
 }
 
 - (void)nextpeerDidReceiveSynchronizedEvent:(NSString *)eventName withReason:(NPSynchronizedEventFireReason)fireReason{

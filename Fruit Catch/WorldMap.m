@@ -503,7 +503,6 @@
     _beginningDate = [NSDate date];
     
     [Life sharedInstance].timerMinutes = [self getLifeCountIntervalInMinutes] - [Life sharedInstance].minutesPassed -  minutesInterval ;
-    NSLog(@"Life minutes passed:%d",[Life sharedInstance].minutesPassed);
     [Life sharedInstance].timerSeconds = 60 - ((int)interval % 60) -  [Life sharedInstance].secondsPassed;
     [[WorldMapTimerSingleton sharedInstance] reset];
     _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
