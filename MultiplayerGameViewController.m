@@ -141,6 +141,17 @@
     self.scene.level = self.level;
     [self.scene addTiles];
     UIButton *surrenderButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame)-40, 450, 100, 50)];
+    if (IPHONE6){
+        CGRect newFrame = [surrenderButton frame];
+        newFrame.origin.y += 100;
+        [surrenderButton setFrame:newFrame];
+    }
+    if (IPHONE6PLUS){
+        CGRect newFrame = [surrenderButton frame];
+        newFrame.origin.y += 150;
+        [surrenderButton setFrame:newFrame];
+    
+    }
     surrenderButton.backgroundColor = [UIColor colorWithRed:80.0/255 green:141.0/255 blue:194.0/255 alpha:1];
     surrenderButton.layer.borderColor = [UIColor whiteColor].CGColor;
     surrenderButton.layer.borderWidth = 2.0;
@@ -217,6 +228,11 @@
     [Nextpeer registerToSynchronizedEvent:START_GAME_SYNC_EVENT_NAME withTimetout:TIMEOUT];
     [self.view addSubview:_turnLabel];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    NSLog(@"View Will appear multi");
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
