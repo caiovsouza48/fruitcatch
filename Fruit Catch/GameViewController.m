@@ -994,7 +994,7 @@
     
     [array replaceObjectAtIndex:level withObject:levelHighScore];
     [array writeToFile:plistPath atomically:YES];
-    [AppDelegate sendFiletoWebService];
+//    [AppDelegate sendFiletoWebService];
 }
 
 -(void)removeDica

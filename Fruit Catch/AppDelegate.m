@@ -40,8 +40,6 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:[AppUtils getAppMultiplayer]]){
         [self setUserElo];
     }
-
-    [AppDelegate sendFiletoWebService];
     
     //Checa se é o primeiro uso, caso seja, libera apenas o primeiro nível
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasPlayed"])
@@ -284,6 +282,7 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
     [self loadFromWebService];
+    [AppDelegate sendFiletoWebService];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
