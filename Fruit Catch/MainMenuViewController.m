@@ -455,60 +455,60 @@
     }];
 }
 
-- (BOOL)sendDataToWebService:(NSDictionary*)object {
-    
-    NSError * erro = nil;
-    
-    NSString* name = [object[@"alias"] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    
-    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", object[@"facebookID"], name, object[@"facebookID"]];
-    NSLog(@"%@", strUrl);
-    
-    NSURL *url = [NSURL URLWithString:strUrl];
-    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-    if (erro == nil && dados != nil) {
-        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-        if (erro) {
-            NSLog(@"%@", erro.localizedDescription);
-            return NO;
-        }
-        NSLog(@"%@", dadosWebService);
-        return YES;
-    }
-    
-    return NO;
-}
-
-- (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
-    NSError * erro = nil;
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-    int i = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCleared"];;
-    
-    NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
-    NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:i]];
-    
-    NSInteger score = [dic[@"HighScore"] integerValue];
-    NSInteger time = [dic[@"Time"] integerValue];
-    
-    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%d/0/%d",object[@"facebookID"], i, time, score];
-    NSLog(@"%@", strUrl);
-    
-    NSURL *url = [NSURL URLWithString:strUrl];
-    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-    if (erro == nil && dados != nil) {
-        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-        if (erro) {
-            NSLog(@"%@", erro.localizedDescription);
-            return NO;
-        }
-        NSLog(@"%@", dadosWebService);
-        return YES;
-    }
-    return  NO;
-}
+//- (BOOL)sendDataToWebService:(NSDictionary*)object {
+//    
+//    NSError * erro = nil;
+//    
+//    NSString* name = [object[@"alias"] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+//    
+//    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", object[@"facebookID"], name, object[@"facebookID"]];
+//    NSLog(@"%@", strUrl);
+//    
+//    NSURL *url = [NSURL URLWithString:strUrl];
+//    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+//    if (erro == nil && dados != nil) {
+//        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+//        if (erro) {
+//            NSLog(@"%@", erro.localizedDescription);
+//            return NO;
+//        }
+//        NSLog(@"%@", dadosWebService);
+//        return YES;
+//    }
+//    
+//    return NO;
+//}
+//
+//- (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
+//    NSError * erro = nil;
+//    
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+//    int i = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCleared"];;
+//    
+//    NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
+//    NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:i]];
+//    
+//    NSInteger score = [dic[@"HighScore"] integerValue];
+//    NSInteger time = [dic[@"Time"] integerValue];
+//    
+//    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%d/0/%d",object[@"facebookID"], i, time, score];
+//    NSLog(@"%@", strUrl);
+//    
+//    NSURL *url = [NSURL URLWithString:strUrl];
+//    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+//    if (erro == nil && dados != nil) {
+//        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+//        if (erro) {
+//            NSLog(@"%@", erro.localizedDescription);
+//            return NO;
+//        }
+//        NSLog(@"%@", dadosWebService);
+//        return YES;
+//    }
+//    return  NO;
+//}
 
 - (void)loadFromFile{
     NSString *appDataDir = [AppUtils getAppDataDir];
