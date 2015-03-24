@@ -929,11 +929,13 @@
               action:@selector(showAd:)
     forControlEvents:UIControlEventTouchUpInside];
     
-    [ajuda setTitle:[NSString stringWithFormat:@"?"] forState:UIControlStateNormal];
-    ajuda.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - 50, CGRectGetMaxY(self.view.frame) - 50, 32, 32);
+    [ajuda setTitle:[NSString stringWithFormat:@"Ad"] forState:UIControlStateNormal];
+    ajuda.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - 50, CGRectGetMaxY(self.view.frame) - 50, 40, 40);
+    ajuda.layer.cornerRadius = 20.0;
     ajuda.titleLabel.font = [UIFont fontWithName:@"Chewy" size:25];
     ajuda.tintColor = [UIColor whiteColor];
-    ajuda.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_ajuda"]];
+    ajuda.backgroundColor = [UIColor grayColor];
+//    ajuda.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"botao_ajuda"]];
     [self.view insertSubview:ajuda belowSubview:_informFase];
 }
 
