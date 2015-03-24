@@ -423,8 +423,9 @@
 }
 
 - (void)beginGame {
-    
+    NSLog(@"_showFirstTutorial = %@",_showFirstTutorial ? @"YES" : @"NO");
     if(_showFirstTutorial){
+        NSLog(@"First Tutorial");
         [self firstTutorial];
     }
     

@@ -190,7 +190,6 @@
 //    [self adicionaShop];
     [self allocScrollViewFacebook];
     [self adicionaMenuRapido];
-    
 }
 
 
@@ -198,6 +197,12 @@
     [super viewDidAppear:animated];
     if (self.flagFacebook)
         [self addPeopleOnScrollFacebook];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTutorial"]){
+        [self doTutorial];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTutorial"];
+        
+    }
+    
 }
 
 - (void)registerAdNotification{
