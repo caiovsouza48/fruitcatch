@@ -59,7 +59,7 @@
     
     self.loginView.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     
-//    [self addEngineLeft];
+    //    [self addEngineLeft];
     
     [self adicionaMenuRapido];
     [self adicionaElementos];
@@ -139,17 +139,17 @@
 //    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
 //    self.engineButtonLeft.transform = rotate;
 //    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
-//    
+//
 //    // View animada do botão
 //    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
 //    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
 //    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
 //    self.engineViewLeft.transform = rotate;
-//    
+//
 //    // Adiciona na view o botão e a view animada
 //    [self.view addSubview:self.engineViewLeft];
 //    [self.view addSubview:self.engineButtonLeft];
-//    
+//
 //    // Adiciona os botões dentro da view animada
 //    [self addButton1OnEngineView];
 //}
@@ -177,7 +177,7 @@
     configuracao.text = @"Settings";
     configuracao.textAlignment = NSTextAlignmentCenter;
     configuracao.textColor = [UIColor whiteColor];
-
+    
     
     //Botao fechar
     _fechar = [[UIButton alloc]initWithFrame:CGRectMake(self.configuracao.frame.origin.x + 282, self.configuracao.frame.origin.y - 30, 35, 35)];
@@ -186,7 +186,7 @@
     
     //Botao restore purchase
     UIButton *restore = [[UIButton alloc] initWithFrame:CGRectMake(30, 80, 250, 50)];
-//    restore.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+    //    restore.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
     restore.backgroundColor = [UIColor grayColor]; // REMOVER
     restore.enabled = NO; //REMOVER
     restore.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -201,7 +201,7 @@
     
     //Botao termos
     UIButton *termos = [[UIButton alloc]initWithFrame:CGRectMake(30, restore.frame.origin.y + 80, 250, 50)];
-//    termos.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
+    //    termos.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:88.0/255.0 blue:151.0/255.0 alpha:1.0];
     termos.backgroundColor = [UIColor grayColor]; // REMOVER
     termos.enabled = NO; //REMOVER
     termos.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -239,7 +239,7 @@
     [self.configuracao addSubview:_loginView];
     [self.configuracao addSubview:configuracao];
     [self.view insertSubview:_fechar belowSubview:_configuracao];
-//    [self.configuracao addSubview:fechar];
+    //    [self.configuracao addSubview:fechar];
     
     [self.view addSubview:_configuracao];
     
@@ -281,7 +281,7 @@
                          //Multi
                          self.multiplayerBtn.transform  = CGAffineTransformMakeScale(1.02, 1.02);
                          //Options
-//                         self.settingsBtn.transform     = CGAffineTransformMakeRotation(M_PI_4 / 4);
+                         //                         self.settingsBtn.transform     = CGAffineTransformMakeRotation(M_PI_4 / 4);
                      }completion:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:JIMCHelperProductPurchasedNotification object:nil];
 }
@@ -292,7 +292,7 @@
 }
 
 - (void)dealloc{
-     [[NSNotificationCenter defaultCenter] removeObserver:self name:JIMCHelperProductPurchasedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JIMCHelperProductPurchasedNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -354,15 +354,15 @@
     /*
      connectingView = [[UIView alloc]initWithFrame:self.view.frame];
      NSLog(@"Multiplayer");
-    [[NetworkController sharedInstance] authenticateLocalUser];
-    [[NetworkController sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
+     [[NetworkController sharedInstance] authenticateLocalUser];
+     [[NetworkController sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self];
      */
     
 }
 
 -(IBAction)help:(id)sender
 {
-   // NSLog(@"ajuda");
+    NSLog(@"ajuda");
 }
 
 -(IBAction)musicON_OFF:(id)sender
@@ -396,8 +396,8 @@
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
                             user:(id<FBGraphUser>)user {
     
-    //NSLog(@"USER = %@", user);
-  //  NSLog(@"%@",[user objectForKey:@"email"]);
+    NSLog(@"USER = %@", user);
+    NSLog(@"%@",[user objectForKey:@"email"]);
     
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
         if (!error) {
@@ -408,8 +408,8 @@
             NSData* imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:self.userImageURL]];
             self.imageFacebook = [UIImage imageWithData:imageData];
             
-            //NSLog(@"IMAGEM = %@", self.userImageURL);
-            //NSLog(@"USERNAME = %@", self.userName);
+            NSLog(@"IMAGEM = %@", self.userImageURL);
+            NSLog(@"USERNAME = %@", self.userName);
         }
     }];
     //__block NSArray *friends;
@@ -422,7 +422,7 @@
         //        }
         self.profilePictureView.profileID = user.objectID;
         self.nameLabel.text = user.name;
-       // NSLog(@"User ID = %@",user.objectID);
+        NSLog(@"User ID = %@",user.objectID);
         NSDictionary *userDict = @{@"facebookID" : user.objectID,
                                    @"alias" : user.name,
                                    @"facebookFriends" : [result objectForKey:@"data"]
@@ -440,73 +440,75 @@
         BOOL sucess = [encryptedData writeToFile:filePath atomically:YES];
         if (sucess){
             // Enviar para o servidor
-//            if ([self sendDataToWebService:userDict]) {
-//                NSLog(@"Envio Data com sucesso !");
-//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"flagFacebook"];
-//            }
-//            if ([self sendPerformanceToWebService:userDict]) {
-//                NSLog(@"Envio Performance com sucesso !");
-//            }
+            //            if ([self sendDataToWebService:userDict]) {
+            //                NSLog(@"Envio Data com sucesso !");
+            //                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"flagFacebook"];
+            //            }
+            //            if ([self sendPerformanceToWebService:userDict]) {
+            //                NSLog(@"Envio Performance com sucesso !");
+            //            }
         }
         else{
-            //NSLog(@"Erro ao Salvar arquivo de Usuário");
+            NSLog(@"Erro ao Salvar arquivo de Usuário");
         }
         [self loadFromFile];
     }];
 }
 
-- (BOOL)sendDataToWebService:(NSDictionary*)object {
-    
-    NSError * erro = nil;
-    
-    NSString* name = [object[@"alias"] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    
-    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", object[@"facebookID"], name, object[@"facebookID"]];
-    //NSLog(@"%@", strUrl);
-    
-    NSURL *url = [NSURL URLWithString:strUrl];
-    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-    if (erro == nil && dados != nil) {
-        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-        if (erro) {
-         
-            return NO;
-        }
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
-    NSError * erro = nil;
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
-    int i = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCleared"];;
-    
-    NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
-    NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:i]];
-    
-    NSInteger score = [dic[@"HighScore"] integerValue];
-    NSInteger time = [dic[@"Time"] integerValue];
-    
-    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%d/0/%d",object[@"facebookID"], i, time, score];
-    //NSLog(@"%@", strUrl);
-    
-    NSURL *url = [NSURL URLWithString:strUrl];
-    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
-    if (erro == nil && dados != nil) {
-        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
-        if (erro) {
-            //NSLog(@"%@", erro.localizedDescription);
-            return NO;
-        }
-        //NSLog(@"%@", dadosWebService);
-        return YES;
-    }
-    return  NO;
-}
+//- (BOOL)sendDataToWebService:(NSDictionary*)object {
+//
+//    NSError * erro = nil;
+//
+//    NSString* name = [object[@"alias"] stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+//
+//    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addUsuario/%@/%@/0/5/5/5/%@", object[@"facebookID"], name, object[@"facebookID"]];
+//    NSLog(@"%@", strUrl);
+//
+//    NSURL *url = [NSURL URLWithString:strUrl];
+//    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+//    if (erro == nil && dados != nil) {
+//        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+//        if (erro) {
+//            NSLog(@"%@", erro.localizedDescription);
+//            return NO;
+//        }
+//        NSLog(@"%@", dadosWebService);
+//        return YES;
+//    }
+//
+//    return NO;
+//}
+//
+//- (BOOL)sendPerformanceToWebService:(NSDictionary*)object{
+//    NSError * erro = nil;
+//
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    _plistPath = [NSString stringWithFormat:@"%@/highscore.plist",documentsDirectory];
+//    int i = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCleared"];;
+//
+//    NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
+//    NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:i]];
+//
+//    NSInteger score = [dic[@"HighScore"] integerValue];
+//    NSInteger time = [dic[@"Time"] integerValue];
+//
+//    NSString* strUrl = [[NSString alloc]initWithFormat:@"http://fruitcatch-bepidproject.rhcloud.com/web/addDesempenho/%@/%d/%d/0/%d",object[@"facebookID"], i, time, score];
+//    NSLog(@"%@", strUrl);
+//
+//    NSURL *url = [NSURL URLWithString:strUrl];
+//    NSData *dados = [[NSData alloc]initWithContentsOfURL:url];
+//    if (erro == nil && dados != nil) {
+//        NSDictionary *dadosWebService = [NSJSONSerialization JSONObjectWithData:dados options:NSJSONReadingMutableContainers error:&erro];
+//        if (erro) {
+//            NSLog(@"%@", erro.localizedDescription);
+//            return NO;
+//        }
+//        NSLog(@"%@", dadosWebService);
+//        return YES;
+//    }
+//    return  NO;
+//}
 
 - (void)loadFromFile{
     NSString *appDataDir = [AppUtils getAppDataDir];
@@ -516,7 +518,7 @@
         NSData *decryptedData = [RNDecryptor decryptData:data withPassword:USER_SECRET error:&error];
         if (!error){
             NSDictionary *obj = [NSKeyedUnarchiver unarchiveObjectWithData:decryptedData];
-            //NSLog(@"File dict = %@",obj);
+            NSLog(@"File dict = %@",obj);
         }
     }
     else{
@@ -556,7 +558,7 @@
         // the user not being able to complete a task they had initiated in your app
         // (like accessing FB-stored information or posting to Facebook)
     } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
-       // NSLog(@"user cancelled login");
+        NSLog(@"user cancelled login");
         
         // For simplicity, this sample handles other errors with a generic message
         // You can checkout our error handling guide for more detailed information
@@ -564,7 +566,7 @@
     } else {
         alertTitle  = @"Something went wrong";
         alertMessage = @"Please try again later.";
-        //NSLog(@"Unexpected error:%@", error);
+        NSLog(@"Unexpected error:%@", error);
     }
     
     if (alertMessage) {
@@ -577,16 +579,16 @@
 }
 
 
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     if([segue.identifier isEqualToString:@"Single"]){
-         WorldMap *view = [segue destinationViewController];
-         view.flagFacebook = [[NSUserDefaults standardUserDefaults] boolForKey:@"flagFacebook"];
-         view.nextStage = -1;
-     }
- }
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:@"Single"]){
+        WorldMap *view = [segue destinationViewController];
+        view.flagFacebook = [[NSUserDefaults standardUserDefaults] boolForKey:@"flagFacebook"];
+        view.nextStage = -1;
+    }
+}
 
 -(void)adicionaMenuRapido
 {
@@ -699,27 +701,27 @@
 }
 
 //-(void)addEngineLeft{
-//    
+//
 //    // Botão de configuração do mini menu
 //    self.engineButtonLeft = [[UIButton alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height, 50, -50)];
 //    [self.engineButtonLeft setImage:[UIImage imageNamed:@"configuracoes"] forState:UIControlStateNormal];
 //    CGAffineTransform rotate = CGAffineTransformMakeRotation(0);
 //    self.engineButtonLeft.transform = rotate;
 //    [self.engineButtonLeft addTarget:self action:@selector(openMenu:) forControlEvents:UIControlEventTouchUpInside];
-//    
+//
 //    // View animada do botão
 //    self.engineViewLeft = [[UIView alloc]initWithFrame:CGRectMake(-50, self.view.frame.size.height - 50, 100, 100)];
 //    [self.engineViewLeft setBackgroundColor:[UIColor redColor]];
 //    self.engineViewLeft.layer.anchorPoint = CGPointMake(1, 1);
 //    self.engineViewLeft.transform = rotate;
-//    
+//
 //    // Adiciona na view o botão e a view animada
 //    [self.view addSubview:self.engineViewLeft];
 //    [self.view addSubview:self.engineButtonLeft];
 //}
 //
 //- (IBAction)openMenu:(id)sender{
-//    
+//
 //    if (!_flag) {
 //        [UIButton animateWithDuration:1.0
 //                                delay:0.0
