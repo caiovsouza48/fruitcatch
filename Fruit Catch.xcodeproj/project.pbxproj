@@ -155,6 +155,7 @@
 		DE4048F41AB7D2E200A8D7EE /* Player2vez@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F11AB7D2E200A8D7EE /* Player2vez@3x.png */; };
 		DE4048F91AB7D2FF00A8D7EE /* Playe_vez@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F61AB7D2FF00A8D7EE /* Playe_vez@2x.png */; };
 		DE4048FA1AB7D2FF00A8D7EE /* Playe_vez@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE4048F71AB7D2FF00A8D7EE /* Playe_vez@3x.png */; };
+		DE50318C1ABDDC870067F63B /* PulseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE50318B1ABDDC870067F63B /* PulseSDK.framework */; };
 		DE68E6A41A8A8FC30082E1AF /* iconTest.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */; };
 		DE6E98E41A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DE6E98E31A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle */; };
 		DE805C611A852BAF009694C0 /* EloRating.m in Sources */ = {isa = PBXBuildFile; fileRef = DE805C601A852BAF009694C0 /* EloRating.m */; };
@@ -443,6 +444,7 @@
 		DE4048F11AB7D2E200A8D7EE /* Player2vez@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Player2vez@3x.png"; sourceTree = "<group>"; };
 		DE4048F61AB7D2FF00A8D7EE /* Playe_vez@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Playe_vez@2x.png"; sourceTree = "<group>"; };
 		DE4048F71AB7D2FF00A8D7EE /* Playe_vez@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Playe_vez@3x.png"; sourceTree = "<group>"; };
+		DE50318B1ABDDC870067F63B /* PulseSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PulseSDK.framework; sourceTree = "<group>"; };
 		DE68E6A31A8A8FC30082E1AF /* iconTest.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iconTest.jpeg; sourceTree = "<group>"; };
 		DE6E98E31A8BB3CB00B1D737 /* NPResources_iPhone_Portrait.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NPResources_iPhone_Portrait.bundle; sourceTree = "<group>"; };
 		DE805C5F1A852BAF009694C0 /* EloRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EloRating.h; sourceTree = "<group>"; };
@@ -607,6 +609,7 @@
 				E3DA877D1A966050002E9499 /* CFNetwork.framework in Frameworks */,
 				E3DA877E1A966050002E9499 /* MessageUI.framework in Frameworks */,
 				E3DA877F1A966050002E9499 /* AdSupport.framework in Frameworks */,
+				DE50318C1ABDDC870067F63B /* PulseSDK.framework in Frameworks */,
 				E3DA87801A966050002E9499 /* QuartzCore.framework in Frameworks */,
 				E3DA87811A966050002E9499 /* UIKit.framework in Frameworks */,
 				E3DA87821A966050002E9499 /* CoreGraphics.framework in Frameworks */,
@@ -1052,6 +1055,7 @@
 		DEC905991A239C6D003DD444 = {
 			isa = PBXGroup;
 			children = (
+				DE50318B1ABDDC870067F63B /* PulseSDK.framework */,
 				DE4048E61AB7BA2100A8D7EE /* EventKitUI.framework */,
 				DE4048E41AB7BA1B00A8D7EE /* EventKit.framework */,
 				DE4048E21AB7BA0000A8D7EE /* Social.framework */,

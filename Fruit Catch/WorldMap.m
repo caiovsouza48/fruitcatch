@@ -103,6 +103,7 @@
     return self;
 }
 
+
 - (void)didEndPresentatation{
     _KascoImageView.image = nil;
     _KascoImageView = nil;
