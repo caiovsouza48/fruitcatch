@@ -14,7 +14,7 @@ typedef struct{
     u_int16_t fruitType;
 }JIMCFruitStruct;
 
-static const NSUInteger NumFruitTypes = 3;
+static const NSUInteger NumFruitTypes = 5;
 
 @interface JIMCFruit : NSObject<NSCoding>
 @property (assign, nonatomic) NSInteger column;
