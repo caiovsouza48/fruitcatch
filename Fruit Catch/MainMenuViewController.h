@@ -27,7 +27,7 @@
 
 @property (nonatomic) UIView* engineViewLeft;
 @property (nonatomic) BOOL flagFacebook;
-@property (nonatomic) NSString* plistPath;
+//@property (nonatomic) NSString* plistPath;
 
 - (void)loadFromFile;
 

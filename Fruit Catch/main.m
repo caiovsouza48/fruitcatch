@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <PulseSDK/PulseSDK.h>
 #import "AppDelegate.h"
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
+        [PulseSDK monitor:@"r54nalwMy_nbuZqM7hUtDPnKCRkyypGr"];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

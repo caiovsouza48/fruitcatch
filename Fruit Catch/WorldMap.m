@@ -103,6 +103,7 @@
     return self;
 }
 
+
 - (void)didEndPresentatation{
     _KascoImageView.image = nil;
     _KascoImageView = nil;
@@ -178,8 +179,6 @@
 //    [self adicionaImagemSuperior];
     [self addScrollFacebook];
     [self allocAnimationSpinning];
-    //if (self.flagFacebook)
-        //[self addPeopleOnScrollFacebook];
     [self adicionaVidas];
 //    [self adicionaMoedas];
     [self adicionaAjuda];
@@ -197,12 +196,8 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasShowTutorial"]){
-        [self doTutorial];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasShowTutorial"];
-        
-    }
-    
+    if (self.flagFacebook)
+        [self addPeopleOnScrollFacebook];
 }
 
 - (void)registerAdNotification{
@@ -261,10 +256,6 @@
     
         self.lifeTimer = [NSTimer scheduledTimerWithTimeInterval:newTimeInterval * 60 target:self selector:@selector(uploadLivesByTimer:) userInfo:nil repeats:NO];
 }
-
-//Metodos add apenas para tirar o warning
--(void)stopSpinning{};
--(void)startSpinning{};
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -503,7 +494,6 @@
     _beginningDate = [NSDate date];
     
     [Life sharedInstance].timerMinutes = [self getLifeCountIntervalInMinutes] - [Life sharedInstance].minutesPassed -  minutesInterval ;
-    NSLog(@"Life minutes passed:%d",[Life sharedInstance].minutesPassed);
     [Life sharedInstance].timerSeconds = 60 - ((int)interval % 60) -  [Life sharedInstance].secondsPassed;
     [[WorldMapTimerSingleton sharedInstance] reset];
     _minutesSecondsLifeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLabelTimer:) userInfo:nil repeats:YES];
@@ -635,7 +625,7 @@
         localLifeNotification.alertBody = @"Life Recharged, You can play more levels now!";
         // Set the action button
         localLifeNotification.alertAction = @"Play";
-        localLifeNotification.alertTitle = @"Life Recharged";
+//        localLifeNotification.alertTitle = @"Life Recharged";
         localLifeNotification.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] scheduleLocalNotification:localLifeNotification];
     }
@@ -686,7 +676,7 @@
         NSArray *array = [[NSArray alloc]initWithContentsOfFile:_plistPath];
         NSDictionary *dic = [[NSDictionary alloc] initWithDictionary:[array objectAtIndex:_i]];
         
-        NSInteger score = [dic[@"HighScore"] integerValue];
+        NSInteger score = [dic[@"highScore"] integerValue];
         
         if(score >= lvl.targetScore * 1.5){
             _star1.image = [UIImage imageNamed:@"estrela_fill"];
