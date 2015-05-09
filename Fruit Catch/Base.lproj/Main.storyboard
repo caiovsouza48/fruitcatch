@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZN-3h-NbC">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Unknown constraint types" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Main Menu View Controller-->
@@ -28,33 +27,14 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="leading" secondItem="Etp-xP-zSB" secondAttribute="leadingMargin" constant="-10" id="Ant-Mo-JBx">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
-                            </constraint>
-                            <constraint firstItem="7uI-9n-bRw" firstAttribute="top" secondAttribute="bottom" constant="20" id="Hc4-VB-gKO"/>
-                            <constraint firstAttribute="leading" secondItem="Etp-xP-zSB" secondAttribute="leadingMargin" id="jjS-kd-LXF">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
-                            </constraint>
-                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="qjG-Y3-Kdg"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="Ant-Mo-JBx"/>
-                                <exclude reference="jjS-kd-LXF"/>
-                                <exclude reference="Hc4-VB-gKO"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <exclude reference="qjG-Y3-Kdg"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="Ant-Mo-JBx"/>
-                                <include reference="jjS-kd-LXF"/>
-                                <include reference="Hc4-VB-gKO"/>
                             </mask>
                         </variation>
                     </view>
